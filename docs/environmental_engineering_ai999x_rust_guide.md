@@ -17,24 +17,24 @@ Environmental Engineering covers Gaussian plume dispersion and plume rise, BOD a
 
 ## 1. Get it
 
-Version 1.4.0 of the AI999X desktop app and of the command-line bundle. Checksums for every file: https://www.ai999x.com/downloads/desktop/1.4.0/SHA256SUMS; the newest version is always under https://www.ai999x.com/downloads/desktop/latest/. Full instructions: https://www.ai999x.com/desktop-cli/
+Version 1.4.0 of the AI999X desktop app and of the command-line bundle. Checksums for every file: https://downloads.ai999x.com/desktop/1.4.0/SHA256SUMS; the newest version is always under https://downloads.ai999x.com/desktop/latest/. Full instructions: https://www.ai999x.com/desktop-cli/
 
 | what | system | download |
 |---|---|---|
-| Desktop app: Environmental Engineering | Windows x86-64 | https://www.ai999x.com/downloads/desktop/1.4.0/ai999x-environmental-engineering-1.4.0-windows-x86_64.zip |
-| Desktop app: Environmental Engineering | Linux x86-64 | https://www.ai999x.com/downloads/desktop/1.4.0/ai999x-environmental-engineering-1.4.0-linux-x86_64.tar.gz |
-| Desktop app: all models | Windows x86-64 | https://www.ai999x.com/downloads/desktop/1.4.0/ai999x-1.4.0-windows-x86_64.zip |
-| Desktop app: all models | Linux x86-64 | https://www.ai999x.com/downloads/desktop/1.4.0/ai999x-1.4.0-linux-x86_64.tar.gz |
-| Command line | Windows x86-64 | https://www.ai999x.com/downloads/desktop/1.4.0/ai999x-cli-1.4.0-windows-x86_64.zip |
-| Command line | Linux x86-64 | https://www.ai999x.com/downloads/desktop/1.4.0/ai999x-cli-1.4.0-linux-x86_64.tar.gz |
+| Desktop app: Environmental Engineering | Windows x86-64 | https://downloads.ai999x.com/desktop/1.4.0/ai999x-environmental-engineering-1.4.0-windows-x86_64.zip |
+| Desktop app: Environmental Engineering | Linux x86-64 | https://downloads.ai999x.com/desktop/1.4.0/ai999x-environmental-engineering-1.4.0-linux-x86_64.tar.gz |
+| Desktop app: all models | Windows x86-64 | https://downloads.ai999x.com/desktop/1.4.0/ai999x-1.4.0-windows-x86_64.zip |
+| Desktop app: all models | Linux x86-64 | https://downloads.ai999x.com/desktop/1.4.0/ai999x-1.4.0-linux-x86_64.tar.gz |
+| Command line | Windows x86-64 | https://downloads.ai999x.com/desktop/1.4.0/ai999x-cli-1.4.0-windows-x86_64.zip |
+| Command line | Linux x86-64 | https://downloads.ai999x.com/desktop/1.4.0/ai999x-cli-1.4.0-linux-x86_64.tar.gz |
 
 ### Desktop app
 
 Environmental Engineering in its own app: search, questions in words, input forms, live figures and explanations. Windows: Download ai999x-environmental-engineering-1.4.0-windows-x86_64.zip, right-click it → Extract All, then open the folder and start ai999x-environmental-engineering.exe. If Windows SmartScreen asks, choose More info → Run anyway. Linux:
 
 ```shell
-curl -LO https://www.ai999x.com/downloads/desktop/1.4.0/ai999x-environmental-engineering-1.4.0-linux-x86_64.tar.gz
-curl -LO https://www.ai999x.com/downloads/desktop/1.4.0/SHA256SUMS
+curl -LO https://downloads.ai999x.com/desktop/1.4.0/ai999x-environmental-engineering-1.4.0-linux-x86_64.tar.gz
+curl -LO https://downloads.ai999x.com/desktop/1.4.0/SHA256SUMS
 sha256sum -c --ignore-missing SHA256SUMS
 tar xzf ai999x-environmental-engineering-1.4.0-linux-x86_64.tar.gz
 ./ai999x-environmental-engineering-1.4.0-linux-x86_64/ai999x-environmental-engineering
@@ -43,8 +43,8 @@ tar xzf ai999x-environmental-engineering-1.4.0-linux-x86_64.tar.gz
 It opens on this model: type a question or pick a capability, fill in the form and press Compute. The AI999X desktop app with every model works the same way (choose the model first). Windows: Download ai999x-1.4.0-windows-x86_64.zip, right-click it → Extract All, then open the folder and start ai999x.exe. If Windows SmartScreen asks, choose More info → Run anyway. Linux:
 
 ```shell
-curl -LO https://www.ai999x.com/downloads/desktop/1.4.0/ai999x-1.4.0-linux-x86_64.tar.gz
-curl -LO https://www.ai999x.com/downloads/desktop/1.4.0/SHA256SUMS
+curl -LO https://downloads.ai999x.com/desktop/1.4.0/ai999x-1.4.0-linux-x86_64.tar.gz
+curl -LO https://downloads.ai999x.com/desktop/1.4.0/SHA256SUMS
 sha256sum -c --ignore-missing SHA256SUMS
 tar xzf ai999x-1.4.0-linux-x86_64.tar.gz
 ./ai999x-1.4.0-linux-x86_64/ai999x
@@ -55,8 +55,8 @@ tar xzf ai999x-1.4.0-linux-x86_64.tar.gz
 The bundle holds one program per model; `environmental-engineering` is this one. The checksum line should print OK.
 
 ```shell
-curl -LO https://www.ai999x.com/downloads/desktop/1.4.0/ai999x-cli-1.4.0-linux-x86_64.tar.gz
-curl -LO https://www.ai999x.com/downloads/desktop/1.4.0/SHA256SUMS
+curl -LO https://downloads.ai999x.com/desktop/1.4.0/ai999x-cli-1.4.0-linux-x86_64.tar.gz
+curl -LO https://downloads.ai999x.com/desktop/1.4.0/SHA256SUMS
 sha256sum -c --ignore-missing SHA256SUMS
 mkdir -p ~/.local/share && tar xzf ai999x-cli-1.4.0-linux-x86_64.tar.gz -C ~/.local/share
 echo 'export PATH="$HOME/.local/share/ai999x-cli-1.4.0-linux-x86_64:$PATH"' >> ~/.bashrc && source ~/.bashrc
@@ -69,8 +69,8 @@ The fourth line should print True.
 
 ```powershell
 $F = "ai999x-cli-1.4.0-windows-x86_64.zip"
-Invoke-WebRequest "https://www.ai999x.com/downloads/desktop/1.4.0/$F" -OutFile $F
-Invoke-WebRequest "https://www.ai999x.com/downloads/desktop/1.4.0/SHA256SUMS" -OutFile SHA256SUMS
+Invoke-WebRequest "https://downloads.ai999x.com/desktop/1.4.0/$F" -OutFile $F
+Invoke-WebRequest "https://downloads.ai999x.com/desktop/1.4.0/SHA256SUMS" -OutFile SHA256SUMS
 (Get-FileHash $F -Algorithm SHA256).Hash.ToLower() -eq ((Select-String -SimpleMatch $F SHA256SUMS).Line -split ' ')[0]
 Expand-Archive $F -DestinationPath "$env:LOCALAPPDATA\AI999X" -Force
 $D = "$env:LOCALAPPDATA\AI999X\ai999x-cli-1.4.0-windows-x86_64"; $env:Path += ";$D"
@@ -427,8 +427,8 @@ sigma_y = 76.27700714 m
 sigma_z = 37.94733192 m
   by: Briggs dispersion coefficients sigma_y and sigma_z  (Briggs (1973) interpolation formulas sigma = a x (1 + b x)^p for each class and terrain)
   x = 1000 m
-  cls = d
   terrain = rural
+  cls = d
   assumes: 100 m <= x <= 10 km
 ```
 
@@ -1027,8 +1027,8 @@ sigma_z = 35.17120532 m
   Q = 0.1 kg/s
   u = 5 m/s
   H = 50 m
-  cls = c
   terrain = rural
+  cls = c
   assumes: the maximum lies between 100 m and 10 km
 ```
 
@@ -1109,8 +1109,8 @@ C_ugm3 = 88.88445322
   Ta = 290 K
   hs = 50 m
   x = 3000 m
-  cls = c
   terrain = rural
+  cls = c
   assumes: Ts > Ta; class A-D; 100 m <= x <= 10 km
 ```
 
@@ -3026,8 +3026,8 @@ thod = 1.065703767
 o2_per_mol = 6
 molar_mass = 180.15588
   by: Theoretical oxygen demand of an organic compound  (CaHbOcNd + (a + b/4 - c/2 - 3d/4) O2 -> a CO2 + (b - 3d)/2 H2O + d NH3; nitrification adds 2d O2)
-  nitrification = no
   formula = C6H12O6
+  nitrification = no
   assumes: elements C, H, O, N only; b >= 3d
 ```
 
