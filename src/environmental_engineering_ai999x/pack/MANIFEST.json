@@ -1,5 +1,5 @@
 {
- "package": "1.0.0",
+ "package": "1.1.0",
  "pack": "1.0.0",
  "knowledge_db": null,
  "files": {
@@ -9,10 +9,10 @@
   "knowledge/reference_cases.json": "7414a14e2c4202a7fae8cdd14e1a2ef7267f35a9665b0633001349c698d4e4e7",
   "capabilities/procedures.py": "8df6263deb2620d2bad04b9e4827b3b0b5b9486adb635061f9af4d0d4bdfd4fc",
   "capabilities/procedures_certified.json": "7ff643ca1f17d53682b76b15ae7eed4d50c32d4a7e81fe56c38eb4f7eb7ac4e4",
-  "environmental_engineering_knowledge_public.sqlite": "e69fb8437766fb4cfcccd16f8eec5b17c96e512cf552ce51eea1e8c981a68f28",
+  "environmental_engineering_knowledge_public.sqlite": "04e6c1459fcea74c6eee86b2e1301639b1100dadcaf0360cead42b54b6dbaea8",
   "search/encoder.int8.onnx": "521452d928a72da4d241b1835ab0f46b0e81ff58ffff0367b9a7029bd129fbd9",
   "search/tokenizer.json": "b2f2deb461e6ad672b8e42aac29773e7a9be77d582cdf58808113ea43fda565e",
-  "search/index.json": "d8f81d9706c9a0efa7d9643bcec3d39a6c3500766ce0f44937d85ad90f772507"
+  "search/index.json": "cbd28f9d940abc33d3bfd4a61beed818eda670deffcfe40b46845d84423f9ef9"
  },
  "engine": [
   "__init__.py",
@@ -29,6 +29,7 @@
   "identity.py",
   "inputs.py",
   "knowledge_store.py",
+  "native.py",
   "pack.py",
   "planner.py",
   "policy.py",

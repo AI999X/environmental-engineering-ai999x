@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "environmental-engineering-ai999x"
-version = "1.0.0"
+version = "1.1.0"
 description = "Offline environmental engineering solver: Gaussian plume dispersion and plume rise, BOD and Streeter-Phelps oxygen sag, water and wastewater treatment design, activated sludge, disinfection CT, Henry's law and air stripping, noise and solid waste, with steps, LaTeX and honest refusals"
 readme = "README.md"
 requires-python = ">=3.10"
