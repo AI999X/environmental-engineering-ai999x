@@ -1,8 +1,8 @@
 # environmental-engineering: the Environmental Engineering program, user guide
 
-**environmental-engineering-ai999x 1.1.0**, Rust build: command line, desktop app and browser. **Creator / engineer:** Ibnul Jaif Farabi · **Company:** AI999X · support@ai999x.com
+**environmental-engineering-ai999x 1.6.0**, Rust build: command line, desktop app and browser. **Creator / engineer:** Ibnul Jaif Farabi · **Company:** AI999X · support@ai999x.com
 
-Environmental Engineering covers Gaussian plume dispersion and plume rise, BOD and Streeter-Phelps oxygen sag, water and wastewater treatment design, activated sludge, disinfection CT, Henry's law and air stripping, noise and solid waste. This guide is about `environmental-engineering`, the model as a self-contained program for Windows and Linux: 99 capabilities in 7 topics, answered on your own computer with no network, no Python and nothing else to install. The same compiled model runs in the AI999X desktop app and in the browser on the model's page (https://www.ai999x.com/models/environmental-engineering-ai999x/); the Python package (`pip install environmental-engineering-ai999x`) has its own guide. Every command output printed here is what the program printed.
+Environmental Engineering covers Gaussian plume dispersion and plume rise, BOD and Streeter-Phelps oxygen sag, water and wastewater treatment design, activated sludge, disinfection CT, Henry's law and air stripping, noise and solid waste. This guide is about `environmental-engineering`, the model as a self-contained program for Windows and Linux: 132 capabilities in 14 topics, answered on your own computer with no network, no Python and nothing else to install. The same compiled model runs in the AI999X desktop app and in the browser on the model's page (https://www.ai999x.com/models/environmental-engineering-ai999x/); the Python package (`pip install environmental-engineering-ai999x`) has its own guide. Every command output printed here is what the program printed.
 
 ## Contents
 
@@ -17,37 +17,37 @@ Environmental Engineering covers Gaussian plume dispersion and plume rise, BOD a
 
 ## 1. Get it
 
-Version 1.5.0 of the AI999X desktop app and of the command-line bundle. Checksums for every file: https://downloads.ai999x.com/desktop/1.5.0/SHA256SUMS; the newest version is always under https://downloads.ai999x.com/desktop/latest/. Full instructions: https://www.ai999x.com/desktop-cli/
+Version 1.6.0 of the AI999X desktop app and of the command-line bundle. Checksums for every file: https://downloads.ai999x.com/desktop/1.6.0/SHA256SUMS; the newest version is always under https://downloads.ai999x.com/desktop/latest/. Full instructions: https://www.ai999x.com/desktop-cli/
 
 | what | system | download |
 |---|---|---|
-| Desktop app: Environmental Engineering | Windows x86-64 | https://downloads.ai999x.com/desktop/1.5.0/ai999x-environmental-engineering-1.5.0-windows-x86_64.zip |
-| Desktop app: Environmental Engineering | Linux x86-64 | https://downloads.ai999x.com/desktop/1.5.0/ai999x-environmental-engineering-1.5.0-linux-x86_64.tar.gz |
-| Desktop app: all models | Windows x86-64 | https://downloads.ai999x.com/desktop/1.5.0/ai999x-1.5.0-windows-x86_64.zip |
-| Desktop app: all models | Linux x86-64 | https://downloads.ai999x.com/desktop/1.5.0/ai999x-1.5.0-linux-x86_64.tar.gz |
-| Command line | Windows x86-64 | https://downloads.ai999x.com/desktop/1.5.0/ai999x-cli-1.5.0-windows-x86_64.zip |
-| Command line | Linux x86-64 | https://downloads.ai999x.com/desktop/1.5.0/ai999x-cli-1.5.0-linux-x86_64.tar.gz |
+| Desktop app: Environmental Engineering | Windows x86-64 | https://downloads.ai999x.com/desktop/1.6.0/ai999x-environmental-engineering-1.6.0-windows-x86_64.zip |
+| Desktop app: Environmental Engineering | Linux x86-64 | https://downloads.ai999x.com/desktop/1.6.0/ai999x-environmental-engineering-1.6.0-linux-x86_64.tar.gz |
+| Desktop app: all models | Windows x86-64 | https://downloads.ai999x.com/desktop/1.6.0/ai999x-1.6.0-windows-x86_64.zip |
+| Desktop app: all models | Linux x86-64 | https://downloads.ai999x.com/desktop/1.6.0/ai999x-1.6.0-linux-x86_64.tar.gz |
+| Command line | Windows x86-64 | https://downloads.ai999x.com/desktop/1.6.0/ai999x-cli-1.6.0-windows-x86_64.zip |
+| Command line | Linux x86-64 | https://downloads.ai999x.com/desktop/1.6.0/ai999x-cli-1.6.0-linux-x86_64.tar.gz |
 
 ### Desktop app
 
-Environmental Engineering in its own app: search, questions in words, input forms, live figures and explanations. Windows: Download ai999x-environmental-engineering-1.5.0-windows-x86_64.zip, right-click it → Extract All, then open the folder and start ai999x-environmental-engineering.exe. If Windows SmartScreen asks, choose More info → Run anyway. Linux:
+Environmental Engineering in its own app: search, questions in words, input forms, live figures and explanations. Windows: Download ai999x-environmental-engineering-1.6.0-windows-x86_64.zip, right-click it → Extract All, then open the folder and start ai999x-environmental-engineering.exe. If Windows SmartScreen asks, choose More info → Run anyway. Linux:
 
 ```shell
-curl -LO https://downloads.ai999x.com/desktop/1.5.0/ai999x-environmental-engineering-1.5.0-linux-x86_64.tar.gz
-curl -LO https://downloads.ai999x.com/desktop/1.5.0/SHA256SUMS
+curl -LO https://downloads.ai999x.com/desktop/1.6.0/ai999x-environmental-engineering-1.6.0-linux-x86_64.tar.gz
+curl -LO https://downloads.ai999x.com/desktop/1.6.0/SHA256SUMS
 sha256sum -c --ignore-missing SHA256SUMS
-tar xzf ai999x-environmental-engineering-1.5.0-linux-x86_64.tar.gz
-./ai999x-environmental-engineering-1.5.0-linux-x86_64/ai999x-environmental-engineering
+tar xzf ai999x-environmental-engineering-1.6.0-linux-x86_64.tar.gz
+./ai999x-environmental-engineering-1.6.0-linux-x86_64/ai999x-environmental-engineering
 ```
 
-It opens on this model: type a question or pick a capability, fill in the form and press Compute. The AI999X desktop app with every model works the same way (choose the model first). Windows: Download ai999x-1.5.0-windows-x86_64.zip, right-click it → Extract All, then open the folder and start ai999x.exe. If Windows SmartScreen asks, choose More info → Run anyway. Linux:
+It opens on this model: type a question or pick a capability, fill in the form and press Compute. The AI999X desktop app with every model works the same way (choose the model first). Windows: Download ai999x-1.6.0-windows-x86_64.zip, right-click it → Extract All, then open the folder and start ai999x.exe. If Windows SmartScreen asks, choose More info → Run anyway. Linux:
 
 ```shell
-curl -LO https://downloads.ai999x.com/desktop/1.5.0/ai999x-1.5.0-linux-x86_64.tar.gz
-curl -LO https://downloads.ai999x.com/desktop/1.5.0/SHA256SUMS
+curl -LO https://downloads.ai999x.com/desktop/1.6.0/ai999x-1.6.0-linux-x86_64.tar.gz
+curl -LO https://downloads.ai999x.com/desktop/1.6.0/SHA256SUMS
 sha256sum -c --ignore-missing SHA256SUMS
-tar xzf ai999x-1.5.0-linux-x86_64.tar.gz
-./ai999x-1.5.0-linux-x86_64/ai999x
+tar xzf ai999x-1.6.0-linux-x86_64.tar.gz
+./ai999x-1.6.0-linux-x86_64/ai999x
 ```
 
 ### Command line: Linux
@@ -55,11 +55,11 @@ tar xzf ai999x-1.5.0-linux-x86_64.tar.gz
 The bundle holds one program per model; `environmental-engineering` is this one. The checksum line should print OK.
 
 ```shell
-curl -LO https://downloads.ai999x.com/desktop/1.5.0/ai999x-cli-1.5.0-linux-x86_64.tar.gz
-curl -LO https://downloads.ai999x.com/desktop/1.5.0/SHA256SUMS
+curl -LO https://downloads.ai999x.com/desktop/1.6.0/ai999x-cli-1.6.0-linux-x86_64.tar.gz
+curl -LO https://downloads.ai999x.com/desktop/1.6.0/SHA256SUMS
 sha256sum -c --ignore-missing SHA256SUMS
-mkdir -p ~/.local/share && tar xzf ai999x-cli-1.5.0-linux-x86_64.tar.gz -C ~/.local/share
-echo 'export PATH="$HOME/.local/share/ai999x-cli-1.5.0-linux-x86_64:$PATH"' >> ~/.bashrc && source ~/.bashrc
+mkdir -p ~/.local/share && tar xzf ai999x-cli-1.6.0-linux-x86_64.tar.gz -C ~/.local/share
+echo 'export PATH="$HOME/.local/share/ai999x-cli-1.6.0-linux-x86_64:$PATH"' >> ~/.bashrc && source ~/.bashrc
 environmental-engineering --version
 ```
 
@@ -68,12 +68,12 @@ environmental-engineering --version
 The fourth line should print True.
 
 ```powershell
-$F = "ai999x-cli-1.5.0-windows-x86_64.zip"
-Invoke-WebRequest "https://downloads.ai999x.com/desktop/1.5.0/$F" -OutFile $F
-Invoke-WebRequest "https://downloads.ai999x.com/desktop/1.5.0/SHA256SUMS" -OutFile SHA256SUMS
+$F = "ai999x-cli-1.6.0-windows-x86_64.zip"
+Invoke-WebRequest "https://downloads.ai999x.com/desktop/1.6.0/$F" -OutFile $F
+Invoke-WebRequest "https://downloads.ai999x.com/desktop/1.6.0/SHA256SUMS" -OutFile SHA256SUMS
 (Get-FileHash $F -Algorithm SHA256).Hash.ToLower() -eq ((Select-String -SimpleMatch $F SHA256SUMS).Line -split ' ')[0]
 Expand-Archive $F -DestinationPath "$env:LOCALAPPDATA\AI999X" -Force
-$D = "$env:LOCALAPPDATA\AI999X\ai999x-cli-1.5.0-windows-x86_64"; $env:Path += ";$D"
+$D = "$env:LOCALAPPDATA\AI999X\ai999x-cli-1.6.0-windows-x86_64"; $env:Path += ";$D"
 [Environment]::SetEnvironmentVariable("Path", [Environment]::GetEnvironmentVariable("Path", "User") + ";$D", "User")
 environmental-engineering --version
 ```
@@ -96,7 +96,7 @@ Prints the model, its version and that this is the Rust build.
 
 ```shell
 $ environmental-engineering --version
-environmental-engineering-ai999x 1.5.0 (Rust build, ax-engine 1.5.0)
+environmental-engineering-ai999x 1.6.0 (Rust build, ax-engine 1.6.0)
 ```
 
 ### 2.2 Ask in words
@@ -133,7 +133,7 @@ enveng_aeration_do_curve             Dissolved oxygen during aeration and the tr
 enveng_do_saturation                 Dissolved oxygen saturation concentration (Benson-Krause)  (water quality / dissolved oxygen)
 enveng_kla_two_point                 Overall oxygen transfer coefficient KLa from two DO readings  (wastewater / aeration)
 enveng_theoretical_oxygen_demand     Theoretical oxygen demand of an organic compound  (water quality / oxygen demand)
-enveng_aeration_oxygen_requirement   Oxygen requirement of an activated-sludge process  (wastewater / activated sludge)
+enveng_thod_solution                 Theoretical oxygen demand of a solution (mg/L)  (water quality / oxygen demand)
 … 12 more
 ```
 
@@ -151,7 +151,7 @@ enveng_anaerobic_methane_yield           Methane production from COD removed (an
 enveng_background_noise_correction       Source level after removing background noise
 enveng_backwash_bed_expansion            Filter bed expansion during backwash
 enveng_bod_dilution_test                 BOD from a dilution test (with optional seed correction)
-… 91 more
+… 124 more
 ```
 
 ### 2.5 What a capability needs
@@ -304,7 +304,44 @@ The same model is a WebAssembly module, `environmental_engineering_ai999x.wasm` 
 
 By topic. For each: what it does, what it needs and gives, when it applies, and a command with what the program printed for it. `environmental-engineering info <id>` shows the same inputs and outputs in the terminal.
 
-### Air pollution (21)
+### Air pollution (25)
+
+<a id="enveng_lapse_rate_stability"></a>
+
+#### Atmospheric stability from the environmental lapse rate, `enveng_lapse_rate_stability`
+
+The environmental lapse rate from the air temperature at two heights and the stability it gives against the dry adiabatic lapse rate (9.8 degC/km): superadiabatic (unstable), neutral, subadiabatic (stable) or an inversion.
+
+$$
+\Gamma_{env} = -\frac{T_2 - T_1}{z_2 - z_1}\ \text{vs}\ \Gamma_d = 9.8\ ^\circ\mathrm{C/km}
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `T1` | in | air temperature at the lower height | K |
+| `z1` | in | lower height | m |
+| `T2` | in | air temperature at the upper height | K |
+| `z2` | in | upper height | m |
+| `ELR` | out | environmental lapse rate -dT/dz | K/m |
+| `ELR_C_per_km` | out | lapse rate, degC/km | - |
+| `stability` | out | stability: superadiabatic (unstable), neutral, subadiabatic (stable) or inversion (very stable) | - |
+
+**Applies when:** dry air (dry adiabatic lapse rate 9.8 degC/km); z2 > z1; linear temperature profile between the two heights.
+
+```shell
+$ environmental-engineering solve enveng_lapse_rate_stability "T1=20 degC" "z1=0 m" "T2=14 degC" "z2=500 m"
+ELR = 0.012 K/m
+ELR_C_per_km = 12
+stability = superadiabatic (unstable)
+  by: Atmospheric stability from the environmental lapse rate  (ELR = -(T2 - T1)/(z2 - z1); ELR > 9.8 degC/km superadiabatic, = 9.8 neutral, 0 to 9.8 subadiabatic, < 0 inversion)
+  T1 = 293.15 K
+  z1 = 0 m
+  T2 = 287.15 K
+  z2 = 500 m
+  assumes: dry air (dry adiabatic lapse rate 9.8 degC/km); z2 > z1; linear temperature profile between the two heights
+```
+
+In the worked example, T1 = 20 degC, z1 = 0 m, T2 = 14 degC, z2 = 500 m go through the equation above and give ELR = 0.012 K/m, ELR_C_per_km = 12, stability = superadiabatic (unstable). It applies only when dry air (dry adiabatic lapse rate 9.8 degC/km); z2 > z1; linear temperature profile between the two heights: outside that it says what is wrong instead of returning a number.
 
 <a id="enveng_box_model"></a>
 
@@ -982,6 +1019,39 @@ sigma_z = 35.17120532 m
 
 **What the worked example means:** This calculation determines the downwind location and magnitude of the highest pollutant concentration at ground level for an elevated source. By analyzing Briggs' dispersion coefficients, it finds where the rate of change in concentration equals zero. The result shows that with an effective stack height of 50 m and stability class c, the peak concentration reaches 1333.57 micrograms per cubic metre at 459.393 m metres downwind. This precise method avoids simplified assumptions, ensuring accuracy for regulatory or safety assessments.
 
+<a id="enveng_collection_efficiency_series"></a>
+
+#### Overall efficiency of collection devices in series, `enveng_collection_efficiency_series`
+
+The overall collection efficiency of air pollution control devices in series (a cyclone before a baghouse or an ESP), 1 - prod(1 - eta_i), the fraction that penetrates, and the outlet concentration for a given inlet concentration.
+
+$$
+\eta_{overall} = 1 - \prod_i\left(1 - \eta_i\right)
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `eta` | in | efficiency of each device as a fraction (0.9 for 90%) | - |
+| `C_in` | in | inlet concentration (optional) (optional) | kg/m^3 |
+| `eta_total` | out | overall efficiency 1 - prod(1 - eta_i) | - |
+| `eta_total_percent` | out | overall efficiency, % | - |
+| `penetration` | out | fraction passing all devices prod(1 - eta_i) | - |
+| `C_out` | out | outlet concentration | kg/m^3 |
+| `C_out_mgm3` | out | outlet concentration, mg/m^3 | - |
+
+**Applies when:** devices in series, each efficiency on what reaches it; 0 <= eta_i <= 1 as fractions.
+
+```shell
+$ environmental-engineering solve enveng_collection_efficiency_series "eta=[0.8, 0.99]"
+eta_total = 0.998
+eta_total_percent = 99.8
+penetration = 0.002
+  by: Overall efficiency of collection devices in series  (P = prod(1 - eta_i); eta = 1 - P; C_out = C_in P)
+  assumes: devices in series, each efficiency on what reaches it; 0 <= eta_i <= 1 as fractions
+```
+
+In the worked example, eta = [0.8, 0.99] go through the equation above and give eta_total = 0.998, eta_total_percent = 99.8, penetration = 0.002. It applies only when devices in series, each efficiency on what reaches it; 0 <= eta_i <= 1 as fractions: outside that it says what is wrong instead of returning a number.
+
 <a id="enveng_stability_class"></a>
 
 #### Pasquill-Turner atmospheric stability class, `enveng_stability_class`
@@ -1064,6 +1134,88 @@ C_ugm3 = 88.88445322
 
 **What the worked example means:** This calculation determines the pollutant concentration at a receptor downwind of a stack. It first computes the effective stack height, which results in 77.4472 m, by adding the plume rise to the physical stack height. Then, it evaluates the horizontal and vertical dispersion coefficients at the specified distance, yielding 289.429 m for crosswind spread and 189.737 m for vertical spread. Finally, these values are used to find the ground-level centerline concentration, calculated as 8.88845e-08 kg/m^3 or 88.8845. The result represents the mass of pollutant per unit volume of air at the specific location.
 
+<a id="enveng_indoor_air_steady_state"></a>
+
+#### Steady indoor air concentration (well-mixed room box model), `enveng_indoor_air_steady_state`
+
+The steady concentration of a pollutant in a well-mixed room from its indoor emission rate, the ventilation rate, the outdoor concentration and a first-order decay rate, C = (Qv Camb + S)/(Qv + k V), with the air changes per hour.
+
+$$
+C_{ss} = \frac{Q_v C_{amb} + S}{Q_v + k V}
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `S` | in | indoor emission rate | kg/s |
+| `Qv` | in | ventilation (outdoor air) rate | m^3/s |
+| `V` | in | room volume | m^3 |
+| `Camb` | in | outdoor (ambient) concentration (default 0) (optional) | kg/m^3 |
+| `k` | in | first-order decay (reaction, deposition) rate (default 0) (optional) | 1/s |
+| `C` | out | steady indoor concentration | kg/m^3 |
+| `C_ugm3` | out | in ug/m^3 | - |
+| `C_mgm3` | out | in mg/m^3 | - |
+| `ach` | out | air changes per hour Qv/V | - |
+| `tau_h` | out | time constant V/(Qv + k V), h | - |
+
+**Applies when:** well-mixed room at steady state; Camb = 0 and k = 0 unless given; something enters the room.
+
+```shell
+$ environmental-engineering solve enveng_indoor_air_steady_state "S=100 mg/h" "Qv=100 m^3/h" "V=200 m^3" "Camb=10 ug/m^3" "k=0.5 1/h"
+C = 5.05e-07 kg/m^3
+C_ugm3 = 505
+C_mgm3 = 0.505
+ach = 0.5
+tau_h = 1
+  by: Steady indoor air concentration (well-mixed room box model)  (C = (Qv Camb + S)/(Qv + k V); ach = Qv/V)
+  S = 2.777777778e-08 kg/s
+  Qv = 0.02777777778 m^3/s
+  V = 200 m^3
+  Camb = 1e-08 kg/m^3
+  k = 0.0001388888889 1/s
+  assumes: well-mixed room at steady state; Camb = 0 and k = 0 unless given; something enters the room
+```
+
+In the worked example, S = 100 mg/h, Qv = 100 m^3/h, V = 200 m^3, Camb = 10 ug/m^3, k = 0.5 1/h go through the equation above and give C = 5.05e-07 kg/m^3, C_ugm3 = 505, C_mgm3 = 0.505, ach = 0.5. It applies only when well-mixed room at steady state; Camb = 0 and k = 0 unless given; something enters the room: outside that it says what is wrong instead of returning a number.
+
+<a id="enveng_combustion_oxygen"></a>
+
+#### Stoichiometric oxygen for complete combustion of a fuel, `enveng_combustion_oxygen`
+
+The oxygen needed to burn a fuel CxHyOz (or pure carbon) completely to CO2 and water, per mole and per kilogram of fuel, the CO2 and water formed per kilogram, and the total oxygen for a given mass of fuel.
+
+$$
+\mathrm{C_xH_yO_z} + \left(x + \frac y4 - \frac z2\right)\mathrm{O_2} \rightarrow x\,\mathrm{CO_2} + \frac y2\,\mathrm{H_2O}
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `formula` | in | fuel formula with C, H, O only (e.g. CH4, C2H5OH, C) | - |
+| `m` | in | mass of fuel burned (for the total oxygen) (optional) | kg |
+| `O2_per_kg` | out | kg O2 per kg fuel | - |
+| `o2_per_mol` | out | mol O2 per mol fuel x + y/4 - z/2 | - |
+| `molar_mass` | out | molar mass of the fuel, g/mol | - |
+| `CO2_per_kg` | out | kg CO2 formed per kg fuel | - |
+| `H2O_per_kg` | out | kg water formed per kg fuel | - |
+| `O2_mass` | out | oxygen for the given mass of fuel | kg |
+
+**Applies when:** complete combustion to CO2 and H2O; elements C, H, O only.
+
+```shell
+$ environmental-engineering solve enveng_combustion_oxygen formula=C "m=1000 kg"
+o2_per_mol = 1
+molar_mass = 12.0107
+O2_per_kg = 2.664191096
+CO2_per_kg = 3.664191096
+H2O_per_kg = 0
+O2_mass = 2664.191096 kg
+  by: Stoichiometric oxygen for complete combustion of a fuel  (CxHyOz + (x + y/4 - z/2) O2 -> x CO2 + y/2 H2O; O2/fuel = (x + y/4 - z/2) M_O2 / M_fuel)
+  m = 1000 kg
+  formula = C
+  assumes: complete combustion to CO2 and H2O; elements C, H, O only
+```
+
+In the worked example, formula = C, m = 1000 kg go through the equation above and give o2_per_mol = 1, molar_mass = 12.0107, O2_per_kg = 2.664191096, CO2_per_kg = 3.664191096. It applies only when complete combustion to CO2 and H2O; elements C, H, O only: outside that it says what is wrong instead of returning a number.
+
 <a id="enveng_so2_emission"></a>
 
 #### Sulfur dioxide emission from fuel sulfur: `enveng_so2_emission`
@@ -1132,7 +1284,178 @@ u2 = 5.650150178 m/s
 
 **What the worked example means:** This calculation determines the wind speed at a specific height using the power law profile. It takes a known wind speed measurement, 4 m/s, taken at height 10 m, and adjusts it to the height of interest, 100 m, using an exponent 0.15 that reflects terrain and atmospheric stability. The resulting wind speed at the new height is 5.65015 m/s. This method assumes a neutral or stable boundary layer where wind speed changes predictably with altitude according to the chosen exponent.
 
-### Gas transfer (5)
+### Biosolids (1)
+
+<a id="enveng_volatile_solids_reduction"></a>
+
+#### Volatile solids reduction in digestion (Van Kleeck), `enveng_volatile_solids_reduction`
+
+The fraction of the volatile solids destroyed by sludge digestion from the volatile fractions of the feed and the digested sludge by the Van Kleeck equation, VSR = (VS_in - VS_out)/(VS_in - VS_in VS_out), which assumes the fixed solids pass unchanged.
+
+$$
+VSR = \frac{VS_{in} - VS_{out}}{VS_{in} - VS_{in}\,VS_{out}}
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `VS_in` | in | volatile fraction of the feed solids (fraction or %) | - |
+| `VS_out` | in | volatile fraction of the digested solids (fraction or %) | - |
+| `VSR` | out | volatile solids reduction (fraction) | - |
+| `VSR_percent` | out | volatile solids reduction, % | - |
+| `TS_remaining` | out | total solids left per unit of feed solids | - |
+
+**Applies when:** fixed (inorganic) solids conserved; 0 < VS_out <= VS_in, VS_out < 1.
+
+```shell
+$ environmental-engineering solve enveng_volatile_solids_reduction VS_in=0.75 VS_out=0.55
+VSR = 0.5925925926
+VSR_percent = 59.25925926
+TS_remaining = 0.5555555556
+  by: Volatile solids reduction in digestion (Van Kleeck)  (VSR = (VS_in - VS_out)/(VS_in - VS_in VS_out))
+  VS_in = 0.75
+  VS_out = 0.55
+  assumes: fixed (inorganic) solids conserved; 0 < VS_out <= VS_in, VS_out < 1
+```
+
+In the worked example, VS_in = 0.75, VS_out = 0.55 go through the equation above and give VSR = 0.5925925926, VSR_percent = 59.25925926, TS_remaining = 0.5555555556. It applies only when fixed (inorganic) solids conserved; 0 < VS_out <= VS_in, VS_out < 1: outside that it says what is wrong instead of returning a number.
+
+### Fundamentals (3)
+
+<a id="enveng_population_projection"></a>
+
+#### Population projection by the arithmetic and geometric methods, `enveng_population_projection`
+
+The population projected to a year from two censuses by the arithmetic method (constant increase per year) and by the geometric method (constant percentage growth: the continuous rate and the equivalent compound annual rate).
+
+$$
+P_t = P_2 + \frac{P_2 - P_1}{t_2 - t_1}(t - t_2),\qquad P_t = P_2\,e^{k_g (t - t_2)},\ k_g = \frac{\ln(P_2/P_1)}{t_2 - t_1}
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `t1` | in | year of the first census | - |
+| `P1` | in | population at the first census | - |
+| `t2` | in | year of the second census | - |
+| `P2` | in | population at the second census | - |
+| `t` | in | year of the projection | - |
+| `k_a` | out | arithmetic increase, persons per year | - |
+| `P_arith` | out | arithmetic projection | - |
+| `k_g` | out | geometric (continuous) growth rate, per year | - |
+| `r_g` | out | equivalent compound growth rate per year | - |
+| `P_geom` | out | geometric projection | - |
+
+**Applies when:** t2 > t1; positive census populations; interval and projection span at most 200 years; the arithmetic projection must stay positive.
+
+```shell
+$ environmental-engineering solve enveng_population_projection t1=2000 P1=50000 t2=2020 P2=70000 t=2040
+k_a = 1000
+P_arith = 90000
+k_g = 0.01682361183
+r_g = 0.01696592575
+P_geom = 98000
+  by: Population projection by the arithmetic and geometric methods  (k_a = (P2 - P1)/(t2 - t1), P = P2 + k_a (t - t2); k_g = ln(P2/P1)/(t2 - t1), P = P2 exp(k_g (t - t2)))
+  t1 = 2000
+  P1 = 50000
+  t2 = 2020
+  P2 = 70000
+  t = 2040
+  assumes: t2 > t1; positive census populations; interval and projection span at most 200 years; the arithmetic projection must stay positive
+```
+
+In the worked example, t1 = 2000, P1 = 50000, t2 = 2020, P2 = 70000, t = 2040 go through the equation above and give k_a = 1000, P_arith = 90000, k_g = 0.01682361183, r_g = 0.01696592575. It applies only when t2 > t1; positive census populations; interval and projection span at most 200 years; the arithmetic projection must stay positive: outside that it says what is wrong instead of returning a number.
+
+<a id="enveng_population_logistic"></a>
+
+#### Population projection by the logistic method (three censuses), `enveng_population_logistic`
+
+The saturation population and the logistic curve P = Ps/(1 + m exp(-k (t - t0))) through three equally spaced censuses P0, P1, P2 (interval n years), and the population it projects for a year.
+
+$$
+P_s = \frac{2P_0P_1P_2 - P_1^2(P_0 + P_2)}{P_0P_2 - P_1^2},\quad P_t = \frac{P_s}{1 + m\,e^{-k(t - t_0)}}
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `t0` | in | year of the first census | - |
+| `n` | in | interval between the censuses in years | - |
+| `P0` | in | population at the first census | - |
+| `P1` | in | population one interval later | - |
+| `P2` | in | population two intervals later | - |
+| `t` | in | year of the projection | - |
+| `P_sat` | out | saturation population | - |
+| `m` | out | logistic constant (Ps - P0)/P0 | - |
+| `k` | out | logistic rate constant, per year | - |
+| `P_t` | out | projected population | - |
+
+**Applies when:** three equally spaced censuses with P0 < P1 < P2; growth slowing: P1^2 > P0 P2; saturation population at most 100 times the last census.
+
+```shell
+$ environmental-engineering solve enveng_population_logistic t0=2000 n=10 P0=40000 P1=60000 P2=75000 t=2030
+P_sat = 90000
+m = 1.25
+k = 0.09162907319
+P_t = 83333.33333
+  by: Population projection by the logistic method (three censuses)  (Ps = (2 P0 P1 P2 - P1^2 (P0 + P2))/(P0 P2 - P1^2); m = (Ps - P0)/P0; k = ln(P1 (Ps - P0)/(P0 (Ps - P1)))/n)
+  t0 = 2000
+  n = 10
+  P0 = 40000
+  P1 = 60000
+  P2 = 75000
+  t = 2030
+  assumes: three equally spaced censuses with P0 < P1 < P2; growth slowing: P1^2 > P0 P2; saturation population at most 100 times the last census
+```
+
+In the worked example, t0 = 2000, n = 10, P0 = 40000, P1 = 60000, P2 = 75000, t = 2030 go through the equation above and give P_sat = 90000, m = 1.25, k = 0.09162907319, P_t = 83333.33333. It applies only when three equally spaced censuses with P0 < P1 < P2; growth slowing: P1^2 > P0 P2; saturation population at most 100 times the last census: outside that it says what is wrong instead of returning a number.
+
+<a id="enveng_water_demand"></a>
+
+#### Water and wastewater demand with peaking factors, `enveng_water_demand`
+
+The average-day, maximum-day and peak-hour water demand of a population from the per-capita demand and the peaking factors (both relative to the average day) and, with the fraction of water returned as wastewater, the average wastewater flow and its peak by Harmon's factor 1 + 14/(4 + sqrt(P/1000)).
+
+$$
+Q_{avg} = P\,q,\quad Q_{md} = f_{md}Q_{avg},\quad Q_{ph} = f_{ph}Q_{avg},\quad PF = 1 + \frac{14}{4 + \sqrt{P/1000}}
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `pop` | in | population served | - |
+| `q` | in | average per-capita demand in L per person per day | - |
+| `f_md` | in | maximum-day factor (maximum day / average day) | - |
+| `f_ph` | in | peak-hour factor (peak hour / average day) | - |
+| `r_ww` | in | fraction of the water returned as wastewater (optional) (optional) | - |
+| `Q_avg` | out | average-day demand | m^3/s |
+| `Q_avg_m3_per_day` | out | average-day demand, m^3/d | - |
+| `Q_maxday` | out | maximum-day demand | m^3/s |
+| `Q_maxday_m3_per_day` | out | maximum-day demand, m^3/d | - |
+| `Q_peakhour` | out | peak-hour demand | m^3/s |
+| `Q_peakhour_m3_per_day` | out | peak-hour demand as a daily rate, m^3/d | - |
+| `Q_peakhour_L_per_s` | out | peak-hour demand, L/s | - |
+| `Q_ww_avg_m3_per_day` | out | average wastewater flow, m^3/d | - |
+| `harmon_peak_factor` | out | Harmon peaking factor | - |
+| `Q_ww_peak_m3_per_day` | out | peak wastewater flow, m^3/d | - |
+
+**Applies when:** pop a whole number >= 1; 20 <= q <= 2000 L per person per day; 1 <= f_md <= 4; f_md <= f_ph <= 8 (both relative to the average day); 0 < r_ww <= 1.
+
+```shell
+$ environmental-engineering solve enveng_water_demand pop=50000 q=300 f_md=1.8 f_ph=3
+Q_avg = 0.1736111111 m^3/s
+Q_avg_m3_per_day = 15000
+Q_maxday = 0.3125 m^3/s
+Q_maxday_m3_per_day = 27000
+Q_peakhour = 0.5208333333 m^3/s
+Q_peakhour_m3_per_day = 45000
+Q_peakhour_L_per_s = 520.8333333
+  by: Water and wastewater demand with peaking factors  (Q_avg = P q; Q_md = f_md Q_avg; Q_ph = f_ph Q_avg; Q_ww = r Q_avg; PF = 1 + 14/(4 + sqrt(P/1000)))
+  q = 300
+  f_md = 1.8
+  f_ph = 3
+  assumes: pop a whole number >= 1; 20 <= q <= 2000 L per person per day; 1 <= f_md <= 4; f_md <= f_ph <= 8 (both relative to the average day); 0 < r_ww <= 1
+```
+
+In the worked example, pop = 50000, q = 300, f_md = 1.8, f_ph = 3 go through the equation above and give Q_avg = 0.1736111111 m^3/s, Q_avg_m3_per_day = 15000, Q_maxday = 0.3125 m^3/s, Q_maxday_m3_per_day = 27000. It applies only when pop a whole number >= 1; 20 <= q <= 2000 L per person per day; 1 <= f_md <= 4; f_md <= f_ph <= 8 (both relative to the average day); 0 < r_ww <= 1: outside that it says what is wrong instead of returning a number.
+
+### Gas transfer (6)
 
 <a id="enveng_henry_law_equilibrium"></a>
 
@@ -1168,6 +1491,43 @@ C_mgL = 8.506010127
 ```
 
 **What the worked example means:** This calculation determines the equilibrium concentration of a gas in water using Henry's law. By dividing the partial pressure of the gas, which is 0.21 atm, by the Henry volatility constant, which is 0.79 atm*m^3/mol, this gives the molar concentration 0.265823 mol/m^3. To express this as a mass concentration, the molar value is multiplied by the molar mass 31.9988 g/mol, resulting in 0.00850601 kg/m^3. This represents how much of the gas dissolves into the liquid phase under these specific conditions.
+
+<a id="enveng_henry_law_solubility"></a>
+
+#### Dissolved gas concentration from Henry's solubility constant (C = KH P), `enveng_henry_law_solubility`
+
+The equilibrium concentration of a gas dissolved in water from its partial pressure and Henry's solubility constant KH in mol/(L atm), as mol/L and, with the gas molar mass, as mg/L.
+
+$$
+C = K_H\,P,\qquad C_m = K_H\,P\,M
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `KH` | in | Henry's solubility constant | mol/(m^3*Pa) |
+| `P` | in | partial pressure of the gas above the water | Pa |
+| `M` | in | molar mass of the gas (for mg/L) (optional) | kg/mol |
+| `C` | out | dissolved concentration KH P | mol/m^3 |
+| `C_molL` | out | in mol/L | - |
+| `C_mass` | out | dissolved mass concentration | kg/m^3 |
+| `C_mgL` | out | in mg/L | - |
+
+**Applies when:** KH, P > 0; dilute solution at equilibrium, KH at the water temperature.
+
+```shell
+$ environmental-engineering solve enveng_henry_law_solubility "KH=0.0013 mol/(L*atm)" "P=0.21 atm" "M=32 g/mol"
+C = 0.273 mol/m^3
+C_molL = 0.000273
+C_mass = 0.008736 kg/m^3
+C_mgL = 8.736
+  by: Dissolved gas concentration from Henry's solubility constant (C = KH P)  (C = KH P; mass concentration C M)
+  KH = 1.283000247e-05 mol/(m^3*Pa)
+  P = 21278.25 Pa
+  M = 0.032 kg/mol
+  assumes: KH, P > 0; dilute solution at equilibrium, KH at the water temperature
+```
+
+In the worked example, KH = 0.0013 mol/(L*atm), P = 0.21 atm, M = 32 g/mol go through the equation above and give C = 0.273 mol/m^3, C_molL = 0.000273, C_mass = 0.008736 kg/m^3, C_mgL = 8.736. It applies only when KH, P > 0; dilute solution at equilibrium, KH at the water temperature: outside that it says what is wrong instead of returning a number.
 
 <a id="enveng_henry_constant_conversion"></a>
 
@@ -1326,6 +1686,308 @@ Hpc_T = 58926.15813 Pa*m^3/mol
 ```
 
 **What the worked example means:** This calculation determines the temperature-dependent Henry's law constant using the van 't Hoff equation. Starting from the reference solubility constant 1.3e-05 mol/(m^3*Pa) at 298.15 K, the model applies the exponential factor derived from the coefficient 1500 and the difference in inverse temperatures between 283.15 K and 298.15 K. The resulting solubility constant 1.69704e-05 mol/(m^3*Pa) indicates how readily the substance dissolves in water at 283.15 K, while its reciprocal, the volatility constant 58926.2 Pa*m^3/mol, reflects the tendency of the substance to partition into the air phase.
+
+### Groundwater (2)
+
+<a id="enveng_darcy_seepage_velocity"></a>
+
+#### Darcy's law: groundwater flow and seepage velocity, `enveng_darcy_seepage_velocity`
+
+Groundwater flow through an aquifer by Darcy's law: the Darcy flux q = K i, the flow Q = K i A through an area and the seepage (average linear) velocity v_s = K i / n_e; the gradient may be given as a head difference over a length.
+
+$$
+Q = K\,i\,A,\qquad v_s = \frac{K\,i}{n_e},\qquad i = \frac{\Delta h}{L}
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `K` | in | hydraulic conductivity | m/s |
+| `i` | in | hydraulic gradient dh/L (dimensionless) (optional) | - |
+| `dh` | in | head difference along the flow path (optional) | m |
+| `L` | in | length of the flow path (optional) | m |
+| `A` | in | cross-sectional area of flow (optional) | m^2 |
+| `n_e` | in | effective porosity (fraction or %) (optional) | - |
+| `i` | out | hydraulic gradient | - |
+| `q` | out | Darcy flux (specific discharge) K i | m/s |
+| `q_m_per_day` | out | Darcy flux, m/d | - |
+| `Q` | out | flow K i A | m^3/s |
+| `Q_m3_per_day` | out | flow, m^3/d | - |
+| `v_s` | out | seepage (average linear) velocity K i / n_e | m/s |
+| `v_s_m_per_day` | out | seepage velocity, m/d | - |
+
+**Applies when:** laminar flow (Darcy's law); K, i > 0; 0 < n_e < 1.
+
+```shell
+$ environmental-engineering solve enveng_darcy_seepage_velocity "K=10 m/day" i=0.002 "A=500 m^2" n_e=0.25
+i = 0.002
+q = 2.314814815e-07 m/s
+q_m_per_day = 0.02
+Q = 0.0001157407407 m^3/s
+Q_m3_per_day = 10
+v_s = 9.259259259e-07 m/s
+v_s_m_per_day = 0.08
+  by: Darcy's law: groundwater flow and seepage velocity  (i = dh/L; q = K i; Q = q A; v_s = q/n_e)
+  K = 0.0001157407407 m/s
+  i = 0.002
+  A = 500 m^2
+  n_e = 0.25
+  assumes: laminar flow (Darcy's law); K, i > 0; 0 < n_e < 1
+```
+
+In the worked example, K = 10 m/day, i = 0.002, A = 500 m^2, n_e = 0.25 go through the equation above and give i = 0.002, q = 2.314814815e-07 m/s, q_m_per_day = 0.02, Q = 0.0001157407407 m^3/s. It applies only when laminar flow (Darcy's law); K, i > 0; 0 < n_e < 1: outside that it says what is wrong instead of returning a number.
+
+<a id="enveng_retardation_factor"></a>
+
+#### Retardation factor and contaminant velocity in groundwater, `enveng_retardation_factor`
+
+The retardation factor of a sorbing contaminant in an aquifer, R = 1 + rho_b Kd / n (Kd given or Koc foc), and the velocity at which the contaminant migrates, v_c = v / R (R may also be given directly).
+
+$$
+R = 1 + \frac{\rho_b K_d}{n},\quad K_d = K_{oc}f_{oc},\quad v_c = \frac{v}{R}
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `rho_b` | in | dry bulk density of the aquifer material (optional) | kg/m^3 |
+| `n` | in | porosity (fraction or %) (optional) | - |
+| `Kd` | in | distribution coefficient (optional) | m^3/kg |
+| `Koc` | in | organic-carbon partition coefficient (optional) | m^3/kg |
+| `foc` | in | fraction of organic carbon (fraction or %) (optional) | - |
+| `R` | in | retardation factor, if already known (optional) | - |
+| `v` | in | groundwater (seepage) velocity (optional) | m/s |
+| `R` | out | retardation factor | - |
+| `vc` | out | contaminant migration velocity v/R | m/s |
+| `vc_m_per_day` | out | contaminant velocity, m/d | - |
+| `v_m_per_day` | out | groundwater velocity, m/d | - |
+| `Kd` | out | distribution coefficient Koc foc | m^3/kg |
+| `Kd_L_per_kg` | out | Kd in L/kg | - |
+
+**Applies when:** linear, reversible, instantaneous sorption; 0 < n < 1; R >= 1.
+
+```shell
+$ environmental-engineering solve enveng_retardation_factor "rho_b=1.6 g/cm^3" n=0.3 "Koc=100 L/kg" foc=0.01 "v=0.5 m/day"
+Kd = 0.001 m^3/kg
+Kd_L_per_kg = 1
+R = 6.333333333
+vc = 9.137426901e-07 m/s
+vc_m_per_day = 0.07894736842
+v_m_per_day = 0.5
+  by: Retardation factor and contaminant velocity in groundwater  (Kd = Koc foc; R = 1 + rho_b Kd / n; v_c = v / R)
+  rho_b = 1600 kg/m^3
+  n = 0.3
+  Koc = 0.1 m^3/kg
+  foc = 0.01
+  v = 5.787037037e-06 m/s
+  assumes: linear, reversible, instantaneous sorption; 0 < n < 1; R >= 1
+```
+
+In the worked example, rho_b = 1.6 g/cm^3, n = 0.3, Koc = 100 L/kg, foc = 0.01, v = 0.5 m/day go through the equation above and give Kd = 0.001 m^3/kg, Kd_L_per_kg = 1, R = 6.333333333, vc = 9.137426901e-07 m/s. It applies only when linear, reversible, instantaneous sorption; 0 < n < 1; R >= 1: outside that it says what is wrong instead of returning a number.
+
+### Hydraulics (3)
+
+<a id="enveng_hazen_williams"></a>
+
+#### Hazen-Williams equation for a full pipe (SI): velocity, flow and head loss, `enveng_hazen_williams`
+
+Water flow in a full circular pipe by the Hazen-Williams formula in SI units, v = 0.849 C R^0.63 S^0.54 (R = D/4): the velocity and flow from the slope of the energy line, or the slope from the flow, and the head loss over a pipe length.
+
+$$
+v = 0.849\,C\,R^{0.63}S^{0.54},\qquad Q = vA,\qquad h_f = S\,L
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `C` | in | Hazen-Williams roughness coefficient | - |
+| `D` | in | pipe diameter | m |
+| `S` | in | slope of the energy line hf/L (fraction or %) (optional) | - |
+| `Q` | in | flow rate (optional) | m^3/s |
+| `L` | in | pipe length (for the head loss) (optional) | m |
+| `v` | out | mean velocity | m/s |
+| `Q` | out | flow | m^3/s |
+| `S` | out | slope of the energy line hf/L | - |
+| `hf` | out | head loss over L | m |
+| `R` | out | hydraulic radius D/4 | m |
+| `A` | out | pipe area | m^2 |
+
+**Applies when:** water, turbulent flow, full circular pipe; SI form (0.849); exactly one of S, Q; S < 1.
+
+```shell
+$ environmental-engineering solve enveng_hazen_williams C=100 "D=0.3 m" S=0.002
+v = 0.5790985584 m/s
+Q = 0.04093406498 m^3/s
+S = 0.002
+R = 0.075 m
+A = 0.07068583471 m^2
+  by: Hazen-Williams equation for a full pipe (SI): velocity, flow and head loss  (R = D/4; v = 0.849 C R^0.63 S^0.54; Q = v A; from Q: S = (v/(0.849 C R^0.63))^(1/0.54); hf = S L)
+  C = 100
+  D = 0.3 m
+  S = 0.002
+  assumes: water, turbulent flow, full circular pipe; SI form (0.849); exactly one of S, Q; S < 1
+```
+
+In the worked example, C = 100, D = 0.3 m, S = 0.002 go through the equation above and give v = 0.5790985584 m/s, Q = 0.04093406498 m^3/s, S = 0.002, R = 0.075 m. It applies only when water, turbulent flow, full circular pipe; SI form (0.849); exactly one of S, Q; S < 1: outside that it says what is wrong instead of returning a number.
+
+<a id="enveng_manning_flow"></a>
+
+#### Manning's equation: velocity and flow in a channel or a full pipe (SI), `enveng_manning_flow`
+
+The mean velocity and flow by Manning's equation in SI units, v = (1/n) R^(2/3) S^(1/2), for a rectangular channel (width and flow depth) or a circular pipe flowing full (diameter), with the hydraulic radius, area and wetted perimeter.
+
+$$
+v = \frac{1}{n}R^{2/3}S^{1/2},\qquad Q = vA,\qquad R = \frac{A}{P}
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `n` | in | Manning roughness coefficient | - |
+| `S` | in | slope of the channel or energy line (fraction or %) | - |
+| `W` | in | channel width (rectangular channel) (optional) | m |
+| `y` | in | flow depth (rectangular channel) (optional) | m |
+| `D` | in | pipe diameter (circular pipe flowing full) (optional) | m |
+| `v` | out | mean velocity (1/n) R^(2/3) S^(1/2) | m/s |
+| `Q` | out | flow v A | m^3/s |
+| `Q_L_per_s` | out | flow, L/s | - |
+| `R` | out | hydraulic radius A/P | m |
+| `A` | out | flow area | m^2 |
+| `P` | out | wetted perimeter | m |
+
+**Applies when:** uniform flow, SI units (factor 1); 0 < S < 1; rectangular channel (W, y) or a full circular pipe (D).
+
+```shell
+$ environmental-engineering solve enveng_manning_flow n=0.013 S=0.001 "D=0.6 m"
+v = 0.6867270488 m/s
+Q = 0.1941674986 m^3/s
+Q_L_per_s = 194.1674986
+R = 0.15 m
+A = 0.2827433388 m^2
+P = 1.884955592 m
+  by: Manning's equation: velocity and flow in a channel or a full pipe (SI)  (R = A/P (rectangle: A = W y, P = W + 2y; full pipe: R = D/4); v = R^(2/3) S^(1/2)/n; Q = v A)
+  n = 0.013
+  S = 0.001
+  D = 0.6 m
+  assumes: uniform flow, SI units (factor 1); 0 < S < 1; rectangular channel (W, y) or a full circular pipe (D)
+```
+
+In the worked example, n = 0.013, S = 0.001, D = 0.6 m go through the equation above and give v = 0.6867270488 m/s, Q = 0.1941674986 m^3/s, Q_L_per_s = 194.1674986, R = 0.15 m. It applies only when uniform flow, SI units (factor 1); 0 < S < 1; rectangular channel (W, y) or a full circular pipe (D): outside that it says what is wrong instead of returning a number.
+
+<a id="enveng_pump_power"></a>
+
+#### Pump power from flow and head, with energy and electricity cost, `enveng_pump_power`
+
+The power a pump draws to lift a flow Q through a total head H with efficiency eta, P = rho g Q H / eta (water 1000 kg/m^3 unless a density is given), in kW, and the energy and electricity cost over a number of operating hours at a price per kWh.
+
+$$
+P = \frac{\rho\,g\,Q\,H}{\eta},\qquad E = P\,t,\qquad \text{cost} = E\cdot\text{price}
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `Q` | in | flow pumped | m^3/s |
+| `H` | in | total dynamic head | m |
+| `eta` | in | pump (wire-to-water) efficiency (fraction or %) | - |
+| `rho` | in | density of the liquid (default water, 1000 kg/m^3) (optional) | kg/m^3 |
+| `hours` | in | operating time (optional) | s |
+| `price` | in | electricity price per kWh (optional) | - |
+| `P` | out | power drawn to lift the water: the input (brake, shaft or motor) power the pump requires, rho g Q H / eta | W |
+| `P_kW` | out | power drawn, kW | - |
+| `P_water` | out | water (hydraulic) power, the useful output power imparted to the water, rho g Q H | W |
+| `P_water_kW` | out | water power, kW | - |
+| `energy_kWh` | out | energy over the operating time, kWh | - |
+| `cost` | out | electricity cost, in the price's currency | - |
+
+**Applies when:** g = 9.80665 m/s^2; 0 < eta <= 1; rho = 1000 kg/m^3 unless given; a price needs the operating hours.
+
+```shell
+$ environmental-engineering solve enveng_pump_power "Q=0.1 m^3/s" "H=30 m" eta=0.75
+P = 39226.6 W
+P_kW = 39.2266
+P_water = 29419.95 W
+P_water_kW = 29.41995
+  by: Pump power from flow and head, with energy and electricity cost  (P = rho g Q H / eta; E = P t; cost = E x price)
+  Q = 0.1 m^3/s
+  H = 30 m
+  eta = 0.75
+  assumes: g = 9.80665 m/s^2; 0 < eta <= 1; rho = 1000 kg/m^3 unless given; a price needs the operating hours
+```
+
+In the worked example, Q = 0.1 m^3/s, H = 30 m, eta = 0.75 go through the equation above and give P = 39226.6 W, P_kW = 39.2266, P_water = 29419.95 W, P_water_kW = 29.41995. It applies only when g = 9.80665 m/s^2; 0 < eta <= 1; rho = 1000 kg/m^3 unless given; a price needs the operating hours: outside that it says what is wrong instead of returning a number.
+
+### Hydrology (2)
+
+<a id="enveng_rational_method"></a>
+
+#### Rational method: peak runoff Q = C i A, `enveng_rational_method`
+
+The peak storm runoff from a small catchment by the rational method, Q = C i A, from the runoff coefficient, the rainfall intensity for the time of concentration (mm/h) and the drainage area (m^2, km^2 or ha), in m^3/s.
+
+$$
+Q = C\,i\,A
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `C` | in | runoff coefficient (fraction or %) | - |
+| `i` | in | rainfall intensity | m/s |
+| `A` | in | drainage area | m^2 |
+| `Q` | out | peak runoff C i A | m^3/s |
+| `Q_L_per_s` | out | peak runoff, L/s | - |
+| `Q_m3_per_h` | out | peak runoff, m^3/h | - |
+
+**Applies when:** 0 < C <= 1; i for a duration equal to the time of concentration; small catchment.
+
+```shell
+$ environmental-engineering solve enveng_rational_method C=0.6 "i=50 mm/h" "A=0.25 km^2"
+Q = 2.083333333 m^3/s
+Q_L_per_s = 2083.333333
+Q_m3_per_h = 7500
+  by: Rational method: peak runoff Q = C i A  (Q = C i A (SI); with i in mm/h and A in ha, Q = C i A / 360 m^3/s)
+  C = 0.6
+  i = 1.388888889e-05 m/s
+  A = 250000 m^2
+  assumes: 0 < C <= 1; i for a duration equal to the time of concentration; small catchment
+```
+
+In the worked example, C = 0.6, i = 50 mm/h, A = 0.25 km^2 go through the equation above and give Q = 2.083333333 m^3/s, Q_L_per_s = 2083.333333, Q_m3_per_h = 7500. It applies only when 0 < C <= 1; i for a duration equal to the time of concentration; small catchment: outside that it says what is wrong instead of returning a number.
+
+<a id="enveng_return_period_risk"></a>
+
+#### Return period, exceedance probability and risk over a design life, `enveng_return_period_risk`
+
+The annual exceedance probability of an event with return period T, p = 1/T, and the probability that it is equalled or exceeded at least once in n years, 1 - (1 - 1/T)^n; or the return period needed for an acceptable risk over a design life.
+
+$$
+p = \frac{1}{T},\qquad P_n = 1 - \left(1 - \frac{1}{T}\right)^n
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `T` | in | return period, years (optional) | - |
+| `n` | in | number of years (design life) (optional) | - |
+| `risk` | in | acceptable probability of at least one exceedance in n years (fraction or %) (optional) | - |
+| `p` | out | annual exceedance probability 1/T | - |
+| `p_percent` | out | annual exceedance probability, % | - |
+| `T` | out | return period, years | - |
+| `P_n` | out | probability of at least one exceedance in n years | - |
+| `P_n_percent` | out | that probability, % | - |
+| `P_none` | out | probability of no exceedance in n years | - |
+
+**Applies when:** independent years; T >= 1 yr; n a whole number of years; T, or a risk with n.
+
+```shell
+$ environmental-engineering solve enveng_return_period_risk T=100 n=30
+p = 0.01
+p_percent = 1
+T = 100
+P_n = 0.2602996266
+P_n_percent = 26.02996266
+P_none = 0.7397003734
+  by: Return period, exceedance probability and risk over a design life  (p = 1/T; P(at least one in n years) = 1 - (1 - p)^n; for a risk R: p = 1 - (1 - R)^(1/n), T = 1/p)
+  T = 100
+  n = 30
+  assumes: independent years; T >= 1 yr; n a whole number of years; T, or a risk with n
+```
+
+In the worked example, T = 100, n = 30 go through the equation above and give p = 0.01, p_percent = 1, T = 100, P_n = 0.2602996266. It applies only when independent years; T >= 1 yr; n a whole number of years; T, or a risk with n: outside that it says what is wrong instead of returning a number.
 
 ### Noise (7)
 
@@ -1532,7 +2194,201 @@ L_source = 83.34911461
 
 **What the worked example means:** This calculation determines the sound pressure level of a specific source in isolation. It uses the total measured level, 85, and the background level, 80. Because decibels are logarithmic units representing power ratios, simple subtraction of the numbers does not work. Instead, the method converts both levels back to linear energy values, subtracts the background energy from the total energy, and then converts the remaining energy back into a decibel scale. The resulting value, 83.3491, represents how loud the source would be if the background noise were completely absent.
 
-### Solid waste (5)
+### Reactors (2)
+
+<a id="enveng_first_order_decay"></a>
+
+#### First-order decay in a batch reactor: C = C0 exp(-k t) and the half-life, `enveng_first_order_decay`
+
+First-order decay in a batch (or plug-flow) reactor, C = C0 exp(-k t): the concentration after a time, the initial concentration, the rate constant or the time, whichever one of the four is not given, with the half-life t1/2 = ln 2 / k (the rate may be given as a half-life instead of k), the fraction remaining and the per cent removed.
+
+$$
+C = C_0\,e^{-kt},\qquad k = \frac{\ln(C_0/C)}{t},\qquad t_{1/2} = \frac{\ln 2}{k}
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `C0` | in | initial concentration (optional) | kg/m^3 |
+| `C` | in | concentration after the time t (optional) | kg/m^3 |
+| `k` | in | first-order rate constant (base e) (optional) | 1/s |
+| `t` | in | reaction time (optional) | s |
+| `t_half` | in | half-life (in place of k) (optional) | s |
+| `C` | out | concentration after the time t, C0 exp(-k t) | kg/m^3 |
+| `C_mgL` | out | in mg/L | - |
+| `C0` | out | initial concentration | kg/m^3 |
+| `C0_mgL` | out | initial concentration, mg/L | - |
+| `k` | out | first-order rate constant ln(C0/C)/t | 1/s |
+| `k_per_day` | out | rate constant, 1/d | - |
+| `k_per_h` | out | rate constant, 1/h | - |
+| `t` | out | reaction time ln(C0/C)/k | s |
+| `t_days` | out | reaction time, days | - |
+| `t_h` | out | reaction time, hours | - |
+| `t_half` | out | half-life ln 2/k | s |
+| `t_half_days` | out | half-life, days | - |
+| `t_half_h` | out | half-life, hours | - |
+| `fraction_remaining` | out | fraction remaining C/C0 | - |
+| `removal_percent` | out | per cent removed (1 - C/C0) x 100 | - |
+
+**Applies when:** first-order kinetics, constant k (batch reactor or plug flow); exactly three of C0, C, k (or t_half), t; 0 < C < C0 when both are given; k t <= 700.
+
+```shell
+$ environmental-engineering solve enveng_first_order_decay "C0=100 mg/L" "k=0.2 1/day" "t=120 h"
+C = 0.03678794412 kg/m^3
+C_mgL = 36.78794412
+C0 = 0.1 kg/m^3
+C0_mgL = 100
+k = 2.314814815e-06 1/s
+k_per_day = 0.2
+k_per_h = 0.008333333333
+t = 432000 s
+t_days = 5
+t_h = 120
+t_half = 299439.582 s
+t_half_days = 3.465735903
+t_half_h = 83.17766167
+fraction_remaining = 0.3678794412
+removal_percent = 63.21205588
+  by: First-order decay in a batch reactor: C = C0 exp(-k t) and the half-life  (C = C0 e^(-k t); C0 = C e^(k t); k = ln(C0/C)/t; t = ln(C0/C)/k; t1/2 = ln 2/k (k = ln 2/t1/2 when the half-life is given))
+  C0 = 0.1 kg/m^3
+  k = 2.314814815e-06 1/s
+  t = 432000 s
+  assumes: first-order kinetics, constant k (batch reactor or plug flow); exactly three of C0, C, k (or t_half), t; 0 < C < C0 when both are given; k t <= 700
+```
+
+In the worked example, C0 = 100 mg/L, k = 0.2 1/day, t = 120 h go through the equation above and give C = 0.03678794412 kg/m^3, C_mgL = 36.78794412, C0 = 0.1 kg/m^3, C0_mgL = 100. It applies only when first-order kinetics, constant k (batch reactor or plug flow); exactly three of C0, C, k (or t_half), t; 0 < C < C0 when both are given; k t <= 700: outside that it says what is wrong instead of returning a number.
+
+<a id="enveng_cmfr_series"></a>
+
+#### First-order reaction in N stirred tanks in series and in plug flow, `enveng_cmfr_series`
+
+The effluent concentration of a first-order reaction through N identical completely mixed flow reactors (CMFRs) in series sharing a total residence time, Cout = Cin/(1 + k theta/N)^N, with a single CMFR at steady state (N = 1, the default: Cout = Cin/(1 + k theta)) and the plug-flow limit Cin exp(-k theta) for comparison; theta given directly or as the volume over the flow, V/Q; with the fraction and per cent removed.
+
+$$
+C_{out} = \frac{C_{in}}{\left(1 + k\theta/N\right)^N},\qquad \theta = \frac VQ,\qquad C_{PFR} = C_{in}\,e^{-k\theta}
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `Cin` | in | influent concentration | kg/m^3 |
+| `k` | in | first-order rate constant | 1/s |
+| `theta` | in | total hydraulic residence time of all the tanks (or give V and Q) (optional) | s |
+| `N` | in | number of identical tanks in series (default 1) (optional) | - |
+| `V` | in | total reactor volume (with Q, in place of theta) (optional) | m^3 |
+| `Q` | in | flow through the reactor (with V, in place of theta) (optional) | m^3/s |
+| `Cout` | out | effluent of the N tanks Cin/(1 + k theta/N)^N | kg/m^3 |
+| `Cout_mgL` | out | in mg/L | - |
+| `removal` | out | fraction removed by the N tanks | - |
+| `removal_percent` | out | per cent removed | - |
+| `Cout_one` | out | effluent of one CMFR of the same total volume | kg/m^3 |
+| `Cout_one_mgL` | out | in mg/L | - |
+| `Cout_pfr` | out | effluent of a plug-flow reactor Cin exp(-k theta) | kg/m^3 |
+| `Cout_pfr_mgL` | out | in mg/L | - |
+| `removal_pfr` | out | fraction removed in plug flow | - |
+| `theta_each` | out | residence time of each tank theta/N | s |
+| `theta_each_h` | out | residence time of each tank, h | - |
+
+**Applies when:** steady state, first-order decay; identical tanks sharing the total residence time theta; 1 <= N <= 1000; theta, or the volume V and the flow Q (theta = V/Q), not both.
+
+```shell
+$ environmental-engineering solve enveng_cmfr_series "Cin=100 mg/L" "k=4.8 1/day" "theta=10 h" N=4
+Cout = 0.01975308642 kg/m^3
+Cout_mgL = 19.75308642
+removal = 0.8024691358
+removal_percent = 80.24691358
+Cout_one = 0.03333333333 kg/m^3
+Cout_one_mgL = 33.33333333
+Cout_pfr = 0.01353352832 kg/m^3
+Cout_pfr_mgL = 13.53352832
+removal_pfr = 0.8646647168
+theta_each = 9000 s
+theta_each_h = 2.5
+  by: First-order reaction in N stirred tanks in series and in plug flow  (theta = V/Q when V and Q are given; Cout = Cin/(1 + k theta/N)^N; one CMFR: Cin/(1 + k theta); plug flow: Cin exp(-k theta))
+  Cin = 0.1 kg/m^3
+  k = 5.555555556e-05 1/s
+  theta = 36000 s
+  assumes: steady state, first-order decay; identical tanks sharing the total residence time theta; 1 <= N <= 1000; theta, or the volume V and the flow Q (theta = V/Q), not both
+```
+
+In the worked example, Cin = 100 mg/L, k = 4.8 1/day, theta = 10 h, N = 4 go through the equation above and give Cout = 0.01975308642 kg/m^3, Cout_mgL = 19.75308642, removal = 0.8024691358, removal_percent = 80.24691358. It applies only when steady state, first-order decay; identical tanks sharing the total residence time theta; 1 <= N <= 1000; theta, or the volume V and the flow Q (theta = V/Q), not both: outside that it says what is wrong instead of returning a number.
+
+### Risk assessment (1)
+
+<a id="enveng_chronic_daily_intake_risk"></a>
+
+#### Chronic daily intake, hazard quotient and cancer risk, `enveng_chronic_daily_intake_risk`
+
+The chronic daily intake of a contaminant in drinking water, CDI = C IR EF ED / (BW AT) (a continuous lifetime exposure, CDI = C IR / BW, when EF, ED and AT are not given), with the hazard quotient CDI/RfD and the lifetime cancer risk CDI SF when the reference dose or slope factor is given.
+
+$$
+CDI = \frac{C\cdot IR\cdot EF\cdot ED}{BW\cdot AT},\quad HQ = \frac{CDI}{RfD},\quad \text{risk} = CDI\cdot SF
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `C` | in | concentration in the water | kg/m^3 |
+| `IR` | in | intake (ingestion) rate | m^3/s |
+| `BW` | in | body weight | kg |
+| `EF` | in | exposure frequency, days per year (optional) | - |
+| `ED` | in | exposure duration, years (optional) | - |
+| `AT` | in | averaging time, days (optional) | - |
+| `RfD` | in | reference dose, mg/(kg d) (optional) | - |
+| `SF` | in | cancer slope factor, (mg/(kg d))^-1 (optional) | - |
+| `CDI` | out | chronic daily intake, mg/(kg d) | - |
+| `HQ` | out | hazard quotient CDI/RfD | - |
+| `risk` | out | lifetime excess cancer risk CDI SF | - |
+
+**Applies when:** EF, ED and AT together or none (continuous lifetime); EF <= 365 d/yr, EF ED <= AT; ED in years, AT in days (70 yr x 365 = 25,550 d); linear low-dose risk up to 0.01.
+
+```shell
+$ environmental-engineering solve enveng_chronic_daily_intake_risk "C=0.05 mg/L" "IR=2 L/day" "BW=70 kg" RfD=0.02
+CDI = 0.001428571429
+HQ = 0.07142857143
+  by: Chronic daily intake, hazard quotient and cancer risk  (CDI = C IR EF ED / (BW AT) [mg/L, L/d, d/yr, yr, kg, d]; HQ = CDI/RfD; risk = CDI SF)
+  C = 5e-05 kg/m^3
+  IR = 2.314814815e-08 m^3/s
+  BW = 70 kg
+  RfD = 0.02
+  assumes: EF, ED and AT together or none (continuous lifetime); EF <= 365 d/yr, EF ED <= AT; ED in years, AT in days (70 yr x 365 = 25,550 d); linear low-dose risk up to 0.01
+```
+
+In the worked example, C = 0.05 mg/L, IR = 2 L/day, BW = 70 kg, RfD = 0.02 go through the equation above and give CDI = 0.001428571429, HQ = 0.07142857143. It applies only when EF, ED and AT together or none (continuous lifetime); EF <= 365 d/yr, EF ED <= AT; ED in years, AT in days (70 yr x 365 = 25,550 d); linear low-dose risk up to 0.01: outside that it says what is wrong instead of returning a number.
+
+### Solid waste (8)
+
+<a id="enveng_landfill_compaction_ratio"></a>
+
+#### Compaction ratio of solid waste: `enveng_landfill_compaction_ratio`
+
+The compaction ratio of solid waste (compacted over initial density, or initial over compacted volume) and the volume reduction it gives.
+
+$$
+CR = \frac{\rho_c}{\rho_i} = \frac{V_i}{V_c},\qquad \Delta V = 1 - \frac{1}{CR}
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `rho_i` | in | density as delivered (loose) (optional) | kg/m^3 |
+| `rho_c` | in | density after compaction (optional) | kg/m^3 |
+| `V_i` | in | volume before compaction (optional) | m^3 |
+| `V_c` | in | volume after compaction (optional) | m^3 |
+| `CR` | out | compaction ratio | - |
+| `volume_reduction` | out | fraction of the volume removed 1 - 1/CR | - |
+| `volume_reduction_percent` | out | volume reduction in per cent | - |
+
+**Applies when:** two densities or two volumes; the same mass of waste before and after; CR >= 1.
+
+```shell
+$ environmental-engineering solve enveng_landfill_compaction_ratio "rho_i=120 kg/m^3" "rho_c=600 kg/m^3"
+CR = 5
+volume_reduction = 0.8
+volume_reduction_percent = 80
+  by: Compaction ratio of solid waste  (CR = rho_c/rho_i = V_i/V_c (mass conserved); reduction = 1 - V_c/V_i)
+  rho_i = 120 kg/m^3
+  rho_c = 600 kg/m^3
+  assumes: two densities or two volumes; the same mass of waste before and after; CR >= 1
+```
+
+In the worked example, rho_i = 120 kg/m^3, rho_c = 600 kg/m^3 go through the equation above and give CR = 5, volume_reduction = 0.8, volume_reduction_percent = 80. It applies only when two densities or two volumes; the same mass of waste before and after; CR >= 1: outside that it says what is wrong instead of returning a number.
 
 <a id="enveng_dulong_heating_value"></a>
 
@@ -1572,6 +2428,45 @@ HHV_MJ_per_kg = 18.6439
 ```
 
 **What the worked example means:** This calculation determines the higher heating value of a waste sample using the modified Dulong formula. It uses the dry mass fractions of carbon, hydrogen, oxygen, sulfur, and nitrogen to estimate the energy content. The resulting higher heating value is 18643.9, which indicates the total heat released per unit mass when the fuel is completely combusted under standard conditions.
+
+<a id="enveng_heating_value_dry_basis"></a>
+
+#### Heating value on a dry basis from the as-received value and the moisture, `enveng_heating_value_dry_basis`
+
+The higher heating value of a fuel or waste on a dry basis from its as-received value and moisture fraction, HHV_dry = HHV_ar/(1 - w) (or the reverse), and on a dry ash-free basis when the ash fraction is given.
+
+$$
+HHV_{dry} = \frac{HHV_{ar}}{1 - w},\qquad HHV_{daf} = \frac{HHV_{ar}}{1 - w - a}
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `w` | in | moisture fraction as received, wet basis (fraction or %) | - |
+| `HHV_ar` | in | heating value as received (optional) | J/kg |
+| `HHV_dry` | in | heating value on a dry basis (optional) | J/kg |
+| `ash` | in | ash fraction as received (fraction or %) (optional) | - |
+| `HHV_dry` | out | dry-basis heating value HHV_ar/(1 - w) | J/kg |
+| `HHV_ar` | out | as-received heating value | J/kg |
+| `HHV_dry_MJ_per_kg` | out | dry basis, MJ/kg | - |
+| `HHV_ar_MJ_per_kg` | out | as received, MJ/kg | - |
+| `HHV_daf` | out | dry ash-free heating value HHV_ar/(1 - w - ash) | J/kg |
+| `HHV_daf_MJ_per_kg` | out | dry ash-free, MJ/kg | - |
+
+**Applies when:** 0 <= w < 1 (wet-basis moisture); exactly one of HHV_ar, HHV_dry; w + ash < 1.
+
+```shell
+$ environmental-engineering solve enveng_heating_value_dry_basis w=0.25 "HHV_ar=12000 kJ/kg"
+HHV_dry = 16000000 J/kg
+HHV_ar = 12000000 J/kg
+HHV_dry_MJ_per_kg = 16
+HHV_ar_MJ_per_kg = 12
+  by: Heating value on a dry basis from the as-received value and the moisture  (HHV_dry = HHV_ar/(1 - w); HHV_daf = HHV_ar/(1 - w - ash))
+  w = 0.25
+  HHV_ar = 12000000 J/kg
+  assumes: 0 <= w < 1 (wet-basis moisture); exactly one of HHV_ar, HHV_dry; w + ash < 1
+```
+
+In the worked example, w = 0.25, HHV_ar = 12000 kJ/kg go through the equation above and give HHV_dry = 16000000 J/kg, HHV_ar = 12000000 J/kg, HHV_dry_MJ_per_kg = 16, HHV_ar_MJ_per_kg = 12. It applies only when 0 <= w < 1 (wet-basis moisture); exactly one of HHV_ar, HHV_dry; w + ash < 1: outside that it says what is wrong instead of returning a number.
 
 <a id="enveng_landfill_life"></a>
 
@@ -1651,6 +2546,48 @@ Q_LFG = 0.3119983688 m^3/s
 
 **What the worked example means:** This calculation determines the current methane generation rate for a landfill that has received waste at a constant acceptance rate of 100000 t/yr since its opening. Using a first-order decay model with a rate constant of 0.05 1/yr and a methane generation potential of 100 m^3/t, the system yields an instantaneous methane flow of 0.155999 m^3/s. This rate translates to 4.92296e+06 annually. The total amount of methane produced from the start of operations until the current time of 25 yr is calculated as 1.01541e+08 m^3. Based on these figures, the total landfill gas flow, assuming fifty percent methane content, is estimated at 0.311998 m^3/s.
 
+<a id="enveng_landfill_daily_volume"></a>
+
+#### Landfill volume per day and per year with cover soil, and the landfill life, `enveng_landfill_daily_volume`
+
+The landfill volume used each day and each year by waste placed at its compacted density with daily cover soil, V = mass / compacted density x (1 + cover ratio), and, for a given capacity, the life of the landfill (constant waste rate).
+
+$$
+V = \frac{\dot m}{\rho_c}\,(1 + c),\qquad n = \frac{V_{cap}}{365\,V_{day}}
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `m` | in | waste placed per day | kg/s |
+| `rho` | in | compacted (in-place) density of the waste | kg/m^3 |
+| `cover` | in | cover soil volume per volume of compacted waste (fraction or %; default 0) (optional) | - |
+| `capacity` | in | available landfill volume (for the life) (optional) | m^3 |
+| `V` | out | landfill volume used, waste plus cover | m^3/s |
+| `V_m3_per_day` | out | landfill volume used per day, m^3 | - |
+| `V_m3_per_year` | out | landfill volume used per 365-day year, m^3 | - |
+| `V_waste_m3_per_day` | out | compacted waste alone per day, m^3 | - |
+| `V_cover_m3_per_day` | out | cover soil per day, m^3 | - |
+| `life_years` | out | landfill life, years | - |
+| `life_days` | out | landfill life, days | - |
+
+**Applies when:** constant waste rate, every day of a 365-day year; cover as a volume ratio to the compacted waste, 0 to 1; no settlement or decomposition.
+
+```shell
+$ environmental-engineering solve enveng_landfill_daily_volume "m=200 t/day" "rho=600 kg/m^3" cover=0.25
+V = 0.004822530864 m^3/s
+V_m3_per_day = 416.6666667
+V_m3_per_year = 152083.3333
+V_waste_m3_per_day = 333.3333333
+V_cover_m3_per_day = 83.33333333
+  by: Landfill volume per day and per year with cover soil, and the landfill life  (V = m/rho (1 + cover); per year x 365; life = capacity / yearly volume)
+  m = 2.314814815 kg/s
+  rho = 600 kg/m^3
+  cover = 0.25
+  assumes: constant waste rate, every day of a 365-day year; cover as a volume ratio to the compacted waste, 0 to 1; no settlement or decomposition
+```
+
+In the worked example, m = 200 t/day, rho = 600 kg/m^3, cover = 0.25 go through the equation above and give V = 0.004822530864 m^3/s, V_m3_per_day = 416.6666667, V_m3_per_year = 152083.3333, V_waste_m3_per_day = 333.3333333. It applies only when constant waste rate, every day of a 365-day year; cover as a volume ratio to the compacted waste, 0 to 1; no settlement or decomposition: outside that it says what is wrong instead of returning a number.
+
 <a id="enveng_waste_moisture_content"></a>
 
 #### Moisture content of mixed solid waste: `enveng_waste_moisture_content`
@@ -1722,7 +2659,7 @@ trucks_per_day = 13
 
 **What the worked example means:** This calculation determines the municipal solid waste generation rate based on population and per capita production. The total daily mass of waste is computed as 75000. This mass is converted into a compacted volume of 187.5 cubic meters using the specified density. Finally, the number of collection trucks needed to transport this volume in full loads is determined to be 13.
 
-### Wastewater (18)
+### Wastewater (19)
 
 <a id="enveng_activated_sludge_cstr_design"></a>
 
@@ -1872,8 +2809,8 @@ $$
 | `S0` | in | influent BOD (or COD) | kg/m^3 |
 | `V` | in | aeration tank volume | m^3 |
 | `X` | in | mixed liquor volatile suspended solids (MLVSS) | kg/m^3 |
-| `FM` | out | F/M ratio | 1/s |
-| `FM_per_day` | out | F/M in kg BOD/(kg MLVSS d) | - |
+| `FM` | out | food-to-microorganism (F/M) ratio | 1/s |
+| `FM_per_day` | out | in kg BOD/(kg MLVSS d) | - |
 
 **Applies when:** Q, S0, V, X > 0.
 
@@ -1962,6 +2899,39 @@ r2 = 0.9991806961
 ```
 
 **What the worked example means:** This calculation determines the volumetric oxygen-transfer coefficient KLa by performing a least-squares linear regression on the natural logarithm of the dissolved oxygen deficit against time. Using the saturation concentration 9.1 mg/L and the measured readings [2.5, 4.1, 5.4, 6.3, 7, 7.6] at times [2, 4, 6, 8, 10, 12], the method isolates the exponential decay rate. The resulting coefficient 0.00244982 1/s represents the speed at which oxygen transfers into the water, while the correlation statistic 0.999181 indicates how well the first-order model fits the observed reaeration behavior.
+
+<a id="enveng_mean_cell_residence_time"></a>
+
+#### Mean cell residence time (sludge age) from the solids masses, `enveng_mean_cell_residence_time`
+
+The mean cell residence time (solids retention time, sludge age) of an activated-sludge system as the mass of solids held in the basin over the mass leaving per day in the waste sludge and the effluent.
+
+$$
+\theta_c = \frac{M_{basin}}{\dot M_{w} + \dot M_{e}}
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `M` | in | mass of solids (MLVSS or MLSS) in the aeration basin | kg |
+| `Mw` | in | mass of solids wasted per day | kg/s |
+| `Me` | in | mass of solids lost in the effluent per day | kg/s |
+| `theta_c` | out | mean cell residence time | s |
+| `theta_c_days` | out | in days | - |
+
+**Applies when:** steady state; M > 0, Mw + Me > 0.
+
+```shell
+$ environmental-engineering solve enveng_mean_cell_residence_time "M=3000 kg" "Mw=300 kg/day" "Me=20 kg/day"
+theta_c = 810000 s
+theta_c_days = 9.375
+  by: Mean cell residence time (sludge age) from the solids masses  (theta_c = M / (Mw + Me))
+  M = 3000 kg
+  Mw = 0.003472222222 kg/s
+  Me = 0.0002314814815 kg/s
+  assumes: steady state; M > 0, Mw + Me > 0
+```
+
+In the worked example, M = 3000 kg, Mw = 300 kg/day, Me = 20 kg/day go through the equation above and give theta_c = 810000 s, theta_c_days = 9.375. It applies only when steady state; M > 0, Mw + Me > 0: outside that it says what is wrong instead of returning a number.
 
 <a id="enveng_anaerobic_methane_yield"></a>
 
@@ -2250,7 +3220,7 @@ Xr_estimate_mgL = 8333.333333
 
 #### Solids retention time (mean cell residence time), `enveng_solids_retention_time`
 
-The solids retention time (sludge age) of an activated-sludge system from the biomass in the tank and the biomass leaving in the waste sludge and the effluent.
+The solids retention time (sludge age, mean cell residence time) of an activated-sludge system from the biomass in the tank and the biomass leaving in the waste sludge and the effluent; the effluent solids are neglected (Xe = 0) when not given.
 
 $$
 \theta_c = \frac{VX}{Q_wX_w + Q_eX_e}
@@ -2262,12 +3232,12 @@ $$
 | `X` | in | MLVSS in the tank | kg/m^3 |
 | `Qw` | in | waste sludge flow | m^3/s |
 | `Xw` | in | VSS in the waste sludge | kg/m^3 |
-| `Qe` | in | effluent flow | m^3/s |
-| `Xe` | in | VSS in the effluent | kg/m^3 |
+| `Qe` | in | effluent flow (needed only with Xe) (optional) | m^3/s |
+| `Xe` | in | VSS in the effluent (default 0: effluent solids neglected) (optional) | kg/m^3 |
 | `SRT` | out | solids retention time | s |
 | `SRT_days` | out | SRT in days | - |
 
-**Applies when:** steady state.
+**Applies when:** steady state; Xe = 0 (effluent solids neglected) unless given; Xe > 0 needs Qe.
 
 ```shell
 $ environmental-engineering solve enveng_solids_retention_time "V=3000 m^3" "X=2500 mg/L" "Qw=100 m^3/day" "Xw=10000 mg/L" "Qe=9900 m^3/day" "Xe=15 mg/L"
@@ -2280,7 +3250,7 @@ SRT_days = 6.530256857
   Xw = 10 kg/m^3
   Qe = 0.1145833333 m^3/s
   Xe = 0.015 kg/m^3
-  assumes: steady state
+  assumes: steady state; Xe = 0 (effluent solids neglected) unless given; Xe > 0 needs Qe
 ```
 
 **What the worked example means:** This calculation determines the mean cell residence time, or sludge age, for an activated-sludge system. It uses the aeration tank volume of 3000 m^3 and the mixed liquor volatile suspended solids concentration of 2500 mg/L to find the total biomass in the reactor. This value is divided by the sum of biomass leaving via waste sludge flow 100 m^3/day at concentration 10000 mg/L and effluent flow 9900 m^3/day at concentration 15 mg/L. The resulting solids retention time of 564214 s indicates how long microorganisms remain in the system on average, which governs biological treatment efficiency and sludge production rates.
@@ -2394,7 +3364,7 @@ Px_kg_per_day = 765.625
 
 **What the worked example means:** This calculation determines the daily mass of biological solids produced and the observed yield based on kinetic parameters. The observed yield, calculated as 0.3125, reflects the true yield adjusted for endogenous decay over the solids retention time. Using this yield with the flow rate and substrate removal, the model computes the total biomass production at 0.0088614 kg/s. This value represents the mass of volatile suspended solids generated per second, which converts to 765.625 when expressed on a daily basis. Understanding these outputs helps engineers size waste sludge handling systems accurately.
 
-### Water quality (17)
+### Water quality (21)
 
 <a id="enveng_bod_exerted"></a>
 
@@ -2769,6 +3739,74 @@ Q_total = 3.5
 
 **What the worked example means:** This calculation determines the final concentration of a mixture by weighting each input stream's concentration by its respective flow rate. The numerator sums the product of every individual flow and concentration, while the denominator sums all flows to find the total volume moving through the system. The result, 30.2857, represents the uniform concentration achieved when these streams combine completely, assuming no chemical reactions or losses occur during the mixing process.
 
+<a id="enveng_geometric_mean_counts"></a>
+
+#### Geometric mean of bacterial counts (with mean and standard deviation), `enveng_geometric_mean_counts`
+
+The geometric mean of a set of positive values such as coliform counts (MPN or CFU per 100 mL), the n-th root of their product, with the arithmetic mean, the sample standard deviation and the mean of the base-10 logarithms.
+
+$$
+GM = \left(\prod_{i=1}^n x_i\right)^{1/n},\qquad s = \sqrt{\frac{\sum (x_i - \bar x)^2}{n - 1}}
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `x` | in | positive values, e.g. coliform counts per 100 mL | - |
+| `geometric_mean` | out | geometric mean (prod x)^(1/n) | - |
+| `mean` | out | arithmetic mean | - |
+| `sd` | out | sample standard deviation (n - 1) | - |
+| `mean_log10` | out | mean of log10 x | - |
+| `count` | out | number of values | - |
+
+**Applies when:** every value > 0; at least two values.
+
+```shell
+$ environmental-engineering solve enveng_geometric_mean_counts "x=[10, 100, 1000]"
+geometric_mean = 100
+mean = 370
+sd = 547.4486277
+mean_log10 = 2
+count = 3
+  by: Geometric mean of bacterial counts (with mean and standard deviation)  (GM = exp(mean(ln x)); mean = sum x / n; s = sqrt(sum (x - mean)^2/(n - 1)))
+  assumes: every value > 0; at least two values
+```
+
+In the worked example, x = [10, 100, 1000] go through the equation above and give geometric_mean = 100, mean = 370, sd = 547.4486277, mean_log10 = 2. It applies only when every value > 0; at least two values: outside that it says what is wrong instead of returning a number.
+
+<a id="enveng_ph_poh"></a>
+
+#### pH and pOH from the hydrogen or hydroxide ion concentration, `enveng_ph_poh`
+
+The pH, the pOH and both ion concentrations of a water sample at 25 degC from either its hydrogen ion concentration [H+] or its hydroxide ion concentration [OH-] (pH = -log10[H+], pOH = -log10[OH-], pH + pOH = 14).
+
+$$
+\mathrm{pH} = -\log_{10}[\mathrm{H^+}],\quad \mathrm{pOH} = -\log_{10}[\mathrm{OH^-}],\quad \mathrm{pH} + \mathrm{pOH} = 14
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `H` | in | hydrogen ion concentration [H+] (optional) | mol/m^3 |
+| `OH` | in | hydroxide ion concentration [OH-] (optional) | mol/m^3 |
+| `pH` | out | pH = -log10[H+] | - |
+| `pOH` | out | pOH = -log10[OH-] = 14 - pH | - |
+| `H_molL` | out | hydrogen ion concentration, mol/L | - |
+| `OH_molL` | out | hydroxide ion concentration, mol/L | - |
+
+**Applies when:** 25 degC: Kw = 1e-14, pH + pOH = 14; exactly one of H, OH; 1e-14 <= concentration <= 1 mol/L (dilute: activity = concentration).
+
+```shell
+$ environmental-engineering solve enveng_ph_poh "OH=1e-05 mol/L"
+pH = 9
+pOH = 5
+H_molL = 1e-09
+OH_molL = 1e-05
+  by: pH and pOH from the hydrogen or hydroxide ion concentration  (pH = -log10[H+]; [OH-] = Kw/[H+]; pOH = 14 - pH (or from [OH-] the other way round))
+  OH = 0.01 mol/m^3
+  assumes: 25 degC: Kw = 1e-14, pH + pOH = 14; exactly one of H, OH; 1e-14 <= concentration <= 1 mol/L (dilute: activity = concentration)
+```
+
+In the worked example, OH = 1e-05 mol/L go through the equation above and give pH = 9, pOH = 5, H_molL = 1e-09, OH_molL = 1e-05. It applies only when 25 degC: Kw = 1e-14, pH + pOH = 14; exactly one of H, OH; 1e-14 <= concentration <= 1 mol/L (dilute: activity = concentration): outside that it says what is wrong instead of returning a number.
+
 <a id="enveng_pollutant_load"></a>
 
 #### Pollutant mass load of a flow: `enveng_pollutant_load`
@@ -2948,6 +3986,46 @@ kT_per_day = 0.2893751573
 
 **What the worked example means:** This calculation adjusts a first-order rate constant from its standard reference value at twenty degrees Celsius to the actual water temperature using the theta model. By applying the temperature coefficient theta, the method accounts for how biological and chemical reaction speeds change with thermal conditions. The result shows that at the current temperature, the effective rate constant is 3.34925e-06 1/s per second, equivalent to 0.289375 per day, allowing for accurate modeling of processes like biochemical oxygen demand decay or reaeration.
 
+<a id="enveng_thod_solution"></a>
+
+#### Theoretical oxygen demand of a solution (mg/L), `enveng_thod_solution`
+
+The theoretical oxygen demand in mg/L of a solution of an organic compound CaHbOcNd at a given concentration, its complete oxidation to CO2 and water (nitrogen to ammonia, or to nitrate with nitrification): ThOD = C x (g O2 per g compound).
+
+$$
+\text{ThOD} = C\,\frac{\left(a + \frac b4 - \frac c2 - \frac{3d}{4}\right)M_{O_2}}{M}
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `formula` | in | molecular formula with C, H, O, N only (e.g. C6H12O6) | - |
+| `C` | in | concentration of the compound | kg/m^3 |
+| `nitrification` | in | include the oxygen to nitrify ammonia (default no) (optional) | - |
+| `ThOD` | out | theoretical oxygen demand of the solution | kg/m^3 |
+| `ThOD_mgL` | out | ThOD, mg/L | - |
+| `thod_ratio` | out | g O2 per g compound | - |
+| `o2_per_mol` | out | mol O2 per mol compound | - |
+| `molar_mass` | out | molar mass, g/mol | - |
+| `C_molL` | out | molar concentration of the compound, mol/L | - |
+
+**Applies when:** elements C, H, O, N only, b >= 3d; complete oxidation; nitrogen to NH3 unless nitrification = yes.
+
+```shell
+$ environmental-engineering solve enveng_thod_solution formula=C6H12O6 "C=100 mg/L"
+ThOD = 0.1065703767 kg/m^3
+ThOD_mgL = 106.5703767
+thod_ratio = 1.065703767
+o2_per_mol = 6
+molar_mass = 180.15588
+C_molL = 0.0005550748607
+  by: Theoretical oxygen demand of a solution (mg/L)  (ThOD = C (a + b/4 - c/2 - 3d/4 [+ 2d]) M_O2 / M)
+  C = 0.1 kg/m^3
+  formula = C6H12O6
+  assumes: elements C, H, O, N only, b >= 3d; complete oxidation; nitrogen to NH3 unless nitrification = yes
+```
+
+In the worked example, formula = C6H12O6, C = 100 mg/L go through the equation above and give ThOD = 0.1065703767 kg/m^3, ThOD_mgL = 106.5703767, thod_ratio = 1.065703767, o2_per_mol = 6. It applies only when elements C, H, O, N only, b >= 3d; complete oxidation; nitrogen to NH3 unless nitrification = yes: outside that it says what is wrong instead of returning a number.
+
 <a id="enveng_theoretical_oxygen_demand"></a>
 
 #### Theoretical oxygen demand of an organic compound, `enveng_theoretical_oxygen_demand`
@@ -2980,6 +4058,59 @@ molar_mass = 180.15588
 ```
 
 **What the worked example means:** This calculation determines the theoretical oxygen demand, expressed as grams of oxygen per gram of compound, for the molecular formula C6H12O6. The process assumes complete oxidation of carbon to carbon dioxide and hydrogen to water, with nitrogen released as ammonia unless nitrification is enabled. The result, 1.0657, indicates the maximum oxygen required if all organic matter were biologically or chemically oxidized under these specific conditions, based on a molar mass of 180.156 and an oxygen consumption of 6 moles per mole of compound.
+
+<a id="enveng_total_alkalinity"></a>
+
+#### Total alkalinity as CaCO3 from the carbonate species, `enveng_total_alkalinity`
+
+The total alkalinity of a water, [HCO3-] + 2[CO3 2-] + [OH-] - [H+] in equivalents per litre, expressed as mg/L of CaCO3 (50,000 mg/eq), from the ion concentrations in mg/L or mol/L or the pH; with one of [H+], [OH-] given, the other follows from Kw = 1e-14 (25 degC).
+
+$$
+\text{Alk} = \left([\mathrm{HCO_3^-}] + 2[\mathrm{CO_3^{2-}}] + [\mathrm{OH^-}] - [\mathrm{H^+}]\right)\times 50\,000\ \mathrm{mg\,CaCO_3/eq}
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `HCO3` | in | bicarbonate [HCO3-] as mass concentration (optional) | kg/m^3 |
+| `CO3` | in | carbonate [CO3 2-] as mass concentration (optional) | kg/m^3 |
+| `OH` | in | hydroxide [OH-] as mass concentration (optional) | kg/m^3 |
+| `H` | in | hydrogen ion [H+] as mass concentration (optional) | kg/m^3 |
+| `HCO3_M` | in | bicarbonate [HCO3-] as molar concentration (optional) | mol/m^3 |
+| `CO3_M` | in | carbonate [CO3 2-] as molar concentration (optional) | mol/m^3 |
+| `OH_M` | in | hydroxide [OH-] as molar concentration (optional) | mol/m^3 |
+| `H_M` | in | hydrogen ion [H+] as molar concentration (optional) | mol/m^3 |
+| `pH` | in | pH of the water (gives [H+]) (optional) | - |
+| `alkalinity` | out | total alkalinity, mg/L as CaCO3 | - |
+| `alk_meq_L` | out | total alkalinity, meq/L | - |
+| `alk_eq_L` | out | total alkalinity, eq/L | - |
+| `HCO3_caco3` | out | bicarbonate alkalinity, mg/L as CaCO3 | - |
+| `CO3_caco3` | out | carbonate alkalinity, mg/L as CaCO3 | - |
+| `OH_caco3` | out | hydroxide alkalinity, mg/L as CaCO3 | - |
+| `H_caco3` | out | hydrogen ion (subtracted), mg/L as CaCO3 | - |
+| `H_molL` | out | [H+] used, mol/L | - |
+| `OH_molL` | out | [OH-] used, mol/L | - |
+
+**Applies when:** at least one of HCO3, CO3, OH; each ion once (mass or molar form; H also as pH); neither H nor OH given: both neglected; one given: the other from Kw = 1e-14 (25 degC); as CaCO3 with 50,000 mg/eq; molar masses HCO3 61.017, CO3 60.009, OH 17.007, H 1.008 g/mol.
+
+```shell
+$ environmental-engineering solve enveng_total_alkalinity "HCO3=122 mg/L" "CO3=30 mg/L" pH=10
+alkalinity = 154.9649805
+alk_meq_L = 3.09929961
+alk_eq_L = 0.00309929961
+HCO3_caco3 = 99.97240106
+CO3_caco3 = 49.99258443
+OH_caco3 = 5
+H_caco3 = 5e-06
+H_molL = 1e-10
+OH_molL = 0.0001
+  by: Total alkalinity as CaCO3 from the carbonate species  (Alk (eq/L) = [HCO3-] + 2[CO3 2-] + [OH-] - [H+] (mol/L); Alk (mg/L as CaCO3) = 50,000 x Alk (eq/L))
+  HCO3 = 0.122 kg/m^3
+  CO3 = 0.03 kg/m^3
+  pH = 10
+  assumes: at least one of HCO3, CO3, OH; each ion once (mass or molar form; H also as pH); neither H nor OH given: both neglected; one given: the other from Kw = 1e-14 (25 degC); as CaCO3 with 50,000 mg/eq; molar masses HCO3 61.017, CO3 60.009, OH 17.007, H 1.008 g/mol
+```
+
+In the worked example, HCO3 = 122 mg/L, CO3 = 30 mg/L, pH = 10 go through the equation above and give alkalinity = 154.9649805, alk_meq_L = 3.09929961, alk_eq_L = 0.00309929961, HCO3_caco3 = 99.97240106. It applies only when at least one of HCO3, CO3, OH; each ion once (mass or molar form; H also as pH); neither H nor OH given: both neglected; one given: the other from Kw = 1e-14 (25 degC); as CaCO3 with 50,000 mg/eq; molar masses HCO3 61.017, CO3 60.009, OH 17.007, H 1.008 g/mol: outside that it says what is wrong instead of returning a number.
 
 <a id="enveng_ultimate_bod"></a>
 
@@ -3014,7 +4145,7 @@ L0_mgL = 292.6701219
 
 In the worked example, BOD_t = 200 mg/L, k = 0.23 1/day, t = 5 day go through the equation above and give L0 = 0.2926701219 kg/m^3, L0_mgL = 292.6701219. It applies only when first-order kinetics: outside that it says what is wrong instead of returning a number.
 
-### Water treatment (26)
+### Water treatment (32)
 
 <a id="enveng_freundlich_carbon_dose"></a>
 
@@ -3089,6 +4220,46 @@ dose_mgL = 135
 ```
 
 **What the worked example means:** This calculation determines the mass of adsorbent per unit volume of solution required to reduce the initial concentration from 10 mg/L to the target equilibrium concentration of 1 mg/L. It first computes the amount of contaminant held per gram of adsorbent at equilibrium, which is 66.6667, using the Langmuir isotherm parameters for monolayer capacity 150 and affinity constant 0.8. The resulting dose is 0.135 kg/m^3, or equivalently 135, indicating how much solid material must be added to achieve the desired water quality.
+
+<a id="enveng_chemical_feed_rate"></a>
+
+#### Chemical feed rate: mass per day = Q x dose / purity (kg/d and lb/d), `enveng_chemical_feed_rate`
+
+The feed rate of a treatment chemical (coagulant, chlorine product, lime, polymer, ...) for a flow and a dose, mass per day = Q x dose / purity, in kg/d and lb/d, with the active chemical alone; the flow in m^3/d or MGD, the dose in mg/L, the purity (active fraction of the product) as a fraction or %, 1 when not given.
+
+$$
+\dot m = \frac{Q\cdot\text{dose}}{p},\qquad \dot m\,[\mathrm{lb/d}] = \frac{8.3454\,Q[\mathrm{MGD}]\,\text{dose}[\mathrm{mg/L}]}{p}
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `Q` | in | flow treated (m^3/d, or MGD) | m^3/s |
+| `dose` | in | dose of the active chemical | kg/m^3 |
+| `purity` | in | active fraction of the product (fraction or %; default 1) (optional) | - |
+| `feed` | out | feed rate of the product Q dose/purity | kg/s |
+| `feed_kg_per_day` | out | product feed, kg/d | - |
+| `feed_lb_per_day` | out | product feed, lb/d | - |
+| `active_kg_per_day` | out | active chemical fed, kg/d | - |
+| `active_lb_per_day` | out | active chemical fed, lb/d | - |
+| `Q_MGD` | out | flow, million US gallons a day | - |
+
+**Applies when:** 0 < purity <= 1 (1 unless given); dose as the active chemical; 1 lb = 0.45359237 kg, 1 US gal = 3.785411784 L.
+
+```shell
+$ environmental-engineering solve enveng_chemical_feed_rate "Q=10000 m^3/day" "dose=25 mg/L"
+feed = 0.002893518519 kg/s
+feed_kg_per_day = 250
+feed_lb_per_day = 551.1556555
+active_kg_per_day = 250
+active_lb_per_day = 551.1556555
+Q_MGD = 2.641720524
+  by: Chemical feed rate: mass per day = Q x dose / purity (kg/d and lb/d)  (feed = Q x dose / purity; lb/d = kg/d / 0.45359237 (= 8.3454 x MGD x mg/L / purity))
+  Q = 0.1157407407 m^3/s
+  dose = 0.025 kg/m^3
+  assumes: 0 < purity <= 1 (1 unless given); dose as the active chemical; 1 lb = 0.45359237 kg, 1 US gal = 3.785411784 L
+```
+
+In the worked example, Q = 10000 m^3/day, dose = 25 mg/L go through the equation above and give feed = 0.002893518519 kg/s, feed_kg_per_day = 250, feed_lb_per_day = 551.1556555, active_kg_per_day = 250. It applies only when 0 < purity <= 1 (1 unless given); dose as the active chemical; 1 lb = 0.45359237 kg, 1 US gal = 3.785411784 L: outside that it says what is wrong instead of returning a number.
 
 <a id="enveng_chlorine_dose_feed"></a>
 
@@ -3318,6 +4489,75 @@ v_one_out_m_per_h = 6.666666667
 ```
 
 **What the worked example means:** This calculation determines the hydraulic loading rate for a bank of identical filters. Using the total plant flow 40000 m^3/day and the area of each individual filter 50 m^2, this gives the rate when all 6 units are operating, resulting in 0.00154321 m/s. The rate is then recalculated with one unit offline for backwashing, which increases the load on the remaining active filters to 0.00185185 m/s. These values indicate how much water passes through each square meter of filter media per second.
+
+<a id="enveng_filter_flow_from_loading"></a>
+
+#### Flow through a filter from its loading rate and bed area, `enveng_filter_flow_from_loading`
+
+The flow a filter treats from its hydraulic (surface) loading rate and the bed area, Q = v A, in m^3/h and m^3/d.
+
+$$
+Q = v\,A
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `v` | in | filtration (hydraulic loading) rate | m/s |
+| `A` | in | filter bed area | m^2 |
+| `Q` | out | flow v A | m^3/s |
+| `Q_m3_per_h` | out | in m^3/h | - |
+| `Q_m3_per_day` | out | in m^3/d | - |
+
+**Applies when:** v, A > 0.
+
+```shell
+$ environmental-engineering solve enveng_filter_flow_from_loading "v=120 m/day" "A=50 m^2"
+Q = 0.06944444444 m^3/s
+Q_m3_per_h = 250
+Q_m3_per_day = 6000
+  by: Flow through a filter from its loading rate and bed area  (Q = v A)
+  v = 0.001388888889 m/s
+  A = 50 m^2
+  assumes: v, A > 0
+```
+
+In the worked example, v = 120 m/day, A = 50 m^2 go through the equation above and give Q = 0.06944444444 m^3/s, Q_m3_per_h = 250, Q_m3_per_day = 6000. It applies only when v, A > 0: outside that it says what is wrong instead of returning a number.
+
+<a id="enveng_channel_flow_velocity"></a>
+
+#### Flow velocity in a rectangular channel (continuity, grit chamber), `enveng_channel_flow_velocity`
+
+The mean (horizontal) velocity of flow in a rectangular channel or grit chamber from the flow, the width and the water depth (v = Q/(W d)), or the flow from the velocity (Q = A v).
+
+$$
+v = \frac{Q}{A} = \frac{Q}{W\,d},\qquad Q = A\,v
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `W` | in | channel width | m |
+| `d` | in | water depth | m |
+| `Q` | in | flow rate (optional) | m^3/s |
+| `v` | in | mean flow velocity (optional) | m/s |
+| `A` | out | flow cross-section W d | m^2 |
+| `v` | out | mean (horizontal) velocity Q/A | m/s |
+| `Q` | out | flow rate A v | m^3/s |
+
+**Applies when:** W, d > 0; exactly one of Q, v, positive; rectangular section, uniform mean velocity.
+
+```shell
+$ environmental-engineering solve enveng_channel_flow_velocity "Q=0.3 m^3/s" "W=1 m" "d=1 m"
+A = 1 m^2
+v = 0.3 m/s
+Q = 0.3 m^3/s
+  by: Flow velocity in a rectangular channel (continuity, grit chamber)  (A = W d; v = Q/A (or Q = A v))
+  Q = 0.3 m^3/s
+  W = 1 m
+  d = 1 m
+  assumes: W, d > 0; exactly one of Q, v, positive; rectangular section, uniform mean velocity
+```
+
+In the worked example, Q = 0.3 m^3/s, W = 1 m, d = 1 m go through the equation above and give A = 1 m^2, v = 0.3 m/s, Q = 0.3 m^3/s. It applies only when W, d > 0; exactly one of Q, v, positive; rectangular section, uniform mean velocity: outside that it says what is wrong instead of returning a number.
 
 <a id="enveng_ideal_basin_removal"></a>
 
@@ -3580,6 +4820,46 @@ G = 199.8002995 1/s
 
 In the worked example, P = 2000 W, mu = 0.001002 Pa*s, V = 50 m^3 go through the equation above and give G = 199.8002995 1/s. It applies only when P, mu, V > 0: outside that it says what is wrong instead of returning a number.
 
+<a id="enveng_membrane_flux"></a>
+
+#### Membrane permeate flux J = Qp/A (LMH and m/d), or the area for a flux, `enveng_membrane_flux`
+
+The permeate flux of a membrane, J = Q_permeate / A, in L/(m^2 h) (LMH) and m/d, from the permeate flow and the membrane area; or the membrane area needed for a design flux, or the permeate flow a flux gives (any two of the three).
+
+$$
+J = \frac{Q_p}{A}
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `Qp` | in | permeate flow (optional) | m^3/s |
+| `A` | in | membrane area (optional) | m^2 |
+| `J` | in | permeate flux (L/(m^2 h) or LMH, m/d) (optional) | m/s |
+| `J` | out | permeate flux Qp/A | m/s |
+| `J_LMH` | out | flux, L/(m^2 h) (LMH) | - |
+| `J_m_per_day` | out | flux, m/d | - |
+| `A` | out | membrane area Qp/J | m^2 |
+| `Qp` | out | permeate flow J A | m^3/s |
+| `Qp_m3_per_day` | out | permeate flow, m^3/d | - |
+
+**Applies when:** exactly two of Qp, A, J; the flux of the permeate (product water) over the active membrane area.
+
+```shell
+$ environmental-engineering solve enveng_membrane_flux "Qp=750 m^3/day" "A=1500 m^2"
+J = 5.787037037e-06 m/s
+J_LMH = 20.83333333
+J_m_per_day = 0.5
+A = 1500 m^2
+Qp = 0.008680555556 m^3/s
+Qp_m3_per_day = 750
+  by: Membrane permeate flux J = Qp/A (LMH and m/d), or the area for a flux  (J = Qp/A; A = Qp/J; Qp = J A; 1 m/s = 3.6e6 L/(m^2 h))
+  Qp = 0.008680555556 m^3/s
+  A = 1500 m^2
+  assumes: exactly two of Qp, A, J; the flux of the permeate (product water) over the active membrane area
+```
+
+In the worked example, Qp = 750 m^3/day, A = 1500 m^2 go through the equation above and give J = 5.787037037e-06 m/s, J_LMH = 20.83333333, J_m_per_day = 0.5, A = 1500 m^2. It applies only when exactly two of Qp, A, J; the flux of the permeate (product water) over the active membrane area: outside that it says what is wrong instead of returning a number.
+
 <a id="enveng_membrane_mass_balance"></a>
 
 #### Membrane recovery, rejection, flux and concentrate, `enveng_membrane_mass_balance`
@@ -3663,6 +4943,39 @@ percent_removal = 99.75212478
 ```
 
 **What the worked example means:** This calculation applies Chick's law to determine microbial inactivation under first-order kinetics. Given an initial organism count of 1e+06, a die-off rate constant of 0.2 1/min, and a contact time of 30 min, the model computes the final population as 2478.75. The survival fraction is 0.00247875, which corresponds to a log removal value of 2.60577 and a percentage removal of 99.7521. These results indicate how effectively the disinfection process reduces the microbial load during the specified exposure period.
+
+<a id="enveng_contact_time_from_ct"></a>
+
+#### Minimum disinfection contact time from a required CT, `enveng_contact_time_from_ct`
+
+The minimum contact time a disinfectant residual needs to reach a required CT value (t = CT / C).
+
+$$
+t = \frac{CT_{req}}{C}
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `CT` | in | required CT value | kg*s/m^3 |
+| `C` | in | disinfectant residual | kg/m^3 |
+| `t` | out | minimum contact time CT/C | s |
+| `t_min` | out | in minutes | - |
+| `t_h` | out | in hours | - |
+
+**Applies when:** CT, C > 0; constant residual over the contact time.
+
+```shell
+$ environmental-engineering solve enveng_contact_time_from_ct "CT=60 mg*min/L" "C=1.5 mg/L"
+t = 2400 s
+t_min = 40
+t_h = 0.6666666667
+  by: Minimum disinfection contact time from a required CT  (t = CT_required / C)
+  CT = 3.6 kg*s/m^3
+  C = 0.0015 kg/m^3
+  assumes: CT, C > 0; constant residual over the contact time
+```
+
+In the worked example, CT = 60 mg*min/L, C = 1.5 mg/L go through the equation above and give t = 2400 s, t_min = 40, t_h = 0.6666666667. It applies only when CT, C > 0; constant residual over the contact time: outside that it says what is wrong instead of returning a number.
 
 <a id="enveng_osmotic_pressure"></a>
 
@@ -3873,6 +5186,45 @@ Cd = 1.318558136
 ```
 
 **What the worked example means:** This calculation determines the steady speed at which a particle falls through a fluid, balancing gravitational pull against drag and buoyancy. Using the particle diameter 0.5 mm, densities 2650 kg/m^3 and 998.2 kg/m^3, and viscosity 0.001002 Pa*s, the algorithm iterates to find the velocity where forces equalize. The resulting terminal velocity is 0.0905806 m/s, corresponding to a Reynolds number of 45.1185 and a drag coefficient of 1.31856. This approach works for laminar, transitional, or turbulent regimes up to a Reynolds number of 200000.
+
+<a id="enveng_transmembrane_pressure"></a>
+
+#### Transmembrane pressure of a crossflow membrane, `enveng_transmembrane_pressure`
+
+The transmembrane pressure of a crossflow membrane element, TMP = (P_feed + P_concentrate)/2 - P_permeate, and the feed-channel pressure drop.
+
+$$
+TMP = \frac{P_f + P_c}{2} - P_p
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `P_feed` | in | feed pressure | Pa |
+| `P_conc` | in | concentrate (retentate) pressure | Pa |
+| `P_perm` | in | permeate pressure | Pa |
+| `TMP` | out | transmembrane pressure | Pa |
+| `TMP_kPa` | out | in kPa | - |
+| `TMP_bar` | out | in bar | - |
+| `dP` | out | feed-channel pressure drop P_feed - P_conc | Pa |
+| `dP_kPa` | out | pressure drop, kPa | - |
+
+**Applies when:** the same pressure basis for all three (gauge or absolute); P_conc <= P_feed; TMP > 0.
+
+```shell
+$ environmental-engineering solve enveng_transmembrane_pressure "P_feed=800 kPa" "P_conc=700 kPa" "P_perm=50 kPa"
+TMP = 700000 Pa
+TMP_kPa = 700
+TMP_bar = 7
+dP = 100000 Pa
+dP_kPa = 100
+  by: Transmembrane pressure of a crossflow membrane  (TMP = (P_feed + P_conc)/2 - P_perm)
+  P_feed = 800000 Pa
+  P_conc = 700000 Pa
+  P_perm = 50000 Pa
+  assumes: the same pressure basis for all three (gauge or absolute); P_conc <= P_feed; TMP > 0
+```
+
+In the worked example, P_feed = 800 kPa, P_conc = 700 kPa, P_perm = 50 kPa go through the equation above and give TMP = 700000 Pa, TMP_kPa = 700, TMP_bar = 7, dP = 100000 Pa. It applies only when the same pressure basis for all three (gauge or absolute); P_conc <= P_feed; TMP > 0: outside that it says what is wrong instead of returning a number.
 
 <a id="enveng_water_hardness"></a>
 

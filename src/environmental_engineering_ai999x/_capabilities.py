@@ -15,7 +15,7 @@ def _bind(product) -> None:
     _P = product
 
 
-CapabilityId = Literal["enveng_activated_sludge_cstr_design", "enveng_aeration_do_curve", "enveng_aeration_oxygen_requirement", "enveng_air_stripping_tower", "enveng_anaerobic_methane_yield", "enveng_background_noise_correction", "enveng_backwash_bed_expansion", "enveng_bod_dilution_test", "enveng_bod_exerted", "enveng_bod_rate_fit", "enveng_box_model", "enveng_briggs_dispersion_coefficients", "enveng_briggs_plume_rise", "enveng_briggs_stable_plume_rise", "enveng_chick_law", "enveng_chick_watson", "enveng_chlorine_dose_feed", "enveng_ct_log_inactivation", "enveng_cyclone_lapple", "enveng_day_night_level", "enveng_decibel_addition", "enveng_detention_time", "enveng_disinfection_ct", "enveng_do_saturation", "enveng_dulong_heating_value", "enveng_equivalent_sound_level", "enveng_esp_area", "enveng_esp_efficiency", "enveng_field_oxygen_transfer", "enveng_filter_clean_bed_headloss", "enveng_filtration_rate", "enveng_food_to_microorganism_ratio", "enveng_freundlich_carbon_dose", "enveng_freundlich_fit", "enveng_gaussian_plume_concentration", "enveng_ground_centerline_concentration", "enveng_henry_constant_conversion", "enveng_henry_law_equilibrium", "enveng_henry_temperature_dependence", "enveng_holland_plume_rise", "enveng_hrt_organic_loading", "enveng_hypochlorous_acid_fraction", "enveng_ideal_basin_removal", "enveng_kla_regression", "enveng_kla_two_point", "enveng_lake_steady_state", "enveng_lake_transient", "enveng_landfill_gas_generation", "enveng_landfill_life", "enveng_langmuir_carbon_dose", "enveng_langmuir_fit", "enveng_log_removal", "enveng_mass_concentration_to_ppm", "enveng_max_ground_concentration_briggs", "enveng_max_ground_concentration_ratio", "enveng_membrane_mass_balance", "enveng_minimum_srt", "enveng_mixing_power", "enveng_mixing_several_streams", "enveng_mixing_two_streams", "enveng_monod_growth_rate", "enveng_noise_distance_attenuation", "enveng_nrc_trickling_filter", "enveng_occupational_noise_dose", "enveng_osmotic_pressure", "enveng_overflow_rate_circular", "enveng_oxygen_sag_distance", "enveng_plume_concentration_stability", "enveng_plume_mixing_lid", "enveng_pollutant_load", "enveng_ppm_to_mass_concentration", "enveng_rate_constant_temperature", "enveng_reaeration_coefficient", "enveng_return_sludge_ratio", "enveng_river_first_order_decay", "enveng_sedimentation_basin_sizing", "enveng_settling_chamber_efficiency", "enveng_sludge_production", "enveng_sludge_thickening", "enveng_sludge_volume", "enveng_sludge_volume_index", "enveng_so2_emission", "enveng_solid_waste_generation", "enveng_solids_retention_time", "enveng_sound_power_to_pressure", "enveng_stability_class", "enveng_stack_plume_ground_concentration", "enveng_stokes_settling_velocity", "enveng_streeter_phelps_critical_point", "enveng_streeter_phelps_deficit", "enveng_terminal_settling_velocity", "enveng_theoretical_oxygen_demand", "enveng_two_film_transfer", "enveng_ultimate_bod", "enveng_velocity_gradient", "enveng_waste_moisture_content", "enveng_water_hardness", "enveng_weir_loading_rate", "enveng_wind_power_law"]
+CapabilityId = Literal["enveng_activated_sludge_cstr_design", "enveng_aeration_do_curve", "enveng_aeration_oxygen_requirement", "enveng_air_stripping_tower", "enveng_anaerobic_methane_yield", "enveng_background_noise_correction", "enveng_backwash_bed_expansion", "enveng_bod_dilution_test", "enveng_bod_exerted", "enveng_bod_rate_fit", "enveng_box_model", "enveng_briggs_dispersion_coefficients", "enveng_briggs_plume_rise", "enveng_briggs_stable_plume_rise", "enveng_channel_flow_velocity", "enveng_chemical_feed_rate", "enveng_chick_law", "enveng_chick_watson", "enveng_chlorine_dose_feed", "enveng_chronic_daily_intake_risk", "enveng_cmfr_series", "enveng_collection_efficiency_series", "enveng_combustion_oxygen", "enveng_contact_time_from_ct", "enveng_ct_log_inactivation", "enveng_cyclone_lapple", "enveng_darcy_seepage_velocity", "enveng_day_night_level", "enveng_decibel_addition", "enveng_detention_time", "enveng_disinfection_ct", "enveng_do_saturation", "enveng_dulong_heating_value", "enveng_equivalent_sound_level", "enveng_esp_area", "enveng_esp_efficiency", "enveng_field_oxygen_transfer", "enveng_filter_clean_bed_headloss", "enveng_filter_flow_from_loading", "enveng_filtration_rate", "enveng_first_order_decay", "enveng_food_to_microorganism_ratio", "enveng_freundlich_carbon_dose", "enveng_freundlich_fit", "enveng_gaussian_plume_concentration", "enveng_geometric_mean_counts", "enveng_ground_centerline_concentration", "enveng_hazen_williams", "enveng_heating_value_dry_basis", "enveng_henry_constant_conversion", "enveng_henry_law_equilibrium", "enveng_henry_law_solubility", "enveng_henry_temperature_dependence", "enveng_holland_plume_rise", "enveng_hrt_organic_loading", "enveng_hypochlorous_acid_fraction", "enveng_ideal_basin_removal", "enveng_indoor_air_steady_state", "enveng_kla_regression", "enveng_kla_two_point", "enveng_lake_steady_state", "enveng_lake_transient", "enveng_landfill_compaction_ratio", "enveng_landfill_daily_volume", "enveng_landfill_gas_generation", "enveng_landfill_life", "enveng_langmuir_carbon_dose", "enveng_langmuir_fit", "enveng_lapse_rate_stability", "enveng_log_removal", "enveng_manning_flow", "enveng_mass_concentration_to_ppm", "enveng_max_ground_concentration_briggs", "enveng_max_ground_concentration_ratio", "enveng_mean_cell_residence_time", "enveng_membrane_flux", "enveng_membrane_mass_balance", "enveng_minimum_srt", "enveng_mixing_power", "enveng_mixing_several_streams", "enveng_mixing_two_streams", "enveng_monod_growth_rate", "enveng_noise_distance_attenuation", "enveng_nrc_trickling_filter", "enveng_occupational_noise_dose", "enveng_osmotic_pressure", "enveng_overflow_rate_circular", "enveng_oxygen_sag_distance", "enveng_ph_poh", "enveng_plume_concentration_stability", "enveng_plume_mixing_lid", "enveng_pollutant_load", "enveng_population_logistic", "enveng_population_projection", "enveng_ppm_to_mass_concentration", "enveng_pump_power", "enveng_rate_constant_temperature", "enveng_rational_method", "enveng_reaeration_coefficient", "enveng_retardation_factor", "enveng_return_period_risk", "enveng_return_sludge_ratio", "enveng_river_first_order_decay", "enveng_sedimentation_basin_sizing", "enveng_settling_chamber_efficiency", "enveng_sludge_production", "enveng_sludge_thickening", "enveng_sludge_volume", "enveng_sludge_volume_index", "enveng_so2_emission", "enveng_solid_waste_generation", "enveng_solids_retention_time", "enveng_sound_power_to_pressure", "enveng_stability_class", "enveng_stack_plume_ground_concentration", "enveng_stokes_settling_velocity", "enveng_streeter_phelps_critical_point", "enveng_streeter_phelps_deficit", "enveng_terminal_settling_velocity", "enveng_theoretical_oxygen_demand", "enveng_thod_solution", "enveng_total_alkalinity", "enveng_transmembrane_pressure", "enveng_two_film_transfer", "enveng_ultimate_bod", "enveng_velocity_gradient", "enveng_volatile_solids_reduction", "enveng_waste_moisture_content", "enveng_water_demand", "enveng_water_hardness", "enveng_weir_loading_rate", "enveng_wind_power_law"]
 
 
 def solve(find: CapabilityId | str, given: dict | None = None, conditions=(), *, target: str | None = None, **inputs):
@@ -236,6 +236,33 @@ def enveng_briggs_stable_plume_rise(vs=None, d=None, Ts=None, Ta=None, u=None, d
     given = {k: v for k, v in dict(vs=vs, d=d, Ts=Ts, Ta=Ta, u=u, dtheta=dtheta, hs=hs).items() if v is not None}
     return _P.solve("enveng_briggs_stable_plume_rise", **given)
 
+def enveng_channel_flow_velocity(W=None, d=None, Q=None, v=None):
+    """Flow velocity in a rectangular channel (continuity, grit chamber). The mean (horizontal) velocity of flow in a rectangular channel or grit chamber from the flow, the width and the water depth (v = Q/(W d)), or the flow from the velocity (Q = A v).
+    Formula: v = \\frac{Q}{A} = \\frac{Q}{W\\,d},\\qquad Q = A\\,v
+    Inputs:
+        W: channel width
+        d: water depth
+        Q: flow rate (optional)
+        v: mean flow velocity (optional)
+    Outputs: A (flow cross-section W d), v (mean (horizontal) velocity Q/A), Q (flow rate A v)
+    See also: help("enveng_channel_flow_velocity")
+    """
+    given = {k: v for k, v in dict(W=W, d=d, Q=Q, v=v).items() if v is not None}
+    return _P.solve("enveng_channel_flow_velocity", **given)
+
+def enveng_chemical_feed_rate(Q=None, dose=None, purity=None):
+    """Chemical feed rate: mass per day = Q x dose / purity (kg/d and lb/d). The feed rate of a treatment chemical (coagulant, chlorine product, lime, polymer, ...) for a flow and a dose, mass per day = Q x dose / purity, in kg/d and lb/d, with the active chemical alone; the flow in m^3/d or MGD, the dose in mg/L, the purity (active fraction of the product) as a fraction or %, 1 when not given.
+    Formula: \\dot m = \\frac{Q\\cdot\\text{dose}}{p},\\qquad \\dot m\\,[\\mathrm{lb/d}] = \\frac{8.3454\\,Q[\\mathrm{MGD}]\\,\\text{dose}[\\mathrm{mg/L}]}{p}
+    Inputs:
+        Q: flow treated (m^3/d, or MGD)
+        dose: dose of the active chemical
+        purity: active fraction of the product (fraction or %; default 1) (optional)
+    Outputs: feed (feed rate of the product Q dose/purity), feed_kg_per_day (product feed, kg/d), feed_lb_per_day (product feed, lb/d), active_kg_per_day (active chemical fed, kg/d), active_lb_per_day (active chemical fed, lb/d), Q_MGD (flow, million US gallons a day)
+    See also: help("enveng_chemical_feed_rate")
+    """
+    given = {k: v for k, v in dict(Q=Q, dose=dose, purity=purity).items() if v is not None}
+    return _P.solve("enveng_chemical_feed_rate", **given)
+
 def enveng_chick_law(N0=None, k=None, t=None):
     """Microbial inactivation by Chick's law (first order). The surviving organisms, survival fraction, log removal and percentage removal after a contact time under first-order (Chick's law) inactivation or die-off.
     Formula: \\frac{N}{N_0} = e^{-kt}
@@ -277,6 +304,76 @@ def enveng_chlorine_dose_feed(Q=None, demand=None, residual=None, purity=None):
     given = {k: v for k, v in dict(Q=Q, demand=demand, residual=residual, purity=purity).items() if v is not None}
     return _P.solve("enveng_chlorine_dose_feed", **given)
 
+def enveng_chronic_daily_intake_risk(C=None, IR=None, BW=None, EF=None, ED=None, AT=None, RfD=None, SF=None):
+    """Chronic daily intake, hazard quotient and cancer risk. The chronic daily intake of a contaminant in drinking water, CDI = C IR EF ED / (BW AT) (a continuous lifetime exposure, CDI = C IR / BW, when EF, ED and AT are not given), with the hazard quotient CDI/RfD and the lifetime cancer risk CDI SF when the reference dose or slope factor is given.
+    Formula: CDI = \\frac{C\\cdot IR\\cdot EF\\cdot ED}{BW\\cdot AT},\\quad HQ = \\frac{CDI}{RfD},\\quad \\text{risk} = CDI\\cdot SF
+    Inputs:
+        C: concentration in the water
+        IR: intake (ingestion) rate
+        BW: body weight
+        EF: exposure frequency, days per year (optional)
+        ED: exposure duration, years (optional)
+        AT: averaging time, days (optional)
+        RfD: reference dose, mg/(kg d) (optional)
+        SF: cancer slope factor, (mg/(kg d))^-1 (optional)
+    Outputs: CDI (chronic daily intake, mg/(kg d)), HQ (hazard quotient CDI/RfD), risk (lifetime excess cancer risk CDI SF)
+    See also: help("enveng_chronic_daily_intake_risk")
+    """
+    given = {k: v for k, v in dict(C=C, IR=IR, BW=BW, EF=EF, ED=ED, AT=AT, RfD=RfD, SF=SF).items() if v is not None}
+    return _P.solve("enveng_chronic_daily_intake_risk", **given)
+
+def enveng_cmfr_series(Cin=None, k=None, theta=None, N=None, V=None, Q=None):
+    """First-order reaction in N stirred tanks in series and in plug flow. The effluent concentration of a first-order reaction through N identical completely mixed flow reactors (CMFRs) in series sharing a total residence time, Cout = Cin/(1 + k theta/N)^N, with a single CMFR at steady state (N = 1, the default: Cout = Cin/(1 + k theta)) and the plug-flow limit Cin exp(-k theta) for comparison; theta given directly or as the volume over the flow, V/Q; with the fraction and per cent removed.
+    Formula: C_{out} = \\frac{C_{in}}{\\left(1 + k\\theta/N\\right)^N},\\qquad \\theta = \\frac VQ,\\qquad C_{PFR} = C_{in}\\,e^{-k\\theta}
+    Inputs:
+        Cin: influent concentration
+        k: first-order rate constant
+        theta: total hydraulic residence time of all the tanks (or give V and Q) (optional)
+        N: number of identical tanks in series (default 1) (optional)
+        V: total reactor volume (with Q, in place of theta) (optional)
+        Q: flow through the reactor (with V, in place of theta) (optional)
+    Outputs: Cout (effluent of the N tanks Cin/(1 + k theta/N)^N), Cout_mgL (in mg/L), removal (fraction removed by the N tanks), removal_percent (per cent removed), Cout_one (effluent of one CMFR of the same total volume), Cout_one_mgL (in mg/L), Cout_pfr (effluent of a plug-flow reactor Cin exp(-k theta)), Cout_pfr_mgL (in mg/L), removal_pfr (fraction removed in plug flow), theta_each (residence time of each tank theta/N), theta_each_h (residence time of each tank, h)
+    See also: help("enveng_cmfr_series")
+    """
+    given = {k: v for k, v in dict(Cin=Cin, k=k, theta=theta, N=N, V=V, Q=Q).items() if v is not None}
+    return _P.solve("enveng_cmfr_series", **given)
+
+def enveng_collection_efficiency_series(eta=None, C_in=None):
+    """Overall efficiency of collection devices in series. The overall collection efficiency of air pollution control devices in series (a cyclone before a baghouse or an ESP), 1 - prod(1 - eta_i), the fraction that penetrates, and the outlet concentration for a given inlet concentration.
+    Formula: \\eta_{overall} = 1 - \\prod_i\\left(1 - \\eta_i\\right)
+    Inputs:
+        eta: efficiency of each device as a fraction (0.9 for 90%)
+        C_in: inlet concentration (optional) (optional)
+    Outputs: eta_total (overall efficiency 1 - prod(1 - eta_i)), eta_total_percent (overall efficiency, %), penetration (fraction passing all devices prod(1 - eta_i)), C_out (outlet concentration), C_out_mgm3 (outlet concentration, mg/m^3)
+    See also: help("enveng_collection_efficiency_series")
+    """
+    given = {k: v for k, v in dict(eta=eta, C_in=C_in).items() if v is not None}
+    return _P.solve("enveng_collection_efficiency_series", **given)
+
+def enveng_combustion_oxygen(formula=None, m=None):
+    """Stoichiometric oxygen for complete combustion of a fuel. The oxygen needed to burn a fuel CxHyOz (or pure carbon) completely to CO2 and water, per mole and per kilogram of fuel, the CO2 and water formed per kilogram, and the total oxygen for a given mass of fuel.
+    Formula: \\mathrm{C_xH_yO_z} + \\left(x + \\frac y4 - \\frac z2\\right)\\mathrm{O_2} \\rightarrow x\\,\\mathrm{CO_2} + \\frac y2\\,\\mathrm{H_2O}
+    Inputs:
+        formula: fuel formula with C, H, O only (e.g. CH4, C2H5OH, C)
+        m: mass of fuel burned (for the total oxygen) (optional)
+    Outputs: O2_per_kg (kg O2 per kg fuel), o2_per_mol (mol O2 per mol fuel x + y/4 - z/2), molar_mass (molar mass of the fuel, g/mol), CO2_per_kg (kg CO2 formed per kg fuel), H2O_per_kg (kg water formed per kg fuel), O2_mass (oxygen for the given mass of fuel)
+    See also: help("enveng_combustion_oxygen")
+    """
+    given = {k: v for k, v in dict(formula=formula, m=m).items() if v is not None}
+    return _P.solve("enveng_combustion_oxygen", **given)
+
+def enveng_contact_time_from_ct(CT=None, C=None):
+    """Minimum disinfection contact time from a required CT. The minimum contact time a disinfectant residual needs to reach a required CT value (t = CT / C).
+    Formula: t = \\frac{CT_{req}}{C}
+    Inputs:
+        CT: required CT value
+        C: disinfectant residual
+    Outputs: t (minimum contact time CT/C), t_min (in minutes), t_h (in hours)
+    See also: help("enveng_contact_time_from_ct")
+    """
+    given = {k: v for k, v in dict(CT=CT, C=C).items() if v is not None}
+    return _P.solve("enveng_contact_time_from_ct", **given)
+
 def enveng_ct_log_inactivation(C=None, t10=None, CT999=None):
     """Log inactivation from the CT ratio. The CT achieved, the ratio to the CT required for 3-log (99.9 %) inactivation from the regulatory tables, and the log inactivation credited (3 times the ratio).
     Formula: \\text{log inactivation} = 3\\,\\frac{C t_{10}}{CT_{99.9}}
@@ -306,6 +403,22 @@ def enveng_cyclone_lapple(mu=None, W=None, Ne=None, Vi=None, rho_p=None, rho_g=N
     """
     given = {k: v for k, v in dict(mu=mu, W=W, Ne=Ne, Vi=Vi, rho_p=rho_p, rho_g=rho_g, dp=dp).items() if v is not None}
     return _P.solve("enveng_cyclone_lapple", **given)
+
+def enveng_darcy_seepage_velocity(K=None, i=None, dh=None, L=None, A=None, n_e=None):
+    """Darcy's law: groundwater flow and seepage velocity. Groundwater flow through an aquifer by Darcy's law: the Darcy flux q = K i, the flow Q = K i A through an area and the seepage (average linear) velocity v_s = K i / n_e; the gradient may be given as a head difference over a length.
+    Formula: Q = K\\,i\\,A,\\qquad v_s = \\frac{K\\,i}{n_e},\\qquad i = \\frac{\\Delta h}{L}
+    Inputs:
+        K: hydraulic conductivity
+        i: hydraulic gradient dh/L (dimensionless) (optional)
+        dh: head difference along the flow path (optional)
+        L: length of the flow path (optional)
+        A: cross-sectional area of flow (optional)
+        n_e: effective porosity (fraction or %) (optional)
+    Outputs: i (hydraulic gradient), q (Darcy flux (specific discharge) K i), q_m_per_day (Darcy flux, m/d), Q (flow K i A), Q_m3_per_day (flow, m^3/d), v_s (seepage (average linear) velocity K i / n_e), v_s_m_per_day (seepage velocity, m/d)
+    See also: help("enveng_darcy_seepage_velocity")
+    """
+    given = {k: v for k, v in dict(K=K, i=i, dh=dh, L=L, A=A, n_e=n_e).items() if v is not None}
+    return _P.solve("enveng_darcy_seepage_velocity", **given)
 
 def enveng_day_night_level(L=None, metric=None):
     """Day-night (Ldn) and day-evening-night (Lden) sound levels. The day-night average level (10 dB night penalty, 22:00-07:00) or the day-evening-night level (5 dB evening 19:00-23:00, 10 dB night 23:00-07:00) from 24 hourly equivalent levels.
@@ -457,6 +570,18 @@ def enveng_filter_clean_bed_headloss(d=None, eps=None, psi=None, L=None, v=None,
     given = {k: v for k, v in dict(d=d, eps=eps, psi=psi, L=L, v=v, rho=rho, mu=mu).items() if v is not None}
     return _P.solve("enveng_filter_clean_bed_headloss", **given)
 
+def enveng_filter_flow_from_loading(v=None, A=None):
+    """Flow through a filter from its loading rate and bed area. The flow a filter treats from its hydraulic (surface) loading rate and the bed area, Q = v A, in m^3/h and m^3/d.
+    Formula: Q = v\\,A
+    Inputs:
+        v: filtration (hydraulic loading) rate
+        A: filter bed area
+    Outputs: Q (flow v A), Q_m3_per_h (in m^3/h), Q_m3_per_day (in m^3/d)
+    See also: help("enveng_filter_flow_from_loading")
+    """
+    given = {k: v for k, v in dict(v=v, A=A).items() if v is not None}
+    return _P.solve("enveng_filter_flow_from_loading", **given)
+
 def enveng_filtration_rate(Q=None, A=None, N=None):
     """Filtration (hydraulic loading) rate with one filter out of service. The filtration rate of a bank of identical filters, with all in service and with one out of service (for backwashing).
     Formula: v = \\frac{Q}{NA},\\quad v' = \\frac{Q}{(N-1)A}
@@ -470,6 +595,21 @@ def enveng_filtration_rate(Q=None, A=None, N=None):
     given = {k: v for k, v in dict(Q=Q, A=A, N=N).items() if v is not None}
     return _P.solve("enveng_filtration_rate", **given)
 
+def enveng_first_order_decay(C0=None, C=None, k=None, t=None, t_half=None):
+    """First-order decay in a batch reactor: C = C0 exp(-k t) and the half-life. First-order decay in a batch (or plug-flow) reactor, C = C0 exp(-k t): the concentration after a time, the initial concentration, the rate constant or the time, whichever one of the four is not given, with the half-life t1/2 = ln 2 / k (the rate may be given as a half-life instead of k), the fraction remaining and the per cent removed.
+    Formula: C = C_0\\,e^{-kt},\\qquad k = \\frac{\\ln(C_0/C)}{t},\\qquad t_{1/2} = \\frac{\\ln 2}{k}
+    Inputs:
+        C0: initial concentration (optional)
+        C: concentration after the time t (optional)
+        k: first-order rate constant (base e) (optional)
+        t: reaction time (optional)
+        t_half: half-life (in place of k) (optional)
+    Outputs: C (concentration after the time t, C0 exp(-k t)), C_mgL (in mg/L), C0 (initial concentration), C0_mgL (initial concentration, mg/L), k (first-order rate constant ln(C0/C)/t), k_per_day (rate constant, 1/d), k_per_h (rate constant, 1/h), t (reaction time ln(C0/C)/k), t_days (reaction time, days), t_h (reaction time, hours), t_half (half-life ln 2/k), t_half_days (half-life, days), t_half_h (half-life, hours), fraction_remaining (fraction remaining C/C0), removal_percent (per cent removed (1 - C/C0) x 100)
+    See also: help("enveng_first_order_decay")
+    """
+    given = {k: v for k, v in dict(C0=C0, C=C, k=k, t=t, t_half=t_half).items() if v is not None}
+    return _P.solve("enveng_first_order_decay", **given)
+
 def enveng_food_to_microorganism_ratio(Q=None, S0=None, V=None, X=None):
     """Food-to-microorganism ratio (F/M). The food-to-microorganism ratio of an aeration tank from the flow, influent BOD, tank volume and mixed-liquor volatile suspended solids.
     Formula: \\frac FM = \\frac{QS_0}{VX}
@@ -478,7 +618,7 @@ def enveng_food_to_microorganism_ratio(Q=None, S0=None, V=None, X=None):
         S0: influent BOD (or COD)
         V: aeration tank volume
         X: mixed liquor volatile suspended solids (MLVSS)
-    Outputs: FM (F/M ratio), FM_per_day (F/M in kg BOD/(kg MLVSS d))
+    Outputs: FM (food-to-microorganism (F/M) ratio), FM_per_day (in kg BOD/(kg MLVSS d))
     See also: help("enveng_food_to_microorganism_ratio")
     """
     given = {k: v for k, v in dict(Q=Q, S0=S0, V=V, X=X).items() if v is not None}
@@ -527,6 +667,17 @@ def enveng_gaussian_plume_concentration(Q=None, u=None, sigma_y=None, sigma_z=No
     given = {k: v for k, v in dict(Q=Q, u=u, sigma_y=sigma_y, sigma_z=sigma_z, H=H, y=y, z=z).items() if v is not None}
     return _P.solve("enveng_gaussian_plume_concentration", **given)
 
+def enveng_geometric_mean_counts(x=None):
+    """Geometric mean of bacterial counts (with mean and standard deviation). The geometric mean of a set of positive values such as coliform counts (MPN or CFU per 100 mL), the n-th root of their product, with the arithmetic mean, the sample standard deviation and the mean of the base-10 logarithms.
+    Formula: GM = \\left(\\prod_{i=1}^n x_i\\right)^{1/n},\\qquad s = \\sqrt{\\frac{\\sum (x_i - \\bar x)^2}{n - 1}}
+    Inputs:
+        x: positive values, e.g. coliform counts per 100 mL
+    Outputs: geometric_mean (geometric mean (prod x)^(1/n)), mean (arithmetic mean), sd (sample standard deviation (n - 1)), mean_log10 (mean of log10 x), count (number of values)
+    See also: help("enveng_geometric_mean_counts")
+    """
+    given = {k: v for k, v in dict(x=x).items() if v is not None}
+    return _P.solve("enveng_geometric_mean_counts", **given)
+
 def enveng_ground_centerline_concentration(Q=None, u=None, sigma_y=None, sigma_z=None, H=None):
     """Ground-level centreline concentration of a plume. The ground-level concentration directly below the plume axis (y = 0, z = 0) from the emission rate, wind speed, dispersion coefficients and effective stack height (H = 0 for a ground-level source).
     Formula: C(x,0,0) = \\frac{Q}{\\pi u\\sigma_y\\sigma_z}\\exp\\!\\left(-\\frac{H^2}{2\\sigma_z^2}\\right)
@@ -541,6 +692,35 @@ def enveng_ground_centerline_concentration(Q=None, u=None, sigma_y=None, sigma_z
     """
     given = {k: v for k, v in dict(Q=Q, u=u, sigma_y=sigma_y, sigma_z=sigma_z, H=H).items() if v is not None}
     return _P.solve("enveng_ground_centerline_concentration", **given)
+
+def enveng_hazen_williams(C=None, D=None, S=None, Q=None, L=None):
+    """Hazen-Williams equation for a full pipe (SI): velocity, flow and head loss. Water flow in a full circular pipe by the Hazen-Williams formula in SI units, v = 0.849 C R^0.63 S^0.54 (R = D/4): the velocity and flow from the slope of the energy line, or the slope from the flow, and the head loss over a pipe length.
+    Formula: v = 0.849\\,C\\,R^{0.63}S^{0.54},\\qquad Q = vA,\\qquad h_f = S\\,L
+    Inputs:
+        C: Hazen-Williams roughness coefficient
+        D: pipe diameter
+        S: slope of the energy line hf/L (fraction or %) (optional)
+        Q: flow rate (optional)
+        L: pipe length (for the head loss) (optional)
+    Outputs: v (mean velocity), Q (flow), S (slope of the energy line hf/L), hf (head loss over L), R (hydraulic radius D/4), A (pipe area)
+    See also: help("enveng_hazen_williams")
+    """
+    given = {k: v for k, v in dict(C=C, D=D, S=S, Q=Q, L=L).items() if v is not None}
+    return _P.solve("enveng_hazen_williams", **given)
+
+def enveng_heating_value_dry_basis(w=None, HHV_ar=None, HHV_dry=None, ash=None):
+    """Heating value on a dry basis from the as-received value and the moisture. The higher heating value of a fuel or waste on a dry basis from its as-received value and moisture fraction, HHV_dry = HHV_ar/(1 - w) (or the reverse), and on a dry ash-free basis when the ash fraction is given.
+    Formula: HHV_{dry} = \\frac{HHV_{ar}}{1 - w},\\qquad HHV_{daf} = \\frac{HHV_{ar}}{1 - w - a}
+    Inputs:
+        w: moisture fraction as received, wet basis (fraction or %)
+        HHV_ar: heating value as received (optional)
+        HHV_dry: heating value on a dry basis (optional)
+        ash: ash fraction as received (fraction or %) (optional)
+    Outputs: HHV_dry (dry-basis heating value HHV_ar/(1 - w)), HHV_ar (as-received heating value), HHV_dry_MJ_per_kg (dry basis, MJ/kg), HHV_ar_MJ_per_kg (as received, MJ/kg), HHV_daf (dry ash-free heating value HHV_ar/(1 - w - ash)), HHV_daf_MJ_per_kg (dry ash-free, MJ/kg)
+    See also: help("enveng_heating_value_dry_basis")
+    """
+    given = {k: v for k, v in dict(w=w, HHV_ar=HHV_ar, HHV_dry=HHV_dry, ash=ash).items() if v is not None}
+    return _P.solve("enveng_heating_value_dry_basis", **given)
 
 def enveng_henry_constant_conversion(H=None, form=None, T=None):
     """Henry's law constant conversion between forms. A Henry's law constant converted between its common forms: volatility (Pa m^3/mol, atm m^3/mol), dimensionless gas/liquid ratio at temperature T, mole-fraction form (atm) and solubility forms (mol/(m^3 Pa), mol/(L atm)).
@@ -567,6 +747,19 @@ def enveng_henry_law_equilibrium(p=None, H=None, M=None):
     """
     given = {k: v for k, v in dict(p=p, H=H, M=M).items() if v is not None}
     return _P.solve("enveng_henry_law_equilibrium", **given)
+
+def enveng_henry_law_solubility(KH=None, P=None, M=None):
+    """Dissolved gas concentration from Henry's solubility constant (C = KH P). The equilibrium concentration of a gas dissolved in water from its partial pressure and Henry's solubility constant KH in mol/(L atm), as mol/L and, with the gas molar mass, as mg/L.
+    Formula: C = K_H\\,P,\\qquad C_m = K_H\\,P\\,M
+    Inputs:
+        KH: Henry's solubility constant
+        P: partial pressure of the gas above the water
+        M: molar mass of the gas (for mg/L) (optional)
+    Outputs: C (dissolved concentration KH P), C_molL (in mol/L), C_mass (dissolved mass concentration), C_mgL (in mg/L)
+    See also: help("enveng_henry_law_solubility")
+    """
+    given = {k: v for k, v in dict(KH=KH, P=P, M=M).items() if v is not None}
+    return _P.solve("enveng_henry_law_solubility", **given)
 
 def enveng_henry_temperature_dependence(Hcp=None, B=None, T=None, Tref=None):
     """Temperature dependence of Henry's constant (van 't Hoff). The Henry's solubility constant at a temperature T from its value at a reference temperature and the van 't Hoff coefficient B = -d ln Hcp / d(1/T) (the form tabulated in solubility compilations).
@@ -638,6 +831,21 @@ def enveng_ideal_basin_removal(vs=None, Q=None, A=None):
     given = {k: v for k, v in dict(vs=vs, Q=Q, A=A).items() if v is not None}
     return _P.solve("enveng_ideal_basin_removal", **given)
 
+def enveng_indoor_air_steady_state(S=None, Qv=None, V=None, Camb=None, k=None):
+    """Steady indoor air concentration (well-mixed room box model). The steady concentration of a pollutant in a well-mixed room from its indoor emission rate, the ventilation rate, the outdoor concentration and a first-order decay rate, C = (Qv Camb + S)/(Qv + k V), with the air changes per hour.
+    Formula: C_{ss} = \\frac{Q_v C_{amb} + S}{Q_v + k V}
+    Inputs:
+        S: indoor emission rate
+        Qv: ventilation (outdoor air) rate
+        V: room volume
+        Camb: outdoor (ambient) concentration (default 0) (optional)
+        k: first-order decay (reaction, deposition) rate (default 0) (optional)
+    Outputs: C (steady indoor concentration), C_ugm3 (in ug/m^3), C_mgm3 (in mg/m^3), ach (air changes per hour Qv/V), tau_h (time constant V/(Qv + k V), h)
+    See also: help("enveng_indoor_air_steady_state")
+    """
+    given = {k: v for k, v in dict(S=S, Qv=Qv, V=V, Camb=Camb, k=k).items() if v is not None}
+    return _P.solve("enveng_indoor_air_steady_state", **given)
+
 def enveng_kla_regression(t=None, C=None, Cs=None):
     """KLa fitted to a reaeration test. The volumetric oxygen-transfer coefficient KLa from a series of dissolved-oxygen readings during a reaeration test, by linear regression of ln(Cs - C) against time.
     Formula: \\ln(C_s - C) = \\ln(C_s - C_0) - K_La\\,t
@@ -696,6 +904,34 @@ def enveng_lake_transient(W=None, Q=None, k=None, V=None, C0=None, t=None):
     given = {k: v for k, v in dict(W=W, Q=Q, k=k, V=V, C0=C0, t=t).items() if v is not None}
     return _P.solve("enveng_lake_transient", **given)
 
+def enveng_landfill_compaction_ratio(rho_i=None, rho_c=None, V_i=None, V_c=None):
+    """Compaction ratio of solid waste. The compaction ratio of solid waste (compacted over initial density, or initial over compacted volume) and the volume reduction it gives.
+    Formula: CR = \\frac{\\rho_c}{\\rho_i} = \\frac{V_i}{V_c},\\qquad \\Delta V = 1 - \\frac{1}{CR}
+    Inputs:
+        rho_i: density as delivered (loose) (optional)
+        rho_c: density after compaction (optional)
+        V_i: volume before compaction (optional)
+        V_c: volume after compaction (optional)
+    Outputs: CR (compaction ratio), volume_reduction (fraction of the volume removed 1 - 1/CR), volume_reduction_percent (volume reduction in per cent)
+    See also: help("enveng_landfill_compaction_ratio")
+    """
+    given = {k: v for k, v in dict(rho_i=rho_i, rho_c=rho_c, V_i=V_i, V_c=V_c).items() if v is not None}
+    return _P.solve("enveng_landfill_compaction_ratio", **given)
+
+def enveng_landfill_daily_volume(m=None, rho=None, cover=None, capacity=None):
+    """Landfill volume per day and per year with cover soil, and the landfill life. The landfill volume used each day and each year by waste placed at its compacted density with daily cover soil, V = mass / compacted density x (1 + cover ratio), and, for a given capacity, the life of the landfill (constant waste rate).
+    Formula: V = \\frac{\\dot m}{\\rho_c}\\,(1 + c),\\qquad n = \\frac{V_{cap}}{365\\,V_{day}}
+    Inputs:
+        m: waste placed per day
+        rho: compacted (in-place) density of the waste
+        cover: cover soil volume per volume of compacted waste (fraction or %; default 0) (optional)
+        capacity: available landfill volume (for the life) (optional)
+    Outputs: V (landfill volume used, waste plus cover), V_m3_per_day (landfill volume used per day, m^3), V_m3_per_year (landfill volume used per 365-day year, m^3), V_waste_m3_per_day (compacted waste alone per day, m^3), V_cover_m3_per_day (cover soil per day, m^3), life_years (landfill life, years), life_days (landfill life, days)
+    See also: help("enveng_landfill_daily_volume")
+    """
+    given = {k: v for k, v in dict(m=m, rho=rho, cover=cover, capacity=capacity).items() if v is not None}
+    return _P.solve("enveng_landfill_daily_volume", **given)
+
 def enveng_landfill_gas_generation(M=None, L0=None, k=None, tc=None, t=None):
     """Landfill methane generation (first-order decay, constant acceptance). The methane generation rate and the cumulative methane of a landfill receiving waste at a constant rate for its operating life, each deposit decaying at first order (LandGEM-type model in continuous form), and the landfill gas flow at 50 % methane.
     Formula: Q(t) = \\int_0^{\\min(t,t_c)} kL_0M\\,e^{-k(t-\\tau)}d\\tau = ML_0\\left(e^{-k(t-\\min(t,t_c))} - e^{-kt}\\right)
@@ -752,6 +988,20 @@ def enveng_langmuir_fit(Ce=None, qe=None):
     given = {k: v for k, v in dict(Ce=Ce, qe=qe).items() if v is not None}
     return _P.solve("enveng_langmuir_fit", **given)
 
+def enveng_lapse_rate_stability(T1=None, z1=None, T2=None, z2=None):
+    """Atmospheric stability from the environmental lapse rate. The environmental lapse rate from the air temperature at two heights and the stability it gives against the dry adiabatic lapse rate (9.8 degC/km): superadiabatic (unstable), neutral, subadiabatic (stable) or an inversion.
+    Formula: \\Gamma_{env} = -\\frac{T_2 - T_1}{z_2 - z_1}\\ \\text{vs}\\ \\Gamma_d = 9.8\\ ^\\circ\\mathrm{C/km}
+    Inputs:
+        T1: air temperature at the lower height
+        z1: lower height
+        T2: air temperature at the upper height
+        z2: upper height
+    Outputs: ELR (environmental lapse rate -dT/dz), ELR_C_per_km (lapse rate, degC/km), stability (stability: superadiabatic (unstable), neutral, subadiabatic (stable) or inversion (very stable))
+    See also: help("enveng_lapse_rate_stability")
+    """
+    given = {k: v for k, v in dict(T1=T1, z1=z1, T2=T2, z2=z2).items() if v is not None}
+    return _P.solve("enveng_lapse_rate_stability", **given)
+
 def enveng_log_removal(N0=None, N=None):
     """Log removal and percentage removal. The log10 removal (log reduction value) and the percentage removal from the counts or concentrations before and after treatment.
     Formula: LR = \\log_{10}\\frac{N_0}{N}
@@ -763,6 +1013,21 @@ def enveng_log_removal(N0=None, N=None):
     """
     given = {k: v for k, v in dict(N0=N0, N=N).items() if v is not None}
     return _P.solve("enveng_log_removal", **given)
+
+def enveng_manning_flow(n=None, S=None, W=None, y=None, D=None):
+    """Manning's equation: velocity and flow in a channel or a full pipe (SI). The mean velocity and flow by Manning's equation in SI units, v = (1/n) R^(2/3) S^(1/2), for a rectangular channel (width and flow depth) or a circular pipe flowing full (diameter), with the hydraulic radius, area and wetted perimeter.
+    Formula: v = \\frac{1}{n}R^{2/3}S^{1/2},\\qquad Q = vA,\\qquad R = \\frac{A}{P}
+    Inputs:
+        n: Manning roughness coefficient
+        S: slope of the channel or energy line (fraction or %)
+        W: channel width (rectangular channel) (optional)
+        y: flow depth (rectangular channel) (optional)
+        D: pipe diameter (circular pipe flowing full) (optional)
+    Outputs: v (mean velocity (1/n) R^(2/3) S^(1/2)), Q (flow v A), Q_L_per_s (flow, L/s), R (hydraulic radius A/P), A (flow area), P (wetted perimeter)
+    See also: help("enveng_manning_flow")
+    """
+    given = {k: v for k, v in dict(n=n, S=S, W=W, y=y, D=D).items() if v is not None}
+    return _P.solve("enveng_manning_flow", **given)
 
 def enveng_mass_concentration_to_ppm(C=None, M=None, T=None, P=None):
     """Gas concentration: mass concentration to ppm (by volume). The volume mixing ratio (ppm and ppb) of a gaseous pollutant from its mass concentration, molar mass, temperature and pressure (ideal gas).
@@ -806,6 +1071,32 @@ def enveng_max_ground_concentration_ratio(Q=None, u=None, H=None, k=None):
     """
     given = {k: v for k, v in dict(Q=Q, u=u, H=H, k=k).items() if v is not None}
     return _P.solve("enveng_max_ground_concentration_ratio", **given)
+
+def enveng_mean_cell_residence_time(M=None, Mw=None, Me=None):
+    """Mean cell residence time (sludge age) from the solids masses. The mean cell residence time (solids retention time, sludge age) of an activated-sludge system as the mass of solids held in the basin over the mass leaving per day in the waste sludge and the effluent.
+    Formula: \\theta_c = \\frac{M_{basin}}{\\dot M_{w} + \\dot M_{e}}
+    Inputs:
+        M: mass of solids (MLVSS or MLSS) in the aeration basin
+        Mw: mass of solids wasted per day
+        Me: mass of solids lost in the effluent per day
+    Outputs: theta_c (mean cell residence time), theta_c_days (in days)
+    See also: help("enveng_mean_cell_residence_time")
+    """
+    given = {k: v for k, v in dict(M=M, Mw=Mw, Me=Me).items() if v is not None}
+    return _P.solve("enveng_mean_cell_residence_time", **given)
+
+def enveng_membrane_flux(Qp=None, A=None, J=None):
+    """Membrane permeate flux J = Qp/A (LMH and m/d), or the area for a flux. The permeate flux of a membrane, J = Q_permeate / A, in L/(m^2 h) (LMH) and m/d, from the permeate flow and the membrane area; or the membrane area needed for a design flux, or the permeate flow a flux gives (any two of the three).
+    Formula: J = \\frac{Q_p}{A}
+    Inputs:
+        Qp: permeate flow (optional)
+        A: membrane area (optional)
+        J: permeate flux (L/(m^2 h) or LMH, m/d) (optional)
+    Outputs: J (permeate flux Qp/A), J_LMH (flux, L/(m^2 h) (LMH)), J_m_per_day (flux, m/d), A (membrane area Qp/J), Qp (permeate flow J A), Qp_m3_per_day (permeate flow, m^3/d)
+    See also: help("enveng_membrane_flux")
+    """
+    given = {k: v for k, v in dict(Qp=Qp, A=A, J=J).items() if v is not None}
+    return _P.solve("enveng_membrane_flux", **given)
 
 def enveng_membrane_mass_balance(Qf=None, Qp=None, Cf=None, Cp=None, A=None):
     """Membrane recovery, rejection, flux and concentrate. The water recovery, solute rejection, permeate flux (also in L/(m^2 h)) and the concentrate flow and concentration of a membrane unit from the feed and permeate flows and concentrations and the membrane area.
@@ -972,6 +1263,18 @@ def enveng_oxygen_sag_distance(kd=None, ka=None, L0=None, D0=None, x=None, v=Non
     given = {k: v for k, v in dict(kd=kd, ka=ka, L0=L0, D0=D0, x=x, v=v, DOsat=DOsat).items() if v is not None}
     return _P.solve("enveng_oxygen_sag_distance", **given)
 
+def enveng_ph_poh(H=None, OH=None):
+    """pH and pOH from the hydrogen or hydroxide ion concentration. The pH, the pOH and both ion concentrations of a water sample at 25 degC from either its hydrogen ion concentration [H+] or its hydroxide ion concentration [OH-] (pH = -log10[H+], pOH = -log10[OH-], pH + pOH = 14).
+    Formula: \\mathrm{pH} = -\\log_{10}[\\mathrm{H^+}],\\quad \\mathrm{pOH} = -\\log_{10}[\\mathrm{OH^-}],\\quad \\mathrm{pH} + \\mathrm{pOH} = 14
+    Inputs:
+        H: hydrogen ion concentration [H+] (optional)
+        OH: hydroxide ion concentration [OH-] (optional)
+    Outputs: pH (pH = -log10[H+]), pOH (pOH = -log10[OH-] = 14 - pH), H_molL (hydrogen ion concentration, mol/L), OH_molL (hydroxide ion concentration, mol/L)
+    See also: help("enveng_ph_poh")
+    """
+    given = {k: v for k, v in dict(H=H, OH=OH).items() if v is not None}
+    return _P.solve("enveng_ph_poh", **given)
+
 def enveng_plume_concentration_stability(Q=None, u=None, H=None, x=None, y=None, z=None, cls=None, terrain=None):
     """Gaussian plume concentration from the stability class. The concentration at a receptor (x, y, z) downwind of an elevated point source, with the dispersion coefficients taken from Briggs' formulas for the stability class and terrain.
     Formula: C = \\frac{Q}{2\\pi u\\sigma_y(x)\\sigma_z(x)} e^{-\\frac{y^2}{2\\sigma_y^2}}\\left[e^{-\\frac{(z-H)^2}{2\\sigma_z^2}} + e^{-\\frac{(z+H)^2}{2\\sigma_z^2}}\\right]
@@ -1020,6 +1323,37 @@ def enveng_pollutant_load(Q=None, C=None):
     given = {k: v for k, v in dict(Q=Q, C=C).items() if v is not None}
     return _P.solve("enveng_pollutant_load", **given)
 
+def enveng_population_logistic(t0=None, n=None, P0=None, P1=None, P2=None, t=None):
+    """Population projection by the logistic method (three censuses). The saturation population and the logistic curve P = Ps/(1 + m exp(-k (t - t0))) through three equally spaced censuses P0, P1, P2 (interval n years), and the population it projects for a year.
+    Formula: P_s = \\frac{2P_0P_1P_2 - P_1^2(P_0 + P_2)}{P_0P_2 - P_1^2},\\quad P_t = \\frac{P_s}{1 + m\\,e^{-k(t - t_0)}}
+    Inputs:
+        t0: year of the first census
+        n: interval between the censuses in years
+        P0: population at the first census
+        P1: population one interval later
+        P2: population two intervals later
+        t: year of the projection
+    Outputs: P_sat (saturation population), m (logistic constant (Ps - P0)/P0), k (logistic rate constant, per year), P_t (projected population)
+    See also: help("enveng_population_logistic")
+    """
+    given = {k: v for k, v in dict(t0=t0, n=n, P0=P0, P1=P1, P2=P2, t=t).items() if v is not None}
+    return _P.solve("enveng_population_logistic", **given)
+
+def enveng_population_projection(t1=None, P1=None, t2=None, P2=None, t=None):
+    """Population projection by the arithmetic and geometric methods. The population projected to a year from two censuses by the arithmetic method (constant increase per year) and by the geometric method (constant percentage growth: the continuous rate and the equivalent compound annual rate).
+    Formula: P_t = P_2 + \\frac{P_2 - P_1}{t_2 - t_1}(t - t_2),\\qquad P_t = P_2\\,e^{k_g (t - t_2)},\\ k_g = \\frac{\\ln(P_2/P_1)}{t_2 - t_1}
+    Inputs:
+        t1: year of the first census
+        P1: population at the first census
+        t2: year of the second census
+        P2: population at the second census
+        t: year of the projection
+    Outputs: k_a (arithmetic increase, persons per year), P_arith (arithmetic projection), k_g (geometric (continuous) growth rate, per year), r_g (equivalent compound growth rate per year), P_geom (geometric projection)
+    See also: help("enveng_population_projection")
+    """
+    given = {k: v for k, v in dict(t1=t1, P1=P1, t2=t2, P2=P2, t=t).items() if v is not None}
+    return _P.solve("enveng_population_projection", **given)
+
 def enveng_ppm_to_mass_concentration(ppm=None, M=None, T=None, P=None):
     """Gas concentration: ppm (by volume) to mass concentration. The mass concentration of a gaseous pollutant from its volume mixing ratio in ppm, its molar mass and the air temperature and pressure (ideal gas).
     Formula: C = \\text{ppm}\\times10^{-6}\\,\\frac{P M}{R T}
@@ -1034,6 +1368,22 @@ def enveng_ppm_to_mass_concentration(ppm=None, M=None, T=None, P=None):
     given = {k: v for k, v in dict(ppm=ppm, M=M, T=T, P=P).items() if v is not None}
     return _P.solve("enveng_ppm_to_mass_concentration", **given)
 
+def enveng_pump_power(Q=None, H=None, eta=None, rho=None, hours=None, price=None):
+    """Pump power from flow and head, with energy and electricity cost. The power a pump draws to lift a flow Q through a total head H with efficiency eta, P = rho g Q H / eta (water 1000 kg/m^3 unless a density is given), in kW, and the energy and electricity cost over a number of operating hours at a price per kWh.
+    Formula: P = \\frac{\\rho\\,g\\,Q\\,H}{\\eta},\\qquad E = P\\,t,\\qquad \\text{cost} = E\\cdot\\text{price}
+    Inputs:
+        Q: flow pumped
+        H: total dynamic head
+        eta: pump (wire-to-water) efficiency (fraction or %)
+        rho: density of the liquid (default water, 1000 kg/m^3) (optional)
+        hours: operating time (optional)
+        price: electricity price per kWh (optional)
+    Outputs: P (power drawn to lift the water: the input (brake, shaft or motor) power the pump requires, rho g Q H / eta), P_kW (power drawn, kW), P_water (water (hydraulic) power, the useful output power imparted to the water, rho g Q H), P_water_kW (water power, kW), energy_kWh (energy over the operating time, kWh), cost (electricity cost, in the price's currency)
+    See also: help("enveng_pump_power")
+    """
+    given = {k: v for k, v in dict(Q=Q, H=H, eta=eta, rho=rho, hours=hours, price=price).items() if v is not None}
+    return _P.solve("enveng_pump_power", **given)
+
 def enveng_rate_constant_temperature(k20=None, theta=None, T=None):
     """Temperature correction of a rate constant (theta model). A first-order rate constant (BOD, reaeration, decay) at temperature T from its 20 degC value and the temperature coefficient theta.
     Formula: k_T = k_{20}\\,\\theta^{\\,T - 20}
@@ -1047,6 +1397,19 @@ def enveng_rate_constant_temperature(k20=None, theta=None, T=None):
     given = {k: v for k, v in dict(k20=k20, theta=theta, T=T).items() if v is not None}
     return _P.solve("enveng_rate_constant_temperature", **given)
 
+def enveng_rational_method(C=None, i=None, A=None):
+    """Rational method: peak runoff Q = C i A. The peak storm runoff from a small catchment by the rational method, Q = C i A, from the runoff coefficient, the rainfall intensity for the time of concentration (mm/h) and the drainage area (m^2, km^2 or ha), in m^3/s.
+    Formula: Q = C\\,i\\,A
+    Inputs:
+        C: runoff coefficient (fraction or %)
+        i: rainfall intensity
+        A: drainage area
+    Outputs: Q (peak runoff C i A), Q_L_per_s (peak runoff, L/s), Q_m3_per_h (peak runoff, m^3/h)
+    See also: help("enveng_rational_method")
+    """
+    given = {k: v for k, v in dict(C=C, i=i, A=A).items() if v is not None}
+    return _P.solve("enveng_rational_method", **given)
+
 def enveng_reaeration_coefficient(method=None, u=None, H=None):
     """Stream reaeration coefficient (O'Connor-Dobbins, Churchill, Owens-Gibbs). The reaeration rate constant of a stream at 20 degC from its mean velocity and depth by a chosen empirical formula.
     Formula: k_a = \\frac{3.93\\,u^{0.5}}{H^{1.5}}\\ \\text{(O'Connor-Dobbins)}
@@ -1059,6 +1422,36 @@ def enveng_reaeration_coefficient(method=None, u=None, H=None):
     """
     given = {k: v for k, v in dict(method=method, u=u, H=H).items() if v is not None}
     return _P.solve("enveng_reaeration_coefficient", **given)
+
+def enveng_retardation_factor(rho_b=None, n=None, Kd=None, Koc=None, foc=None, R=None, v=None):
+    """Retardation factor and contaminant velocity in groundwater. The retardation factor of a sorbing contaminant in an aquifer, R = 1 + rho_b Kd / n (Kd given or Koc foc), and the velocity at which the contaminant migrates, v_c = v / R (R may also be given directly).
+    Formula: R = 1 + \\frac{\\rho_b K_d}{n},\\quad K_d = K_{oc}f_{oc},\\quad v_c = \\frac{v}{R}
+    Inputs:
+        rho_b: dry bulk density of the aquifer material (optional)
+        n: porosity (fraction or %) (optional)
+        Kd: distribution coefficient (optional)
+        Koc: organic-carbon partition coefficient (optional)
+        foc: fraction of organic carbon (fraction or %) (optional)
+        R: retardation factor, if already known (optional)
+        v: groundwater (seepage) velocity (optional)
+    Outputs: R (retardation factor), vc (contaminant migration velocity v/R), vc_m_per_day (contaminant velocity, m/d), v_m_per_day (groundwater velocity, m/d), Kd (distribution coefficient Koc foc), Kd_L_per_kg (Kd in L/kg)
+    See also: help("enveng_retardation_factor")
+    """
+    given = {k: v for k, v in dict(rho_b=rho_b, n=n, Kd=Kd, Koc=Koc, foc=foc, R=R, v=v).items() if v is not None}
+    return _P.solve("enveng_retardation_factor", **given)
+
+def enveng_return_period_risk(T=None, n=None, risk=None):
+    """Return period, exceedance probability and risk over a design life. The annual exceedance probability of an event with return period T, p = 1/T, and the probability that it is equalled or exceeded at least once in n years, 1 - (1 - 1/T)^n; or the return period needed for an acceptable risk over a design life.
+    Formula: p = \\frac{1}{T},\\qquad P_n = 1 - \\left(1 - \\frac{1}{T}\\right)^n
+    Inputs:
+        T: return period, years (optional)
+        n: number of years (design life) (optional)
+        risk: acceptable probability of at least one exceedance in n years (fraction or %) (optional)
+    Outputs: p (annual exceedance probability 1/T), p_percent (annual exceedance probability, %), T (return period, years), P_n (probability of at least one exceedance in n years), P_n_percent (that probability, %), P_none (probability of no exceedance in n years)
+    See also: help("enveng_return_period_risk")
+    """
+    given = {k: v for k, v in dict(T=T, n=n, risk=risk).items() if v is not None}
+    return _P.solve("enveng_return_period_risk", **given)
 
 def enveng_return_sludge_ratio(X=None, Xr=None, Q=None):
     """Return activated sludge ratio. The return sludge ratio and flow needed to hold the mixed-liquor concentration, from a solids balance around the aeration tank (influent solids neglected).
@@ -1200,15 +1593,15 @@ def enveng_solid_waste_generation(pop=None, rate=None, rho=None, Vt=None):
     return _P.solve("enveng_solid_waste_generation", **given)
 
 def enveng_solids_retention_time(V=None, X=None, Qw=None, Xw=None, Qe=None, Xe=None):
-    """Solids retention time (mean cell residence time). The solids retention time (sludge age) of an activated-sludge system from the biomass in the tank and the biomass leaving in the waste sludge and the effluent.
+    """Solids retention time (mean cell residence time). The solids retention time (sludge age, mean cell residence time) of an activated-sludge system from the biomass in the tank and the biomass leaving in the waste sludge and the effluent; the effluent solids are neglected (Xe = 0) when not given.
     Formula: \\theta_c = \\frac{VX}{Q_wX_w + Q_eX_e}
     Inputs:
         V: aeration tank volume
         X: MLVSS in the tank
         Qw: waste sludge flow
         Xw: VSS in the waste sludge
-        Qe: effluent flow
-        Xe: VSS in the effluent
+        Qe: effluent flow (needed only with Xe) (optional)
+        Xe: VSS in the effluent (default 0: effluent solids neglected) (optional)
     Outputs: SRT (solids retention time), SRT_days (SRT in days)
     See also: help("enveng_solids_retention_time")
     """
@@ -1331,6 +1724,51 @@ def enveng_theoretical_oxygen_demand(formula=None, nitrification=None):
     given = {k: v for k, v in dict(formula=formula, nitrification=nitrification).items() if v is not None}
     return _P.solve("enveng_theoretical_oxygen_demand", **given)
 
+def enveng_thod_solution(formula=None, C=None, nitrification=None):
+    """Theoretical oxygen demand of a solution (mg/L). The theoretical oxygen demand in mg/L of a solution of an organic compound CaHbOcNd at a given concentration, its complete oxidation to CO2 and water (nitrogen to ammonia, or to nitrate with nitrification): ThOD = C x (g O2 per g compound).
+    Formula: \\text{ThOD} = C\\,\\frac{\\left(a + \\frac b4 - \\frac c2 - \\frac{3d}{4}\\right)M_{O_2}}{M}
+    Inputs:
+        formula: molecular formula with C, H, O, N only (e.g. C6H12O6)
+        C: concentration of the compound
+        nitrification: include the oxygen to nitrify ammonia (default no) (optional)
+    Outputs: ThOD (theoretical oxygen demand of the solution), ThOD_mgL (ThOD, mg/L), thod_ratio (g O2 per g compound), o2_per_mol (mol O2 per mol compound), molar_mass (molar mass, g/mol), C_molL (molar concentration of the compound, mol/L)
+    See also: help("enveng_thod_solution")
+    """
+    given = {k: v for k, v in dict(formula=formula, C=C, nitrification=nitrification).items() if v is not None}
+    return _P.solve("enveng_thod_solution", **given)
+
+def enveng_total_alkalinity(HCO3=None, CO3=None, OH=None, H=None, HCO3_M=None, CO3_M=None, OH_M=None, H_M=None, pH=None):
+    """Total alkalinity as CaCO3 from the carbonate species. The total alkalinity of a water, [HCO3-] + 2[CO3 2-] + [OH-] - [H+] in equivalents per litre, expressed as mg/L of CaCO3 (50,000 mg/eq), from the ion concentrations in mg/L or mol/L or the pH; with one of [H+], [OH-] given, the other follows from Kw = 1e-14 (25 degC).
+    Formula: \\text{Alk} = \\left([\\mathrm{HCO_3^-}] + 2[\\mathrm{CO_3^{2-}}] + [\\mathrm{OH^-}] - [\\mathrm{H^+}]\\right)\\times 50\\,000\\ \\mathrm{mg\\,CaCO_3/eq}
+    Inputs:
+        HCO3: bicarbonate [HCO3-] as mass concentration (optional)
+        CO3: carbonate [CO3 2-] as mass concentration (optional)
+        OH: hydroxide [OH-] as mass concentration (optional)
+        H: hydrogen ion [H+] as mass concentration (optional)
+        HCO3_M: bicarbonate [HCO3-] as molar concentration (optional)
+        CO3_M: carbonate [CO3 2-] as molar concentration (optional)
+        OH_M: hydroxide [OH-] as molar concentration (optional)
+        H_M: hydrogen ion [H+] as molar concentration (optional)
+        pH: pH of the water (gives [H+]) (optional)
+    Outputs: alkalinity (total alkalinity, mg/L as CaCO3), alk_meq_L (total alkalinity, meq/L), alk_eq_L (total alkalinity, eq/L), HCO3_caco3 (bicarbonate alkalinity, mg/L as CaCO3), CO3_caco3 (carbonate alkalinity, mg/L as CaCO3), OH_caco3 (hydroxide alkalinity, mg/L as CaCO3), H_caco3 (hydrogen ion (subtracted), mg/L as CaCO3), H_molL ([H+] used, mol/L), OH_molL ([OH-] used, mol/L)
+    See also: help("enveng_total_alkalinity")
+    """
+    given = {k: v for k, v in dict(HCO3=HCO3, CO3=CO3, OH=OH, H=H, HCO3_M=HCO3_M, CO3_M=CO3_M, OH_M=OH_M, H_M=H_M, pH=pH).items() if v is not None}
+    return _P.solve("enveng_total_alkalinity", **given)
+
+def enveng_transmembrane_pressure(P_feed=None, P_conc=None, P_perm=None):
+    """Transmembrane pressure of a crossflow membrane. The transmembrane pressure of a crossflow membrane element, TMP = (P_feed + P_concentrate)/2 - P_permeate, and the feed-channel pressure drop.
+    Formula: TMP = \\frac{P_f + P_c}{2} - P_p
+    Inputs:
+        P_feed: feed pressure
+        P_conc: concentrate (retentate) pressure
+        P_perm: permeate pressure
+    Outputs: TMP (transmembrane pressure), TMP_kPa (in kPa), TMP_bar (in bar), dP (feed-channel pressure drop P_feed - P_conc), dP_kPa (pressure drop, kPa)
+    See also: help("enveng_transmembrane_pressure")
+    """
+    given = {k: v for k, v in dict(P_feed=P_feed, P_conc=P_conc, P_perm=P_perm).items() if v is not None}
+    return _P.solve("enveng_transmembrane_pressure", **given)
+
 def enveng_two_film_transfer(kl=None, kg=None, H=None, C=None, Cg=None):
     """Overall liquid-phase transfer coefficient and flux (two-film theory). The overall liquid-side mass-transfer coefficient from the liquid- and gas-film coefficients and the dimensionless Henry's constant, the share of resistance in the liquid film, and the flux from water to air (negative when the gas dissolves).
     Formula: \\frac{1}{K_L} = \\frac{1}{k_l} + \\frac{1}{Hk_g},\\quad N = K_L\\left(C - \\frac{C_g}{H}\\right)
@@ -1373,6 +1811,18 @@ def enveng_velocity_gradient(P=None, mu=None, V=None, t=None):
     given = {k: v for k, v in dict(P=P, mu=mu, V=V, t=t).items() if v is not None}
     return _P.solve("enveng_velocity_gradient", **given)
 
+def enveng_volatile_solids_reduction(VS_in=None, VS_out=None):
+    """Volatile solids reduction in digestion (Van Kleeck). The fraction of the volatile solids destroyed by sludge digestion from the volatile fractions of the feed and the digested sludge by the Van Kleeck equation, VSR = (VS_in - VS_out)/(VS_in - VS_in VS_out), which assumes the fixed solids pass unchanged.
+    Formula: VSR = \\frac{VS_{in} - VS_{out}}{VS_{in} - VS_{in}\\,VS_{out}}
+    Inputs:
+        VS_in: volatile fraction of the feed solids (fraction or %)
+        VS_out: volatile fraction of the digested solids (fraction or %)
+    Outputs: VSR (volatile solids reduction (fraction)), VSR_percent (volatile solids reduction, %), TS_remaining (total solids left per unit of feed solids)
+    See also: help("enveng_volatile_solids_reduction")
+    """
+    given = {k: v for k, v in dict(VS_in=VS_in, VS_out=VS_out).items() if v is not None}
+    return _P.solve("enveng_volatile_solids_reduction", **given)
+
 def enveng_waste_moisture_content(m=None, w=None):
     """Moisture content of mixed solid waste. The moisture content (wet and dry basis) and the dry mass of a waste mixture from the masses of its components and their moisture fractions.
     Formula: M_{wet} = \\frac{\\sum m_iw_i}{\\sum m_i}
@@ -1384,6 +1834,21 @@ def enveng_waste_moisture_content(m=None, w=None):
     """
     given = {k: v for k, v in dict(m=m, w=w).items() if v is not None}
     return _P.solve("enveng_waste_moisture_content", **given)
+
+def enveng_water_demand(pop=None, q=None, f_md=None, f_ph=None, r_ww=None):
+    """Water and wastewater demand with peaking factors. The average-day, maximum-day and peak-hour water demand of a population from the per-capita demand and the peaking factors (both relative to the average day) and, with the fraction of water returned as wastewater, the average wastewater flow and its peak by Harmon's factor 1 + 14/(4 + sqrt(P/1000)).
+    Formula: Q_{avg} = P\\,q,\\quad Q_{md} = f_{md}Q_{avg},\\quad Q_{ph} = f_{ph}Q_{avg},\\quad PF = 1 + \\frac{14}{4 + \\sqrt{P/1000}}
+    Inputs:
+        pop: population served
+        q: average per-capita demand in L per person per day
+        f_md: maximum-day factor (maximum day / average day)
+        f_ph: peak-hour factor (peak hour / average day)
+        r_ww: fraction of the water returned as wastewater (optional) (optional)
+    Outputs: Q_avg (average-day demand), Q_avg_m3_per_day (average-day demand, m^3/d), Q_maxday (maximum-day demand), Q_maxday_m3_per_day (maximum-day demand, m^3/d), Q_peakhour (peak-hour demand), Q_peakhour_m3_per_day (peak-hour demand as a daily rate, m^3/d), Q_peakhour_L_per_s (peak-hour demand, L/s), Q_ww_avg_m3_per_day (average wastewater flow, m^3/d), harmon_peak_factor (Harmon peaking factor), Q_ww_peak_m3_per_day (peak wastewater flow, m^3/d)
+    See also: help("enveng_water_demand")
+    """
+    given = {k: v for k, v in dict(pop=pop, q=q, f_md=f_md, f_ph=f_ph, r_ww=r_ww).items() if v is not None}
+    return _P.solve("enveng_water_demand", **given)
 
 def enveng_water_hardness(Ca=None, Mg=None):
     """Water hardness as CaCO3. Calcium, magnesium and total hardness expressed as mg/L of CaCO3 from the calcium and magnesium concentrations, with the usual classification (soft to very hard).
@@ -1424,4 +1889,4 @@ def enveng_wind_power_law(u1=None, z1=None, z2=None, p=None):
     return _P.solve("enveng_wind_power_law", **given)
 
 
-__all__ = ["CapabilityId", "solve", "help", "enveng_activated_sludge_cstr_design", "enveng_aeration_do_curve", "enveng_aeration_oxygen_requirement", "enveng_air_stripping_tower", "enveng_anaerobic_methane_yield", "enveng_background_noise_correction", "enveng_backwash_bed_expansion", "enveng_bod_dilution_test", "enveng_bod_exerted", "enveng_bod_rate_fit", "enveng_box_model", "enveng_briggs_dispersion_coefficients", "enveng_briggs_plume_rise", "enveng_briggs_stable_plume_rise", "enveng_chick_law", "enveng_chick_watson", "enveng_chlorine_dose_feed", "enveng_ct_log_inactivation", "enveng_cyclone_lapple", "enveng_day_night_level", "enveng_decibel_addition", "enveng_detention_time", "enveng_disinfection_ct", "enveng_do_saturation", "enveng_dulong_heating_value", "enveng_equivalent_sound_level", "enveng_esp_area", "enveng_esp_efficiency", "enveng_field_oxygen_transfer", "enveng_filter_clean_bed_headloss", "enveng_filtration_rate", "enveng_food_to_microorganism_ratio", "enveng_freundlich_carbon_dose", "enveng_freundlich_fit", "enveng_gaussian_plume_concentration", "enveng_ground_centerline_concentration", "enveng_henry_constant_conversion", "enveng_henry_law_equilibrium", "enveng_henry_temperature_dependence", "enveng_holland_plume_rise", "enveng_hrt_organic_loading", "enveng_hypochlorous_acid_fraction", "enveng_ideal_basin_removal", "enveng_kla_regression", "enveng_kla_two_point", "enveng_lake_steady_state", "enveng_lake_transient", "enveng_landfill_gas_generation", "enveng_landfill_life", "enveng_langmuir_carbon_dose", "enveng_langmuir_fit", "enveng_log_removal", "enveng_mass_concentration_to_ppm", "enveng_max_ground_concentration_briggs", "enveng_max_ground_concentration_ratio", "enveng_membrane_mass_balance", "enveng_minimum_srt", "enveng_mixing_power", "enveng_mixing_several_streams", "enveng_mixing_two_streams", "enveng_monod_growth_rate", "enveng_noise_distance_attenuation", "enveng_nrc_trickling_filter", "enveng_occupational_noise_dose", "enveng_osmotic_pressure", "enveng_overflow_rate_circular", "enveng_oxygen_sag_distance", "enveng_plume_concentration_stability", "enveng_plume_mixing_lid", "enveng_pollutant_load", "enveng_ppm_to_mass_concentration", "enveng_rate_constant_temperature", "enveng_reaeration_coefficient", "enveng_return_sludge_ratio", "enveng_river_first_order_decay", "enveng_sedimentation_basin_sizing", "enveng_settling_chamber_efficiency", "enveng_sludge_production", "enveng_sludge_thickening", "enveng_sludge_volume", "enveng_sludge_volume_index", "enveng_so2_emission", "enveng_solid_waste_generation", "enveng_solids_retention_time", "enveng_sound_power_to_pressure", "enveng_stability_class", "enveng_stack_plume_ground_concentration", "enveng_stokes_settling_velocity", "enveng_streeter_phelps_critical_point", "enveng_streeter_phelps_deficit", "enveng_terminal_settling_velocity", "enveng_theoretical_oxygen_demand", "enveng_two_film_transfer", "enveng_ultimate_bod", "enveng_velocity_gradient", "enveng_waste_moisture_content", "enveng_water_hardness", "enveng_weir_loading_rate", "enveng_wind_power_law"]
+__all__ = ["CapabilityId", "solve", "help", "enveng_activated_sludge_cstr_design", "enveng_aeration_do_curve", "enveng_aeration_oxygen_requirement", "enveng_air_stripping_tower", "enveng_anaerobic_methane_yield", "enveng_background_noise_correction", "enveng_backwash_bed_expansion", "enveng_bod_dilution_test", "enveng_bod_exerted", "enveng_bod_rate_fit", "enveng_box_model", "enveng_briggs_dispersion_coefficients", "enveng_briggs_plume_rise", "enveng_briggs_stable_plume_rise", "enveng_channel_flow_velocity", "enveng_chemical_feed_rate", "enveng_chick_law", "enveng_chick_watson", "enveng_chlorine_dose_feed", "enveng_chronic_daily_intake_risk", "enveng_cmfr_series", "enveng_collection_efficiency_series", "enveng_combustion_oxygen", "enveng_contact_time_from_ct", "enveng_ct_log_inactivation", "enveng_cyclone_lapple", "enveng_darcy_seepage_velocity", "enveng_day_night_level", "enveng_decibel_addition", "enveng_detention_time", "enveng_disinfection_ct", "enveng_do_saturation", "enveng_dulong_heating_value", "enveng_equivalent_sound_level", "enveng_esp_area", "enveng_esp_efficiency", "enveng_field_oxygen_transfer", "enveng_filter_clean_bed_headloss", "enveng_filter_flow_from_loading", "enveng_filtration_rate", "enveng_first_order_decay", "enveng_food_to_microorganism_ratio", "enveng_freundlich_carbon_dose", "enveng_freundlich_fit", "enveng_gaussian_plume_concentration", "enveng_geometric_mean_counts", "enveng_ground_centerline_concentration", "enveng_hazen_williams", "enveng_heating_value_dry_basis", "enveng_henry_constant_conversion", "enveng_henry_law_equilibrium", "enveng_henry_law_solubility", "enveng_henry_temperature_dependence", "enveng_holland_plume_rise", "enveng_hrt_organic_loading", "enveng_hypochlorous_acid_fraction", "enveng_ideal_basin_removal", "enveng_indoor_air_steady_state", "enveng_kla_regression", "enveng_kla_two_point", "enveng_lake_steady_state", "enveng_lake_transient", "enveng_landfill_compaction_ratio", "enveng_landfill_daily_volume", "enveng_landfill_gas_generation", "enveng_landfill_life", "enveng_langmuir_carbon_dose", "enveng_langmuir_fit", "enveng_lapse_rate_stability", "enveng_log_removal", "enveng_manning_flow", "enveng_mass_concentration_to_ppm", "enveng_max_ground_concentration_briggs", "enveng_max_ground_concentration_ratio", "enveng_mean_cell_residence_time", "enveng_membrane_flux", "enveng_membrane_mass_balance", "enveng_minimum_srt", "enveng_mixing_power", "enveng_mixing_several_streams", "enveng_mixing_two_streams", "enveng_monod_growth_rate", "enveng_noise_distance_attenuation", "enveng_nrc_trickling_filter", "enveng_occupational_noise_dose", "enveng_osmotic_pressure", "enveng_overflow_rate_circular", "enveng_oxygen_sag_distance", "enveng_ph_poh", "enveng_plume_concentration_stability", "enveng_plume_mixing_lid", "enveng_pollutant_load", "enveng_population_logistic", "enveng_population_projection", "enveng_ppm_to_mass_concentration", "enveng_pump_power", "enveng_rate_constant_temperature", "enveng_rational_method", "enveng_reaeration_coefficient", "enveng_retardation_factor", "enveng_return_period_risk", "enveng_return_sludge_ratio", "enveng_river_first_order_decay", "enveng_sedimentation_basin_sizing", "enveng_settling_chamber_efficiency", "enveng_sludge_production", "enveng_sludge_thickening", "enveng_sludge_volume", "enveng_sludge_volume_index", "enveng_so2_emission", "enveng_solid_waste_generation", "enveng_solids_retention_time", "enveng_sound_power_to_pressure", "enveng_stability_class", "enveng_stack_plume_ground_concentration", "enveng_stokes_settling_velocity", "enveng_streeter_phelps_critical_point", "enveng_streeter_phelps_deficit", "enveng_terminal_settling_velocity", "enveng_theoretical_oxygen_demand", "enveng_thod_solution", "enveng_total_alkalinity", "enveng_transmembrane_pressure", "enveng_two_film_transfer", "enveng_ultimate_bod", "enveng_velocity_gradient", "enveng_volatile_solids_reduction", "enveng_waste_moisture_content", "enveng_water_demand", "enveng_water_hardness", "enveng_weir_loading_rate", "enveng_wind_power_law"]

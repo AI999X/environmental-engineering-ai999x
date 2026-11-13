@@ -12,6 +12,7 @@ pub mod procedures;
 mod figs_common;
 mod figs_more;
 pub mod figures;
+mod scenes;
 
 pub fn pack() -> &'static Pack {
     static P: OnceLock<Pack> = OnceLock::new();

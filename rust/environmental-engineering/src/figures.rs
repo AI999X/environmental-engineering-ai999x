@@ -39,7 +39,10 @@ pub fn live(s: &Solved) -> Vec<Figure> {
         "enveng_theoretical_oxygen_demand" => vec![m::io_table(s, "io")],
         _ => vec![],
     };
-    v.into_iter().flatten().collect()
+    // the real-world scene first (1.6: the plant, river, stack or tower itself), then the charts
+    let mut out = crate::scenes::scenes(s);
+    out.extend(v.into_iter().flatten());
+    out
 }
 
 /// `y` against `x` from half to one and a half times the given value.

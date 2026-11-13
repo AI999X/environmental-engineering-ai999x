@@ -16,6 +16,18 @@ volume and thickening, methane yield, the NRC trickling filter, field oxygen tra
 gas transfer (Henry's constant conversions, Henry's law, van 't Hoff temperature dependence, two-film theory, air
 stripping towers); noise (decibel addition and subtraction, distance attenuation, Leq, Ldn/Lden, sound power,
 noise dose); solid waste (generation, landfill life, landfill gas generation, Dulong heating value, moisture).
+Batch 1 (2026-11-11): pH and pOH, Henry's law in its solubility form, channel (grit chamber) velocity, landfill
+compaction ratio, retardation factor and contaminant velocity, Darcy's law and seepage velocity, chronic daily intake
+with hazard quotient and cancer risk, mean cell residence time from solids masses, contact time from a required CT,
+filter flow from the loading rate, stoichiometric combustion oxygen, stability from the environmental lapse rate.
+Batch 2 (2026-11-11): total alkalinity as CaCO3, first-order stirred tanks in series with the plug-flow limit, Manning
+and Hazen-Williams (SI), pump power and energy cost, the rational method, the indoor-air box model, collection devices
+in series, the dry-basis heating value, return period and risk, the geometric mean of counts, volatile solids
+reduction (Van Kleeck), transmembrane pressure, the theoretical oxygen demand of a solution in mg/L.
+Batch 3 (2026-11-11): first-order decay in a batch reactor (C, C0, k or t; half-life), the chemical feed rate (kg/d and
+lb/d, flows in MGD read), the membrane permeate flux (LMH) or area, the landfill volume per day and year with cover and
+its life; one CMFR from V and Q, the SRT with the effluent solids optional, exam forms of the ultimate BOD and of the
+pump's input (brake, motor) power.
 
 Each procedure states its inputs, outputs, conditions, method, LaTeX, the documented question form it parses, worked
 examples, an INDEPENDENT reference computation (used only by certification; the checking libraries are imported
@@ -241,6 +253,11 @@ _SHOW = {"mass_concentration": ("mg/L", 1e3), "first_order_rate_constant": ("1/d
 _FAHRENHEIT = ("°F", "degF", "deg F", "F°")
 _DAYRX = re.compile(r"(?<![A-Za-z])d(?![A-Za-z])")
 _TONNE = re.compile(r"(?<![A-Za-z])tonnes?(?![A-Za-z])")
+US_GAL = 0.003785411784           # m^3 per US gallon (exact)
+# flows written in US gallons: (m^3 per unit written, the unit it is rewritten to)
+_GALLON_FLOW = {"MGD": (3785.411784, "m^3/day"), "mgd": (3785.411784, "m^3/day"), "Mgal/d": (3785.411784, "m^3/day"),
+                "Mgal/day": (3785.411784, "m^3/day"), "gpd": (US_GAL, "m^3/day"), "gal/d": (US_GAL, "m^3/day"),
+                "gal/day": (US_GAL, "m^3/day"), "gpm": (US_GAL, "m^3/min"), "gal/min": (US_GAL, "m^3/min")}
 
 
 def _written_unit(num: str, unit: str, kind: str):
@@ -253,6 +270,12 @@ def _written_unit(num: str, unit: str, kind: str):
             return f"{k!r} K"
         if u == "R" or u == "°R":
             return None
+    if kind == "area" and u in ("ha", "hectare", "hectares", "acre", "acres"):     # not in the shared unit reader
+        return f"{v * (1e4 if u.startswith('h') else 4046.8564224)!r} m^2"
+    if kind == "flow_rate" and u in _GALLON_FLOW:                                  # US gallons: not in the shared reader
+        return f"{v * _GALLON_FLOW[u][0]!r} {_GALLON_FLOW[u][1]}"
+    if kind == "speed" and u in ("LMH", "lmh"):                                    # membrane flux, L/(m^2 h)
+        return f"{num} L/(m^2*h)"
     u = _DAYRX.sub("day", u)
     u = _TONNE.sub("t", u)
     return f"{num} {u}"
@@ -1487,9 +1510,16 @@ _add("enveng_ultimate_bod",
      run=ultimate_bod, reference=_ref_ultimate_bod,
      wrong=lambda BOD_t, k, t: (lambda L0: _out(L0=L0, L0_mgL=L0 * 1e3))(BOD_t / (1.0 - 10.0 ** (-k * t))),
      rand=lambda rng: {"BOD_t": _sig(rng.uniform(5.0, 300.0), 3) * MG, "k": _sig(rng.uniform(0.08, 0.45), 3) / DAY, "t": _sig(rng.uniform(1.0, 10.0), 3) * DAY},
-     phrases=("Ultimate BOD", "Ultimate BOD from BOD test"),
+     phrases=("Ultimate BOD", "Ultimate BOD from BOD test", "What is the ultimate BOD", "Ultimate carbonaceous BOD",
+              "Ultimate BOD from BOD5", "Ultimate BOD from a measured BOD"),
+     aliases={"BOD5": "BOD_t", "BODt": "BOD_t"},
      examples=[_ex({"BOD_t": 0.2, "k": 0.23 / DAY, "t": 5 * DAY}), _ex({"BOD_t": 0.012, "k": 0.15 / DAY, "t": 5 * DAY})],
-     level="beginner")
+     level="beginner",
+     # batch 3 (2026-11-11): exam forms of the same calculation
+     extra_q=[{"q": "What is the ultimate BOD: BOD5 = 200 mg/L, k = 0.23 1/d, t = 5 d", "like": 0},
+              {"q": "Ultimate carbonaceous BOD: BOD_t = 12 mg/L, k = 0.15 1/day, t = 120 h", "like": 1},
+              {"q": "Ultimate BOD from BOD5: BOD5 = 200 mg/L, k = 0.23 1/d, t = 5 d", "like": 0},
+              {"q": "Ultimate BOD: BOD_t = 200 mg/L, k = 0.23 1/d, t = 0 d", "outcome": "INVALID_INPUT"}])
 
 
 def k_temperature(k20, theta, T):
@@ -3031,7 +3061,7 @@ _add("enveng_food_to_microorganism_ratio",
      purpose="The food-to-microorganism ratio of an aeration tank from the flow, influent BOD, tank volume and mixed-liquor volatile suspended solids.",
      inputs=[_phys("Q", "flow_rate", "influent flow", show=("m^3/d", DAY)), _phys("S0", "mass_concentration", "influent BOD (or COD)"),
              _phys("V", "volume", "aeration tank volume"), _phys("X", "mass_concentration", "mixed liquor volatile suspended solids (MLVSS)")],
-     outputs=[_o("FM", "food_to_microorganism_ratio", "F/M ratio"), _o("FM_per_day", "number", "F/M in kg BOD/(kg MLVSS d)")],
+     outputs=[_o("FM", "food_to_microorganism_ratio", "food-to-microorganism (F/M) ratio"), _o("FM_per_day", "number", "in kg BOD/(kg MLVSS d)")],
      primary="FM", conditions=["Q, S0, V, X > 0"], method="F/M = Q S0/(V X)", latex=r"\frac FM = \frac{QS_0}{VX}",
      run=fm_ratio, reference=_ref_fm_ratio,
      wrong=lambda Q, S0, V, X: _out(FM=Q * S0 / V, FM_per_day=Q * S0 / V * DAY),
@@ -3042,36 +3072,61 @@ _add("enveng_food_to_microorganism_ratio",
      level="beginner", weak="exact rational arithmetic of the same definition")
 
 
-def srt(V, X, Qw, Xw, Qe, Xe):
+def srt(V, X, Qw, Xw, Qe=None, Xe=None):
     _pos("V, X, Qw and Xw", V, X, Qw, Xw)
-    _nonneg("Qe and Xe", Qe, Xe)
-    th = V * X / (Qw * Xw + Qe * Xe)
+    xe = 0.0 if Xe is None else Xe
+    _nonneg("Xe", xe)
+    if Qe is None:
+        _need(xe == 0, "give the effluent flow Qe with the effluent solids Xe")
+        qe = 0.0
+    else:
+        qe = Qe
+        _nonneg("Qe", qe)
+    th = V * X / (Qw * Xw + qe * xe)
     return _out(SRT=th, SRT_days=th / DAY)
 
 
-def _ref_srt(V, X, Qw, Xw, Qe, Xe):
+def _ref_srt(V, X, Qw, Xw, Qe=None, Xe=None):
     from fractions import Fraction as Fr
-    th = Fr(V) * Fr(X) / (Fr(Qw) * Fr(Xw) + Fr(Qe) * Fr(Xe))
+    lost = Fr(0) if Xe is None or Qe is None else Fr(Qe) * Fr(Xe)   # effluent solids neglected unless given
+    th = Fr(V) * Fr(X) / (Fr(Qw) * Fr(Xw) + lost)
     return {"SRT": float(th), "SRT_days": float(th / 86400)}
+
+
+def _rand_srt(rng):
+    x = {"V": _sig(rng.uniform(500.0, 20000.0), 3), "X": _sig(rng.uniform(1500.0, 4000.0), 3) * MG,
+         "Qw": _sig(rng.uniform(20.0, 400.0), 3) / DAY, "Xw": _sig(rng.uniform(6000.0, 12000.0), 3) * MG}
+    if rng.random() < 0.75:
+        x["Qe"] = _sig(rng.uniform(1000.0, 50000.0), 3) / DAY
+        x["Xe"] = _sig(rng.uniform(5.0, 30.0), 3) * MG
+    elif rng.random() < 0.3:
+        x["Qe"] = _sig(rng.uniform(1000.0, 50000.0), 3) / DAY
+    return x
 
 
 _add("enveng_solids_retention_time",
      name="Solids retention time (mean cell residence time)", topic="wastewater / activated sludge",
-     purpose="The solids retention time (sludge age) of an activated-sludge system from the biomass in the tank and the biomass leaving in the waste sludge and the effluent.",
+     purpose="The solids retention time (sludge age, mean cell residence time) of an activated-sludge system from the biomass in the tank and the biomass leaving in the waste sludge and the effluent; the effluent solids are neglected (Xe = 0) when not given.",
      inputs=[_phys("V", "volume", "aeration tank volume"), _phys("X", "mass_concentration", "MLVSS in the tank"),
              _phys("Qw", "flow_rate", "waste sludge flow", show=("m^3/d", DAY)), _phys("Xw", "mass_concentration", "VSS in the waste sludge"),
-             _phys("Qe", "flow_rate", "effluent flow", show=("m^3/d", DAY)), _phys("Xe", "mass_concentration", "VSS in the effluent")],
+             _phys("Qe", "flow_rate", "effluent flow (needed only with Xe)", required=False, show=("m^3/d", DAY)),
+             _phys("Xe", "mass_concentration", "VSS in the effluent (default 0: effluent solids neglected)", required=False)],
      outputs=[_o("SRT", "time", "solids retention time"), _o("SRT_days", "number", "SRT in days")],
-     primary="SRT", conditions=["steady state"], method="SRT = V X/(Qw Xw + Qe Xe)", latex=r"\theta_c = \frac{VX}{Q_wX_w + Q_eX_e}",
+     primary="SRT", conditions=["steady state", "Xe = 0 (effluent solids neglected) unless given; Xe > 0 needs Qe"],
+     method="SRT = V X/(Qw Xw + Qe Xe)", latex=r"\theta_c = \frac{VX}{Q_wX_w + Q_eX_e}",
      run=srt, reference=_ref_srt,
-     wrong=lambda V, X, Qw, Xw, Qe, Xe: _out(SRT=V * X / (Qw * Xw), SRT_days=V * X / (Qw * Xw) / DAY),
-     rand=lambda rng: {"V": _sig(rng.uniform(500.0, 20000.0), 3), "X": _sig(rng.uniform(1500.0, 4000.0), 3) * MG,
-                       "Qw": _sig(rng.uniform(20.0, 400.0), 3) / DAY, "Xw": _sig(rng.uniform(6000.0, 12000.0), 3) * MG,
-                       "Qe": _sig(rng.uniform(1000.0, 50000.0), 3) / DAY, "Xe": _sig(rng.uniform(5.0, 30.0), 3) * MG},
+     wrong=lambda V, X, Qw, Xw, Qe=None, Xe=None: _out(SRT=V * X / (Qw * Xw), SRT_days=V * X / (Qw * Xw) / DAY),
+     rand=_rand_srt,
      phrases=("Solids retention time", "Mean cell residence time", "Sludge age"),
      examples=[_ex({"V": 3000.0, "X": 2.5, "Qw": 100.0 / DAY, "Xw": 10.0, "Qe": 9900.0 / DAY, "Xe": 0.015}),
-               _ex({"V": 1200.0, "X": 3.0, "Qw": 60.0 / DAY, "Xw": 8.0, "Qe": 3940.0 / DAY, "Xe": 0.01})],
-     level="intermediate", weak="exact rational arithmetic of the same definition")
+               _ex({"V": 1200.0, "X": 3.0, "Qw": 60.0 / DAY, "Xw": 8.0, "Qe": 3940.0 / DAY, "Xe": 0.01}),
+               _ex({"V": 3000.0, "X": 2.5, "Qw": 100.0 / DAY, "Xw": 10.0})],
+     level="intermediate",
+     # batch 3 (2026-11-11): the effluent solids optional
+     extra_q=[{"q": "Sludge age: V = 3000 m^3, X = 2500 mg/L, Qw = 100 m^3/d, Xw = 10000 mg/L", "like": 2},
+              {"q": "Mean cell residence time: V = 3000 m^3, X = 2500 mg/L, Qw = 100 m^3/d, Xw = 10000 mg/L, Xe = 0 mg/L", "like": 2},
+              {"q": "Solids retention time: V = 3000 m^3, X = 2500 mg/L, Qw = 100 m^3/d, Xw = 10000 mg/L, Xe = 15 mg/L", "outcome": "INVALID_INPUT"}],
+     weak="exact rational arithmetic of the same definition")
 
 
 def hrt_olr(Q, S0, V):
@@ -4268,6 +4323,2077 @@ _add("enveng_waste_moisture_content",
      level="intermediate")
 
 
+# ================================================================================================ BATCH 1 (2026-11-11)
+# pH and pOH, Henry's law (solubility form), channel velocity, landfill compaction, retardation, Darcy's law, chronic
+# daily intake and risk, mean cell residence time from solids masses, contact time from a required CT, filter flow
+# from the loading rate, stoichiometric combustion oxygen, atmospheric stability from the lapse rate.
+KW_25C = 1e-14                    # ion product of water at 25 degC, (mol/L)^2
+GAMMA_DRY = 9.8                   # dry adiabatic lapse rate, degC/km
+
+
+def ph_poh(H=None, OH=None):
+    _need((H is None) != (OH is None), "give either the hydrogen ion concentration H or the hydroxide concentration OH, not both")
+    c = H if H is not None else OH
+    _pos("the ion concentration", c)
+    m = c / 1000.0                                          # mol/m^3 -> mol/L
+    _need(1e-14 * (1.0 - 1e-9) <= m <= 1.0 * (1.0 + 1e-12), "the ion concentration must lie between 1e-14 and 1 mol/L (dilute solution at 25 degC)")
+    p = -math.log10(m)
+    other = KW_25C / m
+    if H is not None:
+        return _out(pH=p, pOH=14.0 - p, H_molL=m, OH_molL=other)
+    return _out(pH=14.0 - p, pOH=p, H_molL=other, OH_molL=m)
+
+
+def _ref_ph_poh(H=None, OH=None):
+    import mpmath as mp
+    mp.mp.dps = 40
+    c = mp.mpf(H if H is not None else OH) / 1000
+    o = mp.mpf("1e-14") / c                                 # the other ion from Kw, its p-value from its own logarithm
+    pc, po = -mp.log10(c), -mp.log10(o)
+    if H is not None:
+        return {"pH": float(pc), "pOH": float(po), "H_molL": float(c), "OH_molL": float(o)}
+    return {"pH": float(po), "pOH": float(pc), "H_molL": float(o), "OH_molL": float(c)}
+
+
+def _wrong_ph_poh(H=None, OH=None):
+    c = (H if H is not None else OH) / 1000.0
+    p = -math.log(c)                                        # natural logarithm instead of log10
+    return _out(pH=p, pOH=14.0 - p, H_molL=c, OH_molL=KW_25C / c) if H is not None else _out(pH=14.0 - p, pOH=p, H_molL=KW_25C / c, OH_molL=c)
+
+
+def _rand_ph(rng):
+    v = 10.0 ** (-rng.uniform(0.3, 13.7)) * 1000.0
+    return {"H": _sig(v, 3)} if rng.random() < 0.5 else {"OH": _sig(v, 3)}
+
+
+_add("enveng_ph_poh",
+     name="pH and pOH from the hydrogen or hydroxide ion concentration", topic="water quality / acids and bases",
+     purpose="The pH, the pOH and both ion concentrations of a water sample at 25 degC from either its hydrogen ion concentration [H+] or its hydroxide ion concentration [OH-] (pH = -log10[H+], pOH = -log10[OH-], pH + pOH = 14).",
+     inputs=[_phys("H", "molar_concentration", "hydrogen ion concentration [H+]", required=False, show=("mol/L", 1e-3)),
+             _phys("OH", "molar_concentration", "hydroxide ion concentration [OH-]", required=False, show=("mol/L", 1e-3))],
+     outputs=[_o("pH", "number", "pH = -log10[H+]"), _o("pOH", "number", "pOH = -log10[OH-] = 14 - pH"),
+              _o("H_molL", "number", "hydrogen ion concentration, mol/L"), _o("OH_molL", "number", "hydroxide ion concentration, mol/L")],
+     primary="pH", conditions=["25 degC: Kw = 1e-14, pH + pOH = 14", "exactly one of H, OH", "1e-14 <= concentration <= 1 mol/L (dilute: activity = concentration)"],
+     method="pH = -log10[H+]; [OH-] = Kw/[H+]; pOH = 14 - pH (or from [OH-] the other way round)",
+     latex=r"\mathrm{pH} = -\log_{10}[\mathrm{H^+}],\quad \mathrm{pOH} = -\log_{10}[\mathrm{OH^-}],\quad \mathrm{pH} + \mathrm{pOH} = 14",
+     run=ph_poh, reference=_ref_ph_poh, wrong=_wrong_ph_poh, rand=_rand_ph,
+     phrases=("pH and pOH", "pH of a sample", "pH from ion concentration", "Calculate the pH"),
+     aliases={"H3O": "H", "Hplus": "H", "OHminus": "OH"},
+     examples=[_ex({"OH": 1.0e-5 * 1000.0}), _ex({"H": 2.5e-4 * 1000.0})],
+     level="beginner",
+     extra_q=[{"q": "pH of a sample: OH = 1.0e-5 mol/L", "like": 0},
+              {"q": "pH and pOH: H = 2 mol/L", "outcome": "INVALID_INPUT"},
+              {"q": "pH and pOH: H = 1e-7 mol/L, OH = 1e-7 mol/L", "outcome": "INVALID_INPUT"},
+              {"q": "pH and pOH: H = -0.001 mol/L", "outcome": "INVALID_INPUT"}])
+
+
+def henry_solubility(KH, P, M=None):
+    _pos("KH and P", KH, P)
+    C = KH * P
+    out = {"C": C, "C_molL": C / 1000.0}
+    if M is not None:
+        _pos("the molar mass M", M)
+        out["C_mass"] = C * M
+        out["C_mgL"] = C * M * 1e3
+    return _out(**out)
+
+
+def _ref_henry_solubility(KH, P, M=None):
+    from chemicals import Henry_converter as hc
+    # the solubility constant converted to the volatility form by the library, then C = P/Hpc
+    hpc = hc(KH * P_ATM / 1000.0, "M/atm", "m^3*Pa/mol", rhom=55344.59, MW=18.01528)
+    C = P / hpc
+    out = {"C": C, "C_molL": C / 1000.0}
+    if M is not None:
+        out["C_mass"] = C * M
+        out["C_mgL"] = C * M * 1e3
+    return out
+
+
+_add("enveng_henry_law_solubility",
+     name="Dissolved gas concentration from Henry's solubility constant (C = KH P)", topic="gas transfer / Henry's law",
+     purpose="The equilibrium concentration of a gas dissolved in water from its partial pressure and Henry's solubility constant KH in mol/(L atm), as mol/L and, with the gas molar mass, as mg/L.",
+     inputs=[_phys("KH", "henry_constant", "Henry's solubility constant", show=("mol/(L*atm)", P_ATM / 1e3)),
+             _phys("P", "pressure", "partial pressure of the gas above the water", show=("atm", 1.0 / P_ATM)),
+             _phys("M", "molar_mass", "molar mass of the gas (for mg/L)", required=False, show=("g/mol", 1e3))],
+     outputs=[_o("C", "molar_concentration", "dissolved concentration KH P"), _o("C_molL", "number", "in mol/L"),
+              _o("C_mass", "mass_concentration", "dissolved mass concentration"), _o("C_mgL", "number", "in mg/L")],
+     primary="C", conditions=["KH, P > 0", "dilute solution at equilibrium, KH at the water temperature"],
+     method="C = KH P; mass concentration C M", latex=r"C = K_H\,P,\qquad C_m = K_H\,P\,M",
+     run=henry_solubility, reference=_ref_henry_solubility,
+     wrong=lambda KH, P, M=None: (lambda C: _out(**({"C": C, "C_molL": C / 1000.0} if M is None else {"C": C, "C_molL": C / 1000.0, "C_mass": C * M, "C_mgL": C * M * 1e3})))(P / KH),
+     rand=lambda rng: dict({"KH": _sig(_lu(rng, 1e-4, 1.0), 3) * 1e3 / P_ATM, "P": _sig(_lu(rng, 1e-4, 5.0), 3) * P_ATM},
+                           **({"M": _sig(rng.uniform(2.0, 160.0), 4) * 1e-3} if rng.random() < 0.6 else {})),
+     phrases=("Henry's law solubility", "Dissolved gas concentration from KH", "Henry's law C = KH P", "Henry's law"),
+     aliases={"Kh": "KH", "p": "P"},
+     examples=[_ex({"KH": 1.3e-3 * 1e3 / P_ATM, "P": 0.21 * P_ATM, "M": 0.032}), _ex({"KH": 3.4e-2 * 1e3 / P_ATM, "P": 4.0e-4 * P_ATM})],
+     level="beginner",
+     extra_q=[{"q": "Henry's law: KH = 0.0013 mol/(L*atm), P = 0.21 atm, M = 32 g/mol", "like": 0},
+              {"q": "Henry's law solubility: KH = 0.0013 mol/(L*atm), P = -0.21 atm", "outcome": "INVALID_INPUT"}])
+
+
+def channel_velocity(W, d, Q=None, v=None):
+    _need((Q is None) != (v is None), "give either the flow Q or the velocity v, not both")
+    _pos("the width W and the depth d", W, d)
+    A = W * d
+    if Q is not None:
+        _pos("the flow Q", Q)
+        return _out(A=A, v=Q / A, Q=Q)
+    _pos("the velocity v", v)
+    return _out(A=A, v=v, Q=v * A)
+
+
+def _ref_channel_velocity(W, d, Q=None, v=None):
+    from scipy.integrate import quad
+    A = _quad(lambda z: W, 0.0, d)                          # the wetted section integrated over the depth
+    if Q is not None:
+        vv = _brentq(lambda u: quad(lambda z: u * W, 0.0, d)[0] - Q, 0.0, 2.0 * Q / A + 1.0)   # uniform velocity carrying Q
+        return {"A": A, "v": vv, "Q": Q}
+    return {"A": A, "v": v, "Q": quad(lambda z: v * W, 0.0, d, epsrel=1e-13)[0]}
+
+
+_add("enveng_channel_flow_velocity",
+     name="Flow velocity in a rectangular channel (continuity, grit chamber)", topic="water treatment / channel hydraulics",
+     purpose="The mean (horizontal) velocity of flow in a rectangular channel or grit chamber from the flow, the width and the water depth (v = Q/(W d)), or the flow from the velocity (Q = A v).",
+     inputs=[_phys("W", "length", "channel width"), _phys("d", "length", "water depth"),
+             _phys("Q", "flow_rate", "flow rate", required=False), _phys("v", "speed", "mean flow velocity", required=False)],
+     outputs=[_o("A", "area", "flow cross-section W d"), _o("v", "speed", "mean (horizontal) velocity Q/A"), _o("Q", "flow_rate", "flow rate A v")],
+     primary="v", conditions=["W, d > 0", "exactly one of Q, v, positive", "rectangular section, uniform mean velocity"],
+     method="A = W d; v = Q/A (or Q = A v)", latex=r"v = \frac{Q}{A} = \frac{Q}{W\,d},\qquad Q = A\,v",
+     run=channel_velocity, reference=_ref_channel_velocity,
+     wrong=lambda W, d, Q=None, v=None: (lambda A: _out(A=A, v=Q / A, Q=Q) if Q is not None else _out(A=A, v=v, Q=v * A))(W * d / 2.0),
+     rand=lambda rng: dict({"W": _sig(rng.uniform(0.3, 6.0), 3), "d": _sig(rng.uniform(0.2, 3.0), 3)},
+                           **({"Q": _sig(_lu(rng, 0.01, 5.0), 3)} if rng.random() < 0.6 else {"v": _sig(rng.uniform(0.1, 1.5), 3)})),
+     phrases=("Flow velocity in a channel", "Horizontal velocity of a grit chamber", "Grit chamber velocity", "Channel flow continuity"),
+     examples=[_ex({"Q": 0.3, "W": 1.0, "d": 1.0}), _ex({"v": 0.25, "W": 2.0, "d": 1.5})],
+     level="beginner",
+     extra_q=[{"q": "Grit chamber velocity: Q = 1080 m^3/h, W = 1 m, d = 1 m", "like": 0},
+              {"q": "Flow velocity in a channel: Q = 0.3 m^3/s, W = 0 m, d = 1 m", "outcome": "INVALID_INPUT"},
+              {"q": "Flow velocity in a channel: Q = 0.3 m^3/s, v = 0.3 m/s, W = 1 m, d = 1 m", "outcome": "INVALID_INPUT"}])
+
+
+def compaction_ratio(rho_i=None, rho_c=None, V_i=None, V_c=None):
+    dens = rho_i is not None or rho_c is not None
+    vols = V_i is not None or V_c is not None
+    _need(dens != vols, "give either the two densities (rho_i, rho_c) or the two volumes (V_i, V_c)")
+    if dens:
+        _need(rho_i is not None and rho_c is not None, "give both densities, before (rho_i) and after (rho_c) compaction")
+        _pos("the densities", rho_i, rho_c)
+        CR = rho_c / rho_i
+    else:
+        _need(V_i is not None and V_c is not None, "give both volumes, before (V_i) and after (V_c) compaction")
+        _pos("the volumes", V_i, V_c)
+        CR = V_i / V_c
+    _need(CR >= 1.0, "compaction makes the waste denser: the compacted density must be at least the initial one")
+    red = 1.0 - 1.0 / CR
+    return _out(CR=CR, volume_reduction=red, volume_reduction_percent=red * 100.0)
+
+
+def _ref_compaction_ratio(rho_i=None, rho_c=None, V_i=None, V_c=None):
+    import numpy as np
+    if rho_i is not None:                                   # one kilogram of waste before and after: specific volumes
+        v = np.array([1.0 / rho_i, 1.0 / rho_c])
+    else:
+        v = np.array([V_i, V_c], float)
+    CR = float(v[0] / v[1])
+    red = float((v[0] - v[1]) / v[0])
+    return {"CR": CR, "volume_reduction": red, "volume_reduction_percent": red * 100.0}
+
+
+_add("enveng_landfill_compaction_ratio",
+     name="Compaction ratio of solid waste", topic="solid waste / landfill compaction",
+     purpose="The compaction ratio of solid waste (compacted over initial density, or initial over compacted volume) and the volume reduction it gives.",
+     inputs=[_phys("rho_i", "density", "density as delivered (loose)", required=False), _phys("rho_c", "density", "density after compaction", required=False),
+             _phys("V_i", "volume", "volume before compaction", required=False), _phys("V_c", "volume", "volume after compaction", required=False)],
+     outputs=[_o("CR", "number", "compaction ratio"), _o("volume_reduction", "number", "fraction of the volume removed 1 - 1/CR"),
+              _o("volume_reduction_percent", "number", "volume reduction in per cent")],
+     primary="CR", conditions=["two densities or two volumes", "the same mass of waste before and after", "CR >= 1"],
+     method="CR = rho_c/rho_i = V_i/V_c (mass conserved); reduction = 1 - V_c/V_i",
+     latex=r"CR = \frac{\rho_c}{\rho_i} = \frac{V_i}{V_c},\qquad \Delta V = 1 - \frac{1}{CR}",
+     run=compaction_ratio, reference=_ref_compaction_ratio,
+     wrong=lambda rho_i=None, rho_c=None, V_i=None, V_c=None: (lambda CR: _out(CR=CR, volume_reduction=1.0 - CR, volume_reduction_percent=(1.0 - CR) * 100.0))(
+         rho_i / rho_c if rho_i is not None else V_c / V_i),
+     rand=lambda rng: (lambda a, cr: {"rho_i": a, "rho_c": _sig(a * cr, 3)} if rng.random() < 0.5 else {"V_i": _sig(a * 10.0, 3), "V_c": _sig(a * 10.0 / cr, 3)})(
+         _sig(rng.uniform(80.0, 300.0), 3), rng.uniform(1.5, 8.0)),
+     phrases=("Compaction ratio", "Landfill compaction ratio", "Waste compaction ratio"),
+     examples=[_ex({"rho_i": 120.0, "rho_c": 600.0}), _ex({"V_i": 1000.0, "V_c": 250.0})],
+     level="beginner",
+     extra_q=[{"q": "Compaction ratio: rho_i = 600 kg/m^3, rho_c = 120 kg/m^3", "outcome": "INVALID_INPUT"},
+              {"q": "Compaction ratio: rho_i = 120 kg/m^3, V_c = 250 m^3", "outcome": "INVALID_INPUT"}])
+
+
+def retardation(rho_b=None, n=None, Kd=None, Koc=None, foc=None, R=None, v=None):
+    out = {}
+    if R is not None:
+        _need(rho_b is None and n is None and Kd is None and Koc is None and foc is None,
+              "give the retardation factor R directly or the soil properties to compute it, not both")
+        _need(v is not None, "with R given, give the groundwater velocity v")
+        _fin(R)
+        _need(R >= 1.0, "the retardation factor R must be at least 1")
+    else:
+        _need(rho_b is not None and n is not None, "give the bulk density rho_b and the porosity n (or R directly)")
+        _pos("the bulk density rho_b", rho_b)
+        _frac("the porosity n", n, lo_open=True, hi_open=True)
+        if Kd is not None:
+            _need(Koc is None and foc is None, "give Kd, or Koc with foc, not both")
+            _nonneg("Kd", Kd)
+            kd = Kd
+        else:
+            _need(Koc is not None and foc is not None, "give the distribution coefficient Kd, or Koc and foc")
+            _nonneg("Koc", Koc)
+            _frac("the organic carbon fraction foc", foc)
+            kd = Koc * foc
+            out["Kd"] = kd
+            out["Kd_L_per_kg"] = kd * 1e3
+        R = 1.0 + rho_b * kd / n
+    out["R"] = R
+    if v is not None:
+        _pos("the groundwater velocity v", v)
+        out["vc"] = v / R
+        out["vc_m_per_day"] = v / R * DAY
+        out["v_m_per_day"] = v * DAY
+    return _out(**out)
+
+
+def _ref_retardation(rho_b=None, n=None, Kd=None, Koc=None, foc=None, R=None, v=None):
+    import numpy as np
+    out = {}
+    if R is None:
+        kd = float(np.prod([Koc, foc])) if Kd is None else Kd
+        if Kd is None:
+            out["Kd"] = kd
+            out["Kd_L_per_kg"] = kd * 1e3
+        # per unit volume of aquifer at unit dissolved concentration: dissolved n, sorbed rho_b Kd; R = total / dissolved
+        dissolved, sorbed = n, rho_b * kd
+        R = float(np.sum([dissolved, sorbed]) / dissolved)
+        frac_mobile = dissolved / (dissolved + sorbed)
+    else:
+        frac_mobile = 1.0 / R
+    out["R"] = R
+    if v is not None:
+        out["vc"] = v * frac_mobile                         # the contaminant moves only while dissolved
+        out["vc_m_per_day"] = out["vc"] * 86400.0
+        out["v_m_per_day"] = v * 86400.0
+    return out
+
+
+def _wrong_retardation(rho_b=None, n=None, Kd=None, Koc=None, foc=None, R=None, v=None):
+    out = {}
+    if R is None:
+        kd = Kd if Kd is not None else Koc * foc
+        R = 1.0 + rho_b * kd * n                            # porosity multiplied instead of divided
+        if Kd is None:
+            out.update(Kd=kd, Kd_L_per_kg=kd * 1e3)
+    out["R"] = R
+    if v is not None:
+        out.update(vc=v * R, vc_m_per_day=v * R * DAY, v_m_per_day=v * DAY)   # multiplied by R instead of divided
+    return _out(**out)
+
+
+def _rand_retardation(rng):
+    x = {}
+    if rng.random() < 0.2:
+        x["R"] = _sig(rng.uniform(1.0, 30.0), 3)
+        x["v"] = _sig(rng.uniform(0.01, 2.0), 3) / DAY
+        return x
+    x["rho_b"] = _sig(rng.uniform(1.3, 2.1), 3) * 1000.0
+    x["n"] = _sig(rng.uniform(0.15, 0.5), 2)
+    if rng.random() < 0.5:
+        x["Kd"] = _sig(_lu(rng, 0.05, 50.0), 3) * 1e-3
+    else:
+        x["Koc"] = _sig(_lu(rng, 10.0, 5000.0), 3) * 1e-3
+        x["foc"] = _sig(_lu(rng, 0.0005, 0.05), 2)
+    if rng.random() < 0.7:
+        x["v"] = _sig(rng.uniform(0.01, 2.0), 3) / DAY
+    return x
+
+
+_add("enveng_retardation_factor",
+     name="Retardation factor and contaminant velocity in groundwater", topic="groundwater / contaminant transport",
+     purpose="The retardation factor of a sorbing contaminant in an aquifer, R = 1 + rho_b Kd / n (Kd given or Koc foc), and the velocity at which the contaminant migrates, v_c = v / R (R may also be given directly).",
+     inputs=[_phys("rho_b", "density", "dry bulk density of the aquifer material", required=False, show=("g/cm^3", 1e-3)),
+             _numin("n", "porosity (fraction or %)", required=False, pct=True),
+             _phys("Kd", "specific_volume", "distribution coefficient", required=False, show=("L/kg", 1e3)),
+             _phys("Koc", "specific_volume", "organic-carbon partition coefficient", required=False, show=("L/kg", 1e3)),
+             _numin("foc", "fraction of organic carbon (fraction or %)", required=False, pct=True),
+             _numin("R", "retardation factor, if already known", required=False),
+             _phys("v", "speed", "groundwater (seepage) velocity", required=False, show=("m/d", DAY))],
+     outputs=[_o("R", "number", "retardation factor"), _o("vc", "speed", "contaminant migration velocity v/R"),
+              _o("vc_m_per_day", "number", "contaminant velocity, m/d"), _o("v_m_per_day", "number", "groundwater velocity, m/d"),
+              _o("Kd", "specific_volume", "distribution coefficient Koc foc"), _o("Kd_L_per_kg", "number", "Kd in L/kg")],
+     primary="R", conditions=["linear, reversible, instantaneous sorption", "0 < n < 1", "R >= 1"],
+     method="Kd = Koc foc; R = 1 + rho_b Kd / n; v_c = v / R",
+     latex=r"R = 1 + \frac{\rho_b K_d}{n},\quad K_d = K_{oc}f_{oc},\quad v_c = \frac{v}{R}",
+     run=retardation, reference=_ref_retardation, wrong=_wrong_retardation, rand=_rand_retardation,
+     phrases=("Retardation factor", "Contaminant migration velocity", "Migration velocity of the contaminant", "Contaminant velocity in groundwater"),
+     examples=[_ex({"rho_b": 1600.0, "n": 0.3, "Koc": 0.1, "foc": 0.01, "v": 0.5 / DAY}), _ex({"R": 4.0, "v": 1.2 / DAY})],
+     level="intermediate",
+     extra_q=[{"q": "Retardation factor: rho_b = 1.8 g/cm^3, n = 0.35, Kd = 0.5 L/kg",
+               "outputs": {"R": 1.0 + 1800.0 * 0.0005 / 0.35}},
+              {"q": "Migration velocity of the contaminant: rho_b = 1.6 g/cm^3, n = 30%, Koc = 100 L/kg, foc = 1%, v = 0.5 m/d", "like": 0},
+              {"q": "Retardation factor: rho_b = 1.6 g/cm^3, n = 120%, Kd = 1 L/kg", "outcome": "INVALID_INPUT"},
+              {"q": "Retardation factor: R = 0.5, v = 1 m/d", "outcome": "INVALID_INPUT"}])
+
+
+def darcy(K, i=None, dh=None, L=None, A=None, n_e=None):
+    _pos("the hydraulic conductivity K", K)
+    if i is None:
+        _need(dh is not None and L is not None, "give the hydraulic gradient i, or the head difference dh and the flow length L")
+        _pos("dh and L", dh, L)
+        i = dh / L
+    else:
+        _need(dh is None and L is None, "give the gradient i or dh and L, not both")
+        _pos("the hydraulic gradient i", i)
+    q = K * i
+    out = {"i": i, "q": q, "q_m_per_day": q * DAY}
+    if A is not None:
+        _pos("the flow area A", A)
+        out["Q"] = q * A
+        out["Q_m3_per_day"] = q * A * DAY
+    if n_e is not None:
+        _frac("the effective porosity n_e", n_e, lo_open=True, hi_open=True)
+        out["v_s"] = q / n_e
+        out["v_s_m_per_day"] = q / n_e * DAY
+    return _out(**out)
+
+
+def _ref_darcy(K, i=None, dh=None, L=None, A=None, n_e=None):
+    # head along the flow path, dh/dx = -q/K, integrated for a unit flux; the flux that gives the stated head drop
+    Lx = L if i is None else 1.0
+    drop = dh if i is None else i
+    h_end = _ivp(lambda x, y: [-1.0 / K], Lx, [0.0], atol=[1e-20])[0]
+    q = drop / -h_end
+    out = {"i": drop / Lx, "q": q, "q_m_per_day": q * 86400.0}
+    if A is not None:
+        out["Q"] = q * A
+        out["Q_m3_per_day"] = q * A * 86400.0
+    if n_e is not None:
+        out["v_s"] = q / n_e
+        out["v_s_m_per_day"] = q / n_e * 86400.0
+    return out
+
+
+def _wrong_darcy(K, i=None, dh=None, L=None, A=None, n_e=None):
+    i = i if i is not None else dh / L
+    q = K / i
+    out = {"i": i, "q": q, "q_m_per_day": q * DAY}
+    if A is not None:
+        out.update(Q=q * A, Q_m3_per_day=q * A * DAY)
+    if n_e is not None:
+        out.update(v_s=q * n_e, v_s_m_per_day=q * n_e * DAY)
+    return _out(**out)
+
+
+def _rand_darcy(rng):
+    x = {"K": _sig(_lu(rng, 1e-3, 100.0), 3) / DAY}
+    if rng.random() < 0.5:
+        x["i"] = _sig(_lu(rng, 1e-4, 0.05), 3)
+    else:
+        x["dh"] = _sig(rng.uniform(0.1, 20.0), 3)
+        x["L"] = _sig(rng.uniform(10.0, 2000.0), 3)
+    if rng.random() < 0.6:
+        x["A"] = _sig(_lu(rng, 1.0, 5000.0), 3)
+    if rng.random() < 0.7:
+        x["n_e"] = _sig(rng.uniform(0.05, 0.45), 2)
+    return x
+
+
+_add("enveng_darcy_seepage_velocity",
+     name="Darcy's law: groundwater flow and seepage velocity", topic="groundwater / Darcy's law",
+     purpose="Groundwater flow through an aquifer by Darcy's law: the Darcy flux q = K i, the flow Q = K i A through an area and the seepage (average linear) velocity v_s = K i / n_e; the gradient may be given as a head difference over a length.",
+     inputs=[_phys("K", "speed", "hydraulic conductivity", show=("m/d", DAY)),
+             _numin("i", "hydraulic gradient dh/L (dimensionless)", required=False),
+             _phys("dh", "length", "head difference along the flow path", required=False),
+             _phys("L", "length", "length of the flow path", required=False),
+             _phys("A", "area", "cross-sectional area of flow", required=False),
+             _numin("n_e", "effective porosity (fraction or %)", required=False, pct=True)],
+     outputs=[_o("i", "number", "hydraulic gradient"), _o("q", "speed", "Darcy flux (specific discharge) K i"), _o("q_m_per_day", "number", "Darcy flux, m/d"),
+              _o("Q", "flow_rate", "flow K i A"), _o("Q_m3_per_day", "number", "flow, m^3/d"),
+              _o("v_s", "speed", "seepage (average linear) velocity K i / n_e"), _o("v_s_m_per_day", "number", "seepage velocity, m/d")],
+     primary="q", conditions=["laminar flow (Darcy's law)", "K, i > 0", "0 < n_e < 1"],
+     method="i = dh/L; q = K i; Q = q A; v_s = q/n_e",
+     latex=r"Q = K\,i\,A,\qquad v_s = \frac{K\,i}{n_e},\qquad i = \frac{\Delta h}{L}",
+     run=darcy, reference=_ref_darcy, wrong=_wrong_darcy, rand=_rand_darcy,
+     phrases=("Darcy's law", "Darcy flow", "Seepage velocity", "Groundwater seepage velocity"),
+     examples=[_ex({"K": 10.0 / DAY, "i": 0.002, "A": 500.0, "n_e": 0.25}), _ex({"K": 1e-4, "dh": 2.0, "L": 400.0, "n_e": 0.3})],
+     level="beginner",
+     extra_q=[{"q": "Seepage velocity: K = 1e-4 m/s, dh = 2 m, L = 400 m, n_e = 30%", "like": 1},
+              {"q": "Darcy's law: K = 10 m/d, i = 0.002, n_e = 150%", "outcome": "INVALID_INPUT"},
+              {"q": "Darcy's law: K = 10 m/d, i = 0.002, dh = 2 m, L = 400 m", "outcome": "INVALID_INPUT"}])
+
+
+_DOSE = ("mg/kg/d", "mg/(kg*d)", "mg/kg-day", "mg/kg/day", "mg/(kg*day)", "mg/kg-d")
+_SLOPE = ("(mg/kg/d)^-1", "(mg/kg-day)^-1", "(mg/(kg*d))^-1", "kg*d/mg", "kg*day/mg", "(mg/kg/day)^-1", "(mg/kg-d)^-1")
+
+
+def chronic_intake(C, IR, BW, EF=None, ED=None, AT=None, RfD=None, SF=None):
+    _pos("C, IR and BW", C, IR, BW)
+    given = (EF is not None) + (ED is not None) + (AT is not None)
+    _need(given == 0 or given == 3, "give EF, ED and AT together, or none of them (continuous lifetime exposure)")
+    c = C * 1e3                                             # mg/L
+    ir = IR * 1e3 * DAY                                     # L/d
+    f = 1.0
+    if given == 3:
+        _pos("EF, ED and AT", EF, ED, AT)
+        _need(EF <= 365.0, "the exposure frequency EF cannot exceed 365 days per year")
+        _need(EF * ED <= AT * (1.0 + 1e-12), "the exposure days EF x ED cannot exceed the averaging time AT")
+        f = EF * ED / AT
+    cdi = c * ir * f / BW
+    out = {"CDI": cdi}
+    if RfD is not None:
+        _pos("the reference dose RfD", RfD)
+        out["HQ"] = cdi / RfD
+    if SF is not None:
+        _pos("the slope factor SF", SF)
+        risk = cdi * SF
+        _need(risk <= 0.01, "the linear low-dose risk model holds only for a risk up to 0.01")
+        out["risk"] = risk
+    return _out(**out)
+
+
+def _ref_chronic_intake(C, IR, BW, EF=None, ED=None, AT=None, RfD=None, SF=None):
+    from scipy.integrate import quad
+    dose_rate = (C * 1e3) * (IR * 1e3 * 86400.0) / BW       # mg/(kg d) while exposed
+    if EF is None:
+        exposed, at = 1.0, 1.0
+    else:
+        exposed, at = EF * ED, AT                           # exposure days within the averaging period (days)
+    # the dose accumulated over the averaging period, divided by its length
+    total = quad(lambda t: dose_rate, 0.0, exposed, epsabs=0.0, epsrel=1e-13)[0]
+    cdi = total / at
+    out = {"CDI": cdi}
+    if RfD is not None:
+        out["HQ"] = cdi / RfD
+    if SF is not None:
+        out["risk"] = cdi * SF
+    return out
+
+
+def _wrong_chronic_intake(C, IR, BW, EF=None, ED=None, AT=None, RfD=None, SF=None):
+    f = 1.0 if EF is None else EF * ED / AT
+    cdi = C * 1e3 * IR * 1e3 * DAY * f                      # body weight forgotten
+    out = {"CDI": cdi}
+    if RfD is not None:
+        out["HQ"] = cdi / RfD
+    if SF is not None:
+        out["risk"] = cdi * SF
+    return _out(**out)
+
+
+def _rand_cdi(rng):
+    x = {"C": _sig(_lu(rng, 1e-4, 1.0), 3) * MG, "IR": _sig(rng.uniform(0.5, 3.0), 2) * 1e-3 / DAY, "BW": _sig(rng.uniform(10.0, 90.0), 3)}
+    if rng.random() < 0.6:
+        x["ED"] = float(rng.randint(1, 70))
+        x["EF"] = float(rng.choice([350, 365, 250, 180]))
+        x["AT"] = rng.choice([70.0 * 365.0, x["ED"] * 365.0])
+    if rng.random() < 0.6:
+        x["RfD"] = _sig(_lu(rng, 1e-4, 0.5), 2)
+    if rng.random() < 0.5:
+        x["SF"] = _sig(_lu(rng, 1e-3, 0.5), 2)
+    return x
+
+
+_add("enveng_chronic_daily_intake_risk",
+     name="Chronic daily intake, hazard quotient and cancer risk", topic="risk assessment / exposure",
+     purpose="The chronic daily intake of a contaminant in drinking water, CDI = C IR EF ED / (BW AT) (a continuous lifetime exposure, CDI = C IR / BW, when EF, ED and AT are not given), with the hazard quotient CDI/RfD and the lifetime cancer risk CDI SF when the reference dose or slope factor is given.",
+     inputs=[_phys("C", "mass_concentration", "concentration in the water"),
+             _phys("IR", "flow_rate", "intake (ingestion) rate", show=("L/d", 1e3 * DAY)),
+             _phys("BW", "mass", "body weight"),
+             _numin("EF", "exposure frequency, days per year", required=False, words=("d/yr", "days/yr", "days/year", "d/y", "day/yr", "days/y")),
+             _numin("ED", "exposure duration, years", required=False, words=("yr", "years", "year", "y")),
+             _numin("AT", "averaging time, days", required=False, words=("d", "days", "day")),
+             _numin("RfD", "reference dose, mg/(kg d)", required=False, words=_DOSE),
+             _numin("SF", "cancer slope factor, (mg/(kg d))^-1", required=False, words=_SLOPE)],
+     outputs=[_o("CDI", "number", "chronic daily intake, mg/(kg d)"), _o("HQ", "number", "hazard quotient CDI/RfD"),
+              _o("risk", "number", "lifetime excess cancer risk CDI SF")],
+     primary="CDI", conditions=["EF, ED and AT together or none (continuous lifetime)", "EF <= 365 d/yr, EF ED <= AT",
+                                "ED in years, AT in days (70 yr x 365 = 25,550 d)", "linear low-dose risk up to 0.01"],
+     method="CDI = C IR EF ED / (BW AT) [mg/L, L/d, d/yr, yr, kg, d]; HQ = CDI/RfD; risk = CDI SF",
+     latex=r"CDI = \frac{C\cdot IR\cdot EF\cdot ED}{BW\cdot AT},\quad HQ = \frac{CDI}{RfD},\quad \text{risk} = CDI\cdot SF",
+     run=chronic_intake, reference=_ref_chronic_intake, wrong=_wrong_chronic_intake, rand=_rand_cdi,
+     phrases=("Chronic daily intake", "CDI", "Hazard quotient", "Cancer risk from drinking water", "Lifetime cancer risk"),
+     examples=[_ex({"C": 0.05 * MG, "IR": 2.0e-3 / DAY, "BW": 70.0, "RfD": 0.02}),
+               _ex({"C": 0.01 * MG, "IR": 2.0e-3 / DAY, "BW": 70.0, "EF": 350.0, "ED": 30.0, "AT": 25550.0, "SF": 1.5})],
+     level="intermediate",
+     extra_q=[{"q": "Hazard quotient: C = 0.05 mg/L, IR = 2 L/d, BW = 70 kg, RfD = 0.02 mg/kg/d", "like": 0},
+              {"q": "Chronic daily intake: C = 0.01 mg/L, IR = 2 L/d, BW = 70 kg, EF = 350 d/yr, ED = 30 yr", "outcome": "INVALID_INPUT"},
+              {"q": "Chronic daily intake: C = 0.01 mg/L, IR = 2 L/d, BW = 70 kg, EF = 400 d/yr, ED = 30 yr, AT = 25550 d", "outcome": "INVALID_INPUT"}])
+
+
+def mcrt_masses(M, Mw, Me):
+    _pos("the solids mass in the basin M", M)
+    _nonneg("the solids wasted and lost per day", Mw, Me)
+    _need(Mw + Me > 0, "some solids must leave the system (wasted or in the effluent)")
+    th = M / (Mw + Me)
+    return _out(theta_c=th, theta_c_days=th / DAY)
+
+
+def _ref_mcrt_masses(M, Mw, Me):
+    import math as _m
+    # mean residence time of a solids particle in a mixed tank: the integral of the fraction still present
+    k = (Mw + Me) / M
+    th = _quad(lambda s: _m.exp(-s), 0.0, 60.0) / k + _quad(lambda s: _m.exp(-s), 60.0, 800.0) / k
+    return {"theta_c": th, "theta_c_days": th / 86400.0}
+
+
+_add("enveng_mean_cell_residence_time",
+     name="Mean cell residence time (sludge age) from the solids masses", topic="wastewater / activated sludge",
+     purpose="The mean cell residence time (solids retention time, sludge age) of an activated-sludge system as the mass of solids held in the basin over the mass leaving per day in the waste sludge and the effluent.",
+     inputs=[_phys("M", "mass", "mass of solids (MLVSS or MLSS) in the aeration basin"),
+             _phys("Mw", "mass_flow_rate", "mass of solids wasted per day", show=("kg/d", DAY)),
+             _phys("Me", "mass_flow_rate", "mass of solids lost in the effluent per day", show=("kg/d", DAY))],
+     outputs=[_o("theta_c", "time", "mean cell residence time"), _o("theta_c_days", "number", "in days")],
+     primary="theta_c", conditions=["steady state", "M > 0, Mw + Me > 0"],
+     method="theta_c = M / (Mw + Me)", latex=r"\theta_c = \frac{M_{basin}}{\dot M_{w} + \dot M_{e}}",
+     run=mcrt_masses, reference=_ref_mcrt_masses,
+     wrong=lambda M, Mw, Me: _out(theta_c=M / Mw, theta_c_days=M / Mw / DAY),
+     rand=lambda rng: {"M": _sig(_lu(rng, 200.0, 50000.0), 3), "Mw": _sig(_lu(rng, 20.0, 5000.0), 3) / DAY, "Me": _sig(_lu(rng, 1.0, 500.0), 3) / DAY},
+     phrases=("Mean cell residence time", "Sludge age from solids masses", "MCRT", "Mean cell residence time from solids masses"),
+     examples=[_ex({"M": 3000.0, "Mw": 300.0 / DAY, "Me": 20.0 / DAY}), _ex({"M": 12000.0, "Mw": 1500.0 / DAY, "Me": 100.0 / DAY})],
+     level="beginner",
+     extra_q=[{"q": "MCRT: M = 3 t, Mw = 300 kg/d, Me = 20 kg/d", "like": 0},
+              {"q": "Mean cell residence time: M = 3000 kg, Mw = 0 kg/d, Me = 0 kg/d", "outcome": "INVALID_INPUT"}])
+
+
+def ct_contact_time(CT, C):
+    _pos("the required CT and the residual C", CT, C)
+    t = CT / C
+    return _out(t=t, t_min=t / 60.0, t_h=t / HOUR)
+
+
+def _ref_ct_contact_time(CT, C):
+    from scipy.integrate import quad
+    # the time at which the accumulated product of residual and time reaches the required CT
+    t = _brentq(lambda s: quad(lambda u: C, 0.0, s, epsrel=1e-14)[0] - CT, 0.0, 2.0 * CT / C + 1.0)
+    return {"t": t, "t_min": t / 60.0, "t_h": t / 3600.0}
+
+
+_add("enveng_contact_time_from_ct",
+     name="Minimum disinfection contact time from a required CT", topic="water treatment / disinfection",
+     purpose="The minimum contact time a disinfectant residual needs to reach a required CT value (t = CT / C).",
+     inputs=[_phys("CT", "concentration_time_integral", "required CT value"), _phys("C", "mass_concentration", "disinfectant residual")],
+     outputs=[_o("t", "time", "minimum contact time CT/C"), _o("t_min", "number", "in minutes"), _o("t_h", "number", "in hours")],
+     primary="t", conditions=["CT, C > 0", "constant residual over the contact time"],
+     method="t = CT_required / C", latex=r"t = \frac{CT_{req}}{C}",
+     run=ct_contact_time, reference=_ref_ct_contact_time,
+     wrong=lambda CT, C: _out(t=CT * C, t_min=CT * C / 60.0, t_h=CT * C / HOUR),
+     rand=lambda rng: {"CT": _sig(_lu(rng, 2.0, 300.0), 3) * 0.06, "C": _sig(rng.uniform(0.2, 4.0), 3) * MG},
+     phrases=("Contact time from CT", "Minimum contact time", "Required contact time", "Disinfection contact time"),
+     examples=[_ex({"CT": 60.0 * 0.06, "C": 1.5 * MG}), _ex({"CT": 104.0 * 0.06, "C": 0.8 * MG})],
+     level="beginner",
+     extra_q=[{"q": "Minimum contact time: CT = 60 mg*min/L, C = 1.5 mg/L", "like": 0},
+              {"q": "Minimum contact time: CT = 60 mg*min/L, C = 0 mg/L", "outcome": "INVALID_INPUT"}])
+
+
+def filter_flow(v, A):
+    _pos("the loading rate v and the area A", v, A)
+    Q = v * A
+    return _out(Q=Q, Q_m3_per_h=Q * HOUR, Q_m3_per_day=Q * DAY)
+
+
+def _ref_filter_flow(v, A):
+    from scipy.integrate import dblquad
+    s = A ** 0.5                                            # the bed as a square of the same area
+    Q = dblquad(lambda y, x: v, 0.0, s, 0.0, s, epsabs=0.0, epsrel=1e-13)[0]
+    return {"Q": Q, "Q_m3_per_h": Q * 3600.0, "Q_m3_per_day": Q * 86400.0}
+
+
+_add("enveng_filter_flow_from_loading",
+     name="Flow through a filter from its loading rate and bed area", topic="water treatment / filtration",
+     purpose="The flow a filter treats from its hydraulic (surface) loading rate and the bed area, Q = v A, in m^3/h and m^3/d.",
+     inputs=[_phys("v", "speed", "filtration (hydraulic loading) rate", show=("m/d", DAY)), _phys("A", "area", "filter bed area")],
+     outputs=[_o("Q", "flow_rate", "flow v A"), _o("Q_m3_per_h", "number", "in m^3/h"), _o("Q_m3_per_day", "number", "in m^3/d")],
+     primary="Q", conditions=["v, A > 0"], method="Q = v A", latex=r"Q = v\,A",
+     run=filter_flow, reference=_ref_filter_flow,
+     wrong=lambda v, A: _out(Q=v / A, Q_m3_per_h=v / A * HOUR, Q_m3_per_day=v / A * DAY),
+     rand=lambda rng: {"v": _sig(rng.uniform(60.0, 600.0), 3) / DAY, "A": _sig(_lu(rng, 5.0, 300.0), 3)},
+     phrases=("Filter flow from loading rate", "Flow through a filter", "Filter flow"),
+     examples=[_ex({"v": 120.0 / DAY, "A": 50.0}), _ex({"v": 240.0 / DAY, "A": 80.0})],
+     level="beginner",
+     extra_q=[{"q": "Flow through a filter: v = 5 m/h, A = 50 m^2", "like": 0},
+              {"q": "Filter flow: v = 120 m/d, A = -50 m^2", "outcome": "INVALID_INPUT"}])
+
+
+def _cho_counts(text):
+    s = text.strip().replace(" ", "")
+    _need(len(s) > 0, "give a fuel formula such as CH4, C2H5OH or C")
+    upper, lower, digits = "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz", "0123456789"
+    pos, counts = 0, {}
+    while pos < len(s):
+        _need(s[pos] in upper, "the formula may contain only element symbols and counts (C, H, O)")
+        el = s[pos]
+        pos += 1
+        if pos < len(s) and s[pos] in lower:
+            el = el + s[pos]
+            pos += 1
+        start = pos
+        while pos < len(s) and s[pos] in digits:
+            pos += 1
+        n = int(s[start:pos]) if pos > start else 1
+        _need(el in ("C", "H", "O"), "only C, H and O are allowed")
+        counts[el] = counts.get(el, 0) + n
+    _need(counts.get("C", 0) + counts.get("H", 0) > 0, "the fuel must contain carbon or hydrogen")
+    return counts.get("C", 0), counts.get("H", 0), counts.get("O", 0)
+
+
+def combustion_oxygen(formula, m=None):
+    x, y, z = _cho_counts(formula)
+    n = x + y / 4.0 - z / 2.0
+    _need(n > 0, "the fuel needs no oxygen to burn")
+    M = x * AW["C"] + y * AW["H"] + z * AW["O"]
+    o2 = n * MW_O2 / M
+    out = {"o2_per_mol": n, "molar_mass": M, "O2_per_kg": o2,
+           "CO2_per_kg": x * (AW["C"] + 2 * AW["O"]) / M, "H2O_per_kg": y / 2.0 * (2 * AW["H"] + AW["O"]) / M}
+    if m is not None:
+        _pos("the fuel mass m", m)
+        out["O2_mass"] = o2 * m
+    return _out(**out)
+
+
+def _ref_combustion_oxygen(formula, m=None):
+    import numpy as np
+    from chemicals import molecular_weight, simple_formula_parser
+    at = simple_formula_parser(formula)
+    x, y, z = (at.get(e, 0) for e in ("C", "H", "O"))
+    # unknowns O2, CO2, H2O per mol fuel; element balances C, H, O
+    A = np.array([[0.0, 1.0, 0.0], [0.0, 0.0, 2.0], [2.0, -2.0, -1.0]])
+    o2, co2, h2o = np.linalg.solve(A, np.array([x, y, -z], float))
+    M = molecular_weight(at)
+    out = {"o2_per_mol": float(o2), "molar_mass": M, "O2_per_kg": float(o2) * molecular_weight({"O": 2}) / M,
+           "CO2_per_kg": float(co2) * molecular_weight({"C": 1, "O": 2}) / M, "H2O_per_kg": float(h2o) * molecular_weight({"H": 2, "O": 1}) / M}
+    if m is not None:
+        out["O2_mass"] = out["O2_per_kg"] * m
+    return out
+
+
+def _wrong_combustion_oxygen(formula, m=None):
+    x, y, z = _cho_counts(formula)
+    n = x + y / 2.0 - z / 2.0                               # hydrogen burned as if to H2O2
+    M = x * AW["C"] + y * AW["H"] + z * AW["O"]
+    out = {"o2_per_mol": n, "molar_mass": M, "O2_per_kg": n * MW_O2 / M,
+           "CO2_per_kg": x * (AW["C"] + 2 * AW["O"]) / M, "H2O_per_kg": y / 2.0 * (2 * AW["H"] + AW["O"]) / M}
+    if m is not None:
+        out["O2_mass"] = n * MW_O2 / M * m
+    return _out(**out)
+
+
+_FUELS = ["CH4", "C2H6", "C3H8", "C4H10", "C8H18", "C2H5OH", "CH3OH", "C6H12O6", "C7H16", "C2H4", "C6H6", "C10H22",
+          "C", "C16H34", "C3H6O", "H2", "C12H22O11", "C6H10O5"]
+
+_add("enveng_combustion_oxygen",
+     name="Stoichiometric oxygen for complete combustion of a fuel", topic="air pollution / combustion",
+     purpose="The oxygen needed to burn a fuel CxHyOz (or pure carbon) completely to CO2 and water, per mole and per kilogram of fuel, the CO2 and water formed per kilogram, and the total oxygen for a given mass of fuel.",
+     inputs=[_textin("formula", "fuel formula with C, H, O only (e.g. CH4, C2H5OH, C)"),
+             _phys("m", "mass", "mass of fuel burned (for the total oxygen)", required=False)],
+     outputs=[_o("O2_per_kg", "number", "kg O2 per kg fuel"), _o("o2_per_mol", "number", "mol O2 per mol fuel x + y/4 - z/2"),
+              _o("molar_mass", "number", "molar mass of the fuel, g/mol"), _o("CO2_per_kg", "number", "kg CO2 formed per kg fuel"),
+              _o("H2O_per_kg", "number", "kg water formed per kg fuel"), _o("O2_mass", "mass", "oxygen for the given mass of fuel")],
+     primary="O2_per_kg", conditions=["complete combustion to CO2 and H2O", "elements C, H, O only"],
+     method="CxHyOz + (x + y/4 - z/2) O2 -> x CO2 + y/2 H2O; O2/fuel = (x + y/4 - z/2) M_O2 / M_fuel",
+     latex=r"\mathrm{C_xH_yO_z} + \left(x + \frac y4 - \frac z2\right)\mathrm{O_2} \rightarrow x\,\mathrm{CO_2} + \frac y2\,\mathrm{H_2O}",
+     run=combustion_oxygen, reference=_ref_combustion_oxygen, wrong=_wrong_combustion_oxygen,
+     rand=lambda rng: dict({"formula": rng.choice(_FUELS)}, **({"m": _sig(_lu(rng, 0.1, 1e5), 3)} if rng.random() < 0.5 else {})),
+     phrases=("Stoichiometric oxygen for combustion", "Oxygen for complete combustion", "Combustion oxygen requirement"),
+     examples=[_ex({"formula": "C", "m": 1000.0}), _ex({"formula": "CH4"})],
+     level="intermediate",
+     extra_q=[{"q": "Oxygen for complete combustion: formula = C2H5OH",
+               "outputs": {"o2_per_mol": 3.0}},
+              {"q": "Oxygen for complete combustion: formula = CH4N", "outcome": "INVALID_INPUT"},
+              {"q": "Oxygen for complete combustion: formula = CO2", "outcome": "INVALID_INPUT"}])
+
+
+def lapse_stability(T1, z1, T2, z2):
+    _pos("the temperatures (absolute)", T1, T2)
+    _fin(z1, z2)
+    _need(z2 > z1, "the second height z2 must be above the first z1")
+    elr = -(T2 - T1) / (z2 - z1)                            # K/m, positive when the air cools with height
+    km = elr * 1000.0
+    if abs(km - GAMMA_DRY) <= 1e-6:
+        s = "neutral"
+    elif km > GAMMA_DRY:
+        s = "superadiabatic (unstable)"
+    elif km >= 0.0:
+        s = "subadiabatic (stable)"
+    else:
+        s = "inversion (very stable)"
+    return _out(ELR=elr, ELR_C_per_km=km, stability=s)
+
+
+def _ref_lapse_stability(T1, z1, T2, z2):
+    import bisect as _bs
+    from scipy.stats import linregress
+    slope = float(linregress([z1, z2], [T1, T2]).slope)     # K/m
+    elr = -slope
+    km = elr * 1000.0
+    if abs(km - 9.8) <= 1e-6:
+        s = "neutral"
+    else:
+        s = ["inversion (very stable)", "subadiabatic (stable)", "superadiabatic (unstable)"][_bs.bisect_right([0.0, 9.8], km)]
+    return {"ELR": elr, "ELR_C_per_km": km, "stability": s}
+
+
+def _rand_lapse(rng):
+    T1 = _sig(T0C + rng.uniform(-10.0, 35.0), 5)
+    z1 = rng.choice([0.0, 0.0, 2.0, 10.0, 100.0])
+    dz = _sig(rng.uniform(50.0, 2000.0), 3)
+    km = rng.choice([rng.uniform(-15.0, 0.0), rng.uniform(0.0, 9.7), rng.uniform(9.9, 30.0)])
+    return {"T1": T1, "z1": z1, "T2": _sig(T1 - km * dz / 1000.0, 6), "z2": z1 + dz}
+
+
+_add("enveng_lapse_rate_stability",
+     name="Atmospheric stability from the environmental lapse rate", topic="air pollution / atmospheric stability",
+     purpose="The environmental lapse rate from the air temperature at two heights and the stability it gives against the dry adiabatic lapse rate (9.8 degC/km): superadiabatic (unstable), neutral, subadiabatic (stable) or an inversion.",
+     inputs=[_phys("T1", "temperature", "air temperature at the lower height", show=("degC", None)), _phys("z1", "length", "lower height"),
+             _phys("T2", "temperature", "air temperature at the upper height", show=("degC", None)), _phys("z2", "length", "upper height")],
+     outputs=[_o("ELR", "temperature_gradient", "environmental lapse rate -dT/dz"), _o("ELR_C_per_km", "number", "lapse rate, degC/km"),
+              _o("stability", "number", "stability: superadiabatic (unstable), neutral, subadiabatic (stable) or inversion (very stable)")],
+     primary="ELR", conditions=["dry air (dry adiabatic lapse rate 9.8 degC/km)", "z2 > z1", "linear temperature profile between the two heights"],
+     method="ELR = -(T2 - T1)/(z2 - z1); ELR > 9.8 degC/km superadiabatic, = 9.8 neutral, 0 to 9.8 subadiabatic, < 0 inversion",
+     latex=r"\Gamma_{env} = -\frac{T_2 - T_1}{z_2 - z_1}\ \text{vs}\ \Gamma_d = 9.8\ ^\circ\mathrm{C/km}",
+     run=lapse_stability, reference=_ref_lapse_stability,
+     wrong=lambda T1, z1, T2, z2: lapse_stability(T2, z1, T1, z2),
+     rand=_rand_lapse,
+     phrases=("Atmospheric stability from lapse rate", "Environmental lapse rate", "Lapse rate stability"),
+     examples=[_ex({"T1": T0C + 20.0, "z1": 0.0, "T2": T0C + 14.0, "z2": 500.0}), _ex({"T1": T0C + 15.0, "z1": 0.0, "T2": T0C + 17.0, "z2": 300.0})],
+     level="beginner",
+     extra_q=[{"q": "Environmental lapse rate: T1 = 20 degC, z1 = 0 m, T2 = 15.1 degC, z2 = 500 m",
+               "outputs": {"stability": "neutral"}},
+              {"q": "Environmental lapse rate: T1 = 20 degC, z1 = 0 m, T2 = 17 degC, z2 = 500 m",
+               "outputs": {"stability": "subadiabatic (stable)"}},
+              {"q": "Lapse rate stability: T1 = 20 degC, z1 = 500 m, T2 = 14 degC, z2 = 0 m", "outcome": "INVALID_INPUT"}])
+
+
+# ================================================================================================ BATCH 2 (2026-11-11)
+# total alkalinity, stirred tanks in series (and the plug-flow limit), Manning, Hazen-Williams, pump power, the rational
+# method, the indoor-air box model, collection devices in series, the dry-basis heating value, return period and risk,
+# geometric mean of counts, volatile solids reduction, transmembrane pressure, ThOD of a solution.
+EQ_CACO3 = 50000.0                # mg of CaCO3 per equivalent (50 mg/meq, the customary rounded value)
+MW_HCO3 = AW["H"] + AW["C"] + 3 * AW["O"]       # 61.01684 g/mol
+MW_CO3 = AW["C"] + 3 * AW["O"]                  # 60.0089 g/mol
+MW_OH = AW["O"] + AW["H"]                       # 17.00734 g/mol
+RHO_WATER = 1000.0                # kg/m^3, default water density for pump power
+
+
+def _species(mass, molar, M, name):
+    """One ion's molar concentration in mol/L from a mass (kg/m^3 = g/L) or a molar (mol/m^3) concentration."""
+    if mass is None and molar is None:
+        return None
+    _need(mass is None or molar is None, f"give {name} once, as a mass or as a molar concentration")
+    if mass is not None:
+        _nonneg(f"{name} concentration", mass)
+        return mass / M
+    _nonneg(f"{name} concentration", molar)
+    return molar / 1000.0
+
+
+def alkalinity(HCO3=None, CO3=None, OH=None, H=None, HCO3_M=None, CO3_M=None, OH_M=None, H_M=None, pH=None):
+    hco3 = _species(HCO3, HCO3_M, MW_HCO3, "the bicarbonate")
+    co3 = _species(CO3, CO3_M, MW_CO3, "the carbonate")
+    oh = _species(OH, OH_M, MW_OH, "the hydroxide")
+    h = _species(H, H_M, AW["H"], "the hydrogen ion")
+    if pH is not None:
+        _need(h is None, "give the hydrogen ion as pH or as a concentration, not both")
+        _fin(pH)
+        _need(0.0 <= pH <= 14.0, "the pH must lie between 0 and 14")
+        h = 10.0 ** (-pH)
+    _need(hco3 is not None or co3 is not None or oh is not None,
+          "give at least one of the bicarbonate (HCO3), carbonate (CO3) or hydroxide (OH) concentrations")
+    if hco3 is None:
+        hco3 = 0.0
+    if co3 is None:
+        co3 = 0.0
+    if h is None and oh is None:
+        h = 0.0
+        oh = 0.0
+    elif oh is None:
+        oh = KW_25C / h if h > 0 else 0.0
+    elif h is None:
+        h = KW_25C / oh if oh > 0 else 0.0
+    eq = hco3 + 2.0 * co3 + oh - h
+    return _out(alkalinity=eq * EQ_CACO3, alk_meq_L=eq * 1000.0, alk_eq_L=eq,
+                HCO3_caco3=hco3 * EQ_CACO3, CO3_caco3=2.0 * co3 * EQ_CACO3, OH_caco3=oh * EQ_CACO3, H_caco3=h * EQ_CACO3,
+                H_molL=h, OH_molL=oh)
+
+
+def _ref_alkalinity(HCO3=None, CO3=None, OH=None, H=None, HCO3_M=None, CO3_M=None, OH_M=None, H_M=None, pH=None):
+    import mpmath as mp
+    from chemicals import molecular_weight, simple_formula_parser
+    mp.mp.dps = 40
+    w = lambda f: molecular_weight(simple_formula_parser(f))  # noqa: E731
+
+    def mol(mass, molar, f):
+        if mass is not None:
+            return mp.mpf(mass) / mp.mpf(w(f))               # g/L over g/mol
+        if molar is not None:
+            return mp.mpf(molar) / 1000
+        return None
+    c = [mol(HCO3, HCO3_M, "HCO3"), mol(CO3, CO3_M, "CO3"), mol(OH, OH_M, "OH"), mol(H, H_M, "H")]
+    if pH is not None:
+        c[3] = mp.power(10, -mp.mpf(pH))
+    kw = mp.mpf("1e-14")
+    if c[2] is None and c[3] is None:
+        c[2] = c[3] = mp.mpf(0)
+    elif c[2] is None:
+        c[2] = kw / c[3] if c[3] > 0 else mp.mpf(0)
+    elif c[3] is None:
+        c[3] = kw / c[2] if c[2] > 0 else mp.mpf(0)
+    c = [mp.mpf(0) if v is None else v for v in c]
+    charge = [1, 2, 1, -1]                                  # equivalents per mole, the acid side negative
+    eq = float(mp.fsum([z * v for z, v in zip(charge, c)]))
+    return {"alkalinity": eq * 50000.0, "alk_meq_L": eq * 1000.0, "alk_eq_L": eq,
+            "HCO3_caco3": float(c[0]) * 50000.0, "CO3_caco3": float(2 * c[1]) * 50000.0, "OH_caco3": float(c[2]) * 50000.0,
+            "H_caco3": float(c[3]) * 50000.0, "H_molL": float(c[3]), "OH_molL": float(c[2])}
+
+
+def _wrong_alkalinity(**kw):
+    r = alkalinity(**kw)
+    eq = r["alk_eq_L"] - r["CO3_caco3"] / 2.0 / EQ_CACO3   # carbonate counted once (its charge forgotten)
+    return _out(**dict(r, alkalinity=eq * EQ_CACO3, alk_meq_L=eq * 1000.0, alk_eq_L=eq))
+
+
+def _rand_alk(rng):
+    x = {}
+    pick = rng.random()
+    if rng.random() < 0.5:
+        x["HCO3"] = _sig(rng.uniform(5.0, 400.0), 3) * MG
+    else:
+        x["HCO3_M"] = _sig(rng.uniform(1e-4, 6e-3), 3) * 1000.0
+    if rng.random() < 0.85:
+        if rng.random() < 0.5:
+            x["CO3"] = _sig(rng.uniform(1.0, 120.0), 3) * MG
+        else:
+            x["CO3_M"] = _sig(rng.uniform(1e-5, 2e-3), 3) * 1000.0
+    if pick < 0.45:
+        x["pH"] = _sig(rng.uniform(6.0, 11.5), 3)
+    elif pick < 0.65:
+        x["OH"] = _sig(rng.uniform(0.01, 30.0), 3) * MG
+    elif pick < 0.8:
+        x["H_M"] = _sig(10.0 ** -rng.uniform(6.0, 11.0), 3) * 1000.0
+    elif pick < 0.9:
+        x["OH_M"] = _sig(10.0 ** -rng.uniform(3.0, 7.0), 3) * 1000.0
+    return x
+
+
+_add("enveng_total_alkalinity",
+     name="Total alkalinity as CaCO3 from the carbonate species", topic="water quality / alkalinity",
+     purpose="The total alkalinity of a water, [HCO3-] + 2[CO3 2-] + [OH-] - [H+] in equivalents per litre, expressed as mg/L of CaCO3 (50,000 mg/eq), from the ion concentrations in mg/L or mol/L or the pH; with one of [H+], [OH-] given, the other follows from Kw = 1e-14 (25 degC).",
+     inputs=[_phys("HCO3", "mass_concentration", "bicarbonate [HCO3-] as mass concentration", required=False),
+             _phys("CO3", "mass_concentration", "carbonate [CO3 2-] as mass concentration", required=False),
+             _phys("OH", "mass_concentration", "hydroxide [OH-] as mass concentration", required=False),
+             _phys("H", "mass_concentration", "hydrogen ion [H+] as mass concentration", required=False),
+             _phys("HCO3_M", "molar_concentration", "bicarbonate [HCO3-] as molar concentration", required=False, show=("mol/L", 1e-3)),
+             _phys("CO3_M", "molar_concentration", "carbonate [CO3 2-] as molar concentration", required=False, show=("mol/L", 1e-3)),
+             _phys("OH_M", "molar_concentration", "hydroxide [OH-] as molar concentration", required=False, show=("mol/L", 1e-3)),
+             _phys("H_M", "molar_concentration", "hydrogen ion [H+] as molar concentration", required=False, show=("mol/L", 1e-3)),
+             _numin("pH", "pH of the water (gives [H+])", required=False)],
+     outputs=[_o("alkalinity", "number", "total alkalinity, mg/L as CaCO3"), _o("alk_meq_L", "number", "total alkalinity, meq/L"),
+              _o("alk_eq_L", "number", "total alkalinity, eq/L"), _o("HCO3_caco3", "number", "bicarbonate alkalinity, mg/L as CaCO3"),
+              _o("CO3_caco3", "number", "carbonate alkalinity, mg/L as CaCO3"), _o("OH_caco3", "number", "hydroxide alkalinity, mg/L as CaCO3"),
+              _o("H_caco3", "number", "hydrogen ion (subtracted), mg/L as CaCO3"), _o("H_molL", "number", "[H+] used, mol/L"),
+              _o("OH_molL", "number", "[OH-] used, mol/L")],
+     primary="alkalinity",
+     conditions=["at least one of HCO3, CO3, OH", "each ion once (mass or molar form; H also as pH)",
+                 "neither H nor OH given: both neglected; one given: the other from Kw = 1e-14 (25 degC)",
+                 "as CaCO3 with 50,000 mg/eq", "molar masses HCO3 61.017, CO3 60.009, OH 17.007, H 1.008 g/mol"],
+     method="Alk (eq/L) = [HCO3-] + 2[CO3 2-] + [OH-] - [H+] (mol/L); Alk (mg/L as CaCO3) = 50,000 x Alk (eq/L)",
+     latex=r"\text{Alk} = \left([\mathrm{HCO_3^-}] + 2[\mathrm{CO_3^{2-}}] + [\mathrm{OH^-}] - [\mathrm{H^+}]\right)\times 50\,000\ \mathrm{mg\,CaCO_3/eq}",
+     run=alkalinity, reference=_ref_alkalinity, wrong=_wrong_alkalinity, rand=_rand_alk,
+     phrases=("Total alkalinity", "Alkalinity as CaCO3", "Alkalinity of water", "Alkalinity"),
+     aliases={"bicarbonate": "HCO3", "carbonate": "CO3", "hydroxide": "OH"},
+     examples=[_ex({"HCO3": 0.122, "CO3": 0.030, "pH": 10.0}), _ex({"HCO3_M": 2.0e-3 * 1000.0, "CO3_M": 1.0e-4 * 1000.0})],
+     level="beginner",
+     extra_q=[{"q": "Alkalinity as CaCO3: bicarbonate = 122 mg/L, carbonate = 30 mg/L, pH = 10", "like": 0},
+              {"q": "Total alkalinity: HCO3 = 122 mg/L, HCO3_M = 0.002 mol/L", "outcome": "INVALID_INPUT"},
+              {"q": "Total alkalinity: pH = 7", "outcome": "INVALID_INPUT"},
+              {"q": "Total alkalinity: HCO3 = -10 mg/L", "outcome": "INVALID_INPUT"},
+              {"q": "Total alkalinity: HCO3 = 100 mg/L, H_M = 1e-7 mol/L, pH = 7", "outcome": "INVALID_INPUT"}])
+
+
+def cmfr_series(Cin, k, theta=None, N=None, V=None, Q=None):
+    _pos("Cin and k", Cin, k)
+    if theta is None:
+        _need(V is not None and Q is not None, "give the residence time theta, or the reactor volume V and the flow Q")
+        _pos("the volume V and the flow Q", V, Q)
+        theta = V / Q
+    else:
+        _need(V is None and Q is None, "give the residence time theta, or V and Q, not both")
+        _pos("theta", theta)
+    n = 1 if N is None else N
+    _need(n == int(n) and 1 <= n <= 1000, "the number of reactors N must be a whole number from 1 to 1000")
+    n = int(n)
+    kt = k * theta
+    Cout = Cin / (1.0 + kt / n) ** n
+    Cone = Cin / (1.0 + kt)
+    Cpfr = Cin * math.exp(-kt)
+    return _out(Cout=Cout, Cout_mgL=Cout * 1e3, removal=1.0 - Cout / Cin, removal_percent=(1.0 - Cout / Cin) * 100.0,
+                Cout_one=Cone, Cout_one_mgL=Cone * 1e3, Cout_pfr=Cpfr, Cout_pfr_mgL=Cpfr * 1e3,
+                removal_pfr=1.0 - Cpfr / Cin, theta_each=theta / n, theta_each_h=theta / n / HOUR)
+
+
+def _ref_cmfr_series(Cin, k, theta=None, N=None, V=None, Q=None):
+    import numpy as np
+    if theta is None:
+        theta = _brentq(lambda s: Q * s - V, 0.0, 2.0 * V / Q)          # the time the flow takes to fill the volume
+    n = 1 if N is None else int(N)
+    th = theta / n
+    # steady mass balances of the n tanks: (1 + k th) C_i - C_(i-1) = 0, C_0 = Cin
+    A = np.eye(n) * (1.0 + k * th) - np.eye(n, k=-1)
+    b = np.zeros(n)
+    b[0] = Cin
+    C = np.linalg.solve(A, b)
+    Cout = float(C[-1])
+    Cone = _brentq(lambda c: Cin - c - k * theta * c, 0.0, Cin)
+    Cpfr = _ivp(lambda t, y: [-k * y[0]], theta, [Cin], atol=[1e-30])[0]
+    return {"Cout": Cout, "Cout_mgL": Cout * 1e3, "removal": 1.0 - Cout / Cin, "removal_percent": (1.0 - Cout / Cin) * 100.0,
+            "Cout_one": Cone, "Cout_one_mgL": Cone * 1e3, "Cout_pfr": Cpfr, "Cout_pfr_mgL": Cpfr * 1e3,
+            "removal_pfr": 1.0 - Cpfr / Cin, "theta_each": th, "theta_each_h": th / 3600.0}
+
+
+def _wrong_cmfr_series(Cin, k, theta=None, N=None, V=None, Q=None):
+    r = cmfr_series(Cin, k, theta, N, V, Q)
+    th = r["theta_each"] * (1 if N is None else int(N))
+    n = 1 if N is None else int(N)
+    if n == 1:
+        Cout = Cin * math.exp(-k * th)                      # one stirred tank treated as plug flow
+    else:
+        Cout = Cin / (1.0 + k * th) ** n                    # every tank given the whole residence time
+    return _out(**dict(r, Cout=Cout, Cout_mgL=Cout * 1e3, removal=1.0 - Cout / Cin, removal_percent=(1.0 - Cout / Cin) * 100.0))
+
+
+def _rand_cmfr(rng):
+    x = {"Cin": _sig(rng.uniform(5.0, 500.0), 3) * MG, "k": _sig(_lu(rng, 0.05, 20.0), 3) / DAY,
+         "theta": _sig(_lu(rng, 0.5, 72.0), 3) * HOUR}
+    if rng.random() < 0.9:
+        x["N"] = rng.choice([1, 2, 3, 4, 5, 6, 8, 10, 20])
+    if rng.random() < 0.35:                                 # the residence time as volume over flow
+        q = _sig(_lu(rng, 50.0, 1e5), 3) / DAY
+        x["V"] = _sig(x.pop("theta") * q, 3)
+        x["Q"] = q
+    return x
+
+
+_add("enveng_cmfr_series",
+     name="First-order reaction in N stirred tanks in series and in plug flow", topic="reactors / ideal reactors",
+     purpose="The effluent concentration of a first-order reaction through N identical completely mixed flow reactors (CMFRs) in series sharing a total residence time, Cout = Cin/(1 + k theta/N)^N, with a single CMFR at steady state (N = 1, the default: Cout = Cin/(1 + k theta)) and the plug-flow limit Cin exp(-k theta) for comparison; theta given directly or as the volume over the flow, V/Q; with the fraction and per cent removed.",
+     inputs=[_phys("Cin", "mass_concentration", "influent concentration"),
+             _phys("k", "first_order_rate_constant", "first-order rate constant"),
+             _phys("theta", "time", "total hydraulic residence time of all the tanks (or give V and Q)", required=False, show=("h", 1.0 / HOUR)),
+             _intin("N", "number of identical tanks in series (default 1)", lo=1, hi=1000, required=False),
+             _phys("V", "volume", "total reactor volume (with Q, in place of theta)", required=False),
+             _phys("Q", "flow_rate", "flow through the reactor (with V, in place of theta)", required=False, show=("m^3/d", DAY))],
+     outputs=[_o("Cout", "mass_concentration", "effluent of the N tanks Cin/(1 + k theta/N)^N"), _o("Cout_mgL", "number", "in mg/L"),
+              _o("removal", "number", "fraction removed by the N tanks"), _o("removal_percent", "number", "per cent removed"),
+              _o("Cout_one", "mass_concentration", "effluent of one CMFR of the same total volume"), _o("Cout_one_mgL", "number", "in mg/L"),
+              _o("Cout_pfr", "mass_concentration", "effluent of a plug-flow reactor Cin exp(-k theta)"), _o("Cout_pfr_mgL", "number", "in mg/L"),
+              _o("removal_pfr", "number", "fraction removed in plug flow"), _o("theta_each", "time", "residence time of each tank theta/N"),
+              _o("theta_each_h", "number", "residence time of each tank, h")],
+     primary="Cout", conditions=["steady state, first-order decay", "identical tanks sharing the total residence time theta", "1 <= N <= 1000",
+                                 "theta, or the volume V and the flow Q (theta = V/Q), not both"],
+     method="theta = V/Q when V and Q are given; Cout = Cin/(1 + k theta/N)^N; one CMFR: Cin/(1 + k theta); plug flow: Cin exp(-k theta)",
+     latex=r"C_{out} = \frac{C_{in}}{\left(1 + k\theta/N\right)^N},\qquad \theta = \frac VQ,\qquad C_{PFR} = C_{in}\,e^{-k\theta}",
+     run=cmfr_series, reference=_ref_cmfr_series, wrong=_wrong_cmfr_series, rand=_rand_cmfr,
+     phrases=("CMFRs in series", "Reactors in series", "Tanks in series", "CSTRs in series", "First-order reactor",
+              "Completely mixed flow reactor", "Completely mixed reactor", "Single CMFR", "CMFR", "CSTR",
+              "First-order CMFR", "CMFR at steady state"),
+     aliases={"tau": "theta", "HRT": "theta"},
+     examples=[_ex({"Cin": 0.1, "k": 0.2 / HOUR, "theta": 10.0 * HOUR, "N": 4}), _ex({"Cin": 0.05, "k": 1.0 / DAY, "theta": DAY}),
+               _ex({"Cin": 0.2, "k": 0.4 / HOUR, "V": 500.0, "Q": 100.0 / HOUR})],
+     level="intermediate",
+     extra_q=[{"q": "CSTRs in series: Cin = 100 mg/L, k = 4.8 1/d, theta = 10 h, N = 4", "like": 0},
+              {"q": "Reactors in series: Cin = 100 mg/L, k = 0.2 1/h, theta = 10 h, N = 0", "outcome": "INVALID_INPUT"},
+              {"q": "Reactors in series: Cin = 100 mg/L, k = -0.2 1/h, theta = 10 h, N = 2", "outcome": "INVALID_INPUT"},
+              # batch 3 (2026-11-11): one completely mixed reactor with V and Q
+              {"q": "CMFR: Cin = 200 mg/L, k = 0.4 1/h, V = 500 m^3, Q = 2400 m^3/d", "like": 2},
+              {"q": "Completely mixed flow reactor: Cin = 200 mg/L, k = 9.6 1/d, theta = 5 h", "like": 2},
+              {"q": "CSTR: Cin = 200 mg/L, k = 0.4 1/h, HRT = 5 h, N = 1", "like": 2},
+              {"q": "CMFR: Cin = 200 mg/L, k = 0.4 1/h, theta = 5 h, V = 500 m^3, Q = 2400 m^3/d", "outcome": "INVALID_INPUT"},
+              {"q": "CMFR: Cin = 200 mg/L, k = 0.4 1/h, V = 500 m^3", "outcome": "INVALID_INPUT"}])
+
+
+def manning(n, S, W=None, y=None, D=None):
+    _pos("Manning's n", n)
+    _fin(S)
+    _need(0.0 < S < 1.0, "the slope S must be between 0 and 1 (a fraction, or written with %)")
+    if D is not None:
+        _need(W is None and y is None, "give a rectangular channel (W, y) or a full circular pipe (D), not both")
+        _pos("the diameter D", D)
+        A = math.pi * D * D / 4.0
+        P = math.pi * D
+    else:
+        _need(W is not None and y is not None, "give the channel width W and the flow depth y, or a pipe diameter D")
+        _pos("the width W and the depth y", W, y)
+        A = W * y
+        P = W + 2.0 * y
+    R = A / P
+    v = R ** (2.0 / 3.0) * math.sqrt(S) / n
+    Q = v * A
+    return _out(v=v, Q=Q, Q_L_per_s=Q * 1e3, R=R, A=A, P=P)
+
+
+def _ref_manning(n, S, W=None, y=None, D=None):
+    import math as _m
+    from fluids.open_flow import V_Manning
+    if D is not None:
+        r = D / 2.0
+        A = 2.0 * _quad(lambda z: _m.sqrt(max(r * r - z * z, 0.0)), -r, r)     # chord widths over the diameter
+        P = _quad(lambda t: r, 0.0, 2.0 * _m.pi)                              # arc length of the wetted circle
+    else:
+        A = _quad(lambda z: W, 0.0, y)
+        P = W + _quad(lambda z: 2.0, 0.0, y)
+    R = A / P
+    v = float(V_Manning(R, S, n))
+    return {"v": v, "Q": v * A, "Q_L_per_s": v * A * 1000.0, "R": R, "A": A, "P": P}
+
+
+def _wrong_manning(n, S, W=None, y=None, D=None):
+    r = manning(n, S, W, y, D)
+    v = 1.49 * r["v"]                                       # the US customary 1.49 kept with SI units
+    return _out(**dict(r, v=v, Q=v * r["A"], Q_L_per_s=v * r["A"] * 1e3))
+
+
+def _rand_manning(rng):
+    x = {"n": _sig(rng.uniform(0.009, 0.05), 2), "S": _sig(_lu(rng, 1e-4, 0.05), 3)}
+    if rng.random() < 0.5:
+        x["D"] = _sig(rng.uniform(0.15, 3.0), 3)
+    else:
+        x["W"] = _sig(rng.uniform(0.3, 10.0), 3)
+        x["y"] = _sig(rng.uniform(0.1, 3.0), 3)
+    return x
+
+
+_add("enveng_manning_flow",
+     name="Manning's equation: velocity and flow in a channel or a full pipe (SI)", topic="hydraulics / open channels and sewers",
+     purpose="The mean velocity and flow by Manning's equation in SI units, v = (1/n) R^(2/3) S^(1/2), for a rectangular channel (width and flow depth) or a circular pipe flowing full (diameter), with the hydraulic radius, area and wetted perimeter.",
+     inputs=[_numin("n", "Manning roughness coefficient"),
+             _numin("S", "slope of the channel or energy line (fraction or %)", pct=True),
+             _phys("W", "length", "channel width (rectangular channel)", required=False),
+             _phys("y", "length", "flow depth (rectangular channel)", required=False),
+             _phys("D", "length", "pipe diameter (circular pipe flowing full)", required=False)],
+     outputs=[_o("v", "speed", "mean velocity (1/n) R^(2/3) S^(1/2)"), _o("Q", "flow_rate", "flow v A"), _o("Q_L_per_s", "number", "flow, L/s"),
+              _o("R", "length", "hydraulic radius A/P"), _o("A", "area", "flow area"), _o("P", "length", "wetted perimeter")],
+     primary="Q", conditions=["uniform flow, SI units (factor 1)", "0 < S < 1", "rectangular channel (W, y) or a full circular pipe (D)"],
+     method="R = A/P (rectangle: A = W y, P = W + 2y; full pipe: R = D/4); v = R^(2/3) S^(1/2)/n; Q = v A",
+     latex=r"v = \frac{1}{n}R^{2/3}S^{1/2},\qquad Q = vA,\qquad R = \frac{A}{P}",
+     run=manning, reference=_ref_manning, wrong=_wrong_manning, rand=_rand_manning,
+     phrases=("Manning's equation", "Manning equation", "Flow by Manning's equation", "Manning flow"),
+     examples=[_ex({"n": 0.013, "S": 0.001, "D": 0.6}), _ex({"n": 0.015, "S": 0.0005, "W": 3.0, "y": 1.2})],
+     level="intermediate",
+     extra_q=[{"q": "Manning equation: n = 0.013, S = 0.1%, D = 600 mm", "like": 0},
+              {"q": "Manning's equation: n = 0.013, S = 0.001, D = 0.6 m, W = 3 m, y = 1 m", "outcome": "INVALID_INPUT"},
+              {"q": "Manning's equation: n = 0.013, S = 0.001, W = 3 m", "outcome": "INVALID_INPUT"},
+              {"q": "Manning's equation: n = 0.013, S = 0, D = 0.6 m", "outcome": "INVALID_INPUT"}])
+
+
+def hazen_williams(C, D, S=None, Q=None, L=None):
+    _pos("the Hazen-Williams coefficient C and the diameter D", C, D)
+    _need((S is None) != (Q is None), "give either the slope of the energy line S or the flow Q, not both")
+    R = D / 4.0
+    A = math.pi * D * D / 4.0
+    k = 0.849 * C * R ** 0.63
+    if S is not None:
+        _fin(S)
+        _need(0.0 < S < 1.0, "the slope S must be between 0 and 1 (a fraction, or written with %)")
+        v = k * S ** 0.54
+        Q = v * A
+    else:
+        _pos("the flow Q", Q)
+        v = Q / A
+        S = (v / k) ** (1.0 / 0.54)
+        _need(S < 1.0, "the head loss gradient would exceed 1: outside the range of the Hazen-Williams formula")
+    out = {"v": v, "Q": Q, "S": S, "R": R, "A": A}
+    if L is not None:
+        _pos("the pipe length L", L)
+        out["hf"] = S * L
+    return _out(**out)
+
+
+def _ref_hazen_williams(C, D, S=None, Q=None, L=None):
+    import mpmath as mp
+    mp.mp.dps = 40
+    R = mp.mpf(D) / 4
+    A = mp.pi * mp.mpf(D) ** 2 / 4
+
+    def vel(s):                                            # the formula in logarithms
+        return mp.exp(mp.log(mp.mpf("0.849")) + mp.log(C) + mp.mpf("0.63") * mp.log(R) + mp.mpf("0.54") * mp.log(s))
+    if S is not None:
+        s = mp.mpf(S)
+    else:
+        s = mp.findroot(lambda t: vel(mp.exp(t)) * A - Q, mp.mpf(-5))       # log of the slope that carries Q
+        s = mp.exp(s)
+    v = vel(s)
+    out = {"v": float(v), "Q": float(v * A), "S": float(s), "R": float(R), "A": float(A)}
+    if L is not None:
+        out["hf"] = float(s * L)
+    return out
+
+
+def _wrong_hazen_williams(C, D, S=None, Q=None, L=None):
+    A = math.pi * D * D / 4.0
+    k = 0.849 * C * D ** 0.63                               # the diameter in place of the hydraulic radius
+    if S is not None:
+        v = k * S ** 0.54
+        Q = v * A
+    else:
+        v = Q / A
+        S = (v / k) ** (1.0 / 0.54)
+    out = {"v": v, "Q": Q, "S": S, "R": D / 4.0, "A": A}
+    if L is not None:
+        out["hf"] = S * L
+    return _out(**out)
+
+
+def _rand_hw(rng):
+    x = {"C": float(rng.choice([80, 100, 110, 120, 130, 140, 150])), "D": _sig(rng.uniform(0.05, 1.5), 3)}
+    if rng.random() < 0.5:
+        x["S"] = _sig(_lu(rng, 1e-4, 0.05), 3)
+    else:
+        A = math.pi * x["D"] ** 2 / 4.0
+        x["Q"] = _sig(A * rng.uniform(0.3, 3.0), 3)
+    if rng.random() < 0.6:
+        x["L"] = _sig(rng.uniform(10.0, 5000.0), 3)
+    return x
+
+
+_add("enveng_hazen_williams",
+     name="Hazen-Williams equation for a full pipe (SI): velocity, flow and head loss", topic="hydraulics / pipe flow",
+     purpose="Water flow in a full circular pipe by the Hazen-Williams formula in SI units, v = 0.849 C R^0.63 S^0.54 (R = D/4): the velocity and flow from the slope of the energy line, or the slope from the flow, and the head loss over a pipe length.",
+     inputs=[_numin("C", "Hazen-Williams roughness coefficient"), _phys("D", "length", "pipe diameter"),
+             _numin("S", "slope of the energy line hf/L (fraction or %)", required=False, pct=True),
+             _phys("Q", "flow_rate", "flow rate", required=False), _phys("L", "length", "pipe length (for the head loss)", required=False)],
+     outputs=[_o("v", "speed", "mean velocity"), _o("Q", "flow_rate", "flow"), _o("S", "number", "slope of the energy line hf/L"),
+              _o("hf", "length", "head loss over L"), _o("R", "length", "hydraulic radius D/4"), _o("A", "area", "pipe area")],
+     primary="v", conditions=["water, turbulent flow, full circular pipe", "SI form (0.849)", "exactly one of S, Q", "S < 1"],
+     method="R = D/4; v = 0.849 C R^0.63 S^0.54; Q = v A; from Q: S = (v/(0.849 C R^0.63))^(1/0.54); hf = S L",
+     latex=r"v = 0.849\,C\,R^{0.63}S^{0.54},\qquad Q = vA,\qquad h_f = S\,L",
+     run=hazen_williams, reference=_ref_hazen_williams, wrong=_wrong_hazen_williams, rand=_rand_hw,
+     phrases=("Hazen-Williams equation", "Hazen-Williams", "Hazen Williams", "Head loss by Hazen-Williams"),
+     examples=[_ex({"C": 100.0, "D": 0.3, "S": 0.002}), _ex({"C": 120.0, "D": 0.2, "Q": 0.03, "L": 1000.0})],
+     level="intermediate",
+     extra_q=[{"q": "Head loss by Hazen-Williams: C = 120, D = 200 mm, Q = 30 L/s, L = 1 km", "like": 1},
+              {"q": "Hazen-Williams: C = 100, D = 0.3 m, S = 0.002, Q = 0.1 m^3/s", "outcome": "INVALID_INPUT"},
+              {"q": "Hazen-Williams: C = 100, D = 0.3 m", "outcome": "INVALID_INPUT"}])
+
+
+_PRICE = ("$/kWh", "USD/kWh", "/kWh", "per kWh", "$ per kWh")
+
+
+def pump_power(Q, H, eta, rho=None, hours=None, price=None):
+    _pos("the flow Q and the head H", Q, H)
+    _frac("the pump efficiency eta", eta, lo_open=True)
+    r = RHO_WATER if rho is None else rho
+    _pos("the density rho", r)
+    Pw = r * G0 * Q * H
+    P = Pw / eta
+    out = {"P": P, "P_kW": P / 1e3, "P_water": Pw, "P_water_kW": Pw / 1e3}
+    if price is not None:
+        _need(hours is not None, "give the operating hours with the electricity price")
+    if hours is not None:
+        _pos("the operating time", hours)
+        E = P / 1e3 * hours / HOUR
+        out["energy_kWh"] = E
+        if price is not None:
+            _nonneg("the electricity price", price)
+            out["cost"] = E * price
+    return _out(**out)
+
+
+def _ref_pump_power(Q, H, eta, rho=None, hours=None, price=None):
+    import numpy as np
+    from scipy.integrate import quad
+    Pw = float(np.prod([1000.0 if rho is None else rho, 9.80665, Q, H]))
+    P = Pw / eta
+    out = {"P": P, "P_kW": P / 1e3, "P_water": Pw, "P_water_kW": Pw / 1e3}
+    if hours is not None:
+        J = quad(lambda t: P, 0.0, hours, epsabs=0.0, epsrel=1e-13)[0]        # energy drawn over the operating time
+        out["energy_kWh"] = J / 3.6e6
+        if price is not None:
+            out["cost"] = J / 3.6e6 * price
+    return out
+
+
+def _wrong_pump_power(Q, H, eta, rho=None, hours=None, price=None):
+    r = pump_power(Q, H, eta, rho, hours, price)
+    P = r["P_water"] * eta                                  # efficiency multiplied instead of divided
+    out = dict(r, P=P, P_kW=P / 1e3)
+    if hours is not None:
+        out["energy_kWh"] = P / 1e3 * hours / HOUR
+        if price is not None:
+            out["cost"] = out["energy_kWh"] * price
+    return _out(**out)
+
+
+def _rand_pump(rng):
+    x = {"Q": _sig(_lu(rng, 0.005, 2.0), 3), "H": _sig(rng.uniform(3.0, 120.0), 3), "eta": _sig(rng.uniform(0.4, 0.92), 2)}
+    if rng.random() < 0.3:
+        x["rho"] = _sig(rng.uniform(990.0, 1100.0), 4)
+    if rng.random() < 0.6:
+        x["hours"] = _sig(rng.uniform(1.0, 8760.0), 3) * HOUR
+        if rng.random() < 0.7:
+            x["price"] = _sig(rng.uniform(0.05, 0.4), 2)
+    return x
+
+
+_add("enveng_pump_power",
+     name="Pump power from flow and head, with energy and electricity cost", topic="hydraulics / pumping",
+     purpose="The power a pump draws to lift a flow Q through a total head H with efficiency eta, P = rho g Q H / eta (water 1000 kg/m^3 unless a density is given), in kW, and the energy and electricity cost over a number of operating hours at a price per kWh.",
+     inputs=[_phys("Q", "flow_rate", "flow pumped"), _phys("H", "length", "total dynamic head"),
+             _numin("eta", "pump (wire-to-water) efficiency (fraction or %)", pct=True),
+             _phys("rho", "density", "density of the liquid (default water, 1000 kg/m^3)", required=False),
+             _phys("hours", "time", "operating time", required=False, show=("h", 1.0 / HOUR)),
+             _numin("price", "electricity price per kWh", required=False, words=_PRICE)],
+     outputs=[_o("P", "power", "power drawn to lift the water: the input (brake, shaft or motor) power the pump requires, rho g Q H / eta"),
+              _o("P_kW", "number", "power drawn, kW"),
+              _o("P_water", "power", "water (hydraulic) power, the useful output power imparted to the water, rho g Q H"),
+              _o("P_water_kW", "number", "water power, kW"),
+              _o("energy_kWh", "number", "energy over the operating time, kWh"), _o("cost", "number", "electricity cost, in the price's currency")],
+     primary="P", conditions=["g = 9.80665 m/s^2", "0 < eta <= 1", "rho = 1000 kg/m^3 unless given", "a price needs the operating hours"],
+     method="P = rho g Q H / eta; E = P t; cost = E x price",
+     latex=r"P = \frac{\rho\,g\,Q\,H}{\eta},\qquad E = P\,t,\qquad \text{cost} = E\cdot\text{price}",
+     run=pump_power, reference=_ref_pump_power, wrong=_wrong_pump_power, rand=_rand_pump,
+     phrases=("Pump power", "Power required by a pump", "Pumping power", "Pump power and energy cost",
+              "Brake power of a pump", "Input power of a pump", "Motor power of a pump", "Pump brake power",
+              "Pump input power", "Pump motor power", "Brake power", "Shaft power of a pump"),
+     examples=[_ex({"Q": 0.1, "H": 30.0, "eta": 0.75}), _ex({"Q": 0.05, "H": 20.0, "eta": 0.8, "hours": 24.0 * HOUR, "price": 0.12})],
+     level="beginner",
+     extra_q=[{"q": "Power required by a pump: Q = 360 m^3/h, H = 30 m, eta = 75%", "like": 0},
+              # batch 3 (2026-11-11): exam forms asking for the power drawn (input, brake or motor power), P = rho g Q H/eta
+              {"q": "Brake power of a pump: Q = 0.1 m^3/s, H = 30 m, eta = 75%", "like": 0},
+              {"q": "Input power of a pump: Q = 360 m^3/h, H = 30 m, eta = 0.75", "like": 0},
+              {"q": "Motor power of a pump: Q = 8640 m^3/d, H = 30 m, eta = 75%", "like": 0},
+              {"q": "Pump brake power: Q = 0.05 m^3/s, H = 20 m, eta = 80%, hours = 24 h, price = 0.12 $/kWh", "like": 1},
+              {"q": "Pump power: Q = 0.1 m^3/s, H = 30 m, eta = 150%", "outcome": "INVALID_INPUT"},
+              {"q": "Pump power: Q = 0.1 m^3/s, H = 30 m, eta = 0.75, price = 0.1 $/kWh", "outcome": "INVALID_INPUT"}])
+
+
+def rational_method(C, i, A):
+    _frac("the runoff coefficient C", C, lo_open=True)
+    _pos("the rainfall intensity i and the area A", i, A)
+    Q = C * i * A
+    return _out(Q=Q, Q_L_per_s=Q * 1e3, Q_m3_per_h=Q * HOUR)
+
+
+def _ref_rational_method(C, i, A):
+    i_mmh = i * 3.6e6                                       # mm/h
+    A_ha = A / 1e4                                          # hectares
+    Q = C * i_mmh * A_ha / 360.0                            # the customary metric form, m^3/s
+    return {"Q": Q, "Q_L_per_s": Q * 1000.0, "Q_m3_per_h": Q * 3600.0}
+
+
+_add("enveng_rational_method",
+     name="Rational method: peak runoff Q = C i A", topic="hydrology / stormwater",
+     purpose="The peak storm runoff from a small catchment by the rational method, Q = C i A, from the runoff coefficient, the rainfall intensity for the time of concentration (mm/h) and the drainage area (m^2, km^2 or ha), in m^3/s.",
+     inputs=[_numin("C", "runoff coefficient (fraction or %)", pct=True), _phys("i", "speed", "rainfall intensity", show=("mm/h", 3.6e6)),
+             _phys("A", "area", "drainage area", show=("km^2", 1e-6))],
+     outputs=[_o("Q", "flow_rate", "peak runoff C i A"), _o("Q_L_per_s", "number", "peak runoff, L/s"), _o("Q_m3_per_h", "number", "peak runoff, m^3/h")],
+     primary="Q", conditions=["0 < C <= 1", "i for a duration equal to the time of concentration", "small catchment"],
+     method="Q = C i A (SI); with i in mm/h and A in ha, Q = C i A / 360 m^3/s", latex=r"Q = C\,i\,A",
+     run=rational_method, reference=_ref_rational_method,
+     wrong=lambda C, i, A: _out(Q=C * i * A / 3.6, Q_L_per_s=C * i * A / 3.6 * 1e3, Q_m3_per_h=C * i * A / 3.6 * HOUR),
+     rand=lambda rng: {"C": _sig(rng.uniform(0.1, 0.95), 2), "i": _sig(rng.uniform(5.0, 200.0), 3) / 3.6e6, "A": _sig(_lu(rng, 0.1, 500.0), 3) * 1e4},
+     phrases=("Rational method", "Peak runoff by the rational method", "Peak runoff", "Rational formula"),
+     examples=[_ex({"C": 0.6, "i": 50.0 / 3.6e6, "A": 0.25e6}), _ex({"C": 0.35, "i": 80.0 / 3.6e6, "A": 1.2e6})],
+     level="beginner",
+     extra_q=[{"q": "Rational method: C = 0.6, i = 50 mm/h, A = 25 ha", "like": 0},
+              {"q": "Peak runoff: C = 0.6, i = 50 mm/h, A = 250000 m^2", "like": 0},
+              {"q": "Rational method: C = 140%, i = 50 mm/h, A = 25 ha", "outcome": "INVALID_INPUT"},
+              {"q": "Rational method: C = 0.6, i = 0 mm/h, A = 25 ha", "outcome": "INVALID_INPUT"}])
+
+
+def indoor_air(S, Qv, V, Camb=None, k=None):
+    _nonneg("the indoor emission rate S", S)
+    _pos("the ventilation rate Qv and the room volume V", Qv, V)
+    ca = 0.0 if Camb is None else Camb
+    kk = 0.0 if k is None else k
+    _nonneg("the outdoor concentration Camb", ca)
+    _nonneg("the decay rate k", kk)
+    _need(S + Qv * ca > 0, "nothing enters the room: give an emission rate S or an outdoor concentration Camb")
+    C = (Qv * ca + S) / (Qv + kk * V)
+    return _out(C=C, C_ugm3=C * 1e9, C_mgm3=C * 1e6, ach=Qv / V * HOUR, tau_h=V / (Qv + kk * V) / HOUR)
+
+
+def _ref_indoor_air(S, Qv, V, Camb=None, k=None):
+    ca = 0.0 if Camb is None else Camb
+    kk = 0.0 if k is None else k
+    # the room's mass balance V dC/dt = S + Qv Camb - Qv C - k V C, at its root
+    hi = (S + Qv * ca) / Qv * 2.0
+    C = _brentq(lambda c: S + Qv * ca - Qv * c - kk * V * c, 0.0, hi)
+    return {"C": C, "C_ugm3": C * 1e9, "C_mgm3": C * 1e6, "ach": Qv * 3600.0 / V, "tau_h": V / (Qv + kk * V) / 3600.0}
+
+
+def _rand_indoor(rng):
+    V = _sig(rng.uniform(20.0, 2000.0), 3)
+    x = {"S": _sig(_lu(rng, 0.1, 500.0), 3) * 1e-6 / HOUR, "Qv": _sig(V * rng.uniform(0.2, 6.0), 3) / HOUR, "V": V}
+    if rng.random() < 0.85:
+        x["Camb"] = _sig(rng.uniform(1.0, 200.0), 3) * 1e-9
+    if rng.random() < 0.6:
+        x["k"] = _sig(rng.uniform(0.05, 3.0), 3) / HOUR
+    return x
+
+
+_add("enveng_indoor_air_steady_state",
+     name="Steady indoor air concentration (well-mixed room box model)", topic="air pollution / indoor air quality",
+     purpose="The steady concentration of a pollutant in a well-mixed room from its indoor emission rate, the ventilation rate, the outdoor concentration and a first-order decay rate, C = (Qv Camb + S)/(Qv + k V), with the air changes per hour.",
+     inputs=[_phys("S", "mass_flow_rate", "indoor emission rate", show=("mg/h", 1e6 * HOUR)),
+             _phys("Qv", "flow_rate", "ventilation (outdoor air) rate", show=("m^3/h", HOUR)),
+             _phys("V", "volume", "room volume"),
+             _phys("Camb", "mass_concentration", "outdoor (ambient) concentration (default 0)", required=False, show=("ug/m^3", 1e9)),
+             _phys("k", "first_order_rate_constant", "first-order decay (reaction, deposition) rate (default 0)", required=False, show=("1/h", HOUR))],
+     outputs=[_o("C", "mass_concentration", "steady indoor concentration"), _o("C_ugm3", "number", "in ug/m^3"), _o("C_mgm3", "number", "in mg/m^3"),
+              _o("ach", "number", "air changes per hour Qv/V"), _o("tau_h", "number", "time constant V/(Qv + k V), h")],
+     primary="C", conditions=["well-mixed room at steady state", "Camb = 0 and k = 0 unless given", "something enters the room"],
+     method="C = (Qv Camb + S)/(Qv + k V); ach = Qv/V",
+     latex=r"C_{ss} = \frac{Q_v C_{amb} + S}{Q_v + k V}",
+     run=indoor_air, reference=_ref_indoor_air,
+     wrong=lambda S, Qv, V, Camb=None, k=None: (lambda ca, kk: _out(C=(ca + S) / (Qv + kk * V), C_ugm3=(ca + S) / (Qv + kk * V) * 1e9, C_mgm3=(ca + S) / (Qv + kk * V) * 1e6,
+                                                                   ach=Qv / V * HOUR, tau_h=V / (Qv + kk * V) / HOUR))(0.0 if Camb is None else Camb, 0.0 if k is None else k),
+     rand=_rand_indoor,
+     phrases=("Indoor air concentration", "Indoor air box model", "Steady indoor concentration", "Indoor air quality box model"),
+     examples=[_ex({"S": 100.0 / (1e6 * HOUR), "Qv": 100.0 / HOUR, "V": 200.0, "Camb": 10.0e-9, "k": 0.5 / HOUR}),
+               _ex({"S": 50.0 / (1e6 * HOUR), "Qv": 250.0 / HOUR, "V": 500.0})],
+     level="intermediate",
+     extra_q=[{"q": "Indoor air box model: S = 100 mg/h, Qv = 100 m^3/h, V = 200 m^3, Camb = 10 ug/m^3, k = 0.5 1/h", "like": 0},
+              {"q": "Indoor air concentration: S = 0 mg/h, Qv = 100 m^3/h, V = 200 m^3", "outcome": "INVALID_INPUT"},
+              {"q": "Indoor air concentration: S = 100 mg/h, Qv = 0 m^3/h, V = 200 m^3", "outcome": "INVALID_INPUT"}])
+
+
+def series_efficiency(eta, C_in=None):
+    _need(len(eta) >= 1, "give the efficiency of each device")
+    pen = 1.0
+    for e in eta:
+        _fin(e)
+        _need(0.0 <= e <= 1.0, "each efficiency must be a fraction from 0 to 1 (write 0.9 for 90%)")
+        pen = pen * (1.0 - e)
+    out = {"eta_total": 1.0 - pen, "eta_total_percent": (1.0 - pen) * 100.0, "penetration": pen}
+    if C_in is not None:
+        _pos("the inlet concentration C_in", C_in)
+        out["C_out"] = C_in * pen
+        out["C_out_mgm3"] = C_in * pen * 1e6
+    return _out(**out)
+
+
+def _ref_series_efficiency(eta, C_in=None):
+    import numpy as np
+    with np.errstate(divide="ignore"):
+        pen = float(np.exp(np.sum(np.log1p(-np.array(eta, float)))))   # penetrations multiplied as a sum of logs
+    out = {"eta_total": 1.0 - pen, "eta_total_percent": (1.0 - pen) * 100.0, "penetration": pen}
+    if C_in is not None:
+        out["C_out"] = C_in * pen
+        out["C_out_mgm3"] = C_in * pen * 1e6
+    return out
+
+
+def _wrong_series_efficiency(eta, C_in=None):
+    p = 1.0
+    for e in eta:
+        p = p * e
+    pen = 1.0 - p                                           # efficiencies multiplied instead of penetrations
+    out = {"eta_total": p, "eta_total_percent": p * 100.0, "penetration": pen}
+    if C_in is not None:
+        out.update(C_out=C_in * pen, C_out_mgm3=C_in * pen * 1e6)
+    return _out(**out)
+
+
+_add("enveng_collection_efficiency_series",
+     name="Overall efficiency of collection devices in series", topic="air pollution / particulate control",
+     purpose="The overall collection efficiency of air pollution control devices in series (a cyclone before a baghouse or an ESP), 1 - prod(1 - eta_i), the fraction that penetrates, and the outlet concentration for a given inlet concentration.",
+     inputs=[_vecin("eta", "efficiency of each device as a fraction (0.9 for 90%)", 1, 20),
+             _phys("C_in", "mass_concentration", "inlet concentration (optional)", required=False, show=("mg/m^3", 1e6))],
+     outputs=[_o("eta_total", "number", "overall efficiency 1 - prod(1 - eta_i)"), _o("eta_total_percent", "number", "overall efficiency, %"),
+              _o("penetration", "number", "fraction passing all devices prod(1 - eta_i)"),
+              _o("C_out", "mass_concentration", "outlet concentration"), _o("C_out_mgm3", "number", "outlet concentration, mg/m^3")],
+     primary="eta_total", conditions=["devices in series, each efficiency on what reaches it", "0 <= eta_i <= 1 as fractions"],
+     method="P = prod(1 - eta_i); eta = 1 - P; C_out = C_in P",
+     latex=r"\eta_{overall} = 1 - \prod_i\left(1 - \eta_i\right)",
+     run=series_efficiency, reference=_ref_series_efficiency, wrong=_wrong_series_efficiency,
+     rand=lambda rng: dict({"eta": [_sig(rng.uniform(0.3, 0.995), 3) for _ in range(rng.randint(2, 4))]},
+                           **({"C_in": _sig(_lu(rng, 10.0, 20000.0), 3) * 1e-6} if rng.random() < 0.5 else {})),
+     phrases=("Overall collection efficiency", "Collection devices in series", "Overall efficiency in series", "Efficiency of devices in series"),
+     examples=[_ex({"eta": [0.8, 0.99]}), _ex({"eta": [0.9, 0.95, 0.5], "C_in": 5000.0e-6})],
+     level="beginner",
+     extra_q=[{"q": "Collection devices in series: eta = [0.80, 0.99]", "like": 0},
+              {"q": "Overall collection efficiency: eta = [80, 99]", "outcome": "INVALID_INPUT"}])
+
+
+def hhv_dry_basis(w, HHV_ar=None, HHV_dry=None, ash=None):
+    _frac("the moisture fraction w", w, hi_open=True)
+    _need((HHV_ar is None) != (HHV_dry is None), "give the heating value as received (HHV_ar) or on a dry basis (HHV_dry), not both")
+    if HHV_ar is not None:
+        _pos("the heating value", HHV_ar)
+        ar = HHV_ar
+        dry = ar / (1.0 - w)
+    else:
+        _pos("the heating value", HHV_dry)
+        dry = HHV_dry
+        ar = dry * (1.0 - w)
+    out = {"HHV_dry": dry, "HHV_ar": ar, "HHV_dry_MJ_per_kg": dry / 1e6, "HHV_ar_MJ_per_kg": ar / 1e6}
+    if ash is not None:
+        _frac("the ash fraction (as received)", ash)
+        _need(w + ash < 1.0, "the moisture and ash fractions must add up to less than 1")
+        out["HHV_daf"] = ar / (1.0 - w - ash)
+        out["HHV_daf_MJ_per_kg"] = ar / (1.0 - w - ash) / 1e6
+    return _out(**out)
+
+
+def _ref_hhv_dry(w, HHV_ar=None, HHV_dry=None, ash=None):
+    from fractions import Fraction as F
+    # one kilogram as received: its energy and its dry (and ash-free) mass
+    wq = F(w)
+    if HHV_ar is not None:
+        energy = F(HHV_ar)
+    else:
+        energy = F(HHV_dry) * (1 - wq)
+    dry_mass = 1 - wq
+    out = {"HHV_dry": float(energy / dry_mass), "HHV_ar": float(energy), "HHV_dry_MJ_per_kg": float(energy / dry_mass / 10 ** 6),
+           "HHV_ar_MJ_per_kg": float(energy / 10 ** 6)}
+    if ash is not None:
+        daf = energy / (dry_mass - F(ash))
+        out["HHV_daf"] = float(daf)
+        out["HHV_daf_MJ_per_kg"] = float(daf / 10 ** 6)
+    return out
+
+
+def _wrong_hhv_dry(w, HHV_ar=None, HHV_dry=None, ash=None):
+    ar = HHV_ar if HHV_ar is not None else HHV_dry / (1.0 - w)
+    dry = ar * (1.0 - w)                                    # moisture removed from the energy instead of the mass
+    out = {"HHV_dry": dry, "HHV_ar": ar, "HHV_dry_MJ_per_kg": dry / 1e6, "HHV_ar_MJ_per_kg": ar / 1e6}
+    if ash is not None:
+        out.update(HHV_daf=ar * (1.0 - w - ash), HHV_daf_MJ_per_kg=ar * (1.0 - w - ash) / 1e6)
+    return _out(**out)
+
+
+def _rand_hhv(rng):
+    x = {"w": _sig(rng.uniform(0.02, 0.6), 2)}
+    if rng.random() < 0.6:
+        x["HHV_ar"] = _sig(rng.uniform(5.0, 30.0), 3) * 1e6
+    else:
+        x["HHV_dry"] = _sig(rng.uniform(10.0, 35.0), 3) * 1e6
+    if rng.random() < 0.4:
+        x["ash"] = _sig(rng.uniform(0.01, 0.3), 2)
+    return x
+
+
+_add("enveng_heating_value_dry_basis",
+     name="Heating value on a dry basis from the as-received value and the moisture", topic="solid waste / energy recovery",
+     purpose="The higher heating value of a fuel or waste on a dry basis from its as-received value and moisture fraction, HHV_dry = HHV_ar/(1 - w) (or the reverse), and on a dry ash-free basis when the ash fraction is given.",
+     inputs=[_numin("w", "moisture fraction as received, wet basis (fraction or %)", pct=True),
+             _phys("HHV_ar", "specific_energy", "heating value as received", required=False, show=("kJ/kg", 1e-3)),
+             _phys("HHV_dry", "specific_energy", "heating value on a dry basis", required=False, show=("kJ/kg", 1e-3)),
+             _numin("ash", "ash fraction as received (fraction or %)", required=False, pct=True)],
+     outputs=[_o("HHV_dry", "specific_energy", "dry-basis heating value HHV_ar/(1 - w)"), _o("HHV_ar", "specific_energy", "as-received heating value"),
+              _o("HHV_dry_MJ_per_kg", "number", "dry basis, MJ/kg"), _o("HHV_ar_MJ_per_kg", "number", "as received, MJ/kg"),
+              _o("HHV_daf", "specific_energy", "dry ash-free heating value HHV_ar/(1 - w - ash)"), _o("HHV_daf_MJ_per_kg", "number", "dry ash-free, MJ/kg")],
+     primary="HHV_dry", conditions=["0 <= w < 1 (wet-basis moisture)", "exactly one of HHV_ar, HHV_dry", "w + ash < 1"],
+     method="HHV_dry = HHV_ar/(1 - w); HHV_daf = HHV_ar/(1 - w - ash)",
+     latex=r"HHV_{dry} = \frac{HHV_{ar}}{1 - w},\qquad HHV_{daf} = \frac{HHV_{ar}}{1 - w - a}",
+     run=hhv_dry_basis, reference=_ref_hhv_dry, wrong=_wrong_hhv_dry, rand=_rand_hhv,
+     phrases=("Heating value on a dry basis", "Dry basis heating value", "Dry-basis heating value", "HHV dry basis"),
+     examples=[_ex({"w": 0.25, "HHV_ar": 12000e3}), _ex({"w": 0.2, "HHV_dry": 18000e3, "ash": 0.1})],
+     level="beginner",
+     extra_q=[{"q": "Dry basis heating value: w = 25%, HHV_ar = 12 MJ/kg", "like": 0},
+              {"q": "Heating value on a dry basis: w = 1, HHV_ar = 12000 kJ/kg", "outcome": "INVALID_INPUT"},
+              {"q": "Heating value on a dry basis: w = 0.25, HHV_ar = 12000 kJ/kg, HHV_dry = 16000 kJ/kg", "outcome": "INVALID_INPUT"}])
+
+
+_YEARS = ("yr", "years", "year", "y")
+
+
+def return_period(T=None, n=None, risk=None):
+    if n is not None:
+        _fin(n)
+        _need(n >= 1 and n == int(n) and n <= 10000, "the number of years n must be a whole number from 1 to 10000")
+    if T is not None:
+        _need(risk is None, "give the return period T or an acceptable risk, not both")
+        _fin(T)
+        _need(T >= 1.0, "the return period T must be at least 1 year")
+        p = 1.0 / T
+    else:
+        _need(risk is not None and n is not None, "give the return period T, or an acceptable risk with the design life n")
+        _fin(risk)
+        _need(0.0 < risk < 1.0, "the risk must be a probability between 0 and 1")
+        p = -math.expm1(math.log1p(-risk) / n)
+        T = 1.0 / p
+    out = {"p": p, "p_percent": p * 100.0, "T": T}
+    if n is not None:
+        none = math.exp(n * math.log1p(-p)) if p < 1.0 else 0.0
+        P = -math.expm1(n * math.log1p(-p)) if p < 1.0 else 1.0
+        out["P_n"] = P
+        out["P_n_percent"] = P * 100.0
+        out["P_none"] = none
+    return _out(**out)
+
+
+def _ref_return_period(T=None, n=None, risk=None):
+    from scipy.stats import binom
+    if T is not None:
+        p = 1.0 / T
+    else:
+        p = _brentq(lambda q: float(binom.sf(0, int(n), q)) - risk, 1e-300, 1.0)   # the yearly probability giving that risk
+    out = {"p": p, "p_percent": p * 100.0, "T": 1.0 / p}
+    if n is not None:
+        out["P_n"] = float(binom.sf(0, int(n), p))                # at least one exceedance in n independent years
+        out["P_n_percent"] = out["P_n"] * 100.0
+        out["P_none"] = float(binom.pmf(0, int(n), p))
+    return out
+
+
+def _wrong_return_period(T=None, n=None, risk=None):
+    p = 1.0 / T if T is not None else risk / n
+    out = {"p": p, "p_percent": p * 100.0, "T": 1.0 / p}
+    if n is not None:
+        out.update(P_n=n * p, P_n_percent=n * p * 100.0, P_none=1.0 - n * p)    # the linear (wrong) risk
+    return _out(**out)
+
+
+def _rand_rp(rng):
+    u = rng.random()
+    if u < 0.8:
+        x = {"T": float(rng.choice([2, 5, 10, 25, 50, 100, 200, 500, 1000]))}
+        if u < 0.7:
+            x["n"] = float(rng.randint(2, 100))
+        return x
+    return {"risk": _sig(rng.uniform(0.01, 0.6), 2), "n": float(rng.randint(2, 100))}
+
+
+_add("enveng_return_period_risk",
+     name="Return period, exceedance probability and risk over a design life", topic="hydrology / frequency analysis",
+     purpose="The annual exceedance probability of an event with return period T, p = 1/T, and the probability that it is equalled or exceeded at least once in n years, 1 - (1 - 1/T)^n; or the return period needed for an acceptable risk over a design life.",
+     inputs=[_numin("T", "return period, years", required=False, words=_YEARS),
+             _numin("n", "number of years (design life)", required=False, words=_YEARS),
+             _numin("risk", "acceptable probability of at least one exceedance in n years (fraction or %)", required=False, pct=True)],
+     outputs=[_o("p", "number", "annual exceedance probability 1/T"), _o("p_percent", "number", "annual exceedance probability, %"),
+              _o("T", "number", "return period, years"), _o("P_n", "number", "probability of at least one exceedance in n years"),
+              _o("P_n_percent", "number", "that probability, %"), _o("P_none", "number", "probability of no exceedance in n years")],
+     primary="p", conditions=["independent years", "T >= 1 yr", "n a whole number of years", "T, or a risk with n"],
+     method="p = 1/T; P(at least one in n years) = 1 - (1 - p)^n; for a risk R: p = 1 - (1 - R)^(1/n), T = 1/p",
+     latex=r"p = \frac{1}{T},\qquad P_n = 1 - \left(1 - \frac{1}{T}\right)^n",
+     run=return_period, reference=_ref_return_period, wrong=_wrong_return_period, rand=_rand_rp,
+     phrases=("Return period", "Exceedance probability", "Probability of exceedance", "Return period risk"),
+     examples=[_ex({"T": 100.0, "n": 30.0}), _ex({"risk": 0.1, "n": 25.0})],
+     level="beginner",
+     extra_q=[{"q": "Probability of exceedance: T = 100 yr, n = 30 years", "like": 0},
+              {"q": "Return period: T = 50 yr", "outputs": {"p": 0.02}},
+              {"q": "Return period: T = 0.5 yr", "outcome": "INVALID_INPUT"},
+              {"q": "Return period: T = 100 yr, n = 2.5 yr", "outcome": "INVALID_INPUT"},
+              {"q": "Return period: risk = 10%", "outcome": "INVALID_INPUT"}])
+
+
+def geometric_mean(x):
+    _need(len(x) >= 2, "give at least two values")
+    s = 0.0
+    t = 0.0
+    for v in x:
+        _pos("every value (a count of zero has no logarithm)", v)
+        s = s + math.log(v)
+        t = t + v
+    m = len(x)
+    mean = t / m
+    d = 0.0
+    for v in x:
+        d = d + (v - mean) ** 2
+    gm = math.exp(s / m)
+    return _out(geometric_mean=gm, mean=mean, sd=math.sqrt(d / (m - 1)), mean_log10=s / m / math.log(10.0), count=float(m))
+
+
+def _ref_geometric_mean(x):
+    import numpy as np
+    from scipy.stats import gmean
+    a = np.array(x, float)
+    return {"geometric_mean": float(gmean(a)), "mean": float(np.mean(a)), "sd": float(np.std(a, ddof=1)),
+            "mean_log10": float(np.mean(np.log10(a))), "count": float(a.size)}
+
+
+_add("enveng_geometric_mean_counts",
+     name="Geometric mean of bacterial counts (with mean and standard deviation)", topic="water quality / microbiology",
+     purpose="The geometric mean of a set of positive values such as coliform counts (MPN or CFU per 100 mL), the n-th root of their product, with the arithmetic mean, the sample standard deviation and the mean of the base-10 logarithms.",
+     inputs=[_vecin("x", "positive values, e.g. coliform counts per 100 mL", 2, 500)],
+     outputs=[_o("geometric_mean", "number", "geometric mean (prod x)^(1/n)"), _o("mean", "number", "arithmetic mean"),
+              _o("sd", "number", "sample standard deviation (n - 1)"), _o("mean_log10", "number", "mean of log10 x"), _o("count", "number", "number of values")],
+     primary="geometric_mean", conditions=["every value > 0", "at least two values"],
+     method="GM = exp(mean(ln x)); mean = sum x / n; s = sqrt(sum (x - mean)^2/(n - 1))",
+     latex=r"GM = \left(\prod_{i=1}^n x_i\right)^{1/n},\qquad s = \sqrt{\frac{\sum (x_i - \bar x)^2}{n - 1}}",
+     run=geometric_mean, reference=_ref_geometric_mean,
+     wrong=lambda x: (lambda r: _out(**dict(r, sd=r["sd"] * math.sqrt((len(x) - 1) / len(x)))))(geometric_mean(x)),
+     rand=lambda rng: {"x": [_sig(_lu(rng, 1.0, 5000.0), 2) for _ in range(rng.randint(3, 12))]},
+     phrases=("Geometric mean", "Geometric mean of coliform counts", "Geometric mean of counts", "Coliform geometric mean"),
+     examples=[_ex({"x": [10.0, 100.0, 1000.0]}), _ex({"x": [20.0, 40.0, 35.0, 120.0, 8.0]})],
+     level="beginner",
+     extra_q=[{"q": "Geometric mean of coliform counts: x = [10, 100, 1000]", "like": 0},
+              {"q": "Geometric mean: x = [10, 0, 1000]", "outcome": "INVALID_INPUT"}])
+
+
+def vs_reduction(VS_in, VS_out):
+    _frac("the volatile fraction of the feed VS_in", VS_in, lo_open=True)
+    _frac("the volatile fraction of the digested solids VS_out", VS_out, hi_open=True)
+    _need(VS_out <= VS_in, "the digested solids cannot be more volatile than the feed")
+    vsr = (VS_in - VS_out) / (VS_in - VS_in * VS_out)
+    return _out(VSR=vsr, VSR_percent=vsr * 100.0, TS_remaining=(1.0 - VS_in) / (1.0 - VS_out))
+
+
+def _ref_vs_reduction(VS_in, VS_out):
+    from fractions import Fraction as F
+    a, b = F(VS_in), F(VS_out)
+    fixed = 1 - a                                           # per unit of feed solids: fixed solids pass unchanged
+    ts_out = fixed / (1 - b)
+    vs_left = ts_out * b
+    vsr = (a - vs_left) / a
+    return {"VSR": float(vsr), "VSR_percent": float(vsr * 100), "TS_remaining": float(ts_out)}
+
+
+_add("enveng_volatile_solids_reduction",
+     name="Volatile solids reduction in digestion (Van Kleeck)", topic="biosolids / digestion",
+     purpose="The fraction of the volatile solids destroyed by sludge digestion from the volatile fractions of the feed and the digested sludge by the Van Kleeck equation, VSR = (VS_in - VS_out)/(VS_in - VS_in VS_out), which assumes the fixed solids pass unchanged.",
+     inputs=[_numin("VS_in", "volatile fraction of the feed solids (fraction or %)", pct=True),
+             _numin("VS_out", "volatile fraction of the digested solids (fraction or %)", pct=True)],
+     outputs=[_o("VSR", "number", "volatile solids reduction (fraction)"), _o("VSR_percent", "number", "volatile solids reduction, %"),
+              _o("TS_remaining", "number", "total solids left per unit of feed solids")],
+     primary="VSR", conditions=["fixed (inorganic) solids conserved", "0 < VS_out <= VS_in, VS_out < 1"],
+     method="VSR = (VS_in - VS_out)/(VS_in - VS_in VS_out)",
+     latex=r"VSR = \frac{VS_{in} - VS_{out}}{VS_{in} - VS_{in}\,VS_{out}}",
+     run=vs_reduction, reference=_ref_vs_reduction,
+     wrong=lambda VS_in, VS_out: _out(VSR=(VS_in - VS_out) / VS_in, VSR_percent=(VS_in - VS_out) / VS_in * 100.0,
+                                      TS_remaining=(1.0 - VS_in) / (1.0 - VS_out)),
+     rand=lambda rng: (lambda a: {"VS_in": a, "VS_out": _sig(a * rng.uniform(0.4, 0.95), 2)})(_sig(rng.uniform(0.55, 0.85), 2)),
+     phrases=("Volatile solids reduction", "Van Kleeck", "VS reduction", "Volatile solids destruction"),
+     aliases={"VSin": "VS_in", "VSout": "VS_out"},
+     examples=[_ex({"VS_in": 0.75, "VS_out": 0.55}), _ex({"VS_in": 0.7, "VS_out": 0.5})],
+     level="intermediate",
+     extra_q=[{"q": "Volatile solids reduction: VS_in = 75%, VS_out = 55%", "like": 0},
+              {"q": "Volatile solids reduction: VS_in = 0.5, VS_out = 0.7", "outcome": "INVALID_INPUT"}])
+
+
+def transmembrane_pressure(P_feed, P_conc, P_perm):
+    _fin(P_feed, P_conc, P_perm)
+    _need(P_conc <= P_feed, "the concentrate pressure cannot exceed the feed pressure")
+    tmp = (P_feed + P_conc) / 2.0 - P_perm
+    _need(tmp > 0, "the transmembrane pressure must be positive (the permeate pressure is too high)")
+    return _out(TMP=tmp, TMP_kPa=tmp / 1e3, TMP_bar=tmp / 1e5, dP=P_feed - P_conc, dP_kPa=(P_feed - P_conc) / 1e3)
+
+
+def _ref_tmp(P_feed, P_conc, P_perm):
+    # the feed-side pressure falls linearly along the channel: its mean over the length, less the permeate side
+    mean_feed = _quad(lambda s: P_feed + (P_conc - P_feed) * s, 0.0, 1.0)
+    t = mean_feed - P_perm
+    return {"TMP": t, "TMP_kPa": t / 1000.0, "TMP_bar": t / 100000.0, "dP": P_feed - P_conc, "dP_kPa": (P_feed - P_conc) / 1000.0}
+
+
+_add("enveng_transmembrane_pressure",
+     name="Transmembrane pressure of a crossflow membrane", topic="water treatment / membranes",
+     purpose="The transmembrane pressure of a crossflow membrane element, TMP = (P_feed + P_concentrate)/2 - P_permeate, and the feed-channel pressure drop.",
+     inputs=[_phys("P_feed", "pressure", "feed pressure", show=("kPa", 1e-3)), _phys("P_conc", "pressure", "concentrate (retentate) pressure", show=("kPa", 1e-3)),
+             _phys("P_perm", "pressure", "permeate pressure", show=("kPa", 1e-3))],
+     outputs=[_o("TMP", "pressure", "transmembrane pressure"), _o("TMP_kPa", "number", "in kPa"), _o("TMP_bar", "number", "in bar"),
+              _o("dP", "pressure", "feed-channel pressure drop P_feed - P_conc"), _o("dP_kPa", "number", "pressure drop, kPa")],
+     primary="TMP", conditions=["the same pressure basis for all three (gauge or absolute)", "P_conc <= P_feed", "TMP > 0"],
+     method="TMP = (P_feed + P_conc)/2 - P_perm", latex=r"TMP = \frac{P_f + P_c}{2} - P_p",
+     run=transmembrane_pressure, reference=_ref_tmp,
+     wrong=lambda P_feed, P_conc, P_perm: (lambda t: _out(TMP=t, TMP_kPa=t / 1e3, TMP_bar=t / 1e5, dP=P_feed - P_conc, dP_kPa=(P_feed - P_conc) / 1e3))((P_feed - P_conc) / 2.0 - P_perm),
+     rand=lambda rng: (lambda pf: {"P_feed": pf, "P_conc": _sig(pf * rng.uniform(0.6, 0.98), 3), "P_perm": _sig(pf * rng.uniform(0.0, 0.3), 3)})(_sig(_lu(rng, 50.0, 6000.0), 3) * 1e3),
+     phrases=("Transmembrane pressure", "TMP", "Membrane transmembrane pressure"),
+     aliases={"Pf": "P_feed", "Pc": "P_conc", "Pp": "P_perm"},
+     examples=[_ex({"P_feed": 800e3, "P_conc": 700e3, "P_perm": 50e3}), _ex({"P_feed": 200e3, "P_conc": 180e3, "P_perm": 0.0})],
+     level="beginner",
+     extra_q=[{"q": "TMP: P_feed = 8 bar, P_conc = 7 bar, P_perm = 0.5 bar", "like": 0},
+              {"q": "Transmembrane pressure: P_feed = 700 kPa, P_conc = 800 kPa, P_perm = 50 kPa", "outcome": "INVALID_INPUT"},
+              {"q": "Transmembrane pressure: P_feed = 200 kPa, P_conc = 180 kPa, P_perm = 300 kPa", "outcome": "INVALID_INPUT"}])
+
+
+def thod_solution(formula, C, nitrification=None):
+    nit = "no" if nitrification is None else nitrification
+    _pos("the concentration C", C)
+    r = thod(formula, nit)
+    g = r["thod"]
+    return _out(ThOD=g * C, ThOD_mgL=g * C * 1e3, thod_ratio=g, o2_per_mol=r["o2_per_mol"], molar_mass=r["molar_mass"],
+                C_molL=C / r["molar_mass"])
+
+
+def _ref_thod_solution(formula, C, nitrification=None):
+    r = _ref_thod(formula, "no" if nitrification is None else nitrification)
+    return {"ThOD": r["thod"] * C, "ThOD_mgL": r["thod"] * C * 1000.0, "thod_ratio": r["thod"], "o2_per_mol": r["o2_per_mol"],
+            "molar_mass": r["molar_mass"], "C_molL": C / r["molar_mass"]}
+
+
+def _wrong_thod_solution(formula, C, nitrification=None):
+    r = _wrong_thod(formula, "no" if nitrification is None else nitrification)
+    return _out(ThOD=r["thod"] * C, ThOD_mgL=r["thod"] * C * 1e3, thod_ratio=r["thod"], o2_per_mol=r["o2_per_mol"],
+                molar_mass=r["molar_mass"], C_molL=C / r["molar_mass"])
+
+
+_add("enveng_thod_solution",
+     name="Theoretical oxygen demand of a solution (mg/L)", topic="water quality / oxygen demand",
+     purpose="The theoretical oxygen demand in mg/L of a solution of an organic compound CaHbOcNd at a given concentration, its complete oxidation to CO2 and water (nitrogen to ammonia, or to nitrate with nitrification): ThOD = C x (g O2 per g compound).",
+     inputs=[_textin("formula", "molecular formula with C, H, O, N only (e.g. C6H12O6)"),
+             _phys("C", "mass_concentration", "concentration of the compound"),
+             _choice("nitrification", ("yes", "no"), "include the oxygen to nitrify ammonia (default no)", required=False)],
+     outputs=[_o("ThOD", "mass_concentration", "theoretical oxygen demand of the solution"), _o("ThOD_mgL", "number", "ThOD, mg/L"),
+              _o("thod_ratio", "number", "g O2 per g compound"), _o("o2_per_mol", "number", "mol O2 per mol compound"),
+              _o("molar_mass", "number", "molar mass, g/mol"), _o("C_molL", "number", "molar concentration of the compound, mol/L")],
+     primary="ThOD", conditions=["elements C, H, O, N only, b >= 3d", "complete oxidation; nitrogen to NH3 unless nitrification = yes"],
+     method="ThOD = C (a + b/4 - c/2 - 3d/4 [+ 2d]) M_O2 / M",
+     latex=r"\text{ThOD} = C\,\frac{\left(a + \frac b4 - \frac c2 - \frac{3d}{4}\right)M_{O_2}}{M}",
+     run=thod_solution, reference=_ref_thod_solution, wrong=_wrong_thod_solution,
+     rand=lambda rng: dict({"formula": rng.choice(_THOD_LIST), "C": _sig(_lu(rng, 1.0, 2000.0), 3) * MG},
+                           **({"nitrification": rng.choice(["yes", "no"])} if rng.random() < 0.6 else {})),
+     phrases=("ThOD of a solution", "Theoretical oxygen demand of a solution", "Theoretical oxygen demand in mg/L", "ThOD in mg/L"),
+     examples=[_ex({"formula": "C6H12O6", "C": 0.1}), _ex({"formula": "C5H7O2N", "C": 0.05, "nitrification": "yes"})],
+     level="beginner",
+     extra_q=[{"q": "Theoretical oxygen demand of a solution: formula = C6H12O6, C = 100 mg/L, nitrification = no", "like": 0},
+              {"q": "ThOD of a solution: formula = C6H12O6, C = 0 mg/L", "outcome": "INVALID_INPUT"},
+              {"q": "ThOD of a solution: formula = C6H12Cl, C = 100 mg/L", "outcome": "INVALID_INPUT"}])
+
+
+# ================================================================================================ BATCH 3 (2026-11-11)
+# first-order decay in a batch reactor (any one of C, C0, k, t), the chemical feed rate, the membrane permeate flux,
+# the landfill volume per day and year; extended above: one CMFR with V and Q (enveng_cmfr_series), the effluent solids
+# optional in the SRT (enveng_solids_retention_time), exam forms of the ultimate BOD and of the pump's input power.
+LN2 = math.log(2.0)
+LB = 0.45359237                   # kg per pound (exact)
+MGD_SI = 3785.411784 / DAY        # m^3/s per million US gallons a day
+
+
+def first_order_decay(C0=None, C=None, k=None, t=None, t_half=None):
+    if t_half is not None:
+        _need(k is None, "give the rate constant k or the half-life t_half, not both")
+        _pos("the half-life t_half", t_half)
+        k = LN2 / t_half
+    known = 0
+    for v in (C0, C, k, t):
+        if v is not None:
+            known = known + 1
+    _need(known == 3, "give exactly three of C0, C, k (or t_half) and t: the fourth is computed")
+    if C0 is not None:
+        _pos("the initial concentration C0", C0)
+    if C is not None:
+        _pos("the concentration C", C)
+    if k is not None:
+        _pos("the rate constant k", k)
+    if t is not None:
+        _pos("the time t", t)
+    if C0 is not None and C is not None:
+        _need(C < C0, "a first-order decay needs C below C0")
+    if k is not None and t is not None:
+        _need(k * t <= 700.0, "k t is too large (above 700): nothing measurable is left")
+    if C is None:
+        C = C0 * math.exp(-k * t)
+    elif C0 is None:
+        C0 = C * math.exp(k * t)
+    elif k is None:
+        k = math.log(C0 / C) / t
+    else:
+        t = math.log(C0 / C) / k
+    f = C / C0
+    th = LN2 / k
+    return _out(C=C, C_mgL=C * 1e3, C0=C0, C0_mgL=C0 * 1e3, k=k, k_per_day=k * DAY, k_per_h=k * HOUR,
+                t=t, t_days=t / DAY, t_h=t / HOUR, t_half=th, t_half_days=th / DAY, t_half_h=th / HOUR,
+                fraction_remaining=f, removal_percent=(1.0 - f) * 100.0)
+
+
+def _ref_first_order_decay(C0=None, C=None, k=None, t=None, t_half=None):
+    import mpmath as mp
+    mp.mp.dps = 40
+    if t_half is not None:                                  # the rate that halves the amount in t_half
+        k = float(mp.findroot(lambda u: mp.exp(-u) - mp.mpf(1) / 2, mp.mpf("0.5")) / t_half)    # u = k t_half
+
+    def surv(kk, tt):                                       # dC/dt = -k C integrated from 1
+        return _ivp(lambda _s, y: [-kk * y[0]], tt, [1.0], atol=[1e-30])[0]
+
+    def root(f, x0):                                        # f decreasing from f(0) > 0: bracket by doubling
+        hi = x0
+        while f(hi) > 0:
+            hi = hi * 2.0
+        return _brentq(f, 0.0, hi)
+    if C is None:
+        C = C0 * surv(k, t)
+    elif C0 is None:
+        C0 = C / surv(k, t)
+    elif k is None:
+        k = root(lambda kk: math.exp(-kk * t) - C / C0, 1.0 / t)
+    else:
+        t = root(lambda tt: math.exp(-k * tt) - C / C0, 1.0 / k)
+    th = float(mp.log(2)) / k
+    return {"C": C, "C_mgL": C * 1000.0, "C0": C0, "C0_mgL": C0 * 1000.0, "k": k, "k_per_day": k * 86400.0, "k_per_h": k * 3600.0,
+            "t": t, "t_days": t / 86400.0, "t_h": t / 3600.0, "t_half": th, "t_half_days": th / 86400.0, "t_half_h": th / 3600.0,
+            "fraction_remaining": C / C0, "removal_percent": (1.0 - C / C0) * 100.0}
+
+
+def _wrong_first_order_decay(C0=None, C=None, k=None, t=None, t_half=None):
+    if t_half is not None:
+        k = LN2 / t_half
+    if C is None:                                           # base 10 in place of base e
+        C = C0 * 10.0 ** (-k * t)
+    elif C0 is None:
+        C0 = C * 10.0 ** (k * t)
+    elif k is None:
+        k = math.log10(C0 / C) / t
+    else:
+        t = math.log10(C0 / C) / k
+    f = C / C0
+    th = LN2 / k
+    return _out(C=C, C_mgL=C * 1e3, C0=C0, C0_mgL=C0 * 1e3, k=k, k_per_day=k * DAY, k_per_h=k * HOUR,
+                t=t, t_days=t / DAY, t_h=t / HOUR, t_half=th, t_half_days=th / DAY, t_half_h=th / HOUR,
+                fraction_remaining=f, removal_percent=(1.0 - f) * 100.0)
+
+
+def _rand_decay(rng):
+    unit = rng.choice([DAY, HOUR])
+    x = {"C0": _sig(rng.uniform(5.0, 500.0), 3) * MG, "k": _sig(_lu(rng, 0.01, 3.0), 3) / unit}
+    x["t"] = _sig(_lu(rng, 0.05, 6.0) / (x["k"] * unit), 3) * unit
+    x["C"] = _sig(x["C0"] * math.exp(-x["k"] * x["t"]), 3)
+    del x[rng.choice(["C0", "C", "k", "t"])]
+    if "k" in x and rng.random() < 0.3:
+        x["t_half"] = _sig(LN2 / x.pop("k"), 3)
+    return x
+
+
+_add("enveng_first_order_decay",
+     name="First-order decay in a batch reactor: C = C0 exp(-k t) and the half-life", topic="reactors / batch reactor kinetics",
+     purpose="First-order decay in a batch (or plug-flow) reactor, C = C0 exp(-k t): the concentration after a time, the initial concentration, the rate constant or the time, whichever one of the four is not given, with the half-life t1/2 = ln 2 / k (the rate may be given as a half-life instead of k), the fraction remaining and the per cent removed.",
+     inputs=[_phys("C0", "mass_concentration", "initial concentration", required=False),
+             _phys("C", "mass_concentration", "concentration after the time t", required=False),
+             _phys("k", "first_order_rate_constant", "first-order rate constant (base e)", required=False),
+             _phys("t", "time", "reaction time", required=False, show=("h", 1.0 / HOUR)),
+             _phys("t_half", "time", "half-life (in place of k)", required=False, show=("h", 1.0 / HOUR))],
+     outputs=[_o("C", "mass_concentration", "concentration after the time t, C0 exp(-k t)"), _o("C_mgL", "number", "in mg/L"),
+              _o("C0", "mass_concentration", "initial concentration"), _o("C0_mgL", "number", "initial concentration, mg/L"),
+              _o("k", "first_order_rate_constant", "first-order rate constant ln(C0/C)/t"), _o("k_per_day", "number", "rate constant, 1/d"),
+              _o("k_per_h", "number", "rate constant, 1/h"), _o("t", "time", "reaction time ln(C0/C)/k"), _o("t_days", "number", "reaction time, days"),
+              _o("t_h", "number", "reaction time, hours"), _o("t_half", "time", "half-life ln 2/k"), _o("t_half_days", "number", "half-life, days"),
+              _o("t_half_h", "number", "half-life, hours"), _o("fraction_remaining", "number", "fraction remaining C/C0"),
+              _o("removal_percent", "number", "per cent removed (1 - C/C0) x 100")],
+     primary="C", conditions=["first-order kinetics, constant k (batch reactor or plug flow)", "exactly three of C0, C, k (or t_half), t",
+                              "0 < C < C0 when both are given", "k t <= 700"],
+     method="C = C0 e^(-k t); C0 = C e^(k t); k = ln(C0/C)/t; t = ln(C0/C)/k; t1/2 = ln 2/k (k = ln 2/t1/2 when the half-life is given)",
+     latex=r"C = C_0\,e^{-kt},\qquad k = \frac{\ln(C_0/C)}{t},\qquad t_{1/2} = \frac{\ln 2}{k}",
+     run=first_order_decay, reference=_ref_first_order_decay, wrong=_wrong_first_order_decay, rand=_rand_decay,
+     phrases=("First-order decay", "Batch reactor first-order decay", "First-order batch reactor", "Batch reactor",
+              "Half-life", "Half life", "Exponential decay", "First-order reaction in a batch reactor"),
+     aliases={"Co": "C0", "Ct": "C", "t12": "t_half", "half_life": "t_half"},
+     examples=[_ex({"C0": 0.1, "k": 0.2 / DAY, "t": 5.0 * DAY}), _ex({"C0": 0.08, "C": 0.02, "t": 4.0 * HOUR})],
+     level="beginner",
+     extra_q=[{"q": "Batch reactor: C0 = 100 mg/L, k = 0.2 1/d, t = 120 h", "like": 0},
+              {"q": "Half-life: C0 = 80 mg/L, C = 20 mg/L, t = 240 min", "like": 1},
+              {"q": "First-order decay: C0 = 100 mg/L, C = 25 mg/L, t_half = 2 h", "outputs": {"t": 14400.0, "t_h": 4.0, "k_per_h": 0.34657359028}},
+              {"q": "First-order decay: C = 36.7879441171 mg/L, k = 0.2 1/d, t = 5 d", "outputs": {"C0_mgL": 100.0}},
+              {"q": "First-order decay: C0 = 100 mg/L, C = 50 mg/L, k = 0.1 1/d", "outputs": {"t_days": 6.93147180560, "t_half_days": 6.93147180560}},
+              {"q": "First-order decay: C0 = 100 mg/L, C = 50 mg/L, k = 0.1 1/d, t = 5 d", "outcome": "INVALID_INPUT"},
+              {"q": "First-order decay: C0 = 20 mg/L, C = 50 mg/L, t = 5 d", "outcome": "INVALID_INPUT"},
+              {"q": "First-order decay: C0 = 100 mg/L, k = 0.2 1/d", "outcome": "INVALID_INPUT"},
+              {"q": "First-order decay: C0 = 100 mg/L, k = 0.2 1/d, t_half = 3 d, t = 5 d", "outcome": "INVALID_INPUT"}])
+
+
+def chemical_feed(Q, dose, purity=None):
+    _pos("the flow Q and the dose", Q, dose)
+    p = 1.0 if purity is None else purity
+    _frac("the purity (active fraction of the product)", p, lo_open=True)
+    active = Q * dose
+    feed = active / p
+    return _out(feed=feed, feed_kg_per_day=feed * DAY, feed_lb_per_day=feed * DAY / LB, active_kg_per_day=active * DAY,
+                active_lb_per_day=active * DAY / LB, Q_MGD=Q / MGD_SI)
+
+
+def _ref_chemical_feed(Q, dose, purity=None):
+    from fractions import Fraction as F
+    # the US "pounds formula": lb/d = MGD x mg/L x 8.3454 (the weight of a million gallons of water in pounds, per mg/L)
+    mgd = F(Q) * 86400 / F("3785.411784")
+    lb_active = mgd * F(dose) * 1000 * F("3.785411784") / F("0.45359237")
+    lb = lb_active / (F(1) if purity is None else F(purity))
+    kg = lb * F("0.45359237")
+    return {"feed": float(kg / 86400), "feed_kg_per_day": float(kg), "feed_lb_per_day": float(lb),
+            "active_kg_per_day": float(lb_active * F("0.45359237")), "active_lb_per_day": float(lb_active), "Q_MGD": float(mgd)}
+
+
+def _wrong_chemical_feed(Q, dose, purity=None):
+    p = 1.0 if purity is None else purity
+    feed = Q * dose * p                                     # the purity multiplied instead of divided
+    return _out(feed=feed, feed_kg_per_day=feed * DAY, feed_lb_per_day=feed * DAY / LB, active_kg_per_day=Q * dose * DAY,
+                active_lb_per_day=Q * dose * DAY / LB, Q_MGD=Q / MGD_SI)
+
+
+def _rand_feed(rng):
+    if rng.random() < 0.5:
+        q = _sig(_lu(rng, 100.0, 500000.0), 3) / DAY
+    else:
+        q = _sig(_lu(rng, 0.05, 100.0), 3) * MGD_SI
+    x = {"Q": q, "dose": _sig(_lu(rng, 0.2, 200.0), 3) * MG}
+    if rng.random() < 0.85:
+        x["purity"] = _sig(rng.uniform(0.05, 0.98), 2)
+    return x
+
+
+_add("enveng_chemical_feed_rate",
+     name="Chemical feed rate: mass per day = Q x dose / purity (kg/d and lb/d)", topic="water treatment / chemical dosing",
+     purpose="The feed rate of a treatment chemical (coagulant, chlorine product, lime, polymer, ...) for a flow and a dose, mass per day = Q x dose / purity, in kg/d and lb/d, with the active chemical alone; the flow in m^3/d or MGD, the dose in mg/L, the purity (active fraction of the product) as a fraction or %, 1 when not given.",
+     inputs=[_phys("Q", "flow_rate", "flow treated (m^3/d, or MGD)", show=("m^3/d", DAY)),
+             _phys("dose", "mass_concentration", "dose of the active chemical"),
+             _numin("purity", "active fraction of the product (fraction or %; default 1)", required=False, pct=True)],
+     outputs=[_o("feed", "mass_flow_rate", "feed rate of the product Q dose/purity"), _o("feed_kg_per_day", "number", "product feed, kg/d"),
+              _o("feed_lb_per_day", "number", "product feed, lb/d"), _o("active_kg_per_day", "number", "active chemical fed, kg/d"),
+              _o("active_lb_per_day", "number", "active chemical fed, lb/d"), _o("Q_MGD", "number", "flow, million US gallons a day")],
+     primary="feed", conditions=["0 < purity <= 1 (1 unless given)", "dose as the active chemical", "1 lb = 0.45359237 kg, 1 US gal = 3.785411784 L"],
+     method="feed = Q x dose / purity; lb/d = kg/d / 0.45359237 (= 8.3454 x MGD x mg/L / purity)",
+     latex=r"\dot m = \frac{Q\cdot\text{dose}}{p},\qquad \dot m\,[\mathrm{lb/d}] = \frac{8.3454\,Q[\mathrm{MGD}]\,\text{dose}[\mathrm{mg/L}]}{p}",
+     run=chemical_feed, reference=_ref_chemical_feed, wrong=_wrong_chemical_feed, rand=_rand_feed,
+     phrases=("Chemical feed rate", "Chemical feed", "Chemical dosage feed rate", "Chemical dose feed rate", "Feed rate of a chemical",
+              "Coagulant feed rate", "Pounds formula", "Chemical feed rate in lb/d", "Chemical feed rate in kg/d"),
+     aliases={"dosage": "dose", "D": "dose", "flow": "Q"},
+     examples=[_ex({"Q": 10000.0 / DAY, "dose": 0.025}), _ex({"Q": 2.0 * MGD_SI, "dose": 0.01, "purity": 0.48})],
+     level="beginner",
+     extra_q=[{"q": "Chemical feed rate: Q = 2 MGD, dose = 10 mg/L, purity = 48%", "like": 1},
+              {"q": "Pounds formula: Q = 2 mgd, dose = 10 mg/L, purity = 0.48", "like": 1},
+              {"q": "Coagulant feed rate: Q = 10000 m^3/day, dose = 25 mg/L, purity = 100%", "like": 0},
+              {"q": "Chemical feed rate: Q = 10000 m^3/d, dose = 25 mg/L, purity = 0%", "outcome": "INVALID_INPUT"},
+              {"q": "Chemical feed rate: Q = 10000 m^3/d, dose = 25 mg/L, purity = 120%", "outcome": "INVALID_INPUT"},
+              {"q": "Chemical feed rate: Q = 10000 m^3/d, dose = 0 mg/L", "outcome": "INVALID_INPUT"}])
+
+
+def membrane_flux(Qp=None, A=None, J=None):
+    known = 0
+    for v in (Qp, A, J):
+        if v is not None:
+            known = known + 1
+    _need(known == 2, "give exactly two of the permeate flow Qp, the membrane area A and the flux J")
+    if Qp is not None:
+        _pos("the permeate flow Qp", Qp)
+    if A is not None:
+        _pos("the membrane area A", A)
+    if J is not None:
+        _pos("the flux J", J)
+    if J is None:
+        J = Qp / A
+    elif A is None:
+        A = Qp / J
+    else:
+        Qp = J * A
+    return _out(J=J, J_LMH=J * 3.6e6, J_m_per_day=J * DAY, A=A, Qp=Qp, Qp_m3_per_day=Qp * DAY)
+
+
+def _ref_membrane_flux(Qp=None, A=None, J=None):
+    from fractions import Fraction as F
+    # in litres per hour and square metres: LMH = (L/h)/m^2
+    if J is None:
+        lmh = F(Qp) * 1000 * 3600 / F(A)
+        a = F(A)
+    else:
+        lmh = F(J) * 1000 * 3600
+        a = F(A) if A is not None else F(Qp) * 1000 * 3600 / lmh
+    lph = lmh * a
+    return {"J": float(lmh / 3600000), "J_LMH": float(lmh), "J_m_per_day": float(lmh * 24 / 1000), "A": float(a),
+            "Qp": float(lph / 3600000), "Qp_m3_per_day": float(lph * 24 / 1000)}
+
+
+def _wrong_membrane_flux(Qp=None, A=None, J=None):
+    r = membrane_flux(Qp, A, J)
+    return _out(**dict(r, J_LMH=r["J"] * 3600.0))           # m^3 taken as litres: the factor 1000 forgotten
+
+
+_add("enveng_membrane_flux",
+     name="Membrane permeate flux J = Qp/A (LMH and m/d), or the area for a flux", topic="water treatment / membranes",
+     purpose="The permeate flux of a membrane, J = Q_permeate / A, in L/(m^2 h) (LMH) and m/d, from the permeate flow and the membrane area; or the membrane area needed for a design flux, or the permeate flow a flux gives (any two of the three).",
+     inputs=[_phys("Qp", "flow_rate", "permeate flow", required=False, show=("m^3/d", DAY)),
+             _phys("A", "area", "membrane area", required=False),
+             _phys("J", "speed", "permeate flux (L/(m^2 h) or LMH, m/d)", required=False, show=("L/(m^2*h)", 3.6e6))],
+     outputs=[_o("J", "speed", "permeate flux Qp/A"), _o("J_LMH", "number", "flux, L/(m^2 h) (LMH)"), _o("J_m_per_day", "number", "flux, m/d"),
+              _o("A", "area", "membrane area Qp/J"), _o("Qp", "flow_rate", "permeate flow J A"), _o("Qp_m3_per_day", "number", "permeate flow, m^3/d")],
+     primary="J", conditions=["exactly two of Qp, A, J", "the flux of the permeate (product water) over the active membrane area"],
+     method="J = Qp/A; A = Qp/J; Qp = J A; 1 m/s = 3.6e6 L/(m^2 h)",
+     latex=r"J = \frac{Q_p}{A}",
+     run=membrane_flux, reference=_ref_membrane_flux, wrong=_wrong_membrane_flux,
+     rand=lambda rng: (lambda q, a, j: [{"Qp": q, "A": a}, {"Qp": q, "J": j}, {"A": a, "J": j}][rng.randint(0, 2)])(
+         _sig(_lu(rng, 10.0, 100000.0), 3) / DAY, _sig(_lu(rng, 10.0, 50000.0), 3), _sig(rng.uniform(5.0, 80.0), 3) / 3.6e6),
+     phrases=("Membrane flux", "Permeate flux", "Membrane permeate flux", "Flux of a membrane", "Membrane area for a flux",
+              "Required membrane area"),
+     aliases={"Q": "Qp", "flux": "J", "area": "A"},
+     examples=[_ex({"Qp": 750.0 / DAY, "A": 1500.0}), _ex({"Qp": 2400.0 / DAY, "J": 25.0 / 3.6e6})],
+     level="beginner",
+     weak="exact rational arithmetic of the same definition, in litres per hour and square metres",
+     extra_q=[{"q": "Permeate flux: Qp = 750 m^3/day, A = 1500 m^2", "like": 0},
+              {"q": "Required membrane area: Qp = 100 m^3/h, J = 25 LMH", "like": 1},
+              {"q": "Membrane flux: Qp = 2400 m^3/d, J = 0.6 m/d", "outputs": {"A": 4000.0, "J_LMH": 25.0}},
+              {"q": "Membrane flux: Qp = 750 m^3/d, A = 1500 m^2, J = 20 LMH", "outcome": "INVALID_INPUT"},
+              {"q": "Membrane flux: Qp = 750 m^3/d", "outcome": "INVALID_INPUT"},
+              {"q": "Membrane flux: Qp = 750 m^3/d, A = 0 m^2", "outcome": "INVALID_INPUT"}])
+
+
+def landfill_volume(m, rho, cover=None, capacity=None):
+    _pos("the waste mass rate m and the compacted density rho", m, rho)
+    c = 0.0 if cover is None else cover
+    _fin(c)
+    _need(0.0 <= c <= 1.0, "the cover ratio must lie between 0 and 1 (cover soil per volume of compacted waste)")
+    Vw = m / rho
+    V = Vw * (1.0 + c)
+    out = {"V": V, "V_m3_per_day": V * DAY, "V_m3_per_year": V * DAY * 365.0, "V_waste_m3_per_day": Vw * DAY,
+           "V_cover_m3_per_day": Vw * c * DAY}
+    if capacity is not None:
+        _pos("the landfill capacity", capacity)
+        out["life_years"] = capacity / (V * DAY * 365.0)
+        out["life_days"] = capacity / (V * DAY)
+    return _out(**out)
+
+
+def _ref_landfill_volume(m, rho, cover=None, capacity=None):
+    c = 0.0 if cover is None else cover
+
+    def rate(s):                                            # waste and cover soil placed per second
+        return m / rho + c * (m / rho)
+    day = _quad(rate, 0.0, 86400.0)
+    year = _quad(rate, 0.0, 365.0 * 86400.0)
+    out = {"V": day / 86400.0, "V_m3_per_day": day, "V_m3_per_year": year, "V_waste_m3_per_day": _quad(lambda s: m / rho, 0.0, 86400.0),
+           "V_cover_m3_per_day": day - _quad(lambda s: m / rho, 0.0, 86400.0)}
+    if capacity is not None:
+        n = _brentq(lambda yrs: yrs * year - capacity, 0.0, 2.0 * capacity / year + 1.0)    # years until it is full
+        out["life_years"] = n
+        out["life_days"] = n * 365.0
+    return out
+
+
+def _wrong_landfill_volume(m, rho, cover=None, capacity=None):
+    c = 0.0 if cover is None else cover
+    V = m / (rho * (1.0 + c))                               # the cover put on the density instead of the volume
+    out = {"V": V, "V_m3_per_day": V * DAY, "V_m3_per_year": V * DAY * 365.0, "V_waste_m3_per_day": m / rho * DAY,
+           "V_cover_m3_per_day": m / rho * c * DAY}
+    if capacity is not None:
+        out["life_years"] = capacity / (V * DAY * 365.0)
+        out["life_days"] = capacity / (V * DAY)
+    return _out(**out)
+
+
+def _rand_landfill_volume(rng):
+    x = {"m": _sig(_lu(rng, 5.0, 5000.0), 3) * 1000.0 / DAY, "rho": _sig(rng.uniform(300.0, 1000.0), 3)}
+    if rng.random() < 0.85:
+        x["cover"] = _sig(rng.uniform(0.1, 0.5), 2)
+    if rng.random() < 0.6:
+        x["capacity"] = _sig(_lu(rng, 1e4, 2e7), 3)
+    return x
+
+
+_add("enveng_landfill_daily_volume",
+     name="Landfill volume per day and per year with cover soil, and the landfill life", topic="solid waste / landfills",
+     purpose="The landfill volume used each day and each year by waste placed at its compacted density with daily cover soil, V = mass / compacted density x (1 + cover ratio), and, for a given capacity, the life of the landfill (constant waste rate).",
+     inputs=[_phys("m", "mass_flow_rate", "waste placed per day", show=("t/d", DAY / 1000.0)),
+             _phys("rho", "density", "compacted (in-place) density of the waste"),
+             _numin("cover", "cover soil volume per volume of compacted waste (fraction or %; default 0)", required=False, pct=True),
+             _phys("capacity", "volume", "available landfill volume (for the life)", required=False)],
+     outputs=[_o("V", "flow_rate", "landfill volume used, waste plus cover"), _o("V_m3_per_day", "number", "landfill volume used per day, m^3"),
+              _o("V_m3_per_year", "number", "landfill volume used per 365-day year, m^3"),
+              _o("V_waste_m3_per_day", "number", "compacted waste alone per day, m^3"), _o("V_cover_m3_per_day", "number", "cover soil per day, m^3"),
+              _o("life_years", "number", "landfill life, years"), _o("life_days", "number", "landfill life, days")],
+     primary="V", conditions=["constant waste rate, every day of a 365-day year", "cover as a volume ratio to the compacted waste, 0 to 1",
+                              "no settlement or decomposition"],
+     method="V = m/rho (1 + cover); per year x 365; life = capacity / yearly volume",
+     latex=r"V = \frac{\dot m}{\rho_c}\,(1 + c),\qquad n = \frac{V_{cap}}{365\,V_{day}}",
+     run=landfill_volume, reference=_ref_landfill_volume, wrong=_wrong_landfill_volume, rand=_rand_landfill_volume,
+     phrases=("Landfill daily volume", "Landfill volume per day", "Daily landfill volume", "Landfill volume required",
+              "Landfill volume with cover", "Landfill volume per year", "Landfill volume and life"),
+     aliases={"mass": "m", "M": "m", "density": "rho", "cover_ratio": "cover", "V_capacity": "capacity"},
+     examples=[_ex({"m": 200.0 * 1000.0 / DAY, "rho": 600.0, "cover": 0.25}),
+               _ex({"m": 500.0 * 1000.0 / DAY, "rho": 800.0, "cover": 0.2, "capacity": 2.0e6})],
+     level="beginner",
+     extra_q=[{"q": "Landfill volume per year: m = 200 tonne/day, rho = 600 kg/m^3, cover = 25%", "like": 0},
+              {"q": "Landfill volume and life: m = 500 t/d, rho = 800 kg/m^3, cover = 0.2, capacity = 2000000 m^3", "like": 1},
+              {"q": "Landfill daily volume: m = 200 t/d, rho = 600 kg/m^3", "outputs": {"V_m3_per_day": 333.333333333}},
+              {"q": "Landfill daily volume: m = 200 t/d, rho = 600 kg/m^3, cover = 150%", "outcome": "INVALID_INPUT"},
+              {"q": "Landfill daily volume: m = 200 t/d, rho = 0 kg/m^3, cover = 0.2", "outcome": "INVALID_INPUT"}])
+
+
 # the worked examples' outputs (computed by their references on the build machine): filled in below
 _EXV: dict = {
     'enveng_stability_class': [{'stability': 'A-B'}, {'stability': 'E'}],
@@ -4335,7 +6461,8 @@ _EXV: dict = {
     'enveng_membrane_mass_balance': [{'recovery': 0.75, 'rejection': 0.975, 'J': 5.78703703704e-06, 'J_LMH': 20.8333333333, 'Qc': 0.00289351851852, 'Cc': 7.85, 'Cc_mgL': 7850.0}, {'recovery': 0.45, 'rejection': 0.994285714286, 'J': 4.34027777778e-06, 'J_LMH': 15.625, 'Qc': 0.0318287037037, 'Cc': 63.4727272727, 'Cc_mgL': 63472.7272727}],
     'enveng_osmotic_pressure': [{'pi': 2969318.82396, 'pi_bar': 29.6931882396}, {'pi': 131774.268328, 'pi_bar': 1.31774268328}],
     'enveng_food_to_microorganism_ratio': [{'FM': 3.08641975309e-06, 'FM_per_day': 0.266666666667}, {'FM': 2.31481481481e-06, 'FM_per_day': 0.2}],
-    'enveng_solids_retention_time': [{'SRT': 564214.192425, 'SRT_days': 6.53025685677}, {'SRT': 598844.820947, 'SRT_days': 6.93107431652}],
+    'enveng_solids_retention_time': [{'SRT': 564214.192425, 'SRT_days': 6.53025685677}, {'SRT': 598844.820947, 'SRT_days': 6.93107431652},
+                                     {'SRT': 648000.0, 'SRT_days': 7.5}],      # batch 3: 3000 x 2500/(100 x 10000) = 7.5 d, Xe = 0
     'enveng_hrt_organic_loading': [{'HRT': 25920.0, 'HRT_h': 7.2, 'OLR': 7.71604938272e-06, 'OLR_kg_per_m3_day': 0.666666666667}, {'HRT': 27648.0, 'HRT_h': 7.68, 'OLR': 1.26591435185e-05, 'OLR_kg_per_m3_day': 1.09375}],
     'enveng_monod_growth_rate': [{'mu': 4.96031746032e-06, 'mu_per_day': 0.428571428571}, {'mu': 4.1335978836e-05, 'mu_per_day': 3.57142857143, 'mu_net': 4.01785714286e-05, 'mu_net_per_day': 3.47142857143}],
     'enveng_activated_sludge_cstr_design': [{'S': 0.00410256410256, 'S_mgL': 4.10256410256, 'X': 3.07371794872, 'X_mgL': 3073.71794872, 'Y_obs': 0.3125}, {'S': 0.00216691068814, 'S_mgL': 2.16691068814, 'X': 2.59540184401, 'X_mgL': 2595.40184401, 'Y_obs': 0.405405405405}],
@@ -4369,9 +6496,293 @@ _EXV: dict = {
     'enveng_landfill_gas_generation': [{'Q_CH4': 0.155999184416, 'Q_CH4_m3_per_year': 4922959.86211, 'V_CH4': 101540802.758, 'Q_LFG': 0.311998368831}, {'Q_CH4': 0.0887988823199, 'Q_CH4_m3_per_year': 2802279.6087, 'V_CH4': 14943009.7826, 'Q_LFG': 0.17759776464}],
     'enveng_dulong_heating_value': [{'HHV': 18643900.0, 'HHV_kJ_per_kg': 18643.9, 'HHV_MJ_per_kg': 18.6439}, {'HHV': 26438850.0, 'HHV_kJ_per_kg': 26438.85, 'HHV_MJ_per_kg': 26.43885}],
     'enveng_waste_moisture_content': [{'moisture_wet': 0.338, 'dry_mass': 66.2, 'moisture_dry': 0.510574018127}, {'moisture_wet': 0.225, 'dry_mass': 31.0, 'moisture_dry': 0.290322580645}],
+    # batch 1 (2026-11-11), each checked by hand: pH 14 - 5 = 9; -log10(2.5e-4) = 3.60206; 1.3e-3 x 0.21 = 2.73e-4 mol/L
+    # x 32 g/mol = 8.736 mg/L; 0.3/(1 x 1) m/s; 600/120 = 5; R = 1 + 1.6 x 1/0.3 = 6.333, 0.5/6.333 = 0.07895 m/d;
+    # 10 x 0.002 = 0.02 m/d, x 500 = 10 m^3/d, /0.25 = 0.08 m/d; 0.05 x 2/70 = 1.4286e-3, /0.02 = 0.0714;
+    # 0.01 x 2 x 350 x 30/(70 x 25550) = 1.1742e-4, x 1.5 = 1.761e-4; 3000/320 = 9.375 d; 60/1.5 = 40 min;
+    # 120 x 50 = 6000 m^3/d = 250 m^3/h; 31.9988/12.0107 = 2.6642, 2 x 31.9988/16.04246 = 3.9893; 6 degC/0.5 km = 12 degC/km
+    'enveng_ph_poh': [{'pH': 9.0, 'pOH': 5.0, 'H_molL': 1e-09, 'OH_molL': 1e-05}, {'pH': 3.60205999133, 'pOH': 10.3979400087, 'H_molL': 0.00025, 'OH_molL': 4e-11}],
+    'enveng_henry_law_solubility': [{'C': 0.273, 'C_molL': 0.000273, 'C_mass': 0.008736, 'C_mgL': 8.736}, {'C': 0.0136, 'C_molL': 1.36e-05}],
+    'enveng_channel_flow_velocity': [{'A': 1.0, 'v': 0.3, 'Q': 0.3}, {'A': 3.0, 'v': 0.25, 'Q': 0.75}],
+    'enveng_landfill_compaction_ratio': [{'CR': 5.0, 'volume_reduction': 0.8, 'volume_reduction_percent': 80.0}, {'CR': 4.0, 'volume_reduction': 0.75, 'volume_reduction_percent': 75.0}],
+    'enveng_retardation_factor': [{'Kd': 0.001, 'Kd_L_per_kg': 1.0, 'R': 6.33333333333, 'vc': 9.13742690058e-07, 'vc_m_per_day': 0.0789473684211, 'v_m_per_day': 0.5}, {'R': 4.0, 'vc': 3.47222222222e-06, 'vc_m_per_day': 0.3, 'v_m_per_day': 1.2}],
+    'enveng_darcy_seepage_velocity': [{'i': 0.002, 'q': 2.31481481481e-07, 'q_m_per_day': 0.02, 'Q': 0.000115740740741, 'Q_m3_per_day': 10.0, 'v_s': 9.25925925926e-07, 'v_s_m_per_day': 0.08}, {'i': 0.005, 'q': 5e-07, 'q_m_per_day': 0.0432, 'v_s': 1.66666666667e-06, 'v_s_m_per_day': 0.144}],
+    'enveng_chronic_daily_intake_risk': [{'CDI': 0.00142857142857, 'HQ': 0.0714285714286}, {'CDI': 0.000117416829746, 'risk': 0.000176125244618}],
+    'enveng_mean_cell_residence_time': [{'theta_c': 810000.0, 'theta_c_days': 9.375}, {'theta_c': 648000.0, 'theta_c_days': 7.5}],
+    'enveng_contact_time_from_ct': [{'t': 2400.0, 't_min': 40.0, 't_h': 0.666666666667}, {'t': 7800.0, 't_min': 130.0, 't_h': 2.16666666667}],
+    'enveng_filter_flow_from_loading': [{'Q': 0.0694444444444, 'Q_m3_per_h': 250.0, 'Q_m3_per_day': 6000.0}, {'Q': 0.222222222222, 'Q_m3_per_h': 800.0, 'Q_m3_per_day': 19200.0}],
+    'enveng_combustion_oxygen': [{'o2_per_mol': 1.0, 'molar_mass': 12.0107, 'O2_per_kg': 2.66419109627, 'CO2_per_kg': 3.66419109627, 'H2O_per_kg': 0.0, 'O2_mass': 2664.19109627}, {'o2_per_mol': 2.0, 'molar_mass': 16.04246, 'O2_per_kg': 3.98926349201, 'CO2_per_kg': 2.74331368132, 'H2O_per_kg': 2.24594981069}],
+    'enveng_lapse_rate_stability': [{'ELR': 0.012, 'ELR_C_per_km': 12.0, 'stability': 'superadiabatic (unstable)'}, {'ELR': -0.00666666666667, 'ELR_C_per_km': -6.66666666667, 'stability': 'inversion (very stable)'}],
+    # batch 2 (2026-11-11), each checked by hand: 122/61.017 x 50 = 99.97, 30/60.009 x 100 = 49.99, pH 10 OH 1e-4 x
+    # 5e4 = 5.0, total 154.96; 2e-3 x 5e4 + 2 x 1e-4 x 5e4 = 110; k theta = 2: 100/1.5^4 = 19.753, 100/3, 100 e^-2 =
+    # 13.534; R = 0.15, 0.15^(2/3) 0.001^0.5/0.013 = 0.6867 m/s x 0.2827 m^2; R = 3.6/5.4; 0.849 x 100 x 0.075^0.63 x
+    # 0.002^0.54 = 0.5791; 1000 x 9.80665 x 0.1 x 30/0.75 = 39.23 kW; 12.258 kW x 24 h = 294.2 kWh x 0.12 = 35.30;
+    # 0.6 x 50 x 25/360 = 2.083 m^3/s; (100 x 10e-3 + 100)/(100 + 0.5 x 200) = 0.505 mg/m^3; 1 - 0.2 x 0.01 = 0.998;
+    # 12/0.75 = 16 MJ/kg, 14.4/0.7 = 20.57; 1 - 0.99^30 = 0.2603; 1 - 0.9^(1/25) = 0.0042056; GM(10,100,1000) = 100,
+    # s = sqrt(599400/2) = 547.4; (0.75 - 0.55)/(0.75 - 0.4125) = 0.5926; (800 + 700)/2 - 50 = 700 kPa;
+    # 6 x 31.9988/180.156 = 1.0657 x 100 = 106.57 mg/L; C5H7O2N nitrified 7 mol O2: 1.9802 x 50 = 99.01 mg/L
+    'enveng_total_alkalinity': [{'alkalinity': 154.964980495, 'alk_meq_L': 3.0992996099, 'alk_eq_L': 0.0030992996099, 'HCO3_caco3': 99.9724010617, 'CO3_caco3': 49.9925844333, 'OH_caco3': 5.0, 'H_caco3': 5e-06, 'H_molL': 1e-10, 'OH_molL': 0.0001}, {'alkalinity': 110.0, 'alk_meq_L': 2.2, 'alk_eq_L': 0.0022, 'HCO3_caco3': 100.0, 'CO3_caco3': 10.0, 'OH_caco3': 0.0, 'H_caco3': 0.0, 'H_molL': 0.0, 'OH_molL': 0.0}],
+    'enveng_cmfr_series': [{'Cout': 0.0197530864198, 'Cout_mgL': 19.7530864198, 'removal': 0.802469135802, 'removal_percent': 80.2469135802, 'Cout_one': 0.0333333333333, 'Cout_one_mgL': 33.3333333333, 'Cout_pfr': 0.0135335283237, 'Cout_pfr_mgL': 13.5335283237, 'removal_pfr': 0.864664716763, 'theta_each': 9000.0, 'theta_each_h': 2.5}, {'Cout': 0.025, 'Cout_mgL': 25.0, 'removal': 0.5, 'removal_percent': 50.0, 'Cout_one': 0.025, 'Cout_one_mgL': 25.0, 'Cout_pfr': 0.0183939720586, 'Cout_pfr_mgL': 18.3939720586, 'removal_pfr': 0.632120558829, 'theta_each': 86400.0, 'theta_each_h': 24.0},
+                           # batch 3: V/Q = 500 m^3 / 100 m^3/h = 5 h, k theta = 2: 200/3 = 66.667 mg/L, 200 e^-2 = 27.067
+                           {'Cout': 0.0666666666667, 'Cout_mgL': 66.6666666667, 'removal': 0.666666666667, 'removal_percent': 66.6666666667, 'Cout_one': 0.0666666666667, 'Cout_one_mgL': 66.6666666667, 'Cout_pfr': 0.0270670566473, 'Cout_pfr_mgL': 27.0670566473, 'removal_pfr': 0.864664716763, 'theta_each': 18000.0, 'theta_each_h': 5.0}],
+    'enveng_manning_flow': [{'v': 0.686727048818, 'Q': 0.194167498643, 'Q_L_per_s': 194.167498643, 'R': 0.15, 'A': 0.282743338823, 'P': 1.88495559215}, {'v': 1.13762616052, 'Q': 4.09545417786, 'Q_L_per_s': 4095.45417786, 'R': 0.666666666667, 'A': 3.6, 'P': 5.4}],
+    'enveng_hazen_williams': [{'v': 0.579098558442, 'Q': 0.0409340649804, 'S': 0.002, 'R': 0.075, 'A': 0.0706858347058}, {'v': 0.954929658551, 'Q': 0.03, 'S': 0.0057822262322, 'R': 0.05, 'A': 0.0314159265359, 'hf': 5.7822262322}],
+    'enveng_pump_power': [{'P': 39226.6, 'P_kW': 39.2266, 'P_water': 29419.95, 'P_water_kW': 29.41995}, {'P': 12258.3125, 'P_kW': 12.2583125, 'P_water': 9806.65, 'P_water_kW': 9.80665, 'energy_kWh': 294.1995, 'cost': 35.30394}],
+    'enveng_rational_method': [{'Q': 2.08333333333, 'Q_L_per_s': 2083.33333333, 'Q_m3_per_h': 7500.0}, {'Q': 9.33333333333, 'Q_L_per_s': 9333.33333333, 'Q_m3_per_h': 33600.0}],
+    'enveng_indoor_air_steady_state': [{'C': 5.05e-07, 'C_ugm3': 505.0, 'C_mgm3': 0.505, 'ach': 0.5, 'tau_h': 1.0}, {'C': 2e-07, 'C_ugm3': 200.0, 'C_mgm3': 0.2, 'ach': 0.5, 'tau_h': 2.0}],
+    'enveng_collection_efficiency_series': [{'eta_total': 0.998, 'eta_total_percent': 99.8, 'penetration': 0.002}, {'eta_total': 0.9975, 'eta_total_percent': 99.75, 'penetration': 0.0025, 'C_out': 1.25e-05, 'C_out_mgm3': 12.5}],
+    'enveng_heating_value_dry_basis': [{'HHV_dry': 16000000.0, 'HHV_ar': 12000000.0, 'HHV_dry_MJ_per_kg': 16.0, 'HHV_ar_MJ_per_kg': 12.0}, {'HHV_dry': 18000000.0, 'HHV_ar': 14400000.0, 'HHV_dry_MJ_per_kg': 18.0, 'HHV_ar_MJ_per_kg': 14.4, 'HHV_daf': 20571428.5714, 'HHV_daf_MJ_per_kg': 20.5714285714}],
+    'enveng_return_period_risk': [{'p': 0.01, 'p_percent': 1.0, 'T': 100.0, 'P_n': 0.260299626612, 'P_n_percent': 26.0299626612, 'P_none': 0.739700373388}, {'p': 0.0042055524182, 'p_percent': 0.42055524182, 'T': 237.780890727, 'P_n': 0.1, 'P_n_percent': 10.0, 'P_none': 0.9}],
+    'enveng_geometric_mean_counts': [{'geometric_mean': 100.0, 'mean': 370.0, 'sd': 547.448627727, 'mean_log10': 2.0, 'count': 3.0}, {'geometric_mean': 30.6115875298, 'mean': 44.6, 'sd': 43.997727214, 'mean_log10': 1.48588585288, 'count': 5.0}],
+    'enveng_volatile_solids_reduction': [{'VSR': 0.592592592593, 'VSR_percent': 59.2592592593, 'TS_remaining': 0.555555555556}, {'VSR': 0.571428571429, 'VSR_percent': 57.1428571429, 'TS_remaining': 0.6}],
+    'enveng_transmembrane_pressure': [{'TMP': 700000.0, 'TMP_kPa': 700.0, 'TMP_bar': 7.0, 'dP': 100000.0, 'dP_kPa': 100.0}, {'TMP': 190000.0, 'TMP_kPa': 190.0, 'TMP_bar': 1.9, 'dP': 20000.0, 'dP_kPa': 20.0}],
+    'enveng_thod_solution': [{'ThOD': 0.10657037672, 'ThOD_mgL': 106.57037672, 'thod_ratio': 1.0657037672, 'o2_per_mol': 6.0, 'molar_mass': 180.15588, 'C_molL': 0.000555074860726}, {'ThOD': 0.099010932101, 'ThOD_mgL': 99.010932101, 'thod_ratio': 1.98021864202, 'o2_per_mol': 7.0, 'molar_mass': 113.11458, 'C_molL': 0.000442029665849}],
+    # batch 3 (2026-11-11), each checked by hand: 100 e^-1 = 36.788 mg/L, t1/2 = 0.69315/0.2 = 3.4657 d; ln(80/20)/4 h =
+    # 0.34657 1/h = 8.3178 1/d, t1/2 = 2 h; 10,000 m^3/d x 25 g/m^3 = 250 kg/d = 551.16 lb/d (/0.45359237), 2.6417 MGD;
+    # 2 MGD x 10 mg/L x 8.3454 = 166.91 lb/d, /0.48 = 347.73 lb/d = 157.73 kg/d; 750/1500 = 0.5 m/d = 20.833 L/(m^2 h);
+    # 2400 m^3/d = 100,000 L/h / 25 = 4000 m^2; 200,000/600 = 333.33 m^3/d x 1.25 = 416.67, x 365 = 152,083 m^3;
+    # 500,000/800 x 1.2 = 750 m^3/d, x 365 = 273,750 m^3/yr, 2e6/273,750 = 7.306 yr
+    'enveng_first_order_decay': [{'C': 0.0367879441171, 'C_mgL': 36.7879441171, 'C0': 0.1, 'C0_mgL': 100.0, 'k': 2.31481481481e-06, 'k_per_day': 0.2, 'k_per_h': 0.00833333333333, 't': 432000.0, 't_days': 5.0, 't_h': 120.0, 't_half': 299439.582002, 't_half_days': 3.4657359028, 't_half_h': 83.1776616672, 'fraction_remaining': 0.367879441171, 'removal_percent': 63.2120558829}, {'C': 0.02, 'C_mgL': 20.0, 'C0': 0.08, 'C0_mgL': 80.0, 'k': 9.62704417444e-05, 'k_per_day': 8.31776616672, 'k_per_h': 0.34657359028, 't': 14400.0, 't_days': 0.166666666667, 't_h': 4.0, 't_half': 7200.0, 't_half_days': 0.0833333333333, 't_half_h': 2.0, 'fraction_remaining': 0.25, 'removal_percent': 75.0}],
+    'enveng_chemical_feed_rate': [{'feed': 0.00289351851852, 'feed_kg_per_day': 250.0, 'feed_lb_per_day': 551.155655462, 'active_kg_per_day': 250.0, 'active_lb_per_day': 551.155655462, 'Q_MGD': 2.64172052358}, {'feed': 0.0018255265162, 'feed_kg_per_day': 157.725491, 'feed_lb_per_day': 347.725185501, 'active_kg_per_day': 75.70823568, 'active_lb_per_day': 166.90808904, 'Q_MGD': 2.0}],
+    'enveng_membrane_flux': [{'J': 5.78703703704e-06, 'J_LMH': 20.8333333333, 'J_m_per_day': 0.5, 'A': 1500.0, 'Qp': 0.00868055555556, 'Qp_m3_per_day': 750.0}, {'J': 6.94444444444e-06, 'J_LMH': 25.0, 'J_m_per_day': 0.6, 'A': 4000.0, 'Qp': 0.0277777777778, 'Qp_m3_per_day': 2400.0}],
+    'enveng_landfill_daily_volume': [{'V': 0.0048225308642, 'V_m3_per_day': 416.666666667, 'V_m3_per_year': 152083.333333, 'V_waste_m3_per_day': 333.333333333, 'V_cover_m3_per_day': 83.3333333333}, {'V': 0.00868055555556, 'V_m3_per_day': 750.0, 'V_m3_per_year': 273750.0, 'V_waste_m3_per_day': 625.0, 'V_cover_m3_per_day': 125.0, 'life_years': 7.30593607306, 'life_days': 2666.66666667}],
 }
 
 for _k, _vals in _EXV.items():
     if _k in PROCEDURES:
         for _e, _v in zip(PROCEDURES[_k]["examples"], _vals):
             _e["outputs"].update(_v)
+
+
+# ================================================================================================ FUNDAMENTALS: population and demand
+# (2026-11-12, core curriculum gaps) Population projection from census data by the arithmetic and geometric methods
+# and by the logistic (three-census) method; water and wastewater demand with peaking factors. Exponential and
+# logistic growth at a GIVEN rate are differential_equations' and cell_molecular_biology's capabilities; these fit the
+# methods to census data. The example outputs were worked by hand.
+
+def population_projection(t1, P1, t2, P2, t):
+    _fin(t1, P1, t2, P2, t)
+    _need(t2 > t1, "the second census must be later than the first")
+    _need(t2 - t1 <= 200 and abs(t - t2) <= 200, "census interval and projection span must each be at most 200 years")
+    _pos("the census populations", P1, P2)
+    ka = (P2 - P1) / (t2 - t1)
+    Pa = P2 + ka * (t - t2)
+    _need(Pa > 0, "the arithmetic projection falls to zero or below: the decline is too fast for this method")
+    kg = math.log(P2 / P1) / (t2 - t1)
+    return _out(k_a=ka, P_arith=Pa, k_g=kg, r_g=math.expm1(kg), P_geom=P2 * math.exp(kg * (t - t2)))
+
+
+def _ref_population_projection(t1, P1, t2, P2, t):
+    # straight lines through the two censuses (numpy polyfit, years centred on the second census) for the population
+    # and for its logarithm; the compound rate as the (t2 - t1)-th root of the growth ratio
+    import numpy as np
+    x = np.array([t1 - t2, 0.0])
+    lin = np.polyfit(x, np.array([P1, P2], float), 1)
+    lg = np.polyfit(x, np.log(np.array([P1, P2], float)), 1)
+    return {"k_a": float(lin[0]), "P_arith": float(np.polyval(lin, t - t2)), "k_g": float(lg[0]),
+            "r_g": (P2 / P1) ** (1.0 / (t2 - t1)) - 1.0, "P_geom": float(np.exp(np.polyval(lg, t - t2)))}
+
+
+def _wrong_population_projection(t1, P1, t2, P2, t):
+    # the increase added to the first census instead of the last, and a base-10 logarithm for the rate
+    ka = (P2 - P1) / (t2 - t1)
+    kg = math.log10(P2 / P1) / (t2 - t1)
+    return _out(k_a=ka, P_arith=P1 + ka * (t - t2), k_g=kg, r_g=math.expm1(kg), P_geom=P2 * math.exp(kg * (t - t2)))
+
+
+def _rand_population_projection(rng):
+    t1 = rng.randint(1950, 2000)
+    t2 = t1 + rng.choice([10, 20, 30])
+    P1 = rng.randint(5000, 500000)
+    return {"t1": t1, "P1": P1, "t2": t2, "P2": int(round(P1 * rng.uniform(0.9, 1.8))), "t": t2 + rng.randint(5, 40)}
+
+
+_add("enveng_population_projection",
+     name="Population projection by the arithmetic and geometric methods", topic="fundamentals / population and demand",
+     purpose="The population projected to a year from two censuses by the arithmetic method (constant increase per year) and by the geometric method (constant percentage growth: the continuous rate and the equivalent compound annual rate).",
+     inputs=[_numin("t1", "year of the first census"), _numin("P1", "population at the first census"),
+             _numin("t2", "year of the second census"), _numin("P2", "population at the second census"),
+             _numin("t", "year of the projection")],
+     outputs=[_o("k_a", "number", "arithmetic increase, persons per year"), _o("P_arith", "number", "arithmetic projection"),
+              _o("k_g", "number", "geometric (continuous) growth rate, per year"), _o("r_g", "number", "equivalent compound growth rate per year"),
+              _o("P_geom", "number", "geometric projection")],
+     primary="P_geom", conditions=["t2 > t1", "positive census populations", "interval and projection span at most 200 years",
+                                   "the arithmetic projection must stay positive"],
+     method="k_a = (P2 - P1)/(t2 - t1), P = P2 + k_a (t - t2); k_g = ln(P2/P1)/(t2 - t1), P = P2 exp(k_g (t - t2))",
+     latex=r"P_t = P_2 + \frac{P_2 - P_1}{t_2 - t_1}(t - t_2),\qquad P_t = P_2\,e^{k_g (t - t_2)},\ k_g = \frac{\ln(P_2/P_1)}{t_2 - t_1}",
+     run=population_projection, reference=_ref_population_projection, wrong=_wrong_population_projection,
+     rand=_rand_population_projection,
+     phrases=("Population projection", "Population forecast", "Arithmetic and geometric population projection"),
+     aliases={"year1": "t1", "year2": "t2", "pop1": "P1", "pop2": "P2", "year": "t", "target_year": "t"},
+     # worked by hand: 20 000 people in 20 years -> 1000 per year; growth ratio 1.4 over 20 years, so 2040 = 70000 x 1.4
+     examples=[_ex({"t1": 2000.0, "P1": 50000.0, "t2": 2020.0, "P2": 70000.0, "t": 2040.0},
+                   {"k_a": 1000.0, "P_arith": 90000.0, "k_g": 0.0168236118310606, "r_g": 0.0169659257465, "P_geom": 98000.0}),
+               _ex({"t1": 1990.0, "P1": 120000.0, "t2": 2010.0, "P2": 150000.0, "t": 2030.0},
+                   {"k_a": 1500.0, "P_arith": 180000.0, "k_g": 0.0111571775657105, "r_g": 0.0112196509975149, "P_geom": 187500.0})],
+     level="beginner", weak="numpy straight-line fits through the same two censuses",
+     extra_q=[{"q": "Population forecast: t1 = 2000, P1 = 50000, t2 = 2020, P2 = 70000, t = 2040", "like": 0},
+              {"q": "Population projection: t1 = 2020, P1 = 50000, t2 = 2000, P2 = 70000, t = 2040", "outcome": "INVALID_INPUT"}])
+
+
+def population_logistic(t0, n, P0, P1, P2, t):
+    _fin(t0, n, P0, P1, P2, t)
+    _need(0 < n <= 100, "the census interval must be between 0 and 100 years")
+    _pos("the census populations", P0, P1, P2)
+    _need(P0 < P1 < P2, "the three censuses must increase (P0 < P1 < P2)")
+    _need(P1 * P1 > P0 * P2, "the growth is not slowing (P1^2 <= P0 P2): there is no saturation population; use the geometric method")
+    _need(abs(t - t0) <= 500, "the projection year must lie within 500 years of the first census")
+    Ps = P2 + P0 * (P2 - P1) * (P2 - P1) / (P1 * P1 - P0 * P2)
+    _need(Ps <= 100 * P2, "the saturation population exceeds 100 times the last census: the data show no clear saturation")
+    m = (Ps - P0) / P0
+    k = math.log(P1 * (Ps - P0) / (P0 * (Ps - P1))) / n
+    _need(k * abs(t - t0) <= 700, "the projection year is too far from the censuses for this growth rate")
+    return _out(P_sat=Ps, m=m, k=k, P_t=Ps / (1.0 + m * math.exp(-k * (t - t0))))
+
+
+def _ref_population_logistic(t0, n, P0, P1, P2, t):
+    # the saturation population found numerically (scipy brentq) as the one whose logistic curve through the first
+    # two censuses also passes through the third
+    def curve(S, tau):
+        mm = (S - P0) / P0
+        kk = math.log(P1 * (S - P0) / (P0 * (S - P1))) / n
+        return S / (1.0 + mm * math.exp(-kk * tau))
+    Ps = _brentq(lambda S: curve(S, 2.0 * n) - P2, P2, 200.0 * P2)
+    m = (Ps - P0) / P0
+    k = math.log(P1 * (Ps - P0) / (P0 * (Ps - P1))) / n
+    return {"P_sat": Ps, "m": m, "k": k, "P_t": curve(Ps, t - t0)}
+
+
+def _wrong_population_logistic(t0, n, P0, P1, P2, t):
+    # the constant m divided by the saturation population instead of the first census
+    Ps = P2 + P0 * (P2 - P1) * (P2 - P1) / (P1 * P1 - P0 * P2)
+    m = (Ps - P0) / Ps
+    k = math.log(P1 * (Ps - P0) / (P0 * (Ps - P1))) / n
+    return _out(P_sat=Ps, m=m, k=k, P_t=Ps / (1.0 + m * math.exp(-k * (t - t0))))
+
+
+def _rand_population_logistic(rng):
+    P0 = rng.randint(5000, 500000)
+    S = P0 * rng.uniform(2.0, 6.0)
+    m = (S - P0) / P0
+    k = rng.uniform(0.02, 0.08)
+    n = rng.choice([10, 20])
+    t0 = rng.randint(1900, 1990)
+    P1 = int(round(S / (1.0 + m * math.exp(-k * n))))
+    P2 = int(round(S / (1.0 + m * math.exp(-2.0 * k * n))))
+    return {"t0": t0, "n": n, "P0": P0, "P1": P1, "P2": P2, "t": t0 + 2 * n + rng.randint(0, 40)}
+
+
+_add("enveng_population_logistic",
+     name="Population projection by the logistic method (three censuses)", topic="fundamentals / population and demand",
+     purpose="The saturation population and the logistic curve P = Ps/(1 + m exp(-k (t - t0))) through three equally spaced censuses P0, P1, P2 (interval n years), and the population it projects for a year.",
+     inputs=[_numin("t0", "year of the first census"), _numin("n", "interval between the censuses in years"),
+             _numin("P0", "population at the first census"), _numin("P1", "population one interval later"),
+             _numin("P2", "population two intervals later"), _numin("t", "year of the projection")],
+     outputs=[_o("P_sat", "number", "saturation population"), _o("m", "number", "logistic constant (Ps - P0)/P0"),
+              _o("k", "number", "logistic rate constant, per year"), _o("P_t", "number", "projected population")],
+     primary="P_t", conditions=["three equally spaced censuses with P0 < P1 < P2", "growth slowing: P1^2 > P0 P2",
+                                "saturation population at most 100 times the last census"],
+     method="Ps = (2 P0 P1 P2 - P1^2 (P0 + P2))/(P0 P2 - P1^2); m = (Ps - P0)/P0; k = ln(P1 (Ps - P0)/(P0 (Ps - P1)))/n",
+     latex=r"P_s = \frac{2P_0P_1P_2 - P_1^2(P_0 + P_2)}{P_0P_2 - P_1^2},\quad P_t = \frac{P_s}{1 + m\,e^{-k(t - t_0)}}",
+     run=population_logistic, reference=_ref_population_logistic, wrong=_wrong_population_logistic,
+     rand=_rand_population_logistic,
+     phrases=("Logistic population projection", "Population projection by the logistic method", "Logistic population forecast"),
+     aliases={"interval": "n", "year0": "t0", "year": "t", "target_year": "t"},
+     # worked by hand: Ps = 75000 + 40000 x 15000^2/(60000^2 - 40000 x 75000) = 90000, m = 1.25, e^(10 k) = 2.5;
+     # 2030: 90000/(1 + 1.25/2.5^3) = 90000/1.08; 2025: 90000/(1 + 0.2/sqrt(2.5))
+     examples=[_ex({"t0": 2000.0, "n": 10.0, "P0": 40000.0, "P1": 60000.0, "P2": 75000.0, "t": 2030.0},
+                   {"P_sat": 90000.0, "m": 1.25, "k": 0.0916290731874155, "P_t": 83333.3333333333}),
+               _ex({"t0": 2000.0, "n": 10.0, "P0": 40000.0, "P1": 60000.0, "P2": 75000.0, "t": 2025.0},
+                   {"P_sat": 90000.0, "m": 1.25, "k": 0.0916290731874155, "P_t": 79894.1061213})],
+     level="intermediate",
+     extra_q=[{"q": "Logistic population forecast: t0 = 2000, n = 10, P0 = 40000, P1 = 60000, P2 = 75000, t = 2030", "like": 0},
+              {"q": "Logistic population projection: t0 = 2000, n = 10, P0 = 40000, P1 = 60000, P2 = 100000, t = 2030", "outcome": "INVALID_INPUT"}])
+
+
+def water_demand(pop, q, f_md, f_ph, r_ww=None):
+    _need(isinstance(pop, int) and not isinstance(pop, bool) and pop >= 1, "the population must be a whole number of at least 1")
+    _pos("the per-capita demand", q)
+    _need(20 <= q <= 2000, "the per-capita demand must be between 20 and 2000 L per person per day")
+    _fin(f_md, f_ph)
+    _need(1 <= f_md <= 4, "the maximum-day factor must lie between 1 and 4")
+    _need(f_md <= f_ph <= 8, "the peak-hour factor must lie between the maximum-day factor and 8")
+    Qd = pop * q / 1000.0                                     # m^3/d
+    out = {"Q_avg": Qd / DAY, "Q_avg_m3_per_day": Qd, "Q_maxday": f_md * Qd / DAY, "Q_maxday_m3_per_day": f_md * Qd,
+           "Q_peakhour": f_ph * Qd / DAY, "Q_peakhour_m3_per_day": f_ph * Qd, "Q_peakhour_L_per_s": f_ph * Qd / DAY * 1000.0}
+    if r_ww is not None:
+        _frac("the wastewater return fraction", r_ww, lo_open=True)
+        pf = 1.0 + 14.0 / (4.0 + math.sqrt(pop / 1000.0))
+        out["Q_ww_avg_m3_per_day"] = r_ww * Qd
+        out["harmon_peak_factor"] = pf
+        out["Q_ww_peak_m3_per_day"] = pf * r_ww * Qd
+    return _out(**out)
+
+
+def _ref_water_demand(pop, q, f_md, f_ph, r_ww=None):
+    # exact rational arithmetic of the demands from the inputs as written (a definition: a restated reference);
+    # Harmon's factor in its rationalized form 1 + 14 (sqrt(P) - 4)/(P - 16), P in thousands (14/8 at P = 16)
+    from fractions import Fraction as Fr
+    Qd = Fr(pop) * Fr(repr(q)) / 1000
+    out = {"Q_avg": float(Qd / 86400), "Q_avg_m3_per_day": float(Qd), "Q_maxday": float(Fr(repr(f_md)) * Qd / 86400),
+           "Q_maxday_m3_per_day": float(Fr(repr(f_md)) * Qd), "Q_peakhour": float(Fr(repr(f_ph)) * Qd / 86400),
+           "Q_peakhour_m3_per_day": float(Fr(repr(f_ph)) * Qd), "Q_peakhour_L_per_s": float(Fr(repr(f_ph)) * Qd / 86400 * 1000)}
+    if r_ww is not None:
+        Pk = pop / 1000.0
+        pf = 1.0 + (14.0 * (math.sqrt(Pk) - 4.0) / (Pk - 16.0) if abs(Pk - 16.0) > 1e-6 else 14.0 / 8.0)
+        out["Q_ww_avg_m3_per_day"] = float(Fr(repr(r_ww)) * Qd)
+        out["harmon_peak_factor"] = pf
+        out["Q_ww_peak_m3_per_day"] = pf * float(Fr(repr(r_ww)) * Qd)
+    return out
+
+
+def _wrong_water_demand(pop, q, f_md, f_ph, r_ww=None):
+    # litres taken as cubic metres (the 1000 forgotten)
+    out = dict(water_demand(pop, q, f_md, f_ph, r_ww))
+    for key in ("Q_avg", "Q_avg_m3_per_day", "Q_maxday", "Q_maxday_m3_per_day", "Q_peakhour", "Q_peakhour_m3_per_day",
+                "Q_peakhour_L_per_s", "Q_ww_avg_m3_per_day", "Q_ww_peak_m3_per_day"):
+        if key in out:
+            out[key] = _r(out[key] * 1000.0)
+    return out
+
+
+def _rand_water_demand(rng):
+    f_md = _sig(rng.uniform(1.2, 2.5), 2)
+    x = {"pop": rng.randint(500, 2000000), "q": _sig(rng.uniform(80.0, 600.0), 3), "f_md": f_md,
+         "f_ph": _sig(f_md * rng.uniform(1.2, 2.2), 2)}
+    if rng.random() < 0.5:
+        x["r_ww"] = _sig(rng.uniform(0.6, 0.9), 2)
+    return x
+
+
+_add("enveng_water_demand",
+     name="Water and wastewater demand with peaking factors", topic="fundamentals / population and demand",
+     purpose="The average-day, maximum-day and peak-hour water demand of a population from the per-capita demand and the peaking factors (both relative to the average day) and, with the fraction of water returned as wastewater, the average wastewater flow and its peak by Harmon's factor 1 + 14/(4 + sqrt(P/1000)).",
+     inputs=[_intin("pop", "population served", 1, 100000000),
+             _numin("q", "average per-capita demand in L per person per day", words=("L/cap/d", "L/(cap*d)", "Lpcd", "lpcd", "L/person/d")),
+             _numin("f_md", "maximum-day factor (maximum day / average day)"),
+             _numin("f_ph", "peak-hour factor (peak hour / average day)"),
+             _numin("r_ww", "fraction of the water returned as wastewater (optional)", required=False, pct=True)],
+     outputs=[_o("Q_avg", "flow_rate", "average-day demand"), _o("Q_avg_m3_per_day", "number", "average-day demand, m^3/d"),
+              _o("Q_maxday", "flow_rate", "maximum-day demand"), _o("Q_maxday_m3_per_day", "number", "maximum-day demand, m^3/d"),
+              _o("Q_peakhour", "flow_rate", "peak-hour demand"), _o("Q_peakhour_m3_per_day", "number", "peak-hour demand as a daily rate, m^3/d"),
+              _o("Q_peakhour_L_per_s", "number", "peak-hour demand, L/s"),
+              _o("Q_ww_avg_m3_per_day", "number", "average wastewater flow, m^3/d"), _o("harmon_peak_factor", "number", "Harmon peaking factor"),
+              _o("Q_ww_peak_m3_per_day", "number", "peak wastewater flow, m^3/d")],
+     primary="Q_avg", conditions=["pop a whole number >= 1", "20 <= q <= 2000 L per person per day", "1 <= f_md <= 4",
+                                  "f_md <= f_ph <= 8 (both relative to the average day)", "0 < r_ww <= 1"],
+     method="Q_avg = P q; Q_md = f_md Q_avg; Q_ph = f_ph Q_avg; Q_ww = r Q_avg; PF = 1 + 14/(4 + sqrt(P/1000))",
+     latex=r"Q_{avg} = P\,q,\quad Q_{md} = f_{md}Q_{avg},\quad Q_{ph} = f_{ph}Q_{avg},\quad PF = 1 + \frac{14}{4 + \sqrt{P/1000}}",
+     run=water_demand, reference=_ref_water_demand, wrong=_wrong_water_demand, rand=_rand_water_demand,
+     phrases=("Water demand", "Water and wastewater demand", "Design water demand"),
+     aliases={"population": "pop", "per_capita": "q", "max_day_factor": "f_md", "peak_hour_factor": "f_ph", "return_fraction": "r_ww"},
+     # worked by hand: 50000 x 300 L = 15000 m^3/d; 20000 x 250 L = 5000 m^3/d, PF = 1 + 3.5 (sqrt 20 - 4)
+     examples=[_ex({"pop": 50000, "q": 300.0, "f_md": 1.8, "f_ph": 3.0},
+                   {"Q_avg": 0.173611111111, "Q_avg_m3_per_day": 15000.0, "Q_maxday": 0.3125, "Q_maxday_m3_per_day": 27000.0,
+                    "Q_peakhour": 0.520833333333, "Q_peakhour_m3_per_day": 45000.0, "Q_peakhour_L_per_s": 520.833333333}),
+               _ex({"pop": 20000, "q": 250.0, "f_md": 1.5, "f_ph": 2.5, "r_ww": 0.8},
+                   {"Q_avg": 0.0578703703704, "Q_avg_m3_per_day": 5000.0, "Q_maxday": 0.0868055555556, "Q_maxday_m3_per_day": 7500.0,
+                    "Q_peakhour": 0.144675925926, "Q_peakhour_m3_per_day": 12500.0, "Q_peakhour_L_per_s": 144.675925926,
+                    "Q_ww_avg_m3_per_day": 4000.0, "harmon_peak_factor": 2.65247584249853, "Q_ww_peak_m3_per_day": 10609.9033699941})],
+     level="beginner", weak="exact rational arithmetic of the same definitions; Harmon's factor in its rationalized form",
+     extra_q=[{"q": "Design water demand: pop = 50000, q = 300 Lpcd, f_md = 1.8, f_ph = 3", "like": 0},
+              {"q": "Water demand: pop = 50000, q = 300 L/cap/d, f_md = 1.8, f_ph = 1.2", "outcome": "INVALID_INPUT"}])

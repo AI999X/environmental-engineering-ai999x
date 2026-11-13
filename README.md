@@ -4,11 +4,11 @@
 
 **[Desktop app & command line](https://www.ai999x.com/desktop-cli/)** · **[Compute in your browser](https://www.ai999x.com/models/environmental-engineering-ai999x/#try)** · **[Install (Python)](https://pypi.org/project/environmental-engineering-ai999x/)** · **[Guides](https://huggingface.co/AI999X/environmental-engineering-ai999x/tree/main/docs)** · **[Evaluation](https://huggingface.co/AI999X/environmental-engineering-ai999x/tree/main/evaluation)** · **[AI999X on Hugging Face](https://huggingface.co/AI999X)** · **[Website](https://ai999x.com)** · **[Support: Buy Me a Coffee](https://buymeacoffee.com/ibnuljaiffarabi)**
 
-License: Apache-2.0 · Author: Ibnul Jaif Farabi (creator and engineer) · Organization: AI999X · Version 1.5.0
+License: Apache-2.0 · Author: Ibnul Jaif Farabi (creator and engineer) · Organization: AI999X · Version 1.6.0
 
 Field: **Engineering** · Tasks: Question Answering
 
-environmental-engineering-ai999x is an offline, deterministic environmental engineering solver written in Rust: a desktop app, a command-line program, a browser module and a Python package. It answers environmental engineering questions with verified results from 99 certified capabilities, gives 613 documented answers identically on Windows and Linux, and refuses rather than guesses when an answer cannot be verified.
+environmental-engineering-ai999x is an offline, deterministic environmental engineering solver written in Rust: a desktop app, a command-line program, a browser module and a Python package. It answers environmental engineering questions with verified results from 132 certified capabilities, gives 927 documented answers identically on Windows and Linux, and refuses rather than guesses when an answer cannot be verified.
 
 **environmental-engineering-ai999x** reads a question in plain English (or a typed call), picks a certified environmental engineering capability, computes the answer exactly, checks it, and returns the result with its steps, units, LaTeX and assumptions, or a refusal that says what is missing. It runs fully offline on any CPU, needs no GPU, no API key and no internet, and is built to give **zero wrong answers**: when it is not sure, it refuses instead of guessing.
 
@@ -20,13 +20,13 @@ environmental-engineering-ai999x is an offline, deterministic environmental engi
 
 | Way to run it | For | Get it |
 |---|---|---|
-| **AI999X Environmental Engineering desktop app** 1.5.0 | Windows, Linux. This model in its own app: search, ask in words, forms, live figures, explanations, offline | [Windows (x86-64)](https://downloads.ai999x.com/desktop/1.5.0/ai999x-environmental-engineering-1.5.0-windows-x86_64.zip) · [Linux (x86-64)](https://downloads.ai999x.com/desktop/1.5.0/ai999x-environmental-engineering-1.5.0-linux-x86_64.tar.gz) |
-| **AI999X desktop app** 1.5.0 | Windows, Linux. Every AI999X model in one app: search, ask in words, forms, live figures, explanations, offline | [Windows (x86-64)](https://downloads.ai999x.com/desktop/1.5.0/ai999x-1.5.0-windows-x86_64.zip) · [Linux (x86-64)](https://downloads.ai999x.com/desktop/1.5.0/ai999x-1.5.0-linux-x86_64.tar.gz) |
-| **Command line** (`environmental-engineering`) | Windows, Linux. One program per model, offline, no Python | [Windows (x86-64)](https://downloads.ai999x.com/desktop/1.5.0/ai999x-cli-1.5.0-windows-x86_64.zip) · [Linux (x86-64)](https://downloads.ai999x.com/desktop/1.5.0/ai999x-cli-1.5.0-linux-x86_64.tar.gz) |
+| **AI999X Environmental Engineering desktop app** 1.6.0 | Windows, Linux. This model in its own app: search, ask in words, forms, live figures, explanations, offline | [Windows (x86-64)](https://downloads.ai999x.com/desktop/1.6.0/ai999x-environmental-engineering-1.6.0-windows-x86_64.zip) · [Linux (x86-64)](https://downloads.ai999x.com/desktop/1.6.0/ai999x-environmental-engineering-1.6.0-linux-x86_64.tar.gz) |
+| **AI999X desktop app** 1.6.0 | Windows, Linux. Every AI999X model in one app: search, ask in words, forms, live figures, explanations, offline | [Windows (x86-64)](https://downloads.ai999x.com/desktop/1.6.0/ai999x-1.6.0-windows-x86_64.zip) · [Linux (x86-64)](https://downloads.ai999x.com/desktop/1.6.0/ai999x-1.6.0-linux-x86_64.tar.gz) |
+| **Command line** (`environmental-engineering`) | Windows, Linux. One program per model, offline, no Python | [Windows (x86-64)](https://downloads.ai999x.com/desktop/1.6.0/ai999x-cli-1.6.0-windows-x86_64.zip) · [Linux (x86-64)](https://downloads.ai999x.com/desktop/1.6.0/ai999x-cli-1.6.0-linux-x86_64.tar.gz) |
 | **In your browser** | any device. Nothing to install | [Compute on the model page](https://www.ai999x.com/models/environmental-engineering-ai999x/#try) |
 | **Python** | Python 3.10+ | `pip install environmental-engineering-ai999x` |
 
-Checksums: [SHA256SUMS](https://downloads.ai999x.com/desktop/1.5.0/SHA256SUMS) · every version: [https://downloads.ai999x.com/desktop/latest/](https://downloads.ai999x.com/desktop/latest/) · install guide: [desktop & command line](https://www.ai999x.com/desktop-cli/)
+Checksums: [SHA256SUMS](https://downloads.ai999x.com/desktop/1.6.0/SHA256SUMS) · every version: [https://downloads.ai999x.com/desktop/latest/](https://downloads.ai999x.com/desktop/latest/) · install guide: [desktop & command line](https://www.ai999x.com/desktop-cli/)
 
 ## Quick start
 
@@ -37,11 +37,11 @@ Download **AI999X Environmental Engineering** for your system (above), unpack it
 Linux, from a terminal:
 
 ```bash
-curl -LO https://downloads.ai999x.com/desktop/1.5.0/ai999x-environmental-engineering-1.5.0-linux-x86_64.tar.gz
-curl -LO https://downloads.ai999x.com/desktop/1.5.0/SHA256SUMS
+curl -LO https://downloads.ai999x.com/desktop/1.6.0/ai999x-environmental-engineering-1.6.0-linux-x86_64.tar.gz
+curl -LO https://downloads.ai999x.com/desktop/1.6.0/SHA256SUMS
 sha256sum -c --ignore-missing SHA256SUMS
-tar xzf ai999x-environmental-engineering-1.5.0-linux-x86_64.tar.gz
-./ai999x-environmental-engineering-1.5.0-linux-x86_64/ai999x-environmental-engineering
+tar xzf ai999x-environmental-engineering-1.6.0-linux-x86_64.tar.gz
+./ai999x-environmental-engineering-1.6.0-linux-x86_64/ai999x-environmental-engineering
 ```
 
 ### Command line
@@ -49,23 +49,23 @@ tar xzf ai999x-environmental-engineering-1.5.0-linux-x86_64.tar.gz
 Linux:
 
 ```bash
-curl -LO https://downloads.ai999x.com/desktop/1.5.0/ai999x-cli-1.5.0-linux-x86_64.tar.gz
-curl -LO https://downloads.ai999x.com/desktop/1.5.0/SHA256SUMS
+curl -LO https://downloads.ai999x.com/desktop/1.6.0/ai999x-cli-1.6.0-linux-x86_64.tar.gz
+curl -LO https://downloads.ai999x.com/desktop/1.6.0/SHA256SUMS
 sha256sum -c --ignore-missing SHA256SUMS
-mkdir -p ~/.local/share && tar xzf ai999x-cli-1.5.0-linux-x86_64.tar.gz -C ~/.local/share
-echo 'export PATH="$HOME/.local/share/ai999x-cli-1.5.0-linux-x86_64:$PATH"' >> ~/.bashrc && source ~/.bashrc
+mkdir -p ~/.local/share && tar xzf ai999x-cli-1.6.0-linux-x86_64.tar.gz -C ~/.local/share
+echo 'export PATH="$HOME/.local/share/ai999x-cli-1.6.0-linux-x86_64:$PATH"' >> ~/.bashrc && source ~/.bashrc
 environmental-engineering --version
 ```
 
 Windows (PowerShell):
 
 ```powershell
-$F = "ai999x-cli-1.5.0-windows-x86_64.zip"
-Invoke-WebRequest "https://downloads.ai999x.com/desktop/1.5.0/$F" -OutFile $F
-Invoke-WebRequest "https://downloads.ai999x.com/desktop/1.5.0/SHA256SUMS" -OutFile SHA256SUMS
+$F = "ai999x-cli-1.6.0-windows-x86_64.zip"
+Invoke-WebRequest "https://downloads.ai999x.com/desktop/1.6.0/$F" -OutFile $F
+Invoke-WebRequest "https://downloads.ai999x.com/desktop/1.6.0/SHA256SUMS" -OutFile SHA256SUMS
 (Get-FileHash $F -Algorithm SHA256).Hash.ToLower() -eq ((Select-String -SimpleMatch $F SHA256SUMS).Line -split ' ')[0]
 Expand-Archive $F -DestinationPath "$env:LOCALAPPDATA\AI999X" -Force
-$D = "$env:LOCALAPPDATA\AI999X\ai999x-cli-1.5.0-windows-x86_64"; $env:Path += ";$D"
+$D = "$env:LOCALAPPDATA\AI999X\ai999x-cli-1.6.0-windows-x86_64"; $env:Path += ";$D"
 [Environment]::SetEnvironmentVariable("Path", [Environment]::GetEnvironmentVariable("Path", "User") + ";$D", "User")
 environmental-engineering --version
 ```
@@ -157,6 +157,36 @@ pip install environmental-engineering-ai999x
 ## Worked examples in every form
 
 The same worked example from the command line, from Python and in the browser. Each command-line output is what the program printed.
+
+### Atmospheric stability from the environmental lapse rate
+
+The environmental lapse rate from the air temperature at two heights and the stability it gives against the dry adiabatic lapse rate (9.8 degC/km): superadiabatic (unstable), neutral, subadiabatic (stable) or an inversion.
+
+Command line:
+
+```console
+$ environmental-engineering solve enveng_lapse_rate_stability "T1=20 degC" "z1=0 m" "T2=14 degC" "z2=500 m"
+ELR = 0.012 K/m
+ELR_C_per_km = 12
+stability = superadiabatic (unstable)
+  by: Atmospheric stability from the environmental lapse rate  (ELR = -(T2 - T1)/(z2 - z1); ELR > 9.8 degC/km superadiabatic, = 9.8 neutral, 0 to 9.8 subadiabatic, < 0 inversion)
+  T1 = 293.15 K
+  z1 = 0 m
+  T2 = 287.15 K
+  z2 = 500 m
+  assumes: dry air (dry adiabatic lapse rate 9.8 degC/km); z2 > z1; linear temperature profile between the two heights
+```
+
+Python:
+
+```python
+import environmental_engineering_ai999x as m
+
+a = m.solve("enveng_lapse_rate_stability", T1="20 degC", z1="0 m", T2="14 degC", z2="500 m")
+print(a.values or (a.value, a.unit))
+```
+
+Browser: [open this capability on the model page](https://www.ai999x.com/models/environmental-engineering-ai999x/#cap-enveng_lapse_rate_stability) and press **Compute in your browser**.
 
 ### Box model of an air basin (well-mixed, time-dependent)
 
@@ -258,42 +288,6 @@ Browser: [open this capability on the model page](https://www.ai999x.com/models/
 
 _What this means:_ This calculation determines the effective stack height by combining the physical structure with the buoyancy-driven plume rise. The buoyancy flux, calculated as 104.021, drives the vertical ascent of the smoke column in neutral or unstable atmospheric conditions. Using Briggs' method for final rise distance and subsequent elevation gain, the total plume rise is found to be 125.638 m. Adding this to the physical stack height yields an effective release height of 225.638 m, which represents the altitude at which pollutants are effectively dispersed into the atmosphere.
 
-### Briggs plume rise in stable air
-
-The final rise of a buoyant plume in stable air (classes E, F) from the buoyancy flux, wind speed and potential-temperature gradient, and the effective stack height.
-
-Command line:
-
-```console
-$ environmental-engineering solve enveng_briggs_stable_plume_rise "vs=15 m/s" "d=3 m" "Ts=420 K" "Ta=288 K" "u=4 m/s" "dtheta=0.02 K/m" "hs=100 m"
-F = 104.0205375
-s = 0.0006810173611
-dh = 87.55352869 m
-H = 187.5535287 m
-  by: Briggs plume rise in stable air  (s = (g/Ta) dtheta/dz; dh = 2.6 (F/(u s))^(1/3))
-  vs = 15 m/s
-  d = 3 m
-  Ts = 420 K
-  Ta = 288 K
-  u = 4 m/s
-  dtheta = 0.02 K/m
-  hs = 100 m
-  assumes: Ts > Ta; stable air: dtheta/dz > 0
-```
-
-Python:
-
-```python
-import environmental_engineering_ai999x as m
-
-a = m.solve("enveng_briggs_stable_plume_rise", vs="15 m/s", d="3 m", Ts="420 K", Ta="288 K", u="4 m/s", dtheta="0.02 K/m", hs="100 m")
-print(a.values or (a.value, a.unit))
-```
-
-Browser: [open this capability on the model page](https://www.ai999x.com/models/environmental-engineering-ai999x/#cap-enveng_briggs_stable_plume_rise) and press **Compute in your browser**.
-
-_What this means:_ This calculation determines the final vertical rise of a buoyant smoke plume under stable atmospheric conditions. It uses the buoyancy flux derived from the exit velocity 15 m/s, stack diameter 3 m, and temperature difference between the gas 420 K and ambient air 288 K. The stability parameter 0.000681017 reflects how strongly the atmosphere resists vertical motion based on the potential temperature gradient 0.02 K/m. The wind speed 4 m/s at the stack top dilutes the plume's momentum. The computed plume rise 87.5535 m is added to the physical stack height 100 m to find the total effective release height 187.554 m, which dictates how high pollutants are lifted before dispersing.
-
 ## Documentation
 
 - **Rust user guide**: the command line, every capability with a command and what it printed: [PDF](https://huggingface.co/AI999X/environmental-engineering-ai999x/blob/main/docs/environmental_engineering_ai999x_rust_guide.pdf) · [Markdown](https://huggingface.co/AI999X/environmental-engineering-ai999x/blob/main/docs/environmental_engineering_ai999x_rust_guide.md)
@@ -304,7 +298,7 @@ _What this means:_ This calculation determines the final vertical rise of a buoy
 ## Highlights
 
 - **Verified, not generated.** Every answer is computed by a certified environmental engineering capability and checked (substituted back, dimension-checked or compared with an independent computation) before it is returned.
-- **Zero wrong answers by design.** Seven explicit outcomes (SOLVED, NEEDS_INPUT, AMBIGUOUS, INVALID_INPUT, OUT_OF_SCOPE, UNRECOGNIZED_FORMAT, INTERNAL_ERROR), never a silent guess. Every one of its 613 documented answers is reproduced exactly on every tested platform.
+- **Zero wrong answers by design.** Seven explicit outcomes (SOLVED, NEEDS_INPUT, AMBIGUOUS, INVALID_INPUT, OUT_OF_SCOPE, UNRECOGNIZED_FORMAT, INTERNAL_ERROR), never a silent guess. Every one of its 927 documented answers is reproduced exactly on every tested platform.
 - **Plain-English questions and a guaranteed typed interface.** `ask()` reads documented question forms; `solve(capability_id, **inputs)` always solves a supported task with valid inputs.
 - **Explains itself.** Steps, formulas in LaTeX, units, assumptions and the model used, ready for notebooks, tutoring apps and homework checkers.
 - **Native and in the browser.** Every capability also computes natively in Rust: the desktop app and the `environmental-engineering` command line for Windows and Linux, and WebAssembly on the model page, no Python, no network.
@@ -315,11 +309,11 @@ _What this means:_ This calculation determines the final vertical rise of a buoy
 
 | Property | Value |
 |---|---|
-| Package | `environmental-engineering-ai999x` 1.5.0 (import `environmental_engineering_ai999x`) |
+| Package | `environmental-engineering-ai999x` 1.6.0 (import `environmental_engineering_ai999x`) |
 | Type | Deterministic neuro-symbolic environmental engineering engine (rule-based reading + certified symbolic capabilities) |
-| Capabilities | 99 certified procedures |
+| Capabilities | 132 certified procedures |
 | Knowledge pack | version 1.0.0 |
-| Golden answers | 613 documented answers, identical on every tested platform |
+| Golden answers | 927 documented answers, identical on every tested platform |
 | Platforms tested | Windows (Python 3.13), Linux x86-64 (Python 3.10, 3.11, 3.12, 3.13, 3.14) |
 | Runtime | CPU only, offline; no GPU, no network, no API key |
 | License | Apache-2.0 |
@@ -349,7 +343,7 @@ environmental_engineering.ask("Who created you?").message
 # -> environmental-engineering-ai999x was created and engineered by Ibnul Jaif Farabi at AI999X.
 ```
 
-The Python package also installs a Python command, `environmental-engineering-ai999x "<question>"`; for the native program use `environmental-engineering` (above). The outputs above were produced by running this exact code on environmental-engineering-ai999x 1.5.0.
+The Python package also installs a Python command, `environmental-engineering-ai999x "<question>"`; for the native program use `environmental-engineering` (above). The outputs above were produced by running this exact code on environmental-engineering-ai999x 1.6.0.
 
 ## How every answer is verified
 
@@ -424,15 +418,15 @@ Each question was put to `environmental-engineering-ai999x`; the answer is the o
 
 </details>
 
-**Packed-tower air stripping: stripping factor, transfer units and height** · _Gas transfer_
+**Volatile solids reduction in digestion (Van Kleeck)** · _Biosolids_
 
-> Air stripping tower: Qw = 0.05 m^3/s, Qa = 1.5 m^3/s, H = 0.2, Cin = 200 ug/L, Cout = 5 ug/L, HTU = 1 m
+> Volatile solids reduction: VS_in = 0.75, VS_out = 0.55
 
-→ **R = 6, NTU = 4.213854527, Z = 4.213854527 m, air_to_water_min = 4.875**
+→ **VSR = 0.5925925926, VSR_percent = 59.25925926, TS_remaining = 0.5555555556**
 
 <details><summary>Steps</summary>
 
-- Packed-tower air stripping: stripping factor, transfer units and height: Qw = 0.05 m^3/s, Qa = 1.5 m^3/s, H = 0.2, Cin = 200 ug/L, Cout = 5 ug/L, HTU = 1 m → R = 6 m, NTU = 4.213854527 m, Z = 4.213854527 m, air_to_water_min = 4.875 m
+- Volatile solids reduction in digestion (Van Kleeck): VS_in = 0.75, VS_out = 0.55 → VSR = 0.5925925926, VSR_percent = 59.25925926, TS_remaining = 0.5555555556
 
 </details>
 
@@ -446,29 +440,29 @@ Every point was computed by `environmental-engineering-ai999x`.
 
 _dh (plume rise) against vs (stack gas exit velocity), with Ta = 288 K, Ts = 420 K, d = 3 m, hs = 100 m, u = 5 m/s. 31 points computed by environmental-engineering-ai999x; marked: vs = 15, dh = 125.638 m._
 
+**Volatile solids reduction in digestion (Van Kleeck)**
+
+![Volatile solids reduction in digestion (Van Kleeck), computed by environmental-engineering-ai999x](https://huggingface.co/AI999X/environmental-engineering-ai999x/resolve/main/figures/enveng-volatile-solids-reduction-vsr-vs-vs-in.svg)
+
+_VSR (volatile solids reduction (fraction)) against VS_in (volatile fraction of the feed solids (fraction or %)), with VS_out = 0.55. 19 points computed by environmental-engineering-ai999x; marked: VS_in = 0.75, VSR = 0.592593._
+
+**Population projection by the logistic method (three censuses)**
+
+![Population projection by the logistic method (three censuses), computed by environmental-engineering-ai999x](https://huggingface.co/AI999X/environmental-engineering-ai999x/resolve/main/figures/enveng-population-logistic-p-t-vs-t0.svg)
+
+_P_t (projected population) against t0 (year of the first census), with P0 = 40000, P1 = 60000, P2 = 75000, n = 10, t = 2030. 15 points computed by environmental-engineering-ai999x; marked: t0 = 2000, P_t = 83333.3._
+
 **Packed-tower air stripping: stripping factor, transfer units and height**
 
 ![Packed-tower air stripping: stripping factor, transfer units and height, computed by environmental-engineering-ai999x](https://huggingface.co/AI999X/environmental-engineering-ai999x/resolve/main/figures/enveng-air-stripping-tower-z-vs-qw.svg)
 
 _Z (packed height HTU NTU) against Qw (water flow), with Cin = 2.00e-4 kg/m^3, Cout = 5.00e-6 kg/m^3, H = 0.2, HTU = 1 m, Qa = 1.5 m^3/s. 31 points computed by environmental-engineering-ai999x; marked: Qw = 0.05, Z = 4.21385 m._
 
-**Activated sludge (complete mix) effluent substrate and biomass (Lawrence-McCarty)**
-
-![Activated sludge (complete mix) effluent substrate and biomass (Lawrence-McCarty), computed by environmental-engineering-ai999x](https://huggingface.co/AI999X/environmental-engineering-ai999x/resolve/main/figures/enveng-activated-sludge-cstr-design-s-vs-y.svg)
-
-_S (effluent soluble substrate) against Y (true yield coefficient, kg VSS per kg BOD), with HRT = 21600 s, Ks = 0.06 kg/m^3, S0 = 0.25 kg/m^3, SRT = 8.64e5 s, k = 5.79e-5 1/s, kd = 6.94e-7 1/s. 31 points computed by environmental-engineering-ai999x; marked: Y = 0.5, S = 0.00410256 kg/m^3._
-
-**Streeter-Phelps oxygen deficit and dissolved oxygen at a travel time**
-
-![Streeter-Phelps oxygen deficit and dissolved oxygen at a travel time, computed by environmental-engineering-ai999x](https://huggingface.co/AI999X/environmental-engineering-ai999x/resolve/main/figures/enveng-streeter-phelps-deficit-do-vs-kd.svg)
-
-_DO (dissolved oxygen at t) against kd (deoxygenation rate constant), with D0 = 0.001 kg/m^3, DOsat = 0.0091 kg/m^3, L0 = 0.01 kg/m^3, ka = 5.32e-6 1/s, t = 1.73e5 s. 31 points computed by environmental-engineering-ai999x; marked: kd = 2.66204e-06, DO = 0.00637383 kg/m^3._
-
 ## Capabilities
 
-99 certified procedures. A few of them:
+132 certified procedures. A few of them:
 
-- **Procedures:** Activated carbon dose from the Freundlich isotherm; Activated sludge (complete mix) effluent substrate and biomass (Lawrence-McCarty); Adding sound levels in decibels; Adsorbent dose from the Langmuir isotherm; BOD exerted after a time (first-order); BOD from a dilution test (with optional seed correction); BOD rate constant and ultimate BOD fitted to BOD data; Box model of an air basin (well-mixed, time-dependent); Briggs dispersion coefficients sigma_y and sigma_z; Briggs plume rise and effective stack height (neutral or unstable air); Briggs plume rise in stable air; Chlorine dose and feed rate; Clean-bed head loss through a granular filter (Ergun / Carman-Kozeny); Concentration after mixing a discharge with a river; Concentration in a well-mixed lake over time; Critical (minimum) dissolved oxygen of the oxygen sag; Cyclone cut diameter and fractional efficiency (Lapple); Day-night (Ldn) and day-evening-night (Lden) sound levels; Disinfection CT value of a contact basin; Disinfection by the Chick-Watson law; Dissolved concentration in equilibrium with a gas (Henry's law); Dissolved oxygen at a distance downstream (Streeter-Phelps); Dissolved oxygen during aeration and the transfer rate; Dissolved oxygen saturation concentration (Benson-Krause) …
+- **Procedures:** Activated carbon dose from the Freundlich isotherm; Activated sludge (complete mix) effluent substrate and biomass (Lawrence-McCarty); Adding sound levels in decibels; Adsorbent dose from the Langmuir isotherm; Atmospheric stability from the environmental lapse rate; BOD exerted after a time (first-order); BOD from a dilution test (with optional seed correction); BOD rate constant and ultimate BOD fitted to BOD data; Box model of an air basin (well-mixed, time-dependent); Briggs dispersion coefficients sigma_y and sigma_z; Briggs plume rise and effective stack height (neutral or unstable air); Briggs plume rise in stable air; Chemical feed rate: mass per day = Q x dose / purity (kg/d and lb/d); Chlorine dose and feed rate; Chronic daily intake, hazard quotient and cancer risk; Clean-bed head loss through a granular filter (Ergun / Carman-Kozeny); Compaction ratio of solid waste; Concentration after mixing a discharge with a river; Concentration in a well-mixed lake over time; Critical (minimum) dissolved oxygen of the oxygen sag; Cyclone cut diameter and fractional efficiency (Lapple); Darcy's law: groundwater flow and seepage velocity; Day-night (Ldn) and day-evening-night (Lden) sound levels; Disinfection CT value of a contact basin …
 
 `environmental_engineering_ai999x.templates()` lists every question form `ask()` reads; the capability guide (PDF, every example executed) is included in this repository.
 
@@ -487,10 +481,10 @@ _DO (dissolved oxygen at t) against kd (deoxygenation rate constant), with D0 = 
 ## Citation
 
 ```bibtex
-@software{environmental_engineering_ai999x_1_5_0,
+@software{environmental_engineering_ai999x_1_6_0,
   title  = {environmental-engineering-ai999x: an offline, verified environmental engineering solver},
   author = {Farabi, Ibnul Jaif}, organization = {AI999X},
-  year   = {2026}, version = {1.5.0},
+  year   = {2026}, version = {1.6.0},
   url    = {https://huggingface.co/AI999X/environmental-engineering-ai999x}
 }
 ```
@@ -507,7 +501,7 @@ Created and engineered by **Ibnul Jaif Farabi** · **[AI999X](https://huggingfac
 
 ## Source and releases
 
-This repository holds the installable source of each release, exactly as published on [PyPI](https://pypi.org/project/environmental-engineering-ai999x/) (`pip install .` builds it). Releases are tagged `v1.5.0`; the [GitHub release](https://github.com/AI999X/environmental-engineering-ai999x/releases/tag/v1.5.0) carries the wheel, the desktop app and the command-line program for Windows and Linux, and their checksums.
+This repository holds the installable source of each release, exactly as published on [PyPI](https://pypi.org/project/environmental-engineering-ai999x/) (`pip install .` builds it). Releases are tagged `v1.6.0`; the [GitHub release](https://github.com/AI999X/environmental-engineering-ai999x/releases/tag/v1.6.0) carries the wheel, the desktop app and the command-line program for Windows and Linux, and their checksums.
 
 ## Build the program from source
 
