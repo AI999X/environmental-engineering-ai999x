@@ -1014,7 +1014,7 @@ $$
 
 ![eta (collection efficiency (fraction, at most 1)) against L (chamber length) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-settling-chamber-efficiency-curve)
 
-*eta (collection efficiency (fraction, at most 1)) against L (chamber length) from 0.5 m to 50 m on a logarithmic axis. One curve for each value of W (chamber width): 2 m, 1 m, 4 m. Other inputs as in the worked example: dp = 5e-05 m, rho_p = 2000.0 kg/m^3, rho_g = 1.2 kg/m^3, mu = 1.8e-05 Pa*s, Q = 10.0 m^3/s, N = 1. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, L = 5 m, eta = 0.151246.*
+*eta (collection efficiency (fraction, at most 1)) against L (chamber length) from 0.5 m to 50 m on a logarithmic axis. One curve for each value of W (chamber width): 2 m, 1 m, 4 m. Other inputs as in the worked example: dp = 4.9999999999999996e-05 m, rho_p = 2000.0 kg/m^3, rho_g = 1.2 kg/m^3, mu = 1.8e-05 Pa*s, Q = 10.0 m^3/s, N = 1. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, L = 5 m, eta = 0.151246.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_settling_chamber_efficiency', dp=5e-05, rho_p=2000.0, rho_g=1.2, mu=1.8e-05, L=5.0, W=2.0, Q=10.0, N=1)
@@ -4687,7 +4687,7 @@ $$
 
 ![Z (packed height HTU NTU) against Qw (water flow) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-air-stripping-tower-curve)
 
-*Z (packed height HTU NTU) against Qw (water flow) from 0.005 m^3/s to 0.5 m^3/s on a logarithmic axis. One curve for each value of HTU (height of a transfer unit): 1 m, 0.5 m, 2 m. Other inputs as in the worked example: Qa = 1.5 m^3/s, H = 0.2, Cin = 0.0002 kg/m^3, Cout = 5e-06 kg/m^3. 36 points per curve computed by environmental-engineering-ai999x; marked: the worked example, Qw = 0.05 m^3/s, Z = 4.21385 m.*
+*Z (packed height HTU NTU) against Qw (water flow) from 0.005 m^3/s to 0.5 m^3/s on a logarithmic axis. One curve for each value of HTU (height of a transfer unit): 1 m, 0.5 m, 2 m. Other inputs as in the worked example: Qa = 1.5 m^3/s, H = 0.2, Cin = 0.00019999999999999998 kg/m^3, Cout = 4.9999999999999996e-06 kg/m^3. 36 points per curve computed by environmental-engineering-ai999x; marked: the worked example, Qw = 0.05 m^3/s, Z = 4.21385 m.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_air_stripping_tower', Qw=0.05, Qa=1.5, H=0.2, Cin=0.0002, Cout=5e-06, HTU=1.0)
@@ -5166,7 +5166,7 @@ $$
 
 ![Q_CH4 (methane generation rate at t) against k (methane generation rate constant) from 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-landfill-gas-generation-curve)
 
-*Q_CH4 (methane generation rate at t) against k (methane generation rate constant) from 1.5844e-10 1/s to 1.5844e-08 1/s on a logarithmic axis. One curve for each value of L0 (methane generation potential): 0.1 m^3/kg, 0.05 m^3/kg, 0.2 m^3/kg. Other inputs as in the worked example: M = 3.168808781402895 kg/s, tc = 631152000.0 s, t = 788940000.0 s. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, k = 1.5844e-09 1/s, Q_CH4 = 0.155999 m^3/s.*
+*Q_CH4 (methane generation rate at t) against k (methane generation rate constant) from 1.5844e-10 1/s to 1.5844e-08 1/s on a logarithmic axis. One curve for each value of L0 (methane generation potential): 0.1 m^3/kg, 0.05 m^3/kg, 0.2 m^3/kg. Other inputs as in the worked example: M = 3.1688087814028947 kg/s, tc = 631152000.0 s, t = 788940000.0 s. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, k = 1.5844e-09 1/s, Q_CH4 = 0.155999 m^3/s.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_landfill_gas_generation', M=3.168808781402895, L0=0.1, k=1.5844043907014477e-09, tc=631152000.0, t=788940000.0)
@@ -5698,7 +5698,7 @@ $$
 
 ![theta_c (mean cell residence time) against Mw (mass of solids wasted per day) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-mean-cell-residence-time-curve)
 
-*theta_c (mean cell residence time) against Mw (mass of solids wasted per day) from 0.000347222 kg/s to 0.0347222 kg/s on a logarithmic axis. One curve for each value of M (mass of solids (MLVSS or MLSS) in the aeration basin): 3000 kg, 1500 kg, 6000 kg. Other inputs as in the worked example: Me = 0.0002314814814814815 kg/s. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, Mw = 0.00347222 kg/s, theta_c = 810000 s.*
+*theta_c (mean cell residence time) against Mw (mass of solids wasted per day) from 0.000347222 kg/s to 0.0347222 kg/s on a logarithmic axis. One curve for each value of M (mass of solids (MLVSS or MLSS) in the aeration basin): 3000 kg, 1500 kg, 6000 kg. Other inputs as in the worked example: Me = 0.00023148148148148146 kg/s. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, Mw = 0.00347222 kg/s, theta_c = 810000 s.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_mean_cell_residence_time', M=3000.0, Mw=0.003472222222222222, Me=0.0002314814814814815)
