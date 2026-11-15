@@ -1,0 +1,18 @@
+[package]
+name = "ax-lang"
+description = "AI999X language layer (1.6): a small trained encoder reads a question; the engine answers; numbers only from the engine"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+
+[dependencies]
+ax-engine = { path = "../ax-engine" }
+serde_json = { version = "1", features = ["preserve_order"] }
+fancy-regex = "0.14"
+# Hugging Face's pure-Rust ML library (Apache-2.0/MIT): the encoder runs natively, no Python, no ONNX runtime
+candle-core = "0.9"
+candle-nn = "0.9"
+candle-transformers = "0.9"
+# the encoder's tokenizer (Apache-2.0); onig for the pre-tokenizer's regex
+tokenizers = { version = "0.21", default-features = false, features = ["onig"] }

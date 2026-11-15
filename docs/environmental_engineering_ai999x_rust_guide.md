@@ -1,6 +1,6 @@
 # environmental-engineering: the Environmental Engineering program, user guide
 
-**environmental-engineering-ai999x 1.6.0**, Rust build: command line, desktop app and browser. **Creator / engineer:** Ibnul Jaif Farabi · **Company:** AI999X · support@ai999x.com
+**environmental-engineering-ai999x 1.6.3**, Rust build: command line, desktop app and browser. **Creator / engineer:** Ibnul Jaif Farabi · **Company:** AI999X · support@ai999x.com
 
 Environmental Engineering covers Gaussian plume dispersion and plume rise, BOD and Streeter-Phelps oxygen sag, water and wastewater treatment design, activated sludge, disinfection CT, Henry's law and air stripping, noise and solid waste. This guide is about `environmental-engineering`, the model as a self-contained program for Windows and Linux: 132 capabilities in 14 topics, answered on your own computer with no network, no Python and nothing else to install. The same compiled model runs in the AI999X desktop app and in the browser on the model's page (https://www.ai999x.com/models/environmental-engineering-ai999x/); the Python package (`pip install environmental-engineering-ai999x`) has its own guide. Every command output printed here is what the program printed.
 
@@ -96,7 +96,7 @@ Prints the model, its version and that this is the Rust build.
 
 ```shell
 $ environmental-engineering --version
-environmental-engineering-ai999x 1.6.0 (Rust build, ax-engine 1.6.0)
+environmental-engineering-ai999x 1.6.3 (Rust build, ax-engine 1.6.3)
 ```
 
 ### 2.2 Ask in words

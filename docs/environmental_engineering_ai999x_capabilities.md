@@ -1982,10 +1982,6 @@ $$
 - **Assumes:** complete mixing; conservative substance
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![C_mix (mixed concentration, in the unit of C) as value 3 of Q (flows of the streams (any one unit, e](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-mixing-several-streams-sensitivity)
-
-*C_mix (mixed concentration, in the unit of C) as value 3 of Q (flows of the streams (any one unit, e.g. m^3/s)) moves from 0 to 2.75, the other values as given ([2.0, 0.5, 1.0]); 40 runs of environmental-engineering-ai999x. Other inputs: C = [3.0, 120.0, 40.0]. Marked: the worked example, Q[3] = 1, C_mix = 30.2857.*
-
 ```python
 environmental_engineering_ai999x.solve('enveng_mixing_several_streams', Q=[2.0, 0.5, 1.0], C=[3.0, 120.0, 40.0])
 # -> C_mix = 30.2857, Q_total = 3.5   (SOLVED)
@@ -4870,10 +4866,6 @@ $$
 - **Assumes:** one duration per level
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![Leq (equivalent continuous level, dB) as value 3 of L (levels of the intervals in dB) moves from 47](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-equivalent-sound-level-sensitivity)
-
-*Leq (equivalent continuous level, dB) as value 3 of L (levels of the intervals in dB) moves from 47.5 to 97.5, the other values as given ([70.0, 85.0, 60.0]); 41 runs of environmental-engineering-ai999x. Other inputs: t = [4.0, 1.0, 3.0]. Marked: the worked example, L[3] = 60, Leq = 76.5228.*
-
 ```python
 environmental_engineering_ai999x.solve('enveng_equivalent_sound_level', L=[70.0, 85.0, 60.0], t=[4.0, 1.0, 3.0])
 # -> Leq = 76.5228   (SOLVED)
@@ -5009,10 +5001,6 @@ $$
 - **Method:** $T = 8/2$^((L - 90)/5); $D = 100$ sum C/T; TWA = 16.61 log10(D/100) + 90
 - **Assumes:** levels below 80 dBA excluded
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
-
-![dose_percent (noise dose, per cent) as value 3 of L (A-weighted levels in dBA) moves from 80 to 100, the other values as given ([90](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-occupational-noise-dose-sensitivity)
-
-*dose_percent (noise dose, per cent) as value 3 of L (A-weighted levels in dBA) moves from 80 to 100, the other values as given ([90.0, 95.0, 85.0]); 41 runs of environmental-engineering-ai999x. Other inputs: hours = [4.0, 2.0, 2.0]. Marked: the worked example, L[3] = 85, dose_percent = 112.5.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_occupational_noise_dose', L=[90.0, 95.0, 85.0], hours=[4.0, 2.0, 2.0])
@@ -5263,10 +5251,6 @@ $$
 - **Method:** water = sum m_i w_i; M_wet = water/sum m; M_dry = water/(sum m - water)
 - **Assumes:** moisture fractions below 1
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
-
-![moisture_wet (moisture content, wet basis) as value 4 of m (wet masses of the components (any one unit)) moves from 2](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-waste-moisture-content-sensitivity)
-
-*moisture_wet (moisture content, wet basis) as value 4 of m (wet masses of the components (any one unit)) moves from 2.5 to 52.5, the other values as given ([40.0, 25.0, 15.0, 20.0]); 41 runs of environmental-engineering-ai999x. Other inputs: w = [0.7, 0.06, 0.02, 0.2]. Marked: the worked example, m[4] = 20, moisture_wet = 0.338.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_waste_moisture_content', m=[40.0, 25.0, 15.0, 20.0], w=[0.7, 0.06, 0.02, 0.2])
