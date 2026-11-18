@@ -4,16 +4,37 @@
 
 Environmental Engineering covers Gaussian plume dispersion and plume rise, BOD and Streeter-Phelps oxygen sag, water and wastewater treatment design, activated sludge, disinfection CT, Henry's law and air stripping, noise and solid waste: 132 calculations in 14 topics, each with its formula, its steps and its units, and a plain reason instead of a number when an input is missing or out of range. One compiled engine, four ways to use it: the desktop app, the command line, the browser and Python. Everything runs on your own computer, offline.
 
-[![The Environmental Engineering desktop app: Fraction of discrete particles removed in an ideal settling basin, with its worked example and live scene](https://www.ai999x.com/?ax_shot=environmental-engineering-ai999x/hero.webp)](https://www.ai999x.com/models/environmental-engineering-ai999x/)
+[![The Environmental Engineering desktop app: Streeter-Phelps oxygen deficit and dissolved oxygen at a travel time, with its worked example and live scene](https://www.ai999x.com/?ax_shot=environmental-engineering-ai999x/hero.webp)](https://www.ai999x.com/models/environmental-engineering-ai999x/)
 
 ## Four ways to use it
 
 | | |
 |---|---|
-| **Desktop app** (Windows, Linux) | [Windows](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.4/ai999x-1.6.4-windows-x86_64.zip) · [Linux](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.4/ai999x-1.6.4-linux-x86_64.tar.gz) |
+| **Desktop app** (Windows, Linux) | [Windows](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.5/ai999x-environmental-engineering-1.6.5-windows-x86_64.zip) · [Linux](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.5/ai999x-environmental-engineering-1.6.5-linux-x86_64.tar.gz) |
 | **Command line** `environmental-engineering` (Windows, Linux) | [Windows](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.4/ai999x-cli-1.6.4-windows-x86_64.zip) · [Linux](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.4/ai999x-cli-1.6.4-linux-x86_64.tar.gz) |
-| **Browser** (any device) | [Try it on the model page](https://www.ai999x.com/models/environmental-engineering-ai999x/#try) |
+| **Browser** (any device) | [Try it on the model page](https://www.ai999x.com/models/environmental-engineering-ai999x/#capabilities) |
 | **Python** 3.10+ | `pip install environmental-engineering-ai999x`: on Windows and Linux (x86-64) `pip` installs the same compiled engine; on other systems (macOS, ARM) it installs a pure-Python build that gives the same answers |
+
+## See it
+
+From the Environmental Engineering desktop app: every scene and chart is drawn from the computed answer.
+
+[![Environmental Engineering desktop app: a slider moves an input and the answer, the scene and the charts follow](https://www.ai999x.com/?ax_shot=environmental-engineering-ai999x/clip-loop.webp)](https://www.ai999x.com/?ax_shot=environmental-engineering-ai999x/clip.mp4)
+
+*[Watch the full clip (MP4)](https://www.ai999x.com/?ax_shot=environmental-engineering-ai999x/clip.mp4)*
+
+| | |
+|---|---|
+| [![Streeter-Phelps oxygen deficit and dissolved oxygen at a travel time: the live scene in the Environmental Engineering desktop app](https://www.ai999x.com/?ax_shot=environmental-engineering-ai999x/scene-1.webp)](https://www.ai999x.com/models/environmental-engineering-ai999x/#cap-enveng_streeter_phelps_deficit)<br>Streeter-Phelps oxygen deficit and dissolved oxygen at a travel time | [![Briggs plume rise and effective stack height (neutral or unstable air): the live scene in the Environmental Engineering desktop app](https://www.ai999x.com/?ax_shot=environmental-engineering-ai999x/scene-2.webp)](https://www.ai999x.com/models/environmental-engineering-ai999x/#cap-enveng_briggs_plume_rise)<br>Briggs plume rise and effective stack height (neutral or unstable air) |
+| [![Activated sludge (complete mix) effluent substrate and biomass (Lawrence-McCarty): the live scene in the Environmental Engineering desktop app](https://www.ai999x.com/?ax_shot=environmental-engineering-ai999x/scene-3.webp)](https://www.ai999x.com/models/environmental-engineering-ai999x/#cap-enveng_activated_sludge_cstr_design)<br>Activated sludge (complete mix) effluent substrate and biomass (Lawrence-McCarty) | [![Adding sound levels in decibels: the live scene in the Environmental Engineering desktop app](https://www.ai999x.com/?ax_shot=environmental-engineering-ai999x/scene-4.webp)](https://www.ai999x.com/models/environmental-engineering-ai999x/#cap-enveng_decibel_addition)<br>Adding sound levels in decibels |
+| [![Volatile solids reduction in digestion (Van Kleeck): the live scene in the Environmental Engineering desktop app](https://www.ai999x.com/?ax_shot=environmental-engineering-ai999x/scene-5.webp)](https://www.ai999x.com/models/environmental-engineering-ai999x/#cap-enveng_volatile_solids_reduction)<br>Volatile solids reduction in digestion (Van Kleeck) | [![Population projection by the logistic method (three censuses): the live scene in the Environmental Engineering desktop app](https://www.ai999x.com/?ax_shot=environmental-engineering-ai999x/scene-6.webp)](https://www.ai999x.com/models/environmental-engineering-ai999x/#cap-enveng_population_logistic)<br>Population projection by the logistic method (three censuses) |
+| [![Packed-tower air stripping: stripping factor, transfer units and height: the live scene in the Environmental Engineering desktop app](https://www.ai999x.com/?ax_shot=environmental-engineering-ai999x/scene-7.webp)](https://www.ai999x.com/models/environmental-engineering-ai999x/#cap-enveng_air_stripping_tower)<br>Packed-tower air stripping: stripping factor, transfer units and height | [![Darcy's law: groundwater flow and seepage velocity: the live scene in the Environmental Engineering desktop app](https://www.ai999x.com/?ax_shot=environmental-engineering-ai999x/scene-8.webp)](https://www.ai999x.com/models/environmental-engineering-ai999x/#cap-enveng_darcy_seepage_velocity)<br>Darcy's law: groundwater flow and seepage velocity |
+
+Charts:
+
+|   |   |   |   |
+|---|---|---|---|
+| [![Streeter-Phelps oxygen deficit and dissolved oxygen at a travel time: a chart in the Environmental Engineering desktop app](https://www.ai999x.com/?ax_shot=environmental-engineering-ai999x/chart-1.webp)](https://www.ai999x.com/models/environmental-engineering-ai999x/#cap-enveng_streeter_phelps_deficit)<br>Streeter-Phelps oxygen deficit and dissolved oxygen at a travel time | [![Briggs plume rise and effective stack height (neutral or unstable air): a chart in the Environmental Engineering desktop app](https://www.ai999x.com/?ax_shot=environmental-engineering-ai999x/chart-2.webp)](https://www.ai999x.com/models/environmental-engineering-ai999x/#cap-enveng_briggs_plume_rise)<br>Briggs plume rise and effective stack height (neutral or unstable air) | [![Activated sludge (complete mix) effluent substrate and biomass (Lawrence-McCarty): a chart in the Environmental Engineering desktop app](https://www.ai999x.com/?ax_shot=environmental-engineering-ai999x/chart-3.webp)](https://www.ai999x.com/models/environmental-engineering-ai999x/#cap-enveng_activated_sludge_cstr_design)<br>Activated sludge (complete mix) effluent substrate and biomass (Lawrence-McCarty) | [![Adding sound levels in decibels: a chart in the Environmental Engineering desktop app](https://www.ai999x.com/?ax_shot=environmental-engineering-ai999x/chart-4.webp)](https://www.ai999x.com/models/environmental-engineering-ai999x/#cap-enveng_decibel_addition)<br>Adding sound levels in decibels |
 
 ## Ask in words: 15 examples
 
@@ -122,21 +143,218 @@ print(a.outcome, a.values)
 # SOLVED {'d50': 6.9126486021e-06, 'eta': 0.676659984169}
 ```
 
-## Screenshots
+## Command line: 15 examples
 
-[![The Environmental Engineering desktop app: Fraction of discrete particles removed in an ideal settling basin, with its worked example and live scene](https://www.ai999x.com/?ax_shot=environmental-engineering-ai999x/hero-dark.webp)](https://www.ai999x.com/models/environmental-engineering-ai999x/)
+Each command below was run with `environmental-engineering` of this release; the lines under it are the answer it printed (the full answer goes on with the method, every input in SI units and the conditions it assumes).
 
-[![Concentration after mixing a discharge with a river: the live scene in the Environmental Engineering desktop app](https://www.ai999x.com/?ax_shot=environmental-engineering-ai999x/see-1.webp)](https://www.ai999x.com/models/environmental-engineering-ai999x/)
+```text
+$ environmental-engineering solve enveng_lapse_rate_stability "T1=20 degC" "z1=0 m" "T2=14 degC" "z2=500 m"
+ELR = 0.012 K/m
+ELR_C_per_km = 12
+stability = superadiabatic (unstable)
 
-*Concentration after mixing a discharge with a river*
+$ environmental-engineering solve enveng_volatile_solids_reduction VS_in=0.75 VS_out=0.55
+VSR = 0.5925925926
+VSR_percent = 59.25925926
+TS_remaining = 0.5555555556
 
-[![Landfill methane generation (first-order decay, constant acceptance): the live scene in the Environmental Engineering desktop app](https://www.ai999x.com/?ax_shot=environmental-engineering-ai999x/see-2.webp)](https://www.ai999x.com/models/environmental-engineering-ai999x/)
+$ environmental-engineering solve enveng_population_projection t1=2000 P1=50000 t2=2020 P2=70000 t=2040
+k_a = 1000
+P_arith = 90000
+k_g = 0.01682361183
+r_g = 0.01696592575
+P_geom = 98000
 
-*Landfill methane generation (first-order decay, constant acceptance)*
+$ environmental-engineering solve enveng_henry_law_equilibrium "p=0.21 atm" "H=0.79 atm*m^3/mol" "M=31.9988 g/mol"
+C = 0.2658227848 mol/m^3
+C_mass = 0.008506010127 kg/m^3
+C_mgL = 8.506010127
 
-[![Dissolved concentration in equilibrium with a gas (Henry's law): the live scene in the Environmental Engineering desktop app](https://www.ai999x.com/?ax_shot=environmental-engineering-ai999x/see-3.webp)](https://www.ai999x.com/models/environmental-engineering-ai999x/)
+$ environmental-engineering solve enveng_darcy_seepage_velocity "K=10 m/day" i=0.002 "A=500 m^2" n_e=0.25
+i = 0.002
+q = 2.314814815e-07 m/s
+q_m_per_day = 0.02
+Q = 0.0001157407407 m^3/s
+Q_m3_per_day = 10
+v_s = 9.259259259e-07 m/s
 
-*Dissolved concentration in equilibrium with a gas (Henry's law)*
+$ environmental-engineering solve enveng_hazen_williams C=100 "D=0.3 m" S=0.002
+v = 0.5790985584 m/s
+Q = 0.04093406498 m^3/s
+S = 0.002
+R = 0.075 m
+A = 0.07068583471 m^2
+
+$ environmental-engineering solve enveng_rational_method C=0.6 "i=50 mm/h" "A=0.25 km^2"
+Q = 2.083333333 m^3/s
+Q_L_per_s = 2083.333333
+Q_m3_per_h = 7500
+
+$ environmental-engineering solve enveng_decibel_addition "L=[85, 85]"
+L_total = 88.01029996
+
+$ environmental-engineering solve enveng_first_order_decay "C0=100 mg/L" "k=0.2 1/day" "t=120 h"
+C = 0.03678794412 kg/m^3
+C_mgL = 36.78794412
+C0 = 0.1 kg/m^3
+C0_mgL = 100
+k = 2.314814815e-06 1/s
+k_per_day = 0.2
+
+$ environmental-engineering solve enveng_chronic_daily_intake_risk "C=0.05 mg/L" "IR=2 L/day" "BW=70 kg" RfD=0.02
+CDI = 0.001428571429
+HQ = 0.07142857143
+
+$ environmental-engineering solve enveng_landfill_compaction_ratio "rho_i=120 kg/m^3" "rho_c=600 kg/m^3"
+CR = 5
+volume_reduction = 0.8
+volume_reduction_percent = 80
+
+$ environmental-engineering solve enveng_activated_sludge_cstr_design Y=0.5 "k=5 1/day" "Ks=60 mg/L" "kd=0.06 1/day" "SRT=10 day" "HRT=6 h" "S0=250 mg/L"
+S = 0.004102564103 kg/m^3
+S_mgL = 4.102564103
+X = 3.073717949 kg/m^3
+X_mgL = 3073.717949
+Y_obs = 0.3125
+
+$ environmental-engineering solve enveng_bod_exerted "L0=250 mg/L" "k=0.23 1/day" "t=5 day"
+BOD_t = 0.1708408077 kg/m^3
+L_t = 0.07915919234 kg/m^3
+BOD_t_mgL = 170.8408077
+
+$ environmental-engineering solve enveng_freundlich_carbon_dose "C0=10 mg/L" "Ce=1 mg/L" K=50 n=2
+qe = 50
+dose = 0.18 kg/m^3
+dose_mgL = 180
+
+$ environmental-engineering solve enveng_box_model "q=4 ug/(m^2*s)" "L=15000 m" "u=3 m/s" "Hm=600 m" "Cb=20 ug/m^3" "C0=20 ug/m^3" "t=2 h"
+C = 4.543574138e-08 kg/m^3
+C_ss = 5.333333333e-08 kg/m^3
+C_ugm3 = 45.43574138
+```
+
+## Rust library: 15 examples
+
+The crate `environmental-engineering-ai999x` (in `rust/` of the GitHub repository) answers a JSON request with `environmental_engineering_ai999x::solve_json`. Each call below was compiled and run on this release; the comment under it is what it printed. The whole program is `rust/environmental-engineering/examples/readme.rs`: `cd rust && cargo run --release --example readme -p environmental-engineering-ai999x`.
+
+```rust
+use serde_json::{json, Value};
+
+fn show(request: Value) {
+    let answer: Value = serde_json::from_str(&environmental_engineering_ai999x::solve_json(&request.to_string())).unwrap();
+    println!("{}", answer["outcome"].as_str().unwrap_or(""));
+    for v in answer["values"].as_array().into_iter().flatten() {
+        let unit = v[2].as_str().unwrap_or("");
+        let unit = if unit.is_empty() || unit == "1" { String::new() } else { format!(" {unit}") };
+        println!("{} = {}{}", v[0].as_str().unwrap_or(""), v[1], unit);
+    }
+}
+
+show(json!({"key": "enveng_lapse_rate_stability", "inputs": {"T1": "20 degC", "z1": "0 m", "T2": "14 degC", "z2": "500 m"}}));
+// SOLVED
+// ELR = 0.012 K/m
+// ELR_C_per_km = 12.0
+// stability = "superadiabatic (unstable)"
+
+show(json!({"key": "enveng_volatile_solids_reduction", "inputs": {"VS_in": "0.75", "VS_out": "0.55"}}));
+// SOLVED
+// VSR = 0.592592592593
+// VSR_percent = 59.2592592593
+// TS_remaining = 0.555555555556
+
+show(json!({"key": "enveng_population_projection", "inputs": {"t1": "2000", "P1": "50000", "t2": "2020", "P2": "70000", "t": "2040"}}));
+// SOLVED
+// k_a = 1000.0
+// P_arith = 90000.0
+// k_g = 0.0168236118311
+// r_g = 0.0169659257465
+// P_geom = 98000.0
+
+show(json!({"key": "enveng_henry_law_equilibrium", "inputs": {"p": "0.21 atm", "H": "0.79 atm*m^3/mol", "M": "31.9988 g/mol"}}));
+// SOLVED
+// C = 0.26582278481 mol/m^3
+// C_mass = 0.00850601012658 kg/m^3
+// C_mgL = 8.50601012658
+
+show(json!({"key": "enveng_darcy_seepage_velocity", "inputs": {"K": "10 m/day", "i": "0.002", "A": "500 m^2", "n_e": "0.25"}}));
+// SOLVED
+// i = 0.002
+// q = 2.31481481481e-7 m/s
+// q_m_per_day = 0.02
+// Q = 0.000115740740741 m^3/s
+// Q_m3_per_day = 10.0
+// v_s = 9.25925925926e-7 m/s
+
+show(json!({"key": "enveng_hazen_williams", "inputs": {"C": "100", "D": "0.3 m", "S": "0.002"}}));
+// SOLVED
+// v = 0.579098558442 m/s
+// Q = 0.0409340649804 m^3/s
+// S = 0.002
+// R = 0.075 m
+// A = 0.0706858347058 m^2
+
+show(json!({"key": "enveng_rational_method", "inputs": {"C": "0.6", "i": "50 mm/h", "A": "0.25 km^2"}}));
+// SOLVED
+// Q = 2.08333333333 m^3/s
+// Q_L_per_s = 2083.33333333
+// Q_m3_per_h = 7500.0
+
+show(json!({"key": "enveng_decibel_addition", "inputs": {"L": [85, 85]}}));
+// SOLVED
+// L_total = 88.0102999566
+
+show(json!({"key": "enveng_first_order_decay", "inputs": {"C0": "100 mg/L", "k": "0.2 1/day", "t": "120 h"}}));
+// SOLVED
+// C = 0.0367879441171 kg/m^3
+// C_mgL = 36.7879441171
+// C0 = 0.1 kg/m^3
+// C0_mgL = 100.0
+// k = 2.31481481481e-6 1/s
+// k_per_day = 0.2
+
+show(json!({"key": "enveng_chronic_daily_intake_risk", "inputs": {"C": "0.05 mg/L", "IR": "2 L/day", "BW": "70 kg", "RfD": "0.02"}}));
+// SOLVED
+// CDI = 0.00142857142857
+// HQ = 0.0714285714286
+
+show(json!({"key": "enveng_landfill_compaction_ratio", "inputs": {"rho_i": "120 kg/m^3", "rho_c": "600 kg/m^3"}}));
+// SOLVED
+// CR = 5.0
+// volume_reduction = 0.8
+// volume_reduction_percent = 80.0
+
+show(json!({"key": "enveng_activated_sludge_cstr_design", "inputs": {"Y": "0.5", "k": "5 1/day", "Ks": "60 mg/L", "kd": "0.06 1/day", "SRT": "10 day", "HRT": "6 h", "S0": "250 mg/L"}}));
+// SOLVED
+// S = 0.00410256410256 kg/m^3
+// S_mgL = 4.10256410256
+// X = 3.07371794872 kg/m^3
+// X_mgL = 3073.71794872
+// Y_obs = 0.3125
+
+show(json!({"key": "enveng_bod_exerted", "inputs": {"L0": "250 mg/L", "k": "0.23 1/day", "t": "5 day"}}));
+// SOLVED
+// BOD_t = 0.170840807655 kg/m^3
+// L_t = 0.0791591923448 kg/m^3
+// BOD_t_mgL = 170.840807655
+
+show(json!({"key": "enveng_freundlich_carbon_dose", "inputs": {"C0": "10 mg/L", "Ce": "1 mg/L", "K": "50", "n": "2"}}));
+// SOLVED
+// qe = 50.0
+// dose = 0.18 kg/m^3
+// dose_mgL = 180.0
+
+show(json!({"key": "enveng_box_model", "inputs": {"q": "4 ug/(m^2*s)", "L": "15000 m", "u": "3 m/s", "Hm": "600 m", "Cb": "20 ug/m^3", "C0": "20 ug/m^3", "t": "2 h"}}));
+// SOLVED
+// C = 4.54357413773e-8 kg/m^3
+// C_ss = 5.33333333333e-8 kg/m^3
+// C_ugm3 = 45.4357413773
+```
+
+## Guides
+
+- Desktop app guide: the window, every calculation, scenes and charts: [PDF](https://huggingface.co/AI999X/environmental-engineering-ai999x/blob/main/docs/environmental_engineering_ai999x_desktop_guide.pdf) · [HTML](https://huggingface.co/AI999X/environmental-engineering-ai999x/blob/main/docs/environmental_engineering_ai999x_desktop_guide.html) · [Markdown](https://huggingface.co/AI999X/environmental-engineering-ai999x/blob/main/docs/environmental_engineering_ai999x_desktop_guide.md)
+- Python guide: every calculation with a Python example: [PDF](https://huggingface.co/AI999X/environmental-engineering-ai999x/blob/main/docs/environmental_engineering_ai999x_capabilities.pdf) · [HTML](https://huggingface.co/AI999X/environmental-engineering-ai999x/blob/main/docs/environmental_engineering_ai999x_capabilities.html) · [Markdown](https://huggingface.co/AI999X/environmental-engineering-ai999x/blob/main/docs/environmental_engineering_ai999x_capabilities.md)
+- Command-line guide: every calculation with the command and what it printed: [PDF](https://huggingface.co/AI999X/environmental-engineering-ai999x/blob/main/docs/environmental_engineering_ai999x_rust_guide.pdf) · [HTML](https://huggingface.co/AI999X/environmental-engineering-ai999x/blob/main/docs/environmental_engineering_ai999x_rust_guide.html) · [Markdown](https://huggingface.co/AI999X/environmental-engineering-ai999x/blob/main/docs/environmental_engineering_ai999x_rust_guide.md)
 
 Every calculation, with its formula, a worked example and its figures: **[Environmental Engineering on ai999x.com](https://www.ai999x.com/models/environmental-engineering-ai999x/)**. Install guides for the app and the command line: [https://www.ai999x.com/desktop-cli/](https://www.ai999x.com/desktop-cli/).
 
