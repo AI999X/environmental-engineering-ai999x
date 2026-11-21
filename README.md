@@ -10,8 +10,8 @@ Environmental Engineering covers Gaussian plume dispersion and plume rise, BOD a
 
 | | |
 |---|---|
-| **Desktop app** (Windows, Linux) | [Windows](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.6/ai999x-environmental-engineering-1.6.6-windows-x86_64.zip) · [Linux](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.6/ai999x-environmental-engineering-1.6.6-linux-x86_64.tar.gz) |
-| **Command line** `environmental-engineering` (Windows, Linux) | [Windows](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.6/ai999x-cli-1.6.6-windows-x86_64.zip) · [Linux](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.6/ai999x-cli-1.6.6-linux-x86_64.tar.gz) |
+| **Desktop app** (Windows, Linux) | [Windows](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.7/ai999x-environmental-engineering-1.6.7-windows-x86_64.zip) · [Linux](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.7/ai999x-environmental-engineering-1.6.7-linux-x86_64.tar.gz) |
+| **Command line** `environmental-engineering` (Windows, Linux) | [Windows](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.7/ai999x-cli-1.6.7-windows-x86_64.zip) · [Linux](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.7/ai999x-cli-1.6.7-linux-x86_64.tar.gz) |
 | **Browser** (any device) | [Try it on the model page](https://www.ai999x.com/models/environmental-engineering-ai999x/#capabilities) |
 | **Python** 3.10+ | `pip install environmental-engineering-ai999x`: on Windows and Linux (x86-64) `pip` installs the same compiled engine; on other systems (macOS, ARM) it installs a pure-Python build that gives the same answers |
 
@@ -143,96 +143,6 @@ print(a.outcome, a.values)
 # SOLVED {'d50': 6.9126486021e-06, 'eta': 0.676659984169}
 ```
 
-## Command line: 15 examples
-
-Each command below was run with `environmental-engineering` of this release; the lines under it are the answer it printed (the full answer goes on with the method, every input in SI units and the conditions it assumes).
-
-```text
-$ environmental-engineering solve enveng_lapse_rate_stability "T1=20 degC" "z1=0 m" "T2=14 degC" "z2=500 m"
-ELR = 0.012 K/m
-ELR_C_per_km = 12
-stability = superadiabatic (unstable)
-
-$ environmental-engineering solve enveng_volatile_solids_reduction VS_in=0.75 VS_out=0.55
-VSR = 0.5925925926
-VSR_percent = 59.25925926
-TS_remaining = 0.5555555556
-
-$ environmental-engineering solve enveng_population_projection t1=2000 P1=50000 t2=2020 P2=70000 t=2040
-k_a = 1000
-P_arith = 90000
-k_g = 0.01682361183
-r_g = 0.01696592575
-P_geom = 98000
-
-$ environmental-engineering solve enveng_henry_law_equilibrium "p=0.21 atm" "H=0.79 atm*m^3/mol" "M=31.9988 g/mol"
-C = 0.2658227848 mol/m^3
-C_mass = 0.008506010127 kg/m^3
-C_mgL = 8.506010127
-
-$ environmental-engineering solve enveng_darcy_seepage_velocity "K=10 m/day" i=0.002 "A=500 m^2" n_e=0.25
-i = 0.002
-q = 2.314814815e-07 m/s
-q_m_per_day = 0.02
-Q = 0.0001157407407 m^3/s
-Q_m3_per_day = 10
-v_s = 9.259259259e-07 m/s
-
-$ environmental-engineering solve enveng_hazen_williams C=100 "D=0.3 m" S=0.002
-v = 0.5790985584 m/s
-Q = 0.04093406498 m^3/s
-S = 0.002
-R = 0.075 m
-A = 0.07068583471 m^2
-
-$ environmental-engineering solve enveng_rational_method C=0.6 "i=50 mm/h" "A=0.25 km^2"
-Q = 2.083333333 m^3/s
-Q_L_per_s = 2083.333333
-Q_m3_per_h = 7500
-
-$ environmental-engineering solve enveng_decibel_addition "L=[85, 85]"
-L_total = 88.01029996
-
-$ environmental-engineering solve enveng_first_order_decay "C0=100 mg/L" "k=0.2 1/day" "t=120 h"
-C = 0.03678794412 kg/m^3
-C_mgL = 36.78794412
-C0 = 0.1 kg/m^3
-C0_mgL = 100
-k = 2.314814815e-06 1/s
-k_per_day = 0.2
-
-$ environmental-engineering solve enveng_chronic_daily_intake_risk "C=0.05 mg/L" "IR=2 L/day" "BW=70 kg" RfD=0.02
-CDI = 0.001428571429
-HQ = 0.07142857143
-
-$ environmental-engineering solve enveng_landfill_compaction_ratio "rho_i=120 kg/m^3" "rho_c=600 kg/m^3"
-CR = 5
-volume_reduction = 0.8
-volume_reduction_percent = 80
-
-$ environmental-engineering solve enveng_activated_sludge_cstr_design Y=0.5 "k=5 1/day" "Ks=60 mg/L" "kd=0.06 1/day" "SRT=10 day" "HRT=6 h" "S0=250 mg/L"
-S = 0.004102564103 kg/m^3
-S_mgL = 4.102564103
-X = 3.073717949 kg/m^3
-X_mgL = 3073.717949
-Y_obs = 0.3125
-
-$ environmental-engineering solve enveng_bod_exerted "L0=250 mg/L" "k=0.23 1/day" "t=5 day"
-BOD_t = 0.1708408077 kg/m^3
-L_t = 0.07915919234 kg/m^3
-BOD_t_mgL = 170.8408077
-
-$ environmental-engineering solve enveng_freundlich_carbon_dose "C0=10 mg/L" "Ce=1 mg/L" K=50 n=2
-qe = 50
-dose = 0.18 kg/m^3
-dose_mgL = 180
-
-$ environmental-engineering solve enveng_box_model "q=4 ug/(m^2*s)" "L=15000 m" "u=3 m/s" "Hm=600 m" "Cb=20 ug/m^3" "C0=20 ug/m^3" "t=2 h"
-C = 4.543574138e-08 kg/m^3
-C_ss = 5.333333333e-08 kg/m^3
-C_ugm3 = 45.43574138
-```
-
 ## Guides
 
 - Desktop app guide: the window, every calculation, scenes and charts: [PDF](https://huggingface.co/AI999X/environmental-engineering-ai999x/blob/main/docs/environmental_engineering_ai999x_desktop_guide.pdf) · [HTML](https://huggingface.co/AI999X/environmental-engineering-ai999x/blob/main/docs/environmental_engineering_ai999x_desktop_guide.html) · [Markdown](https://huggingface.co/AI999X/environmental-engineering-ai999x/blob/main/docs/environmental_engineering_ai999x_desktop_guide.md)
@@ -241,13 +151,13 @@ C_ugm3 = 45.43574138
 
 Every calculation, with its formula, a worked example and its figures: **[Environmental Engineering on ai999x.com](https://www.ai999x.com/models/environmental-engineering-ai999x/)**. Install guides for the app and the command line: [https://www.ai999x.com/desktop-cli/](https://www.ai999x.com/desktop-cli/).
 
-Version 1.6.6 · License: Apache-2.0 · Author: Ibnul Jaif Farabi · Organization: AI999X · Contact: support@ai999x.com · [Support the project](https://buymeacoffee.com/ibnuljaiffarabi)
+Version 1.6.7 · License: Apache-2.0 · Author: Ibnul Jaif Farabi · Organization: AI999X · Contact: support@ai999x.com · [Support the project](https://buymeacoffee.com/ibnuljaiffarabi)
 
 *The Future Is Self-Improving.*
 
 ## Source and releases
 
-This repository holds the installable source of each release, exactly as published on [PyPI](https://pypi.org/project/environmental-engineering-ai999x/) (`pip install .` builds it). Releases are tagged `v1.6.6`; the [GitHub release](https://github.com/AI999X/environmental-engineering-ai999x/releases/tag/v1.6.6) carries the wheel, the desktop app and the command-line program for Windows and Linux, and their checksums.
+This repository holds the installable source of each release, exactly as published on [PyPI](https://pypi.org/project/environmental-engineering-ai999x/) (`pip install .` builds it). Releases are tagged `v1.6.7`; the [GitHub release](https://github.com/AI999X/environmental-engineering-ai999x/releases/tag/v1.6.7) carries the wheel, the desktop app and the command-line program for Windows and Linux, and their checksums.
 
 ## Build the program from source
 
