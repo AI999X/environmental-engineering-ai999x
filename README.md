@@ -10,8 +10,8 @@ Environmental Engineering covers Gaussian plume dispersion and plume rise, BOD a
 
 | | |
 |---|---|
-| **Desktop app** (Windows, Linux) | [Windows](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.5/ai999x-environmental-engineering-1.6.5-windows-x86_64.zip) · [Linux](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.5/ai999x-environmental-engineering-1.6.5-linux-x86_64.tar.gz) |
-| **Command line** `environmental-engineering` (Windows, Linux) | [Windows](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.4/ai999x-cli-1.6.4-windows-x86_64.zip) · [Linux](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.4/ai999x-cli-1.6.4-linux-x86_64.tar.gz) |
+| **Desktop app** (Windows, Linux) | [Windows](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.6/ai999x-environmental-engineering-1.6.6-windows-x86_64.zip) · [Linux](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.6/ai999x-environmental-engineering-1.6.6-linux-x86_64.tar.gz) |
+| **Command line** `environmental-engineering` (Windows, Linux) | [Windows](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.6/ai999x-cli-1.6.6-windows-x86_64.zip) · [Linux](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.6/ai999x-cli-1.6.6-linux-x86_64.tar.gz) |
 | **Browser** (any device) | [Try it on the model page](https://www.ai999x.com/models/environmental-engineering-ai999x/#capabilities) |
 | **Python** 3.10+ | `pip install environmental-engineering-ai999x`: on Windows and Linux (x86-64) `pip` installs the same compiled engine; on other systems (macOS, ARM) it installs a pure-Python build that gives the same answers |
 
@@ -233,123 +233,6 @@ C_ss = 5.333333333e-08 kg/m^3
 C_ugm3 = 45.43574138
 ```
 
-## Rust library: 15 examples
-
-The crate `environmental-engineering-ai999x` (in `rust/` of the GitHub repository) answers a JSON request with `environmental_engineering_ai999x::solve_json`. Each call below was compiled and run on this release; the comment under it is what it printed. The whole program is `rust/environmental-engineering/examples/readme.rs`: `cd rust && cargo run --release --example readme -p environmental-engineering-ai999x`.
-
-```rust
-use serde_json::{json, Value};
-
-fn show(request: Value) {
-    let answer: Value = serde_json::from_str(&environmental_engineering_ai999x::solve_json(&request.to_string())).unwrap();
-    println!("{}", answer["outcome"].as_str().unwrap_or(""));
-    for v in answer["values"].as_array().into_iter().flatten() {
-        let unit = v[2].as_str().unwrap_or("");
-        let unit = if unit.is_empty() || unit == "1" { String::new() } else { format!(" {unit}") };
-        println!("{} = {}{}", v[0].as_str().unwrap_or(""), v[1], unit);
-    }
-}
-
-show(json!({"key": "enveng_lapse_rate_stability", "inputs": {"T1": "20 degC", "z1": "0 m", "T2": "14 degC", "z2": "500 m"}}));
-// SOLVED
-// ELR = 0.012 K/m
-// ELR_C_per_km = 12.0
-// stability = "superadiabatic (unstable)"
-
-show(json!({"key": "enveng_volatile_solids_reduction", "inputs": {"VS_in": "0.75", "VS_out": "0.55"}}));
-// SOLVED
-// VSR = 0.592592592593
-// VSR_percent = 59.2592592593
-// TS_remaining = 0.555555555556
-
-show(json!({"key": "enveng_population_projection", "inputs": {"t1": "2000", "P1": "50000", "t2": "2020", "P2": "70000", "t": "2040"}}));
-// SOLVED
-// k_a = 1000.0
-// P_arith = 90000.0
-// k_g = 0.0168236118311
-// r_g = 0.0169659257465
-// P_geom = 98000.0
-
-show(json!({"key": "enveng_henry_law_equilibrium", "inputs": {"p": "0.21 atm", "H": "0.79 atm*m^3/mol", "M": "31.9988 g/mol"}}));
-// SOLVED
-// C = 0.26582278481 mol/m^3
-// C_mass = 0.00850601012658 kg/m^3
-// C_mgL = 8.50601012658
-
-show(json!({"key": "enveng_darcy_seepage_velocity", "inputs": {"K": "10 m/day", "i": "0.002", "A": "500 m^2", "n_e": "0.25"}}));
-// SOLVED
-// i = 0.002
-// q = 2.31481481481e-7 m/s
-// q_m_per_day = 0.02
-// Q = 0.000115740740741 m^3/s
-// Q_m3_per_day = 10.0
-// v_s = 9.25925925926e-7 m/s
-
-show(json!({"key": "enveng_hazen_williams", "inputs": {"C": "100", "D": "0.3 m", "S": "0.002"}}));
-// SOLVED
-// v = 0.579098558442 m/s
-// Q = 0.0409340649804 m^3/s
-// S = 0.002
-// R = 0.075 m
-// A = 0.0706858347058 m^2
-
-show(json!({"key": "enveng_rational_method", "inputs": {"C": "0.6", "i": "50 mm/h", "A": "0.25 km^2"}}));
-// SOLVED
-// Q = 2.08333333333 m^3/s
-// Q_L_per_s = 2083.33333333
-// Q_m3_per_h = 7500.0
-
-show(json!({"key": "enveng_decibel_addition", "inputs": {"L": [85, 85]}}));
-// SOLVED
-// L_total = 88.0102999566
-
-show(json!({"key": "enveng_first_order_decay", "inputs": {"C0": "100 mg/L", "k": "0.2 1/day", "t": "120 h"}}));
-// SOLVED
-// C = 0.0367879441171 kg/m^3
-// C_mgL = 36.7879441171
-// C0 = 0.1 kg/m^3
-// C0_mgL = 100.0
-// k = 2.31481481481e-6 1/s
-// k_per_day = 0.2
-
-show(json!({"key": "enveng_chronic_daily_intake_risk", "inputs": {"C": "0.05 mg/L", "IR": "2 L/day", "BW": "70 kg", "RfD": "0.02"}}));
-// SOLVED
-// CDI = 0.00142857142857
-// HQ = 0.0714285714286
-
-show(json!({"key": "enveng_landfill_compaction_ratio", "inputs": {"rho_i": "120 kg/m^3", "rho_c": "600 kg/m^3"}}));
-// SOLVED
-// CR = 5.0
-// volume_reduction = 0.8
-// volume_reduction_percent = 80.0
-
-show(json!({"key": "enveng_activated_sludge_cstr_design", "inputs": {"Y": "0.5", "k": "5 1/day", "Ks": "60 mg/L", "kd": "0.06 1/day", "SRT": "10 day", "HRT": "6 h", "S0": "250 mg/L"}}));
-// SOLVED
-// S = 0.00410256410256 kg/m^3
-// S_mgL = 4.10256410256
-// X = 3.07371794872 kg/m^3
-// X_mgL = 3073.71794872
-// Y_obs = 0.3125
-
-show(json!({"key": "enveng_bod_exerted", "inputs": {"L0": "250 mg/L", "k": "0.23 1/day", "t": "5 day"}}));
-// SOLVED
-// BOD_t = 0.170840807655 kg/m^3
-// L_t = 0.0791591923448 kg/m^3
-// BOD_t_mgL = 170.840807655
-
-show(json!({"key": "enveng_freundlich_carbon_dose", "inputs": {"C0": "10 mg/L", "Ce": "1 mg/L", "K": "50", "n": "2"}}));
-// SOLVED
-// qe = 50.0
-// dose = 0.18 kg/m^3
-// dose_mgL = 180.0
-
-show(json!({"key": "enveng_box_model", "inputs": {"q": "4 ug/(m^2*s)", "L": "15000 m", "u": "3 m/s", "Hm": "600 m", "Cb": "20 ug/m^3", "C0": "20 ug/m^3", "t": "2 h"}}));
-// SOLVED
-// C = 4.54357413773e-8 kg/m^3
-// C_ss = 5.33333333333e-8 kg/m^3
-// C_ugm3 = 45.4357413773
-```
-
 ## Guides
 
 - Desktop app guide: the window, every calculation, scenes and charts: [PDF](https://huggingface.co/AI999X/environmental-engineering-ai999x/blob/main/docs/environmental_engineering_ai999x_desktop_guide.pdf) · [HTML](https://huggingface.co/AI999X/environmental-engineering-ai999x/blob/main/docs/environmental_engineering_ai999x_desktop_guide.html) · [Markdown](https://huggingface.co/AI999X/environmental-engineering-ai999x/blob/main/docs/environmental_engineering_ai999x_desktop_guide.md)
@@ -358,7 +241,7 @@ show(json!({"key": "enveng_box_model", "inputs": {"q": "4 ug/(m^2*s)", "L": "150
 
 Every calculation, with its formula, a worked example and its figures: **[Environmental Engineering on ai999x.com](https://www.ai999x.com/models/environmental-engineering-ai999x/)**. Install guides for the app and the command line: [https://www.ai999x.com/desktop-cli/](https://www.ai999x.com/desktop-cli/).
 
-Version 1.6.4 · License: Apache-2.0 · Author: Ibnul Jaif Farabi · Organization: AI999X · Contact: support@ai999x.com · [Support the project](https://buymeacoffee.com/ibnuljaiffarabi)
+Version 1.6.6 · License: Apache-2.0 · Author: Ibnul Jaif Farabi · Organization: AI999X · Contact: support@ai999x.com · [Support the project](https://buymeacoffee.com/ibnuljaiffarabi)
 
 *The Future Is Self-Improving.*
 
