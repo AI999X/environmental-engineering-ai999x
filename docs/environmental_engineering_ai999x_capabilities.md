@@ -282,7 +282,11 @@ $$
 
 ![Pasquill stability class (A-F; A-B etc](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-stability-class-decision)
 
-*Pasquill stability class (A-F; A-B etc. for intermediate cases) (stability) along u (surface wind speed at 10 m) from 0.25 m/s to 25 m/s (logarithmic axis): 81 runs of environmental-engineering-ai999x, each band coloured by the verdict returned (A, A-B, B, C); it changes near u = 2.04381 m/s, 3.05802 m/s, 5.13381 m/s. Other inputs as in the worked example: condition = strong. Marked: the worked example, u = 2.5 m/s → A-B.*
+*Pasquill stability class (A-F; A-B etc. for intermediate cases) (stability) along u (surface wind speed at 10 m) from 0.25 m/s to 25 m/s (logarithmic axis): 81 solves of the model, each stretch shaded by the verdict returned (A, A-B, B, C); it changes near u = 2.044 m/s, 3.058 m/s, 5.134 m/s. Marked: the given point, u = 2.5 m/s gives A-B. Your inputs: u = 2.5 m/s, condition = strong.*
+
+![Pasquill stability class as u runs from 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-stability-class-live-1)
+
+*Pasquill stability class as u runs from 1.5 to 3.5 m/s, every other input as you entered it (41 solutions). Shaded by pasquill stability class (A-F; A-B etc. for intermediate cases): A, A-B, B. Your inputs: u = 2.5 m/s, condition = strong.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_stability_class', u=2.5, condition='strong')
@@ -330,9 +334,13 @@ $$
 - **Assumes:** 100 $m  \leq  x  \leq  10$ km
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![sigma_y (horizontal (crosswind) dispersion coefficient) against x (downwind distance from the source) from 500 m to 1500 m](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-briggs-dispersion-coefficients-curve)
+![Horizontal (crosswind) dispersion coefficient as x runs from 600 to 1400 m, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-briggs-dispersion-coefficients-live-1)
 
-*sigma_y (horizontal (crosswind) dispersion coefficient) against x (downwind distance from the source) from 500 m to 1500 m. One curve for each value of cls (Pasquill stability class A-F (urban: A and B share A-B, E and F share E-F)): d, a, b, c. Other inputs as in the worked example: terrain = rural. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, x = 1000 m, sigma_y = 76.277 m.*
+*Horizontal (crosswind) dispersion coefficient as x runs from 600 to 1400 m, every other input as you entered it (41 solutions). Marked: your x = 1000 m gives σ_y = 76.28. Your inputs: x = 1000 m, cls = d, terrain = rural.*
+
+![Horizontal (crosswind) dispersion coefficient for every choice of cls, every other input as you entered it (highlighted: your choice)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-briggs-dispersion-coefficients-live-2)
+
+*Horizontal (crosswind) dispersion coefficient for every choice of cls, every other input as you entered it (highlighted: your choice). a: 209.8; b: 152.6; c: 104.9; d: 76.28; e: 57.21; f: 38.14. Your inputs: x = 1000 m, cls = d, terrain = rural.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_briggs_dispersion_coefficients', x=1000.0, cls='d', terrain='rural')
@@ -384,9 +392,17 @@ $$
 - **Assumes:** Q, u, sigma_y, $sigma_z > 0$; H, $z  \geq  0$; steady state, flat terrain
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![C (concentration at the receptor) against sigma_y (horizontal dispersion coefficient at the receptor distance) from 6 m to 600 m on a logarithmic axis](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-gaussian-plume-concentration-curve)
+![Side view](https://huggingface.co/AI999X/environmental-engineering-ai999x/resolve/main/figures/enveng-gaussian-plume-concentration-scene.svg)
 
-*C (concentration at the receptor) against sigma_y (horizontal dispersion coefficient at the receptor distance) from 6 m to 600 m on a logarithmic axis. One curve for each value of Q (pollutant emission rate): 0.1 kg/s, 0.05 kg/s, 0.2 kg/s. Other inputs as in the worked example: u = 4.0 m/s, sigma_z = 30.0 m, H = 50.0 m, y = 20.0 m, z = 0.0 m. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, sigma_y = 60 m, C = 1.0428e-06 kg/m^3.*
+*Side view. The stack (50 m) and the effective height H = 50 m that the model computes; the dashed line is the plume centreline (its rise is sketched to H). Heights and distances are each to scale, but not to the same scale. In SI units: C = 1.043e-06 kg/m^3. Your inputs: Q = 100 g/s, u = 4 m/s, sigma_y = 60 m, sigma_z = 30 m, H = 50 m, y = 20 m, z = 0 m.*
+
+![Concentration at the receptor as σ_z runs from 18 to 42 m, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-gaussian-plume-concentration-live-1)
+
+*Concentration at the receptor as σ_z runs from 18 to 42 m, every other input as you entered it (41 solutions). Marked: your σ_z = 30 m gives C = 1.043 ug/L. Your inputs: Q = 100 g/s, u = 4 m/s, sigma_y = 60 m, sigma_z = 30 m, H = 50 m, y = 20 m, z = 0 m.*
+
+![Concentration at the receptor as H runs from 30 to 70 m, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-gaussian-plume-concentration-live-2)
+
+*Concentration at the receptor as H runs from 30 to 70 m, every other input as you entered it (29 solutions). Marked: your H = 50 m gives C = 1.043 ug/L. Your inputs: Q = 100 g/s, u = 4 m/s, sigma_y = 60 m, sigma_z = 30 m, H = 50 m, y = 20 m, z = 0 m.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_gaussian_plume_concentration', Q=0.1, u=4.0, sigma_y=60.0, sigma_z=30.0, H=50.0, y=20.0, z=0.0)
@@ -435,9 +451,17 @@ $$
 - **Assumes:** Q, u, sigma_y, $sigma_z > 0$; $H  \geq  0$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![C (ground-level centreline concentration) against u (mean wind speed) from 2](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-ground-centerline-concentration-curve)
+![Side view](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-ground-centerline-concentration-scene)
 
-*C (ground-level centreline concentration) against u (mean wind speed) from 2.5 m/s to 7.5 m/s. One curve for each value of Q (pollutant emission rate): 0.15 kg/s, 0.075 kg/s, 0.3 kg/s. Other inputs as in the worked example: sigma_y = 80.0 m, sigma_z = 40.0 m, H = 60.0 m. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, u = 5 m/s, C = 9.6881e-07 kg/m^3.*
+*Side view. The stack (60 m) and the effective height H = 60 m that the model computes; the dashed line is the plume centreline (its rise is sketched to H). Heights and distances are each to scale, but not to the same scale. In SI units: C = 9.688e-07 kg/m^3. Your inputs: Q = 150 g/s, u = 5 m/s, sigma_y = 80 m, sigma_z = 40 m, H = 60 m.*
+
+![Ground-level centreline concentration as σ_z runs from 24 to 56 m, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-ground-centerline-concentration-live-1)
+
+*Ground-level centreline concentration as σ_z runs from 24 to 56 m, every other input as you entered it (41 solutions). Marked: your σ_z = 40 m gives C = 968.8 ug/m^3. Your inputs: Q = 150 g/s, u = 5 m/s, sigma_y = 80 m, sigma_z = 40 m, H = 60 m.*
+
+![Ground-level centreline concentration as H runs from 36 to 84 m, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-ground-centerline-concentration-live-2)
+
+*Ground-level centreline concentration as H runs from 36 to 84 m, every other input as you entered it (29 solutions). Marked: your H = 60 m gives C = 968.8 ug/m^3. Your inputs: Q = 150 g/s, u = 5 m/s, sigma_y = 80 m, sigma_z = 40 m, H = 60 m.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_ground_centerline_concentration', Q=0.15, u=5.0, sigma_y=80.0, sigma_z=40.0, H=60.0)
@@ -490,9 +514,21 @@ $$
 - **Assumes:** 100 $m  \leq  x  \leq  10$ km; Q, $u > 0$; H, $z  \geq  0$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![C (concentration at the receptor) against x (downwind distance) from 200 m to 20000 m on a logarithmic axis](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-plume-concentration-stability-curve)
+![Side view](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-plume-concentration-stability-scene)
 
-*C (concentration at the receptor) against x (downwind distance) from 200 m to 20000 m on a logarithmic axis. One curve for each value of Q (pollutant emission rate): 0.2 kg/s, 0.1 kg/s, 0.4 kg/s. Other inputs as in the worked example: u = 5.0 m/s, H = 80.0 m, y = 0.0 m, z = 0.0 m, cls = c, terrain = rural. 34 points per curve computed by environmental-engineering-ai999x; marked: the worked example, x = 2000 m, C = 3.9357e-07 kg/m^3.*
+*Side view. The stack (80 m) and the effective height H = 80 m that the model computes; the dashed line is the plume centreline (its rise is sketched to H). The grey band is ±2 sigma_z, the model's Briggs coefficient for class c (rural) at 24 distances. Heights and distances are each to scale, but not to the same scale. In SI units: C = 3.936e-07 kg/m^3. Your inputs: Q = 0.2 kg/s, u = 5 m/s, H = 80 m, x = 2000 m, y = 0 m, z = 0 m, cls = c, terrain = rural.*
+
+![Concentration at the receptor as x runs from 1200 to 2800 m, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-plume-concentration-stability-live-1)
+
+*Concentration at the receptor as x runs from 1200 to 2800 m, every other input as you entered it (41 solutions). Marked: your x = 2000 m gives C = 0.3936 ug/L. Your inputs: Q = 0.2 kg/s, u = 5 m/s, H = 80 m, x = 2000 m, y = 0 m, z = 0 m, cls = c, terrain = rural.*
+
+![Concentration at the receptor for every choice of cls, every other input as you entered it (highlighted: your choice)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-plume-concentration-stability-live-2)
+
+*Concentration at the receptor for every choice of cls, every other input as you entered it (highlighted: your choice). a: 7.768e-08; b: 1.718e-07; c: 3.936e-07; d: 5.973e-07; e: 3.184e-07; f: 2.924e-09. Your inputs: Q = 0.2 kg/s, u = 5 m/s, H = 80 m, x = 2000 m, y = 0 m, z = 0 m, cls = c, terrain = rural.*
+
+![Concentration at the receptor as Q runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-plume-concentration-stability-live-3)
+
+*Concentration at the receptor as Q runs from 0.12 to 0.28 kg/s, every other input as you entered it (29 solutions). Marked: your Q = 0.2 kg/s gives C = 0.3936 ug/L. Your inputs: Q = 0.2 kg/s, u = 5 m/s, H = 80 m, x = 2000 m, y = 0 m, z = 0 m, cls = c, terrain = rural.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_plume_concentration_stability', Q=0.2, u=5.0, H=80.0, x=2000.0, y=0.0, z=0.0, cls='c', terrain='rural')
@@ -540,9 +576,13 @@ $$
 - **Assumes:** Q, u, H, $k > 0$; sigma_y/sigma_z constant along the plume
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![C_max (maximum ground-level concentration) against H (effective stack height) from 50 m to 150 m](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-max-ground-concentration-ratio-curve)
+![Maximum ground-level concentration as H runs from 60 to 140 m, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-max-ground-concentration-ratio-live-1)
 
-*C_max (maximum ground-level concentration) against H (effective stack height) from 50 m to 150 m. One curve for each value of Q (emission rate): 0.1 kg/s, 0.05 kg/s, 0.2 kg/s. Other inputs as in the worked example: u = 5.0 m/s, k = 2.0. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, H = 100 m, C_max = 2.3420e-07 kg/m^3.*
+*Maximum ground-level concentration as H runs from 60 to 140 m, every other input as you entered it (41 solutions). Marked: your H = 100 m gives C_max = 234.2 ug/m^3. Your inputs: Q = 100 g/s, u = 5 m/s, H = 100 m, k = 2.*
+
+![Maximum ground-level concentration as Q runs from 60 to 140 g/s, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-max-ground-concentration-ratio-live-2)
+
+*Maximum ground-level concentration as Q runs from 60 to 140 g/s, every other input as you entered it (29 solutions). Marked: your Q = 100 g/s gives C_max = 234.2 ug/m^3. Your inputs: Q = 100 g/s, u = 5 m/s, H = 100 m, k = 2.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_max_ground_concentration_ratio', Q=0.1, u=5.0, H=100.0, k=2.0)
@@ -593,9 +633,21 @@ $$
 - **Assumes:** the maximum lies between 100 m and 10 km
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![C_max (maximum ground-level concentration) against H (effective stack height) from 25 m to 75 m](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-max-ground-concentration-briggs-curve)
+![Side view](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-max-ground-concentration-briggs-scene)
 
-*C_max (maximum ground-level concentration) against H (effective stack height) from 25 m to 75 m. One curve for each value of Q (emission rate): 0.1 kg/s, 0.05 kg/s, 0.2 kg/s. Other inputs as in the worked example: u = 5.0 m/s, cls = c, terrain = rural. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, H = 50 m, C_max = 1.3336e-06 kg/m^3.*
+*Side view. The stack (50 m) and the effective height H = 50 m that the model computes; the dashed line is the plume centreline (its rise is sketched to H). The grey band is ±2 sigma_z, the model's Briggs coefficient for class c (rural) at 24 distances. Heights and distances are each to scale, but not to the same scale. In SI units: C_max = 1.334e-06 kg/m^3. Your inputs: Q = 0.1 kg/s, u = 5 m/s, H = 50 m, cls = c, terrain = rural.*
+
+![Maximum ground-level concentration as H runs from 30 to 70 m, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-max-ground-concentration-briggs-live-1)
+
+*Maximum ground-level concentration as H runs from 30 to 70 m, every other input as you entered it (41 solutions). Marked: your H = 50 m gives C_max = 1334 ug/m^3. Your inputs: Q = 0.1 kg/s, u = 5 m/s, H = 50 m, cls = c, terrain = rural.*
+
+![Maximum ground-level concentration for every choice of cls, every other input as you entered it (highlighted: your choice)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-max-ground-concentration-briggs-live-2)
+
+*Maximum ground-level concentration for every choice of cls, every other input as you entered it (highlighted: your choice). a: 1.718e-06; b: 1.426e-06; c: 1.334e-06; d: 9.687e-07; e: 6.711e-07; f: 3.696e-07. Your inputs: Q = 0.1 kg/s, u = 5 m/s, H = 50 m, cls = c, terrain = rural.*
+
+![Maximum ground-level concentration as u runs from 3 to 7 m/s, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-max-ground-concentration-briggs-live-3)
+
+*Maximum ground-level concentration as u runs from 3 to 7 m/s, every other input as you entered it (29 solutions). Marked: your u = 5 m/s gives C_max = 1334 ug/m^3. Your inputs: Q = 0.1 kg/s, u = 5 m/s, H = 50 m, cls = c, terrain = rural.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_max_ground_concentration_briggs', Q=0.1, u=5.0, H=50.0, cls='c', terrain='rural')
@@ -646,13 +698,21 @@ $$
 - **Assumes:** $Ts > Ta$; neutral or unstable air (classes A-D); buoyancy-dominated plume
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![dh (plume rise) against vs (stack gas exit velocity), with Ta = 288 K, Ts = 420 K, d = 3 m, hs = 100 m, u = 5 m/s](https://huggingface.co/AI999X/environmental-engineering-ai999x/resolve/main/figures/enveng-briggs-plume-rise-dh-vs-vs.svg)
+![Side view](https://huggingface.co/AI999X/environmental-engineering-ai999x/resolve/main/figures/enveng-briggs-plume-rise-scene.svg)
 
-*dh (plume rise) against vs (stack gas exit velocity), with Ta = 288 K, Ts = 420 K, d = 3 m, hs = 100 m, u = 5 m/s. 31 points computed by environmental-engineering-ai999x; marked: vs = 15, dh = 125.638 m.*
+*Side view. The stack (100 m) and the effective height H = 225.6 m that the model computes (rise 125.6 m); the dashed line is the plume centreline (its rise is sketched to H). Heights and distances are each to scale, but not to the same scale. Your inputs: vs = 15 m/s, d = 3 m, Ts = 420 K, Ta = 288 K, u = 5 m/s, hs = 100 m.*
 
-![dh (plume rise) against d (stack inside diameter at the exit) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-briggs-plume-rise-curve)
+![dh (plume rise) against vs (stack gas exit velocity) from 7](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-briggs-plume-rise-dh-vs-vs)
 
-*dh (plume rise) against d (stack inside diameter at the exit) from 0.3 m to 30 m on a logarithmic axis. One curve for each value of u (wind speed at the stack top): 5 m/s, 2.5 m/s, 10 m/s. Other inputs as in the worked example: vs = 15.0 m/s, Ts = 420.0 K, Ta = 288.0 K, hs = 100.0 m. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, d = 3 m, dh = 125.638 m.*
+*dh (plume rise) against vs (stack gas exit velocity) from 7.5 m/s to 22.5 m/s, the other inputs as given: 31 points, each a solve of the model. Marked: the given point, vs = 15 m/s, dh = 125.6 m. Your inputs: vs = 15 m/s, d = 3 m, Ts = 420 K, Ta = 288 K, u = 5 m/s, hs = 100 m.*
+
+![Plume rise as Ta runs from 248 to 328 K, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-briggs-plume-rise-live-1)
+
+*Plume rise as Ta runs from 248 to 328 K, every other input as you entered it (41 solutions). Marked: your Ta = 288 K gives dh = 125.6. Your inputs: vs = 15 m/s, d = 3 m, Ts = 420 K, Ta = 288 K, u = 5 m/s, hs = 100 m.*
+
+![Plume rise as d runs from 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-briggs-plume-rise-live-2)
+
+*Plume rise as d runs from 1.8 to 4.2 m, every other input as you entered it (29 solutions). Marked: your d = 3 m gives dh = 125.6. Your inputs: vs = 15 m/s, d = 3 m, Ts = 420 K, Ta = 288 K, u = 5 m/s, hs = 100 m.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_briggs_plume_rise', vs=15.0, d=3.0, Ts=420.0, Ta=288.0, u=5.0, hs=100.0)
@@ -705,9 +765,17 @@ $$
 - **Assumes:** $Ts > Ta$; stable air: dtheta/dz > 0
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![dh (plume rise) against Ta (ambient air temperature) from 144 K to 432 K](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-briggs-stable-plume-rise-curve)
+![Side view](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-briggs-stable-plume-rise-scene)
 
-*dh (plume rise) against Ta (ambient air temperature) from 144 K to 432 K. One curve for each value of d (stack inside diameter at the exit): 3 m, 1.5 m, 6 m. Other inputs as in the worked example: vs = 15.0 m/s, Ts = 420.0 K, u = 4.0 m/s, dtheta = 0.02 K/m, hs = 100.0 m. 29 points per curve computed by environmental-engineering-ai999x; marked: the worked example, Ta = 288 K, dh = 87.5535 m.*
+*Side view. The stack (100 m) and the effective height H = 187.6 m that the model computes (rise 87.55 m); the dashed line is the plume centreline (its rise is sketched to H). Heights and distances are each to scale, but not to the same scale. Your inputs: vs = 15 m/s, d = 3 m, Ts = 420 K, Ta = 288 K, u = 4 m/s, dtheta = 0.02 K/m, hs = 100 m.*
+
+![Plume rise and effective stack height as Ta runs from 248 to 328 K, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-briggs-stable-plume-rise-live-1)
+
+*Plume rise and effective stack height as Ta runs from 248 to 328 K, every other input as you entered it (41 solutions). Marked: your Ta = 288 K gives dh = 87.55. Your inputs: vs = 15 m/s, d = 3 m, Ts = 420 K, Ta = 288 K, u = 4 m/s, dtheta = 0.02 K/m, hs = 100 m.*
+
+![Plume rise and effective stack height as d runs from 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-briggs-stable-plume-rise-live-2)
+
+*Plume rise and effective stack height as d runs from 1.8 to 4.2 m, every other input as you entered it (29 solutions). Marked: your d = 3 m gives dh = 87.55. Your inputs: vs = 15 m/s, d = 3 m, Ts = 420 K, Ta = 288 K, u = 4 m/s, dtheta = 0.02 K/m, hs = 100 m.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_briggs_stable_plume_rise', vs=15.0, d=3.0, Ts=420.0, Ta=288.0, u=4.0, dtheta=0.02, hs=100.0)
@@ -757,9 +825,17 @@ $$
 - **Assumes:** $Ts > Ta$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![dh (plume rise) against d (stack inside diameter) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-holland-plume-rise-curve)
+![Side view](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-holland-plume-rise-scene)
 
-*dh (plume rise) against d (stack inside diameter) from 0.2 m to 20 m on a logarithmic axis. One curve for each value of vs (stack gas exit velocity): 10 m/s, 5 m/s, 20 m/s. Other inputs as in the worked example: u = 4.0 m/s, p = 101325.0 Pa, Ts = 400.0 K, Ta = 290.0 K, hs = 50.0 m. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, d = 2 m, dh = 14.9677 m.*
+*Side view. The stack (50 m) and the effective height H = 64.97 m that the model computes (rise 14.97 m); the dashed line is the plume centreline (its rise is sketched to H). Heights and distances are each to scale, but not to the same scale. Your inputs: vs = 10 m/s, d = 2 m, u = 4 m/s, p = 101.325 kPa, Ts = 400 K, Ta = 290 K, hs = 50 m.*
+
+![Plume rise and effective stack height as d runs from 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-holland-plume-rise-live-1)
+
+*Plume rise and effective stack height as d runs from 1.2 to 2.8 m, every other input as you entered it (41 solutions). Marked: your d = 2 m gives dh = 14.97. Your inputs: vs = 10 m/s, d = 2 m, u = 4 m/s, p = 101.325 kPa, Ts = 400 K, Ta = 290 K, hs = 50 m.*
+
+![Plume rise and effective stack height as vs runs from 6 to 14 m/s, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-holland-plume-rise-live-2)
+
+*Plume rise and effective stack height as vs runs from 6 to 14 m/s, every other input as you entered it (29 solutions). Marked: your vs = 10 m/s gives dh = 14.97. Your inputs: vs = 10 m/s, d = 2 m, u = 4 m/s, p = 101.325 kPa, Ts = 400 K, Ta = 290 K, hs = 50 m.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_holland_plume_rise', vs=10.0, d=2.0, u=4.0, p=101325.0, Ts=400.0, Ta=290.0, hs=50.0)
@@ -805,9 +881,13 @@ $$
 - **Assumes:** $0 < p < 1$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![u2 (wind speed at z2) against p (power-law exponent (0 < p < 1)) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-wind-power-law-curve)
+![Wind speed at z2 as u1 runs from 2](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-wind-power-law-live-1)
 
-*u2 (wind speed at z2) against p (power-law exponent (0 < p < 1)) from 0.015 to 1.5 on a logarithmic axis. One curve for each value of u1 (measured wind speed): 4 m/s, 2 m/s, 8 m/s. Other inputs as in the worked example: z1 = 10.0 m, z2 = 100.0 m. 37 points per curve computed by environmental-engineering-ai999x; marked: the worked example, p = 0.15, u2 = 5.65015 m/s.*
+*Wind speed at z2 as u1 runs from 2.4 to 5.6 m/s, every other input as you entered it (41 solutions). Marked: your u1 = 4 m/s gives u2 = 5.65. Your inputs: u1 = 4 m/s, z1 = 10 m, z2 = 100 m, p = 0.15.*
+
+![Wind speed at z2 as p runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-wind-power-law-live-2)
+
+*Wind speed at z2 as p runs from 0.0375 to 0.2625, every other input as you entered it (29 solutions). Marked: your p = 0.15 gives u2 = 5.65. Your inputs: u1 = 4 m/s, z1 = 10 m, z2 = 100 m, p = 0.15.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_wind_power_law', u1=4.0, z1=10.0, z2=100.0, p=0.15)
@@ -855,9 +935,13 @@ $$
 - **Assumes:** ideal gas
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![C (mass concentration) against T (air temperature) from 149](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-ppm-to-mass-concentration-curve)
+![Mass concentration as T runs from 258](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-ppm-to-mass-concentration-live-1)
 
-*C (mass concentration) against T (air temperature) from 149.075 K to 447.225 K. One curve for each value of M (molar mass of the pollutant): 0.064066 kg/mol, 0.032033 kg/mol, 0.128132 kg/mol. Other inputs as in the worked example: ppm = 0.14, P = 101325.0 Pa. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, T = 298.15 K, C = 3.6661e-07 kg/m^3.*
+*Mass concentration as T runs from 258.1 to 338.1 K, every other input as you entered it (41 solutions). Marked: your T = 298.1 K gives C = 0.3666 ug/L. Your inputs: ppm = 0.14, M = 64.066 g/mol, T = 298.15 K, P = 101.325 kPa.*
+
+![Mass concentration as ppm runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-ppm-to-mass-concentration-live-2)
+
+*Mass concentration as ppm runs from 0.035 to 0.245, every other input as you entered it (29 solutions). Marked: your ppm = 0.14 gives C = 0.3666 ug/L. Your inputs: ppm = 0.14, M = 64.066 g/mol, T = 298.15 K, P = 101.325 kPa.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_ppm_to_mass_concentration', ppm=0.14, M=0.064066, T=298.15, P=101325.0)
@@ -905,9 +989,13 @@ $$
 - **Assumes:** ideal gas
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![ppm (volume mixing ratio in ppm) against M (molar mass) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-mass-concentration-to-ppm-curve)
+![Volume mixing ratio in ppm as C runs from 60 to 140 ug/m^3, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-mass-concentration-to-ppm-live-1)
 
-*ppm (volume mixing ratio in ppm) against M (molar mass) from 0.023003 kg/mol to 0.069009 kg/mol. One curve for each value of C (mass concentration): 1.0000e-07 kg/m^3, 5.0000e-08 kg/m^3, 2.0000e-07 kg/m^3. Other inputs as in the worked example: T = 298.15 K, P = 101325.0 Pa. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, M = 0.046006 kg/mol, ppm = 0.0531787.*
+*Volume mixing ratio in ppm as C runs from 60 to 140 ug/m^3, every other input as you entered it (41 solutions). Marked: your C = 100 ug/m^3 gives ppm = 0.05318. Your inputs: C = 100 ug/m^3, M = 46.006 g/mol, T = 298.15 K, P = 101.325 kPa.*
+
+![Volume mixing ratio in ppm as T runs from 258](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-mass-concentration-to-ppm-live-2)
+
+*Volume mixing ratio in ppm as T runs from 258.1 to 338.1 K, every other input as you entered it (29 solutions). Marked: your T = 298.1 K gives ppm = 0.05318. Your inputs: C = 100 ug/m^3, M = 46.006 g/mol, T = 298.15 K, P = 101.325 kPa.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_mass_concentration_to_ppm', C=1e-07, M=0.046006, T=298.15, P=101325.0)
@@ -958,9 +1046,13 @@ $$
 - **Assumes:** well-mixed box; constant wind, mixing height and emissions
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![C (concentration at time t) against Hm (mixing height) from 60 m to 6000 m on a logarithmic axis](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-box-model-curve)
+![Concentration at time t and steady-state concentration as u runs from 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-box-model-live-1)
 
-*C (concentration at time t) against Hm (mixing height) from 60 m to 6000 m on a logarithmic axis. One curve for each value of q (emission rate per unit ground area): 4.0000e-09 kg/(m^2*s), 2.0000e-09 kg/(m^2*s), 8.0000e-09 kg/(m^2*s). Other inputs as in the worked example: L = 15000.0 m, u = 3.0 m/s, Cb = 2e-08 kg/m^3, C0 = 2e-08 kg/m^3, t = 7200.0 s. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, Hm = 600 m, C = 4.5436e-08 kg/m^3.*
+*Concentration at time t and steady-state concentration as u runs from 1.8 to 4.2 m/s, every other input as you entered it (41 solutions). Marked: your u = 3 m/s gives C = 4.544e-08. Your inputs: q = 4 ug/(m^2*s), L = 15000 m, u = 3 m/s, Hm = 600 m, Cb = 20 ug/m^3, C0 = 20 ug/m^3, t = 2 h.*
+
+![Concentration at time t and steady-state concentration as Hm runs from 360 to 840 m, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-box-model-live-2)
+
+*Concentration at time t and steady-state concentration as Hm runs from 360 to 840 m, every other input as you entered it (29 solutions). Marked: your Hm = 600 m gives C = 4.544e-08. Your inputs: q = 4 ug/(m^2*s), L = 15000 m, u = 3 m/s, Hm = 600 m, Cb = 20 ug/m^3, C0 = 20 ug/m^3, t = 2 h.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_box_model', q=4e-09, L=15000.0, u=3.0, Hm=600.0, Cb=2e-08, C0=2e-08, t=7200.0)
@@ -1012,9 +1104,13 @@ $$
 - **Assumes:** Stokes regime $Re < 1$; laminar plug flow
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![eta (collection efficiency (fraction, at most 1)) against L (chamber length) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-settling-chamber-efficiency-curve)
+![Collection efficiency as dp runs from 30 to 62 um, every other input as you entered it (33 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-settling-chamber-efficiency-live-1)
 
-*eta (collection efficiency (fraction, at most 1)) against L (chamber length) from 0.5 m to 50 m on a logarithmic axis. One curve for each value of W (chamber width): 2 m, 1 m, 4 m. Other inputs as in the worked example: dp = 4.9999999999999996e-05 m, rho_p = 2000.0 kg/m^3, rho_g = 1.2 kg/m^3, mu = 1.8e-05 Pa*s, Q = 10.0 m^3/s, N = 1. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, L = 5 m, eta = 0.151246.*
+*Collection efficiency as dp runs from 30 to 62 um, every other input as you entered it (33 solutions). Marked: your dp = 50 um gives η = 0.1512. Your inputs: dp = 50 um, rho_p = 2000 kg/m^3, rho_g = 1.2 kg/m^3, mu = 1.8e-05 Pa*s, L = 5 m, W = 2 m, Q = 10 m^3/s, N = 1.*
+
+![Collection efficiency as N runs from 1 to 5, every other input as you entered it (5 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-settling-chamber-efficiency-live-2)
+
+*Collection efficiency as N runs from 1 to 5, every other input as you entered it (5 solutions). Marked: your N = 1 gives η = 0.1512. Your inputs: dp = 50 um, rho_p = 2000 kg/m^3, rho_g = 1.2 kg/m^3, mu = 1.8e-05 Pa*s, L = 5 m, W = 2 m, Q = 10 m^3/s, N = 1.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_settling_chamber_efficiency', dp=5e-05, rho_p=2000.0, rho_g=1.2, mu=1.8e-05, L=5.0, W=2.0, Q=10.0, N=1)
@@ -1060,9 +1156,13 @@ $$
 - **Assumes:** w, A, $Q > 0$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![eta (collection efficiency (fraction)) against w (effective drift (migration) velocity) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-esp-efficiency-curve)
+![Collection efficiency as Q runs from 120 to 280 m^3/s, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-esp-efficiency-live-1)
 
-*eta (collection efficiency (fraction)) against w (effective drift (migration) velocity) from 0.01 m/s to 1 m/s on a logarithmic axis. One curve for each value of A (collecting plate area): 5000 m^2, 2500 m^2, 10000 m^2. Other inputs as in the worked example: Q = 200.0 m^3/s. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, w = 0.1 m/s, eta = 0.917915.*
+*Collection efficiency as Q runs from 120 to 280 m^3/s, every other input as you entered it (41 solutions). Marked: your Q = 200 m^3/s gives η = 0.9179. Your inputs: w = 0.1 m/s, A = 5000 m^2, Q = 200 m^3/s.*
+
+![Collection efficiency as w runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-esp-efficiency-live-2)
+
+*Collection efficiency as w runs from 0.06 to 0.14 m/s, every other input as you entered it (29 solutions). Marked: your w = 0.1 m/s gives η = 0.9179. Your inputs: w = 0.1 m/s, A = 5000 m^2, Q = 200 m^3/s.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_esp_efficiency', w=0.1, A=5000.0, Q=200.0)
@@ -1107,9 +1207,13 @@ $$
 - **Assumes:** $0 < \eta < 1$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![A (required collecting area) against eta (required collection efficiency (fraction or %)) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-esp-area-curve)
+![Required collecting area as η runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-esp-area-live-1)
 
-*A (required collecting area) against eta (required collection efficiency (fraction or %)) from 0.02 to 0.98. One curve for each value of w (effective drift velocity): 0.1 m/s, 0.05 m/s, 0.2 m/s. Other inputs as in the worked example: Q = 200.0 m^3/s. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, eta = 0.99, A = 9210.34 m^2.*
+*Required collecting area as η runs from 0.2475 to 0.99, every other input as you entered it (21 solutions). Marked: your η = 0.99 gives A = 9210. Your inputs: w = 0.1 m/s, Q = 200 m^3/s, eta = 0.99.*
+
+![Required collecting area as Q runs from 120 to 280 m^3/s, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-esp-area-live-2)
+
+*Required collecting area as Q runs from 120 to 280 m^3/s, every other input as you entered it (29 solutions). Marked: your Q = 200 m^3/s gives A = 9210. Your inputs: w = 0.1 m/s, Q = 200 m^3/s, eta = 0.99.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_esp_area', w=0.1, Q=200.0, eta=0.99)
@@ -1160,9 +1264,13 @@ $$
 - **Assumes:** $rho_p > rho_g$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![eta (collection efficiency of particles of diameter dp) against dp (particle diameter) from 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-cyclone-lapple-curve)
+![Collection efficiency of particles of](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-cyclone-lapple-live-1)
 
-*eta (collection efficiency of particles of diameter dp) against dp (particle diameter) from 1.0000e-06 m to 0.0001 m on a logarithmic axis. One curve for each value of rho_p (particle density): 1500 kg/m^3, 750 kg/m^3, 3000 kg/m^3. Other inputs as in the worked example: mu = 1.8e-05 Pa*s, W = 0.25 m, Ne = 6.0, Vi = 15.0 m/s, rho_g = 1.2 kg/m^3. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, dp = 1.0000e-05 m, eta = 0.67666.*
+*Collection efficiency of particles of... as dp runs from 6 to 14 um, every other input as you entered it (41 solutions). Marked: your dp = 10 um gives η = 0.6767. Your inputs: mu = 1.8e-05 Pa*s, W = 0.25 m, Ne = 6, Vi = 15 m/s, rho_p = 1500 kg/m^3, rho_g = 1.2 kg/m^3, dp = 10 um.*
+
+![Collection efficiency of particles of](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-cyclone-lapple-live-2)
+
+*Collection efficiency of particles of... as ρ_p runs from 900 to 2100 kg/m^3, every other input as you entered it (29 solutions). Marked: your ρ_p = 1500 kg/m^3 gives η = 0.6767. Your inputs: mu = 1.8e-05 Pa*s, W = 0.25 m, Ne = 6, Vi = 15 m/s, rho_p = 1500 kg/m^3, rho_g = 1.2 kg/m^3, dp = 10 um.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_cyclone_lapple', mu=1.8e-05, W=0.25, Ne=6.0, Vi=15.0, rho_p=1500.0, rho_g=1.2, dp=1e-05)
@@ -1209,9 +1317,13 @@ $$
 - **Assumes:** all fuel sulfur oxidised to SO2
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![E (controlled SO2 emission rate) against m_fuel (fuel burning rate) from 5 kg/s to 15 kg/s](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-so2-emission-curve)
+![Controlled SO2 emission rate as η runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-so2-emission-live-1)
 
-*E (controlled SO2 emission rate) against m_fuel (fuel burning rate) from 5 kg/s to 15 kg/s. One curve for each value of S (sulfur mass fraction of the fuel (fraction or %)): 0.02, 0.26, 0.74. Other inputs as in the worked example: eta = 0.9. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, m_fuel = 10 kg/s, E = 0.0399587 kg/s.*
+*Controlled SO2 emission rate as η runs from 0.225 to 0.9675, every other input as you entered it (23 solutions). Marked: your η = 0.9 gives E = 0.03996. Your inputs: m_fuel = 36 t/h, S = 0.02, eta = 0.9.*
+
+![Controlled SO2 emission rate as m_fuel runs from 21](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-so2-emission-live-2)
+
+*Controlled SO2 emission rate as m_fuel runs from 21.6 to 50.4 t/h, every other input as you entered it (29 solutions). Marked: your m_fuel = 36 t/h gives E = 0.03996. Your inputs: m_fuel = 36 t/h, S = 0.02, eta = 0.9.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_so2_emission', m_fuel=10.0, S=0.02, eta=0.9)
@@ -1264,9 +1376,13 @@ $$
 - **Assumes:** H, $z  \leq  Lm$; $sigma_z  \leq  10$ Lm
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![C (concentration with ground and lid reflections) against Lm (mixing height (inversion base)) from 50 m to 5000 m on a logarithmic axis](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-plume-mixing-lid-curve)
+![Concentration with ground and lid reflections and C_mixed as u runs from 2](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-plume-mixing-lid-live-1)
 
-*C (concentration with ground and lid reflections) against Lm (mixing height (inversion base)) from 50 m to 5000 m on a logarithmic axis. One curve for each value of Q (emission rate): 0.1 kg/s, 0.05 kg/s, 0.2 kg/s. Other inputs as in the worked example: u = 4.0 m/s, sigma_y = 900.0 m, sigma_z = 600.0 m, H = 80.0 m, y = 0.0 m, z = 0.0 m. 36 points per curve computed by environmental-engineering-ai999x; marked: the worked example, Lm = 500 m, C = 2.2195e-08 kg/m^3.*
+*Concentration with ground and lid reflections and C_mixed as u runs from 2.4 to 5.6 m/s, every other input as you entered it (41 solutions). Marked: your u = 4 m/s gives C = 2.22e-08. Your inputs: Q = 100 g/s, u = 4 m/s, sigma_y = 900 m, sigma_z = 600 m, H = 80 m, Lm = 500 m, y = 0 m, z = 0 m.*
+
+![Concentration with ground and lid reflections and C_mixed as σ_y runs from 540 to 1260 m, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-plume-mixing-lid-live-2)
+
+*Concentration with ground and lid reflections and C_mixed as σ_y runs from 540 to 1260 m, every other input as you entered it (29 solutions). Marked: your σ_y = 900 m gives C = 2.22e-08. Your inputs: Q = 100 g/s, u = 4 m/s, sigma_y = 900 m, sigma_z = 600 m, H = 80 m, Lm = 500 m, y = 0 m, z = 0 m.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_plume_mixing_lid', Q=0.1, u=4.0, sigma_y=900.0, sigma_z=600.0, H=80.0, Lm=500.0, y=0.0, z=0.0)
@@ -1322,9 +1438,21 @@ $$
 - **Assumes:** $Ts > Ta$; class A-D; 100 $m  \leq  x  \leq  10$ km
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![C (ground-level centreline concentration at x) against x (downwind distance of the receptor) from 300 m to 30000 m on a logarithmic axis](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-stack-plume-ground-concentration-curve)
+![Side view](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-stack-plume-ground-concentration-scene)
 
-*C (ground-level centreline concentration at x) against x (downwind distance of the receptor) from 300 m to 30000 m on a logarithmic axis. One curve for each value of Q (emission rate): 0.1 kg/s, 0.05 kg/s, 0.2 kg/s. Other inputs as in the worked example: u = 6.0 m/s, vs = 10.0 m/s, d = 1.5 m, Ts = 400.0 K, Ta = 290.0 K, hs = 50.0 m, cls = c, terrain = rural. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, x = 3000 m, C = 8.8884e-08 kg/m^3.*
+*Side view. The stack (50 m) and the effective height H = 77.45 m that the model computes (rise 27.45 m); the dashed line is the plume centreline (its rise is sketched to H). The grey band is ±2 sigma_z, the model's Briggs coefficient for class c (rural) at 24 distances. Heights and distances are each to scale, but not to the same scale. In SI units: C = 8.888e-08 kg/m^3. Your inputs: Q = 0.1 kg/s, u = 6 m/s, vs = 10 m/s, d = 1.5 m, Ts = 400 K, Ta = 290 K, hs = 50 m, x = 3000 m.*
+
+![Ground-level centreline concentration at x as x runs from 1800 to 4200 m, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-stack-plume-ground-concentration-live-1)
+
+*Ground-level centreline concentration at x as x runs from 1800 to 4200 m, every other input as you entered it (41 solutions). Marked: your x = 3000 m gives C = 88.88 ug/m^3. Your inputs: Q = 0.1 kg/s, u = 6 m/s, vs = 10 m/s, d = 1.5 m, Ts = 400 K, Ta = 290 K, hs = 50 m, x = 3000 m.*
+
+![Ground-level centreline concentration at x for every choice of cls, every other input as you entered it (highlighted: your choice)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-stack-plume-ground-concentration-live-2)
+
+*Ground-level centreline concentration at x for every choice of cls, every other input as you entered it (highlighted: your choice). a: 1.515e-08; b: 3.42e-08; c: 8.888e-08; d: 1.974e-07. Your inputs: Q = 0.1 kg/s, u = 6 m/s, vs = 10 m/s, d = 1.5 m, Ts = 400 K, Ta = 290 K, hs = 50 m, x = 3000 m.*
+
+![Ground-level centreline concentration at x as Q runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-stack-plume-ground-concentration-live-3)
+
+*Ground-level centreline concentration at x as Q runs from 0.06 to 0.14 kg/s, every other input as you entered it (29 solutions). Marked: your Q = 0.1 kg/s gives C = 88.88 ug/m^3. Your inputs: Q = 0.1 kg/s, u = 6 m/s, vs = 10 m/s, d = 1.5 m, Ts = 400 K, Ta = 290 K, hs = 50 m, x = 3000 m.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_stack_plume_ground_concentration', Q=0.1, u=6.0, vs=10.0, d=1.5, Ts=400.0, Ta=290.0, hs=50.0, x=3000.0, cls='c', terrain='rural')
@@ -1371,9 +1499,13 @@ $$
 - **Assumes:** first-order kinetics
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![BOD_t (BOD exerted after t) against k (BOD rate constant (base e)) from 2](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-bod-exerted-curve)
+![BOD exerted after t and BOD remaining after t as L0 runs from 150 to 350 mg/L, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-bod-exerted-live-1)
 
-*BOD_t (BOD exerted after t) against k (BOD rate constant (base e)) from 2.6620e-07 1/s to 2.6620e-05 1/s on a logarithmic axis. One curve for each value of L0 (ultimate (carbonaceous) BOD): 0.25 kg/m^3, 0.125 kg/m^3, 0.5 kg/m^3. Other inputs as in the worked example: t = 432000.0 s. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, k = 2.6620e-06 1/s, BOD_t = 0.170841 kg/m^3.*
+*BOD exerted after t and BOD remaining after t as L0 runs from 150 to 350 mg/L, every other input as you entered it (41 solutions). Marked: your L0 = 250 mg/L gives BOD_t = 0.1708. Your inputs: L0 = 250 mg/L, k = 0.23 1/d, t = 5 d.*
+
+![BOD exerted after t and BOD remaining after t as k runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-bod-exerted-live-2)
+
+*BOD exerted after t and BOD remaining after t as k runs from 0.138 to 0.322 1/d, every other input as you entered it (29 solutions). Marked: your k = 0.23 1/d gives BOD_t = 0.1708. Your inputs: L0 = 250 mg/L, k = 0.23 1/d, t = 5 d.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_bod_exerted', L0=0.25, k=2.662037037037037e-06, t=432000.0)
@@ -1420,9 +1552,13 @@ $$
 - **Assumes:** first-order kinetics
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![L0 (ultimate BOD) against k (BOD rate constant (base e)) from 2](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-ultimate-bod-curve)
+![Ultimate BOD as BOD_t runs from 120 to 280 mg/L, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-ultimate-bod-live-1)
 
-*L0 (ultimate BOD) against k (BOD rate constant (base e)) from 2.6620e-07 1/s to 2.6620e-05 1/s on a logarithmic axis. One curve for each value of BOD_t (BOD measured after time t (e.g. BOD5)): 0.2 kg/m^3, 0.1 kg/m^3, 0.4 kg/m^3. Other inputs as in the worked example: t = 432000.0 s. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, k = 2.6620e-06 1/s, L0 = 0.29267 kg/m^3.*
+*Ultimate BOD as BOD_t runs from 120 to 280 mg/L, every other input as you entered it (41 solutions). Marked: your BOD_t = 200 mg/L gives L0 = 0.2927. Your inputs: BOD_t = 200 mg/L, k = 0.23 1/d, t = 5 d.*
+
+![Ultimate BOD as k runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-ultimate-bod-live-2)
+
+*Ultimate BOD as k runs from 0.138 to 0.322 1/d, every other input as you entered it (29 solutions). Marked: your k = 0.23 1/d gives L0 = 0.2927. Your inputs: BOD_t = 200 mg/L, k = 0.23 1/d, t = 5 d.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_ultimate_bod', BOD_t=0.2, k=2.662037037037037e-06, t=432000.0)
@@ -1472,9 +1608,13 @@ $$
 - **Assumes:** $0.9 < \theta < 1.2$; -5 degC <= T <= 60 degC
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![kT (rate constant at T) against T (water temperature) from 268](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-rate-constant-temperature-curve)
+![Rate constant at T as θ runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-rate-constant-temperature-live-1)
 
-*kT (rate constant at T) against T (water temperature) from 268.335 K to 327.965 K. One curve for each value of k20 (rate constant at 20 degC): 2.6620e-06 1/s, 1.3310e-06 1/s, 5.3241e-06 1/s. Other inputs as in the worked example: theta = 1.047. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, T = 298.15 K, kT = 3.3492e-06 1/s.*
+*Rate constant at T as θ runs from 0.9025 to 1.191, every other input as you entered it (31 solutions). Marked: your θ = 1.047 gives kT = 0.2894 1/day. Your inputs: k20 = 0.23 1/d, theta = 1.047, T = 25 degC.*
+
+![Rate constant at T as k20 runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-rate-constant-temperature-live-2)
+
+*Rate constant at T as k20 runs from 0.138 to 0.322 1/d, every other input as you entered it (27 solutions). Marked: your k20 = 0.23 1/d gives kT = 0.2894 1/day. Your inputs: k20 = 0.23 1/d, theta = 1.047, T = 25 degC.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_rate_constant_temperature', k20=2.662037037037037e-06, theta=1.047, T=298.15)
@@ -1523,9 +1663,13 @@ $$
 - **Assumes:** $D_{1} > D_{2}$; B1, B2 and f given together or not at all
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![BOD (BOD of the sample) against P (decimal fraction of sample in the bottle (sample volume / bottle volume)) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-bod-dilution-test-curve)
+![BOD of the sample as D1 runs from 5](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-bod-dilution-test-live-1)
 
-*BOD (BOD of the sample) against P (decimal fraction of sample in the bottle (sample volume / bottle volume)) from 0.02 to 0.98. One curve for each value of D1 (DO of the diluted sample immediately after preparation): 0.0085 kg/m^3, 0.00425 kg/m^3, 0.017 kg/m^3. Other inputs as in the worked example: D2 = 0.004 kg/m^3. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, P = 0.05, BOD = 0.09 kg/m^3.*
+*BOD of the sample as D1 runs from 5.1 to 11.9 mg/L, every other input as you entered it (41 solutions). Marked: your D1 = 8.5 mg/L gives BOD = 90 mg/L. Your inputs: D1 = 8.5 mg/L, D2 = 4 mg/L, P = 0.05.*
+
+![BOD of the sample as P runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-bod-dilution-test-live-2)
+
+*BOD of the sample as P runs from 0.0125 to 0.0875, every other input as you entered it (29 solutions). Marked: your P = 0.05 gives BOD = 90 mg/L. Your inputs: D1 = 8.5 mg/L, D2 = 4 mg/L, P = 0.05.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_bod_dilution_test', D1=0.0085, D2=0.004, P=0.05)
@@ -1575,9 +1719,9 @@ $$
 - **Assumes:** at least three distinct positive times; a single rate constant between 0.001 and 20 per day fits
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![The data y (measured BOD values in mg/L (same order)) against t (incubation times in days) as given in the worked example (6 points)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-bod-rate-fit-xy)
+![The data y (measured BOD values in mg/L (same order)) against t (incubation times in days) as given (6 points: (1, 41), (2, 74), (3, 98), (5, 132), (7, 152), (10, 168))](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-bod-rate-fit-xy)
 
-*The data y (measured BOD values in mg/L (same order)) against t (incubation times in days) as given in the worked example (6 points). Also returned: k = 3.0024e-06 1/s, k_per_day = 0.259411, L0 = 0.181572 kg/m^3, L0_mgL = 181.572, rss = 0.532714.*
+*The data y (measured BOD values in mg/L (same order)) against t (incubation times in days) as given (6 points: (1, 41), (2, 74), (3, 98), (5, 132), (7, 152), (10, 168)). Returned by the model: k_per_day = 0.2594, L0_mgL = 181.6, rss = 0.5327. Your inputs: t = 1, 2, 3, 5, 7, 10, y = 41, 74, 98, 132, 152, 168.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_bod_rate_fit', t=[1.0, 2.0, 3.0, 5.0, 7.0, 10.0], y=[41.0, 74.0, 98.0, 132.0, 152.0, 168.0])
@@ -1623,9 +1767,9 @@ $$
 - **Assumes:** elements C, H, O, N only; $b  \geq  3d$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![The worked example of Theoretical oxygen demand of an organic compound as inputs and results: stated formula = C6H12O6, nitrification = no; returned by environmental-engineering-ai999x: thod = 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-theoretical-oxygen-demand-io)
+![The request as given and what the model returned: formula = C6H12O6 (given), nitrification = no (given), thod = 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-theoretical-oxygen-demand-io)
 
-*The worked example of Theoretical oxygen demand of an organic compound as inputs and results: stated formula = C6H12O6, nitrification = no; returned by environmental-engineering-ai999x: thod = 1.0657, o2_per_mol = 6, molar_mass = 180.156.*
+*The request as given and what the model returned: formula = C6H12O6 (given), nitrification = no (given), thod = 1.066 (returned), o2_per_mol = 6 (returned), molar_mass = 180.2 (returned). Your inputs: formula = C6H12O6, nitrification = no.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_theoretical_oxygen_demand', formula='C6H12O6', nitrification='no')
@@ -1676,9 +1820,21 @@ $$
 - **Assumes:** first-order deoxygenation and reaeration; plug flow; deficit stays below saturation
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![DO (dissolved oxygen at t) against t (travel time from the outfall) from 17280 s to 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-streeter-phelps-deficit-curve)
+![The river below the outfall, seen from above, coloured by its dissolved oxygen (green near saturation, pink where it is lowest), with the oxygen curve above it: 41 points along the river, each the model's Streeter-Phelps deficit solved again (kd = 0](https://huggingface.co/AI999X/environmental-engineering-ai999x/resolve/main/figures/enveng-streeter-phelps-deficit-scene.svg)
 
-*DO (dissolved oxygen at t) against t (travel time from the outfall) from 17280 s to 1.728e+06 s on a logarithmic axis. One curve for each value of DOsat (saturation dissolved oxygen): 0.0091 kg/m^3, 0.00455 kg/m^3, 0.0182 kg/m^3. Other inputs as in the worked example: kd = 2.662037037037037e-06 1/s, ka = 5.324074074074074e-06 1/s, L0 = 0.01 kg/m^3, D0 = 0.001 kg/m^3. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, t = 172800 s, DO = 0.00637383 kg/m^3.*
+*The river below the outfall, seen from above, coloured by its dissolved oxygen (green near saturation, pink where it is lowest), with the oxygen curve above it: 41 points along the river, each the model's Streeter-Phelps deficit solved again (kd = 0.23/d, ka = 0.46/d, L0 = 10 mg/L, D0 = 1 mg/L). In SI units: DO = 0.006374 kg/m^3. Your inputs: kd = 0.23 1/d, ka = 0.46 1/d, L0 = 10 mg/L, D0 = 1 mg/L, t = 2 d, DOsat = 9.1 mg/L.*
+
+![DO (dissolved oxygen at t) against kd (deoxygenation rate constant) from 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-streeter-phelps-deficit-do-vs-kd)
+
+*DO (dissolved oxygen at t) against kd (deoxygenation rate constant) from 1.331e-06 1/s to 3.993e-06 1/s, the other inputs as given: 31 points, each a solve of the model. Marked: the given point, kd = 2.662e-06 1/s, DO = 0.006374 kg/m³. Your inputs: kd = 0.23 1/d, ka = 0.46 1/d, L0 = 10 mg/L, D0 = 1 mg/L, t = 2 d, DOsat = 9.1 mg/L.*
+
+![Dissolved oxygen at t as DOsat runs from 5](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-streeter-phelps-deficit-live-1)
+
+*Dissolved oxygen at t as DOsat runs from 5.46 to 12.74 mg/L, every other input as you entered it (41 solutions). Marked: your DOsat = 9.1 mg/L gives DO = 6.374 mg/L. Your inputs: kd = 0.23 1/d, ka = 0.46 1/d, L0 = 10 mg/L, D0 = 1 mg/L, t = 2 d, DOsat = 9.1 mg/L.*
+
+![Dissolved oxygen at t and oxygen deficit at t as L0 runs from 6 to 14 mg/L, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-streeter-phelps-deficit-live-2)
+
+*Dissolved oxygen at t and oxygen deficit at t as L0 runs from 6 to 14 mg/L, every other input as you entered it (29 solutions). Marked: your L0 = 10 mg/L gives DO = 6.374 mg/L. Your inputs: kd = 0.23 1/d, ka = 0.46 1/d, L0 = 10 mg/L, D0 = 1 mg/L, t = 2 d, DOsat = 9.1 mg/L.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_streeter_phelps_deficit', kd=2.662037037037037e-06, ka=5.324074074074074e-06, L0=0.01, D0=0.001, t=172800.0, DOsat=0.0091)
@@ -1732,9 +1888,17 @@ $$
 - **Assumes:** plug flow at constant velocity; deficit stays below saturation
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![DO (dissolved oxygen at x) against x (distance downstream) from 3000 m to 300000 m on a logarithmic axis](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-oxygen-sag-distance-curve)
+![The river below the outfall, seen from above, coloured by its dissolved oxygen (green near saturation, pink where it is lowest), with the oxygen curve above it: 41 points along the river, each the model's Streeter-Phelps deficit solved again (kd = 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-oxygen-sag-distance-scene)
 
-*DO (dissolved oxygen at x) against x (distance downstream) from 3000 m to 300000 m on a logarithmic axis. One curve for each value of DOsat (saturation dissolved oxygen): 0.0091 kg/m^3, 0.00455 kg/m^3, 0.0182 kg/m^3. Other inputs as in the worked example: kd = 2.662037037037037e-06 1/s, ka = 5.324074074074074e-06 1/s, L0 = 0.01 kg/m^3, D0 = 0.001 kg/m^3, v = 0.3 m/s. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, x = 30000 m, DO = 0.00672188 kg/m^3.*
+*The river below the outfall, seen from above, coloured by its dissolved oxygen (green near saturation, pink where it is lowest), with the oxygen curve above it: 41 points along the river, each the model's Streeter-Phelps deficit solved again (kd = 0.23/d, ka = 0.46/d, L0 = 10 mg/L, D0 = 1 mg/L). In SI units: DO = 0.006722 kg/m^3. Your inputs: kd = 0.23 1/d, ka = 0.46 1/d, L0 = 10 mg/L, D0 = 1 mg/L, x = 30 km, v = 0.3 m/s, DOsat = 9.1 mg/L.*
+
+![Dissolved oxygen at x as DOsat runs from 5](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-oxygen-sag-distance-live-1)
+
+*Dissolved oxygen at x as DOsat runs from 5.46 to 12.74 mg/L, every other input as you entered it (41 solutions). Marked: your DOsat = 9.1 mg/L gives DO = 6.722 mg/L. Your inputs: kd = 0.23 1/d, ka = 0.46 1/d, L0 = 10 mg/L, D0 = 1 mg/L, x = 30 km, v = 0.3 m/s, DOsat = 9.1 mg/L.*
+
+![Dissolved oxygen at x and oxygen deficit at x as v runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-oxygen-sag-distance-live-2)
+
+*Dissolved oxygen at x and oxygen deficit at x as v runs from 0.18 to 0.42 m/s, every other input as you entered it (29 solutions). Marked: your v = 0.3 m/s gives DO = 6.722 mg/L. Your inputs: kd = 0.23 1/d, ka = 0.46 1/d, L0 = 10 mg/L, D0 = 1 mg/L, x = 30 km, v = 0.3 m/s, DOsat = 9.1 mg/L.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_oxygen_sag_distance', kd=2.662037037037037e-06, ka=5.324074074074074e-06, L0=0.01, D0=0.001, x=30000.0, v=0.3, DOsat=0.0091)
@@ -1785,9 +1949,17 @@ $$
 - **Assumes:** the critical deficit stays below saturation; if the deficit falls from the outfall on, $t_c = 0$ and $D_c = D_{0}$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![D_c (critical (largest) deficit) against ka (reaeration rate constant) from 5](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-streeter-phelps-critical-point-curve)
+![The river below the outfall, seen from above, coloured by its dissolved oxygen (green near saturation, pink where it is lowest), with the oxygen curve above it: 41 points along the river, each the model's Streeter-Phelps deficit solved again (kd = 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-streeter-phelps-critical-point-scene)
 
-*D_c (critical (largest) deficit) against ka (reaeration rate constant) from 5.3241e-07 1/s to 5.3241e-05 1/s on a logarithmic axis. One curve for each value of L0 (ultimate BOD of the mixed river water at the outfall): 0.01 kg/m^3, 0.005 kg/m^3, 0.02 kg/m^3. Other inputs as in the worked example: kd = 2.662037037037037e-06 1/s, D0 = 0.001 kg/m^3, DOsat = 0.0091 kg/m^3. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, ka = 5.3241e-06 1/s, D_c = 0.00277778 kg/m^3.*
+*The river below the outfall, seen from above, coloured by its dissolved oxygen (green near saturation, pink where it is lowest), with the oxygen curve above it: 41 points along the river, each the model's Streeter-Phelps deficit solved again (kd = 0.23/d, ka = 0.46/d, L0 = 10 mg/L, D0 = 1 mg/L). In SI units: D_c = 0.002778 kg/m^3. Your inputs: kd = 0.23 1/d, ka = 0.46 1/d, L0 = 10 mg/L, D0 = 1 mg/L, DOsat = 9.1 mg/L.*
+
+![Minimum dissolved oxygen as DOsat runs from 5](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-streeter-phelps-critical-point-live-1)
+
+*Minimum dissolved oxygen as DOsat runs from 5.46 to 12.74 mg/L, every other input as you entered it (41 solutions). Marked: your DOsat = 9.1 mg/L gives DO_min = 6.322 mg/L. Your inputs: kd = 0.23 1/d, ka = 0.46 1/d, L0 = 10 mg/L, D0 = 1 mg/L, DOsat = 9.1 mg/L.*
+
+![Critical (largest) deficit and minimum dissolved oxygen as L0 runs from 6 to 14 mg/L, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-streeter-phelps-critical-point-live-2)
+
+*Critical (largest) deficit and minimum dissolved oxygen as L0 runs from 6 to 14 mg/L, every other input as you entered it (29 solutions). Marked: your L0 = 10 mg/L gives D_c = 2.778 mg/L. Your inputs: kd = 0.23 1/d, ka = 0.46 1/d, L0 = 10 mg/L, D0 = 1 mg/L, DOsat = 9.1 mg/L.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_streeter_phelps_critical_point', kd=2.662037037037037e-06, ka=5.324074074074074e-06, L0=0.01, D0=0.001, DOsat=0.0091)
@@ -1833,13 +2005,21 @@ $$
 - **Assumes:** u in m/s and H in m inside the formula constants
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![ka (reaeration rate constant at 20 degC) against H (mean depth) from 1 m to 3 m](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-reaeration-coefficient-curve)
-
-*ka (reaeration rate constant at 20 degC) against H (mean depth) from 1 m to 3 m. One curve for each value of u (mean stream velocity): 0.3 m/s, 0.15 m/s, 0.6 m/s. Other inputs as in the worked example: method = o_connor_dobbins. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, H = 2 m, ka = 8.8083e-06 1/s.*
-
 ![ka (reaeration rate constant at 20 degC) over H (mean depth) from 1 m to 3 m and u (mean stream velocity) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-reaeration-coefficient-field)
 
-*ka (reaeration rate constant at 20 degC) over H (mean depth) from 1 m to 3 m and u (mean stream velocity) from 0.15 m/s to 0.45 m/s: each of the 21 × 15 cells is one run of environmental-engineering-ai999x, shaded by its value (light 3.3903e-06 1/s to dark 3.0513e-05 1/s); iso-lines at ka = 5.00e-6, 1.00e-5, 1.50e-5, 2.00e-5, 2.50e-5 1/s. Other inputs as in the worked example: method = o_connor_dobbins. Marked: the worked example, H = 2 m, u = 0.3 m/s, ka = 8.8083e-06 1/s.*
+*ka (reaeration rate constant at 20 degC) over H (mean depth) from 1 m to 3 m and u (mean stream velocity) from 0.15 m/s to 0.45 m/s: each of the 21 × 15 cells is one solve of the model, shaded by its value (light 3.39e-06 1/s to dark 3.051e-05 1/s); iso-lines at ka = 5e-06, 1e-05, 1.5e-05, 2e-05, 2.5e-05, 3e-05. Marked: the given point, H = 2 m, u = 0.3 m/s, ka = 8.808e-06 1/s. Your inputs: method = o_connor_dobbins, u = 0.3 m/s, H = 2 m.*
+
+![Reaeration rate constant at 20 degC as H runs from 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-reaeration-coefficient-live-1)
+
+*Reaeration rate constant at 20 degC as H runs from 1.2 to 2.8 m, every other input as you entered it (41 solutions). Marked: your H = 2 m gives ka = 0.761 1/day. Your inputs: method = o_connor_dobbins, u = 0.3 m/s, H = 2 m.*
+
+![Reaeration rate constant at 20 degC for every choice of method, every other input as you entered it (highlighted: your choice)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-reaeration-coefficient-live-2)
+
+*Reaeration rate constant at 20 degC for every choice of method, every other input as you entered it (highlighted: your choice). o_connor_dobbins: 8.808e-06; churchill: 5.484e-06; owens_gibbs: 7.624e-06. Your inputs: method = o_connor_dobbins, u = 0.3 m/s, H = 2 m.*
+
+![Reaeration rate constant at 20 degC as u runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-reaeration-coefficient-live-3)
+
+*Reaeration rate constant at 20 degC as u runs from 0.18 to 0.42 m/s, every other input as you entered it (29 solutions). Marked: your u = 0.3 m/s gives ka = 0.761 1/day. Your inputs: method = o_connor_dobbins, u = 0.3 m/s, H = 2 m.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_reaeration_coefficient', method='o_connor_dobbins', u=0.3, H=2.0)
@@ -1884,9 +2064,13 @@ $$
 - **Assumes:** $0-40$ degC; $0-40$ g/kg salinity; 1 atm moist air
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![DOsat (saturation dissolved oxygen) against S (salinity in g/kg (0 for fresh water)) from -1 to 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-do-saturation-curve)
+![Saturation dissolved oxygen as T runs from 10 to 35 degC, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-do-saturation-live-1)
 
-*DOsat (saturation dissolved oxygen) against S (salinity in g/kg (0 for fresh water)) from -1 to 1. Other inputs as in the worked example: T = 293.15 K. 16 points computed by environmental-engineering-ai999x; marked: the worked example, S = 0, DOsat = 0.00909243 kg/m^3.*
+*Saturation dissolved oxygen as T runs from 10 to 35 degC, every other input as you entered it (41 solutions). Marked: your T = 20 degC gives DOsat = 9.092 mg/L. Your inputs: T = 20 degC, S = 0.*
+
+![Saturation dissolved oxygen as S runs from 0 to 1, every other input as you entered it (15 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-do-saturation-live-2)
+
+*Saturation dissolved oxygen as S runs from 0 to 1, every other input as you entered it (15 solutions). Marked: your S = 0 gives DOsat = 9.092 mg/L. Your inputs: T = 20 degC, S = 0.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_do_saturation', T=293.15, S=0.0)
@@ -1934,9 +2118,13 @@ $$
 - **Assumes:** complete mixing; conservative over the mixing zone
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![C (mixed concentration) against Qr (river flow upstream) from 2](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-mixing-two-streams-curve)
+![Mixed concentration as Qr runs from 3 to 7 m^3/s, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-mixing-two-streams-live-1)
 
-*C (mixed concentration) against Qr (river flow upstream) from 2.5 m^3/s to 7.5 m^3/s. One curve for each value of Cw (concentration in the wastewater): 0.2 kg/m^3, 0.1 kg/m^3, 0.4 kg/m^3. Other inputs as in the worked example: Qw = 0.5 m^3/s, Cr = 0.002 kg/m^3. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, Qr = 5 m^3/s, C = 0.02 kg/m^3.*
+*Mixed concentration as Qr runs from 3 to 7 m^3/s, every other input as you entered it (41 solutions). Marked: your Qr = 5 m^3/s gives C = 20 mg/L. Your inputs: Qw = 0.5 m^3/s, Cw = 200 mg/L, Qr = 5 m^3/s, Cr = 2 mg/L.*
+
+![Mixed concentration as Cw runs from 120 to 280 mg/L, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-mixing-two-streams-live-2)
+
+*Mixed concentration as Cw runs from 120 to 280 mg/L, every other input as you entered it (29 solutions). Marked: your Cw = 200 mg/L gives C = 20 mg/L. Your inputs: Qw = 0.5 m^3/s, Cw = 200 mg/L, Qr = 5 m^3/s, Cr = 2 mg/L.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_mixing_two_streams', Qw=0.5, Cw=0.2, Qr=5.0, Cr=0.002)
@@ -1981,6 +2169,10 @@ $$
 - **Method:** C = sum(Q_i C_i)/sum(Q_i)
 - **Assumes:** complete mixing; conservative substance
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![The answer for your inputs: C_mix (mixed concentration, in the unit of C) = 30](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-mixing-several-streams-live-1)
+
+*The answer for your inputs: C_mix (mixed concentration, in the unit of C) = 30.29. Your inputs: Q = 2, 0.5, 1, C = 3, 120, 40.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_mixing_several_streams', Q=[2.0, 0.5, 1.0], C=[3.0, 120.0, 40.0])
@@ -2028,9 +2220,13 @@ $$
 - **Assumes:** completely mixed; steady state
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![C (steady-state concentration) against k (first-order decay constant (0 if conservative)) from 2](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-lake-steady-state-curve)
+![Steady-state concentration as Q runs from 6 to 14 m^3/s, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-lake-steady-state-live-1)
 
-*C (steady-state concentration) against k (first-order decay constant (0 if conservative)) from 2.3148e-07 1/s to 2.3148e-05 1/s on a logarithmic axis. One curve for each value of W (total pollutant input (load)): 0.00115741 kg/s, 0.000578704 kg/s, 0.00231481 kg/s. Other inputs as in the worked example: Q = 10.0 m^3/s, V = 10000000.0 m^3. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, k = 2.3148e-06 1/s, C = 3.4916e-05 kg/m^3.*
+*Steady-state concentration as Q runs from 6 to 14 m^3/s, every other input as you entered it (41 solutions). Marked: your Q = 10 m^3/s gives C = 34.92 ug/L. Your inputs: W = 100 kg/d, Q = 10 m^3/s, k = 0.2 1/d, V = 10000000 m^3.*
+
+![Steady-state concentration as V runs from 6e+06 to 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-lake-steady-state-live-2)
+
+*Steady-state concentration as V runs from 6e+06 to 1.4e+07 m^3, every other input as you entered it (29 solutions). Marked: your V = 1e+07 m^3 gives C = 34.92 ug/L. Your inputs: W = 100 kg/d, Q = 10 m^3/s, k = 0.2 1/d, V = 10000000 m^3.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_lake_steady_state', W=0.0011574074074074073, Q=10.0, k=2.3148148148148148e-06, V=10000000.0)
@@ -2080,9 +2276,13 @@ $$
 - **Assumes:** completely mixed; constant flow, volume and load
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![C (concentration at t) against V (lake volume) from 1e+06 m^3 to 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-lake-transient-curve)
+![Concentration at t as C0 runs from 0 to 1 mg/L, every other input as you entered it (21 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-lake-transient-live-1)
 
-*C (concentration at t) against V (lake volume) from 1e+06 m^3 to 1.0000e+08 m^3 on a logarithmic axis. One curve for each value of C0 (concentration at t = 0): 0 kg/m^3, 0.5 kg/m^3. Other inputs as in the worked example: W = 0.0011574074074074073 kg/s, Q = 10.0 m^3/s, k = 2.3148148148148148e-06 1/s, t = 432000.0 s. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, V = 1.0000e+07 m^3, C = 2.6577e-05 kg/m^3.*
+*Concentration at t as C0 runs from 0 to 1 mg/L, every other input as you entered it (21 solutions). Marked: your C0 = 0 mg/L gives C = 26.58 ug/L. Your inputs: W = 100 kg/d, Q = 10 m^3/s, k = 0.2 1/d, V = 10000000 m^3, C0 = 0 mg/L, t = 5 d.*
+
+![Concentration at t and new steady state as W runs from 60 to 140 kg/d, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-lake-transient-live-2)
+
+*Concentration at t and new steady state as W runs from 60 to 140 kg/d, every other input as you entered it (29 solutions). Marked: your W = 100 kg/d gives C = 26.58 ug/L. Your inputs: W = 100 kg/d, Q = 10 m^3/s, k = 0.2 1/d, V = 10000000 m^3, C0 = 0 mg/L, t = 5 d.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_lake_transient', W=0.0011574074074074073, Q=10.0, k=2.3148148148148148e-06, V=10000000.0, C0=0.0, t=432000.0)
@@ -2100,7 +2300,7 @@ environmental_engineering_ai999x.solve('enveng_lake_transient', W=0.000115740740
 |---|---|---|
 | Lake concentration over time: W = 100 kg/d, Q = 10 m^3/s, k = 0.2 1/d, V = 10000000 m^3, C0 = 0 mg/L, t = 5 d | SOLVED | C = 2.65771e-05 kg/m^3, C_mgL = 0.0265771, C_ss = 3.49162e-05 kg/m^3 |
 | Lake concentration over time: W = 10 kg/d, Q = 5 m^3/s, k = 0.1 1/d, V = 20000000 m^3, C0 = 10 mg/L, t = 20 d | SOLVED | C = 0.00088236 kg/m^3, C_mgL = 0.88236, C_ss = 4.11184e-06 kg/m^3 |
-| Lake concentration over time: Q = 10 m^3/s, k = 0.2 1/d, V = 10000000 m^3, C0 = 0 mg/L, t = 5 d | NEEDS_INPUT | enveng_lake_transient needs W (pollutant load after the change). Example: solve('enveng_lake_transient', W='0.00115741 k |
+| Lake concentration over time: Q = 10 m^3/s, k = 0.2 1/d, V = 10000000 m^3, C0 = 0 mg/L, t = 5 d | NEEDS_INPUT | enveng_lake_transient needs W (pollutant load after the change). Example: solve('enveng_lake_transient', W='0.0011574074 |
 | Lake concentration over time: W = 100 kg/d, Q = 10 m^3/s, k = 0.2 1/d, V = 10000000 m^3, C0 = 0 mg/L, t = 5 d, zz = 1 | UNRECOGNIZED_FORMAT | I could not match this question to a documented form, so I will not guess. Every form: environmental_engineering_ai999x. |
 
 <a id="enveng_river_first_order_decay"></a>
@@ -2131,9 +2331,13 @@ $$
 - **Assumes:** plug flow; first-order decay
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![C (concentration at x) against k (first-order decay constant) from 3](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-river-first-order-decay-curve)
+![Concentration at x as u runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-river-first-order-decay-live-1)
 
-*C (concentration at x) against k (first-order decay constant) from 3.4722e-07 1/s to 3.4722e-05 1/s on a logarithmic axis. One curve for each value of C0 (concentration at the start (after mixing)): 0.02 kg/m^3, 0.01 kg/m^3, 0.04 kg/m^3. Other inputs as in the worked example: x = 40000.0 m, u = 0.25 m/s. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, k = 3.4722e-06 1/s, C = 0.0114751 kg/m^3.*
+*Concentration at x as u runs from 0.15 to 0.35 m/s, every other input as you entered it (41 solutions). Marked: your u = 0.25 m/s gives C = 11.48 mg/L. Your inputs: C0 = 20 mg/L, k = 0.3 1/d, x = 40 km, u = 0.25 m/s.*
+
+![Concentration at x as x runs from 24 to 56 km, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-river-first-order-decay-live-2)
+
+*Concentration at x as x runs from 24 to 56 km, every other input as you entered it (29 solutions). Marked: your x = 40 km gives C = 11.48 mg/L. Your inputs: C0 = 20 mg/L, k = 0.3 1/d, x = 40 km, u = 0.25 m/s.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_river_first_order_decay', C0=0.02, k=3.472222222222222e-06, x=40000.0, u=0.25)
@@ -2179,13 +2383,17 @@ $$
 - **Assumes:** $Q > 0$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![W (mass load) against Q (flow rate) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-pollutant-load-curve)
-
-*W (mass load) against Q (flow rate) from 0.25 m^3/s to 0.75 m^3/s. One curve for each value of C (concentration): 0.03 kg/m^3, 0.015 kg/m^3, 0.06 kg/m^3. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, Q = 0.5 m^3/s, W = 0.015 kg/s.*
-
 ![W (mass load) over Q (flow rate) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-pollutant-load-field)
 
-*W (mass load) over Q (flow rate) from 0.25 m^3/s to 0.75 m^3/s and C (concentration) from 0.015 kg/m^3 to 0.045 kg/m^3: each of the 21 × 15 cells is one run of environmental-engineering-ai999x, shaded by its value (light 0.00375 kg/s to dark 0.03375 kg/s); iso-lines at W = 0.005, 0.01, 0.015, 0.02, 0.025, 0.03 kg/s. Marked: the worked example, Q = 0.5 m^3/s, C = 0.03 kg/m^3, W = 0.015 kg/s.*
+*W (mass load) over Q (flow rate) from 0.25 m³/s to 0.75 m³/s and C (concentration) from 0.015 kg/m³ to 0.045 kg/m³: each of the 21 × 15 cells is one solve of the model, shaded by its value (light 0.00375 kg/s to dark 0.03375 kg/s); iso-lines at W = 0.005, 0.01, 0.015, 0.02, 0.025, 0.03. Marked: the given point, Q = 0.5 m³/s, C = 0.03 kg/m³, W = 0.015 kg/s. Your inputs: Q = 0.5 m^3/s, C = 30 mg/L.*
+
+![Mass load as Q runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-pollutant-load-live-1)
+
+*Mass load as Q runs from 0.3 to 0.7 m^3/s, every other input as you entered it (41 solutions). Marked: your Q = 0.5 m^3/s gives W = 15 g/s. Your inputs: Q = 0.5 m^3/s, C = 30 mg/L.*
+
+![Mass load as C runs from 18 to 42 mg/L, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-pollutant-load-live-2)
+
+*Mass load as C runs from 18 to 42 mg/L, every other input as you entered it (29 solutions). Marked: your C = 30 mg/L gives W = 15 g/s. Your inputs: Q = 0.5 m^3/s, C = 30 mg/L.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_pollutant_load', Q=0.5, C=0.03)
@@ -2231,13 +2439,17 @@ $$
 - **Assumes:** V, $Q > 0$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![theta (detention time V/Q) against Q (flow rate) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-detention-time-curve)
+![theta (detention time V/Q) over V (tank volume) from 500 m³ to 1500 m³ and Q (flow rate) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-detention-time-field)
 
-*theta (detention time V/Q) against Q (flow rate) from 0.0694444 m^3/s to 0.208333 m^3/s. One curve for each value of V (tank volume): 1000 m^3, 500 m^3, 2000 m^3. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, Q = 0.138889 m^3/s, theta = 7200 s.*
+*theta (detention time V/Q) over V (tank volume) from 500 m³ to 1500 m³ and Q (flow rate) from 0.06944 m³/s to 0.2083 m³/s: each of the 21 × 15 cells is one solve of the model, shaded by its value (light 2.4 ks to dark 21.6 ks); iso-lines at theta = 5000, 1e+04, 1.5e+04, 2e+04. Marked: the given point, V = 1000 m³, Q = 0.1389 m³/s, theta = 7.2 ks. In SI units: theta = 7200 s. Your inputs: V = 1000 m^3, Q = 12000 m^3/d.*
 
-![theta (detention time V/Q) over V (tank volume) from 500 m^3 to 1500 m^3 and Q (flow rate) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-detention-time-field)
+![Detention time V/Q as V runs from 600 to 1400 m^3, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-detention-time-live-1)
 
-*theta (detention time V/Q) over V (tank volume) from 500 m^3 to 1500 m^3 and Q (flow rate) from 0.0694444 m^3/s to 0.208333 m^3/s: each of the 21 × 15 cells is one run of environmental-engineering-ai999x, shaded by its value (light 2400 s to dark 21600 s); iso-lines at theta = 5000, 10000, 15000, 20000 s. Marked: the worked example, V = 1000 m^3, Q = 0.138889 m^3/s, theta = 7200 s.*
+*Detention time V/Q as V runs from 600 to 1400 m^3, every other input as you entered it (41 solutions). Marked: your V = 1000 m^3 gives θ = 2 h. Your inputs: V = 1000 m^3, Q = 12000 m^3/d.*
+
+![Detention time V/Q as Q runs from 7200 to 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-detention-time-live-2)
+
+*Detention time V/Q as Q runs from 7200 to 1.68e+04 m^3/d, every other input as you entered it (29 solutions). Marked: your Q = 1.2e+04 m^3/d gives θ = 2 h. Your inputs: V = 1000 m^3, Q = 12000 m^3/d.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_detention_time', V=1000.0, Q=0.1388888888888889)
@@ -2255,7 +2467,7 @@ environmental_engineering_ai999x.solve('enveng_detention_time', V=250.0, Q=0.05)
 |---|---|---|
 | Detention time: V = 1000 m^3, Q = 12000 m^3/d | SOLVED | theta = 7200 s, theta_h = 2 |
 | Detention time: V = 250 m^3, Q = 4320 m^3/d | SOLVED | theta = 5000 s, theta_h = 1.38889 |
-| Detention time: Q = 12000 m^3/d | NEEDS_INPUT | enveng_detention_time needs V (tank volume). Example: solve('enveng_detention_time', V='1000 m^3', Q='0.138889 m^3/s'). |
+| Detention time: Q = 12000 m^3/d | NEEDS_INPUT | enveng_detention_time needs V (tank volume). Example: solve('enveng_detention_time', V='1000 m^3', Q='0.1388888888888889 |
 | Detention time: V = 1000 m^3, Q = 12000 m^3/d, zz = 1 | UNRECOGNIZED_FORMAT | I could not match this question to a documented form, so I will not guess. Every form: environmental_engineering_ai999x. |
 | Detention time: V = 1000 m^3, Q = 500 m^3/h | SOLVED | theta = 7200 s, theta_h = 2 |
 
@@ -2284,13 +2496,21 @@ $$
 - **Assumes:** Q, $D > 0$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![v0 (overflow rate Q/A) against D (tank diameter) from 10 m to 30 m](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-overflow-rate-circular-curve)
+![A circular clarifier from above: water enters at the centre feed well, flows outward (arrows) as particles settle, and leaves over the peripheral weir (green)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-overflow-rate-circular-scene)
 
-*v0 (overflow rate Q/A) against D (tank diameter) from 10 m to 30 m. One curve for each value of Q (flow rate): 0.115741 m^3/s, 0.0578704 m^3/s, 0.231481 m^3/s. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, D = 20 m, v0 = 0.000368414 m/s.*
+*A circular clarifier from above: water enters at the centre feed well, flows outward (arrows) as particles settle, and leaves over the peripheral weir (green). The circle is the diameter given or computed; the numbers beside it are the model's. In SI units: v0 = 0.0003684 m/s. Your inputs: Q = 10000 m^3/d, D = 20 m.*
 
 ![v0 (overflow rate Q/A) over D (tank diameter) from 10 m to 30 m and Q (flow rate) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-overflow-rate-circular-field)
 
-*v0 (overflow rate Q/A) over D (tank diameter) from 10 m to 30 m and Q (flow rate) from 0.0578704 m^3/s to 0.173611 m^3/s: each of the 21 × 15 cells is one run of environmental-engineering-ai999x, shaded by its value (light 8.1870e-05 m/s to dark 0.00221049 m/s); iso-lines at v0 = 5.00e-4, 0.001, 0.0015, 0.002 m/s. Marked: the worked example, D = 20 m, Q = 0.115741 m^3/s, v0 = 0.000368414 m/s.*
+*v0 (overflow rate Q/A) over D (tank diameter) from 10 m to 30 m and Q (flow rate) from 0.05787 m³/s to 0.1736 m³/s: each of the 21 × 15 cells is one solve of the model, shaded by its value (light 8.187e-05 m/s to dark 0.00221 m/s); iso-lines at v0 = 0.0005, 0.001, 0.0015, 0.002. Marked: the given point, D = 20 m, Q = 0.1157 m³/s, v0 = 0.0003684 m/s. Your inputs: Q = 10000 m^3/d, D = 20 m.*
+
+![Overflow rate Q/A as D runs from 12 to 28 m, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-overflow-rate-circular-live-1)
+
+*Overflow rate Q/A as D runs from 12 to 28 m, every other input as you entered it (41 solutions). Marked: your D = 20 m gives v0 = 0.0003684. Your inputs: Q = 10000 m^3/d, D = 20 m.*
+
+![Overflow rate Q/A as Q runs from 6000 to 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-overflow-rate-circular-live-2)
+
+*Overflow rate Q/A as Q runs from 6000 to 1.4e+04 m^3/d, every other input as you entered it (29 solutions). Marked: your Q = 1e+04 m^3/d gives v0 = 0.0003684. Your inputs: Q = 10000 m^3/d, D = 20 m.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_overflow_rate_circular', Q=0.11574074074074074, D=20.0)
@@ -2308,7 +2528,7 @@ environmental_engineering_ai999x.solve('enveng_overflow_rate_circular', Q=0.5, D
 |---|---|---|
 | Overflow rate of a circular clarifier: Q = 10000 m^3/d, D = 20 m | SOLVED | A = 314.159 m^2, v0 = 0.000368414 m/s, v0_m_per_day = 31.831 |
 | Overflow rate of a circular clarifier: Q = 43200 m^3/d, D = 35 m | SOLVED | A = 962.113 m^2, v0 = 0.00051969 m/s, v0_m_per_day = 44.9012 |
-| Overflow rate of a circular clarifier: D = 20 m | NEEDS_INPUT | enveng_overflow_rate_circular needs Q (flow rate). Example: solve('enveng_overflow_rate_circular', Q='0.115741 m^3/s', D |
+| Overflow rate of a circular clarifier: D = 20 m | NEEDS_INPUT | enveng_overflow_rate_circular needs Q (flow rate). Example: solve('enveng_overflow_rate_circular', Q='0.1157407407407407 |
 | Overflow rate of a circular clarifier: Q = 10000 m^3/d, D = 20 m, zz = 1 | UNRECOGNIZED_FORMAT | I could not match this question to a documented form, so I will not guess. Every form: environmental_engineering_ai999x. |
 
 <a id="enveng_sedimentation_basin_sizing"></a>
@@ -2338,9 +2558,17 @@ $$
 - **Assumes:** one basin
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![A (surface area Q/v0) against v0 (design overflow rate (surface loading)) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-sedimentation-basin-sizing-curve)
+![A circular clarifier from above: water enters at the centre feed well, flows outward (arrows) as particles settle, and leaves over the peripheral weir (green)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-sedimentation-basin-sizing-scene)
 
-*A (surface area Q/v0) against v0 (design overflow rate (surface loading)) from 0.000231481 m/s to 0.000694444 m/s. One curve for each value of Q (design flow): 0.173611 m^3/s, 0.0868056 m^3/s, 0.347222 m^3/s. Other inputs as in the worked example: theta = 7200.0 s. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, v0 = 0.000462963 m/s, A = 375 m^2.*
+*A circular clarifier from above: water enters at the centre feed well, flows outward (arrows) as particles settle, and leaves over the peripheral weir (green). The circle is the diameter given or computed; the numbers beside it are the model's. In SI units: A = 375 m^2. Your inputs: Q = 15000 m^3/d, v0 = 40 m/d, theta = 2 h.*
+
+![Surface area Q/v0 as Q runs from 9000 to 2](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-sedimentation-basin-sizing-live-1)
+
+*Surface area Q/v0 as Q runs from 9000 to 2.1e+04 m^3/d, every other input as you entered it (41 solutions). Marked: your Q = 1.5e+04 m^3/d gives A = 375. Your inputs: Q = 15000 m^3/d, v0 = 40 m/d, theta = 2 h.*
+
+![Surface area Q/v0 as v0 runs from 24 to 56 m/d, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-sedimentation-basin-sizing-live-2)
+
+*Surface area Q/v0 as v0 runs from 24 to 56 m/d, every other input as you entered it (29 solutions). Marked: your v0 = 40 m/d gives A = 375. Your inputs: Q = 15000 m^3/d, v0 = 40 m/d, theta = 2 h.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_sedimentation_basin_sizing', Q=0.1736111111111111, v0=0.000462962962962963, theta=7200.0)
@@ -2386,13 +2614,21 @@ $$
 - **Assumes:** peripheral weir
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![WL (weir loading rate Q/(pi D)) against D (weir (tank) diameter) from 10 m to 30 m](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-weir-loading-rate-curve)
+![A circular clarifier from above: water enters at the centre feed well, flows outward (arrows) as particles settle, and leaves over the peripheral weir (green)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-weir-loading-rate-scene)
 
-*WL (weir loading rate Q/(pi D)) against D (weir (tank) diameter) from 10 m to 30 m. One curve for each value of Q (flow rate): 0.115741 m^3/s, 0.0578704 m^3/s, 0.231481 m^3/s. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, D = 20 m, WL = 0.00184207 m^2/s.*
+*A circular clarifier from above: water enters at the centre feed well, flows outward (arrows) as particles settle, and leaves over the peripheral weir (green). The circle is the diameter given or computed; the numbers beside it are the model's. In SI units: WL = 0.001842 m^2/s. Your inputs: Q = 10000 m^3/d, D = 20 m.*
 
 ![WL (weir loading rate Q/(pi D)) over Q (flow rate) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-weir-loading-rate-field)
 
-*WL (weir loading rate Q/(pi D)) over Q (flow rate) from 0.0578704 m^3/s to 0.173611 m^3/s and D (weir (tank) diameter) from 10 m to 30 m: each of the 21 × 15 cells is one run of environmental-engineering-ai999x, shaded by its value (light 0.000614024 m^2/s to dark 0.00552621 m^2/s); iso-lines at WL = 0.001, 0.002, 0.003, 0.004, 0.005 m^2/s. Marked: the worked example, Q = 0.115741 m^3/s, D = 20 m, WL = 0.00184207 m^2/s.*
+*WL (weir loading rate Q/(pi D)) over Q (flow rate) from 0.05787 m³/s to 0.1736 m³/s and D (weir (tank) diameter) from 10 m to 30 m: each of the 21 × 15 cells is one solve of the model, shaded by its value (light 0.000614 m²/s to dark 0.005526 m²/s); iso-lines at WL = 0.001, 0.002, 0.003, 0.004, 0.005. Marked: the given point, Q = 0.1157 m³/s, D = 20 m, WL = 0.001842 m²/s. Your inputs: Q = 10000 m^3/d, D = 20 m.*
+
+![Weir loading rate Q/(pi D) as Q runs from 6000 to 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-weir-loading-rate-live-1)
+
+*Weir loading rate Q/(pi D) as Q runs from 6000 to 1.4e+04 m^3/d, every other input as you entered it (41 solutions). Marked: your Q = 1e+04 m^3/d gives WL = 0.001842. Your inputs: Q = 10000 m^3/d, D = 20 m.*
+
+![Weir loading rate Q/(pi D) as D runs from 12 to 28 m, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-weir-loading-rate-live-2)
+
+*Weir loading rate Q/(pi D) as D runs from 12 to 28 m, every other input as you entered it (29 solutions). Marked: your D = 20 m gives WL = 0.001842. Your inputs: Q = 10000 m^3/d, D = 20 m.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_weir_loading_rate', Q=0.11574074074074074, D=20.0)
@@ -2410,7 +2646,7 @@ environmental_engineering_ai999x.solve('enveng_weir_loading_rate', Q=0.347222222
 |---|---|---|
 | Weir loading rate: Q = 10000 m^3/d, D = 20 m | SOLVED | weir_length = 62.8319 m, WL = 0.00184207 m^2/s, WL_m3_per_m_day = 159.155 |
 | Weir loading rate: Q = 30000 m^3/d, D = 32 m | SOLVED | weir_length = 100.531 m, WL = 0.00345388 m^2/s, WL_m3_per_m_day = 298.416 |
-| Weir loading rate: D = 20 m | NEEDS_INPUT | enveng_weir_loading_rate needs Q (flow rate). Example: solve('enveng_weir_loading_rate', Q='0.115741 m^3/s', D='20 m'). |
+| Weir loading rate: D = 20 m | NEEDS_INPUT | enveng_weir_loading_rate needs Q (flow rate). Example: solve('enveng_weir_loading_rate', Q='0.11574074074074074 m^3/s',  |
 | Weir loading rate: Q = 10000 m^3/d, D = 20 m, zz = 1 | UNRECOGNIZED_FORMAT | I could not match this question to a documented form, so I will not guess. Every form: environmental_engineering_ai999x. |
 
 <a id="enveng_stokes_settling_velocity"></a>
@@ -2440,9 +2676,13 @@ $$
 - **Assumes:** $Re  \leq  1$; $rho_p > rho_w$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![vs (settling velocity) against mu (water viscosity) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-stokes-settling-velocity-curve)
+![Settling velocity as d runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-stokes-settling-velocity-live-1)
 
-*vs (settling velocity) against mu (water viscosity) from 0.000501 Pa*s to 0.001503 Pa*s. One curve for each value of rho_p (particle density): 2650 kg/m^3, 1325 kg/m^3, 5300 kg/m^3. Other inputs as in the worked example: d = 5e-05 m, rho_w = 998.2 kg/m^3. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, mu = 0.001002 Pa*s, vs = 0.00224532 m/s.*
+*Settling velocity as d runs from 0.03 to 0.07 mm, every other input as you entered it (41 solutions). Marked: your d = 0.05 mm gives vs = 0.002245. Your inputs: d = 0.05 mm, rho_p = 2650 kg/m^3, rho_w = 998.2 kg/m^3, mu = 0.001002 Pa*s.*
+
+![Settling velocity as ρ_p runs from 1590 to 3710 kg/m^3, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-stokes-settling-velocity-live-2)
+
+*Settling velocity as ρ_p runs from 1590 to 3710 kg/m^3, every other input as you entered it (29 solutions). Marked: your ρ_p = 2650 kg/m^3 gives vs = 0.002245. Your inputs: d = 0.05 mm, rho_p = 2650 kg/m^3, rho_w = 998.2 kg/m^3, mu = 0.001002 Pa*s.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_stokes_settling_velocity', d=5e-05, rho_p=2650.0, rho_w=998.2, mu=0.001002)
@@ -2490,9 +2730,13 @@ $$
 - **Assumes:** $Re  \leq  2e5$; $rho_p > rho_f$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![vt (terminal settling velocity) against d (particle diameter) from 5](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-terminal-settling-velocity-curve)
+![Terminal settling velocity as d runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-terminal-settling-velocity-live-1)
 
-*vt (terminal settling velocity) against d (particle diameter) from 5.0000e-05 m to 0.005 m on a logarithmic axis. One curve for each value of rho_p (particle density): 2650 kg/m^3, 1325 kg/m^3, 5300 kg/m^3. Other inputs as in the worked example: rho_f = 998.2 kg/m^3, mu = 0.001002 Pa*s. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, d = 0.0005 m, vt = 0.0905806 m/s.*
+*Terminal settling velocity as d runs from 0.3 to 0.7 mm, every other input as you entered it (41 solutions). Marked: your d = 0.5 mm gives vt = 0.09058. Your inputs: d = 0.5 mm, rho_p = 2650 kg/m^3, rho_f = 998.2 kg/m^3, mu = 0.001002 Pa*s.*
+
+![Terminal settling velocity as ρ_p runs from 1590 to 3710 kg/m^3, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-terminal-settling-velocity-live-2)
+
+*Terminal settling velocity as ρ_p runs from 1590 to 3710 kg/m^3, every other input as you entered it (29 solutions). Marked: your ρ_p = 2650 kg/m^3 gives vt = 0.09058. Your inputs: d = 0.5 mm, rho_p = 2650 kg/m^3, rho_f = 998.2 kg/m^3, mu = 0.001002 Pa*s.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_terminal_settling_velocity', d=0.0005, rho_p=2650.0, rho_f=998.2, mu=0.001002)
@@ -2538,9 +2782,13 @@ $$
 - **Assumes:** ideal basin, discrete (type I) settling
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![R (fraction removed) against vs (settling velocity of the particles) from 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-ideal-basin-removal-curve)
+![Fraction removed as Q runs from 6000 to 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-ideal-basin-removal-live-1)
 
-*R (fraction removed) against vs (settling velocity of the particles) from 1.3889e-05 m/s to 0.00138889 m/s on a logarithmic axis. One curve for each value of Q (flow): 0.115741 m^3/s, 0.0578704 m^3/s, 0.231481 m^3/s. Other inputs as in the worked example: A = 400.0 m^2. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, vs = 0.000138889 m/s, R = 0.48.*
+*Fraction removed as Q runs from 6000 to 1.4e+04 m^3/d, every other input as you entered it (41 solutions). Marked: your Q = 1e+04 m^3/d gives R = 0.48. Your inputs: vs = 0.5 m/h, Q = 10000 m^3/d, A = 400 m^2.*
+
+![Fraction removed as vs runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-ideal-basin-removal-live-2)
+
+*Fraction removed as vs runs from 0.3 to 0.7 m/h, every other input as you entered it (29 solutions). Marked: your vs = 0.5 m/h gives R = 0.48. Your inputs: vs = 0.5 m/h, Q = 10000 m^3/d, A = 400 m^2.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_ideal_basin_removal', vs=0.0001388888888888889, Q=0.11574074074074074, A=400.0)
@@ -2588,9 +2836,13 @@ $$
 - **Assumes:** $N  \geq  2$ identical filters
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![v (filtration rate with all filters) against N (number of filters) from 1 to 14](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-filtration-rate-curve)
+![Filtration rate with all filters as A runs from 30 to 70 m^2, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-filtration-rate-live-1)
 
-*v (filtration rate with all filters) against N (number of filters) from 1 to 14. One curve for each value of Q (plant flow): 0.462963 m^3/s, 0.231481 m^3/s, 0.925926 m^3/s. Other inputs as in the worked example: A = 50.0 m^2. 13 points per curve computed by environmental-engineering-ai999x; marked: the worked example, N = 6, v = 0.00154321 m/s.*
+*Filtration rate with all filters as A runs from 30 to 70 m^2, every other input as you entered it (41 solutions). Marked: your A = 50 m^2 gives v = 0.001543. Your inputs: Q = 40000 m^3/d, A = 50 m^2, N = 6.*
+
+![Filtration rate with all filters as N runs from 2 to 11, every other input as you entered it (10 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-filtration-rate-live-2)
+
+*Filtration rate with all filters as N runs from 2 to 11, every other input as you entered it (10 solutions). Marked: your N = 6 gives v = 0.001543. Your inputs: Q = 40000 m^3/d, A = 50 m^2, N = 6.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_filtration_rate', Q=0.46296296296296297, A=50.0, N=6)
@@ -2608,7 +2860,7 @@ environmental_engineering_ai999x.solve('enveng_filtration_rate', Q=0.13888888888
 |---|---|---|
 | Filtration rate: Q = 40000 m^3/d, A = 50 m^2, N = 6 | SOLVED | v = 0.00154321 m/s, v_m_per_h = 5.55556, v_one_out = 0.00185185 m/s, v_one_out_m_per_h = 6.66667 |
 | Filtration rate: Q = 12000 m^3/d, A = 30 m^2, N = 4 | SOLVED | v = 0.00115741 m/s, v_m_per_h = 4.16667, v_one_out = 0.00154321 m/s, v_one_out_m_per_h = 5.55556 |
-| Filtration rate: A = 50 m^2, N = 6 | NEEDS_INPUT | enveng_filtration_rate needs Q (plant flow). Example: solve('enveng_filtration_rate', Q='0.462963 m^3/s', A='50 m^2', N= |
+| Filtration rate: A = 50 m^2, N = 6 | NEEDS_INPUT | enveng_filtration_rate needs Q (plant flow). Example: solve('enveng_filtration_rate', Q='0.46296296296296297 m^3/s', A=' |
 | Filtration rate: Q = 40000 m^3/d, A = 50 m^2, N = 6, zz = 1 | UNRECOGNIZED_FORMAT | I could not match this question to a documented form, so I will not guess. Every form: environmental_engineering_ai999x. |
 
 <a id="enveng_filter_clean_bed_headloss"></a>
@@ -2641,9 +2893,13 @@ $$
 - **Assumes:** 0 < eps < 1; $0 < \psi  \leq  1$; clean bed
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![h (head loss) against psi (grain sphericity (fraction, 1 for spheres)) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-filter-clean-bed-headloss-curve)
+![Head loss as ε runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-filter-clean-bed-headloss-live-1)
 
-*h (head loss) against psi (grain sphericity (fraction, 1 for spheres)) from 0.02 to 0.98, logarithmic output axis. One curve for each value of eps (bed porosity (fraction)): 0.4, 0.26, 0.74. Other inputs as in the worked example: d = 0.0005 m, L = 0.7 m, v = 0.0022222222222222222 m/s, rho = 998.2 kg/m^3, mu = 0.001002 Pa*s. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, psi = 0.85, h = 0.757398 m.*
+*Head loss as ε runs from 0.1 to 0.7, every other input as you entered it (41 solutions). Marked: your ε = 0.4 gives h = 0.7574. Your inputs: d = 0.5 mm, eps = 0.4, psi = 0.85, L = 0.7 m, v = 8 m/h, rho = 998.2 kg/m^3, mu = 0.001002 Pa*s.*
+
+![Head loss as d runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-filter-clean-bed-headloss-live-2)
+
+*Head loss as d runs from 0.3 to 0.7 mm, every other input as you entered it (29 solutions). Marked: your d = 0.5 mm gives h = 0.7574. Your inputs: d = 0.5 mm, eps = 0.4, psi = 0.85, L = 0.7 m, v = 8 m/h, rho = 998.2 kg/m^3, mu = 0.001002 Pa*s.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_filter_clean_bed_headloss', d=0.0005, eps=0.4, psi=0.85, L=0.7, v=0.0022222222222222222, rho=998.2, mu=0.001002)
@@ -2691,9 +2947,13 @@ $$
 - **Assumes:** the bed is fluidised: eps < (vb/vs)^0.22 < 1
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![Le (expanded bed depth) against vb (backwash rate) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-backwash-bed-expansion-curve)
+![Expanded bed depth as ε runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-backwash-bed-expansion-live-1)
 
-*Le (expanded bed depth) against vb (backwash rate) from 0.00138889 m/s to 0.138889 m/s on a logarithmic axis. One curve for each value of vs (settling velocity of the grains): 0.0833333 m/s, 0.0416667 m/s, 0.166667 m/s. Other inputs as in the worked example: L = 0.7 m, eps = 0.42. 34 points per curve computed by environmental-engineering-ai999x; marked: the worked example, vb = 0.0138889 m/s, Le = 1.24627 m.*
+*Expanded bed depth as ε runs from 0.105 to 0.672, every other input as you entered it (37 solutions). Marked: your ε = 0.42 gives Le = 1.246. Your inputs: L = 0.7 m, eps = 0.42, vb = 50 m/h, vs = 300 m/h.*
+
+![Expanded bed depth as vs runs from 180 to 420 m/h, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-backwash-bed-expansion-live-2)
+
+*Expanded bed depth as vs runs from 180 to 420 m/h, every other input as you entered it (29 solutions). Marked: your vs = 300 m/h gives Le = 1.246. Your inputs: L = 0.7 m, eps = 0.42, vb = 50 m/h, vs = 300 m/h.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_backwash_bed_expansion', L=0.7, eps=0.42, vb=0.013888888888888888, vs=0.08333333333333333)
@@ -2740,9 +3000,13 @@ $$
 - **Assumes:** P, mu, $V > 0$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![G (mean velocity gradient) against mu (water viscosity) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-velocity-gradient-curve)
+![Mean velocity gradient as P runs from 1200 to 2800 W, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-velocity-gradient-live-1)
 
-*G (mean velocity gradient) against mu (water viscosity) from 0.000501 Pa*s to 0.001503 Pa*s. One curve for each value of P (power dissipated in the water): 2000 W, 1000 W, 4000 W. Other inputs as in the worked example: V = 50.0 m^3. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, mu = 0.001002 Pa*s, G = 199.8 1/s.*
+*Mean velocity gradient as P runs from 1200 to 2800 W, every other input as you entered it (41 solutions). Marked: your P = 2000 W gives G = 199.8. Your inputs: P = 2000 W, mu = 0.001002 Pa*s, V = 50 m^3.*
+
+![Mean velocity gradient as μ runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-velocity-gradient-live-2)
+
+*Mean velocity gradient as μ runs from 0.0006012 to 0.001403 Pa*s, every other input as you entered it (29 solutions). Marked: your μ = 0.001002 Pa*s gives G = 199.8. Your inputs: P = 2000 W, mu = 0.001002 Pa*s, V = 50 m^3.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_velocity_gradient', P=2000.0, mu=0.001002, V=50.0)
@@ -2787,9 +3051,13 @@ $$
 - **Assumes:** G, mu, $V > 0$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![P (power required) against G (target velocity gradient) from 350 1/s to 1050 1/s](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-mixing-power-curve)
+![Power required as G runs from 420 to 980 1/s, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-mixing-power-live-1)
 
-*P (power required) against G (target velocity gradient) from 350 1/s to 1050 1/s. One curve for each value of mu (water viscosity): 0.001002 Pa*s, 0.000501 Pa*s, 0.002004 Pa*s. Other inputs as in the worked example: V = 10.0 m^3. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, G = 700 1/s, P = 4909.8 W.*
+*Power required as G runs from 420 to 980 1/s, every other input as you entered it (41 solutions). Marked: your G = 700 1/s gives P = 4910. Your inputs: G = 700 1/s, mu = 0.001002 Pa*s, V = 10 m^3.*
+
+![Power required as μ runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-mixing-power-live-2)
+
+*Power required as μ runs from 0.0006012 to 0.001403 Pa*s, every other input as you entered it (29 solutions). Marked: your μ = 0.001002 Pa*s gives P = 4910. Your inputs: G = 700 1/s, mu = 0.001002 Pa*s, V = 10 m^3.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_mixing_power', G=700.0, mu=0.001002, V=10.0)
@@ -2837,9 +3105,13 @@ $$
 - **Assumes:** $0 < BF  \leq  1$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![CT (CT value) against Q (peak flow) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-disinfection-ct-curve)
+![CT value as C runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-disinfection-ct-live-1)
 
-*CT (CT value) against Q (peak flow) from 0.115741 m^3/s to 0.347222 m^3/s. One curve for each value of C (disinfectant residual at the outlet): 0.001 kg/m^3, 0.0005 kg/m^3, 0.002 kg/m^3. Other inputs as in the worked example: V = 1000.0 m^3, BF = 0.5. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, Q = 0.231481 m^3/s, CT = 2.16 kg*s/m^3.*
+*CT value as C runs from 0.6 to 1.4 mg/L, every other input as you entered it (41 solutions). Marked: your C = 1 mg/L gives CT = 2.16. Your inputs: C = 1 mg/L, V = 1000 m^3, Q = 20000 m^3/d, BF = 0.5.*
+
+![CT value as V runs from 600 to 1400 m^3, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-disinfection-ct-live-2)
+
+*CT value as V runs from 600 to 1400 m^3, every other input as you entered it (29 solutions). Marked: your V = 1000 m^3 gives CT = 2.16. Your inputs: C = 1 mg/L, V = 1000 m^3, Q = 20000 m^3/d, BF = 0.5.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_disinfection_ct', C=0.001, V=1000.0, Q=0.23148148148148148, BF=0.5)
@@ -2886,9 +3158,13 @@ $$
 - **Assumes:** first-order (Chick-Watson) inactivation with $n = 1$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![log_inactivation (log inactivation credited) against CT999 (CT required for 3-log inactivation (from the tables)) from 3](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-ct-log-inactivation-curve)
+![Log inactivation credited as C runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-ct-log-inactivation-live-1)
 
-*log_inactivation (log inactivation credited) against CT999 (CT required for 3-log inactivation (from the tables)) from 3.12 kg*s/m^3 to 9.36 kg*s/m^3. One curve for each value of C (disinfectant residual): 0.0012 kg/m^3, 0.0006 kg/m^3, 0.0024 kg/m^3. Other inputs as in the worked example: t10 = 2400.0 s. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, CT999 = 6.24 kg*s/m^3, log_inactivation = 1.38462.*
+*Log inactivation credited as C runs from 0.72 to 1.68 mg/L, every other input as you entered it (41 solutions). Marked: your C = 1.2 mg/L gives log_inactivation = 1.385. Your inputs: C = 1.2 mg/L, t10 = 40 min, CT999 = 104 mg*min/L.*
+
+![Log inactivation credited as t10 runs from 24 to 56 min, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-ct-log-inactivation-live-2)
+
+*Log inactivation credited as t10 runs from 24 to 56 min, every other input as you entered it (29 solutions). Marked: your t10 = 40 min gives log_inactivation = 1.385. Your inputs: C = 1.2 mg/L, t10 = 40 min, CT999 = 104 mg*min/L.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_ct_log_inactivation', C=0.0012, t10=2400.0, CT999=6.24)
@@ -2936,9 +3212,13 @@ $$
 - **Assumes:** first-order kinetics
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![survival (N/N0) against k (inactivation (die-off) rate constant) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-chick-law-curve)
+![Survival as k runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-chick-law-live-1)
 
-*survival (N/N0) against k (inactivation (die-off) rate constant) from 0.00166667 1/s to 0.005 1/s. One curve for each value of t (contact time): 1800 s, 900 s, 3600 s. Other inputs as in the worked example: N0 = 1000000.0. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, k = 0.00333333 1/s, survival = 0.00247875.*
+*Survival as k runs from 0.12 to 0.28 1/min, every other input as you entered it (41 solutions). Marked: your k = 0.2 1/min gives survival = 0.002479. Your inputs: N0 = 1000000, k = 0.2 1/min, t = 30 min.*
+
+![Survival as t runs from 18 to 42 min, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-chick-law-live-2)
+
+*Survival as t runs from 18 to 42 min, every other input as you entered it (29 solutions). Marked: your t = 30 min gives survival = 0.002479. Your inputs: N0 = 1000000, k = 0.2 1/min, t = 30 min.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_chick_law', N0=1000000.0, k=0.0033333333333333335, t=1800.0)
@@ -2985,9 +3265,13 @@ $$
 - **Assumes:** constant concentration; $0.3  \leq  n  \leq  3$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![log_inactivation (log10 inactivation) against k (Chick-Watson coefficient in (L/mg)^n per minute) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-chick-watson-curve)
+![Log10 inactivation as k runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-chick-watson-live-1)
 
-*log_inactivation (log10 inactivation) against k (Chick-Watson coefficient in (L/mg)^n per minute) from 0.02 to 0.98. One curve for each value of C (disinfectant concentration): 0.001 kg/m^3, 0.0005 kg/m^3, 0.002 kg/m^3. Other inputs as in the worked example: n = 1.0, t = 1800.0 s. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, k = 0.1, log_inactivation = 1.30288.*
+*Log10 inactivation as k runs from 0.025 to 0.175, every other input as you entered it (39 solutions). Marked: your k = 0.1 gives log_inactivation = 1.303. Your inputs: k = 0.1, n = 1, C = 1 mg/L, t = 30 min.*
+
+![Log10 inactivation as C runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-chick-watson-live-2)
+
+*Log10 inactivation as C runs from 0.6 to 1.4 mg/L, every other input as you entered it (29 solutions). Marked: your C = 1 mg/L gives log_inactivation = 1.303. Your inputs: k = 0.1, n = 1, C = 1 mg/L, t = 30 min.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_chick_watson', k=0.1, n=1.0, C=0.001, t=1800.0)
@@ -3032,13 +3316,17 @@ $$
 - **Assumes:** $0 < N < N_{0}$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![log_removal (log10 removal) against N0 (count or concentration before treatment) from 100000 to 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-log-removal-curve)
+![log_removal (log10 removal) over N0 (count or concentration before treatment) from 1e+05 to 1e+07 and N (count or concentration after treatment (same unit)) from 10 to 1000 (logarithmic axes): each of the 21 × 15 cells is one solve of the model, shaded by its value (light 2 to dark 6); iso-lines at log_removal = 3, 4, 5](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-log-removal-field)
 
-*log_removal (log10 removal) against N0 (count or concentration before treatment) from 100000 to 1.0000e+07 on a logarithmic axis. One curve for each value of N (count or concentration after treatment (same unit)): 100, 50, 200. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, N0 = 1e+06, log_removal = 4.*
+*log_removal (log10 removal) over N0 (count or concentration before treatment) from 1e+05 to 1e+07 and N (count or concentration after treatment (same unit)) from 10 to 1000 (logarithmic axes): each of the 21 × 15 cells is one solve of the model, shaded by its value (light 2 to dark 6); iso-lines at log_removal = 3, 4, 5. Marked: the given point, N0 = 1e+06, N = 100, log_removal = 4. Your inputs: N0 = 1000000, N = 100.*
 
-![log_removal (log10 removal) over N0 (count or concentration before treatment) from 100000 to 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-log-removal-field)
+![Log10 removal as N0 runs from 2](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-log-removal-live-1)
 
-*log_removal (log10 removal) over N0 (count or concentration before treatment) from 100000 to 1.0000e+07 and N (count or concentration after treatment (same unit)) from 10 to 1000 (logarithmic axes): each of the 21 × 15 cells is one run of environmental-engineering-ai999x, shaded by its value (light 2 to dark 6); iso-lines at log_removal = 3, 4, 5. Marked: the worked example, N0 = 1e+06, N = 100, log_removal = 4.*
+*Log10 removal as N0 runs from 2.5e+05 to 1.75e+06, every other input as you entered it (41 solutions). Marked: your N0 = 1e+06 gives log_removal = 4. Your inputs: N0 = 1000000, N = 100.*
+
+![Log10 removal as N runs from 25 to 175, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-log-removal-live-2)
+
+*Log10 removal as N runs from 25 to 175, every other input as you entered it (29 solutions). Marked: your N = 100 gives log_removal = 4. Your inputs: N0 = 1000000, N = 100.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_log_removal', N0=1000000.0, N=100.0)
@@ -3088,9 +3376,13 @@ $$
 - **Assumes:** 0 < purity <= 1
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![feed (chlorine feed rate) against Q (flow treated) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-chlorine-dose-feed-curve)
+![Chlorine feed rate as Q runs from 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-chlorine-dose-feed-live-1)
 
-*feed (chlorine feed rate) against Q (flow treated) from 0.115741 m^3/s to 0.347222 m^3/s. One curve for each value of demand (chlorine demand): 0.0025 kg/m^3, 0.00125 kg/m^3, 0.005 kg/m^3. Other inputs as in the worked example: residual = 0.0005 kg/m^3, purity = 1.0. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, Q = 0.231481 m^3/s, feed = 0.000694444 kg/s.*
+*Chlorine feed rate as Q runs from 1.2e+04 to 2.8e+04 m^3/d, every other input as you entered it (41 solutions). Marked: your Q = 2e+04 m^3/d gives feed = 0.6944 g/s. Your inputs: Q = 20000 m^3/d, demand = 2.5 mg/L, residual = 0.5 mg/L, purity = 1.*
+
+![Product feed in kg/d as purity runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-chlorine-dose-feed-live-2)
+
+*Product feed in kg/d as purity runs from 0.25 to 1, every other input as you entered it (15 solutions). Marked: your purity = 1 gives product_kg_per_day = 60. Your inputs: Q = 20000 m^3/d, demand = 2.5 mg/L, residual = 0.5 mg/L, purity = 1.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_chlorine_dose_feed', Q=0.23148148148148148, demand=0.0025, residual=0.0005, purity=1.0)
@@ -3108,7 +3400,7 @@ environmental_engineering_ai999x.solve('enveng_chlorine_dose_feed', Q=0.05787037
 |---|---|---|
 | Chlorine dose and feed rate: Q = 20000 m^3/d, demand = 2.5 mg/L, residual = 0.5 mg/L, purity = 1 | SOLVED | dose = 0.003 kg/m^3, dose_mgL = 3, feed = 0.000694444 kg/s, feed_kg_per_day = 60, product_kg_per_day = 60 |
 | Chlorine dose and feed rate: Q = 5000 m^3/d, demand = 1.8 mg/L, residual = 0.7 mg/L, purity = 0.65 | SOLVED | dose = 0.0025 kg/m^3, dose_mgL = 2.5, feed = 0.000144676 kg/s, feed_kg_per_day = 12.5, product_kg_per_day = 19.2308 |
-| Chlorine dose and feed rate: demand = 2.5 mg/L, residual = 0.5 mg/L, purity = 1 | NEEDS_INPUT | enveng_chlorine_dose_feed needs Q (flow treated). Example: solve('enveng_chlorine_dose_feed', Q='0.231481 m^3/s', demand |
+| Chlorine dose and feed rate: demand = 2.5 mg/L, residual = 0.5 mg/L, purity = 1 | NEEDS_INPUT | enveng_chlorine_dose_feed needs Q (flow treated). Example: solve('enveng_chlorine_dose_feed', Q='0.23148148148148148 m^3 |
 | Chlorine dose and feed rate: Q = 20000 m^3/d, demand = 2.5 mg/L, residual = 0.5 mg/L, purity = 1, zz = 1 | UNRECOGNIZED_FORMAT | I could not match this question to a documented form, so I will not guess. Every form: environmental_engineering_ai999x. |
 | Chlorine feed rate: Q = 5000 m^3/d, demand = 1.8 mg/L, residual = 0.7 mg/L, purity = 65% | SOLVED | dose = 0.0025 kg/m^3, dose_mgL = 2.5, feed = 0.000144676 kg/s, feed_kg_per_day = 12.5, product_kg_per_day = 19.2308 |
 
@@ -3138,13 +3430,17 @@ $$
 - **Assumes:** either pKa or T; $0-35$ degC for the correlation
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![alpha_HOCl (fraction as HOCl) against pKa (pKa of HOCl (7](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-hypochlorous-acid-fraction-curve)
-
-*alpha_HOCl (fraction as HOCl) against pKa (pKa of HOCl (7.54 at 25 degC)) from 0.754 to 75.4 on a logarithmic axis, logarithmic output axis. One curve for each value of pH (pH of the water): 7, 3.5, 14. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, pKa = 7.54, alpha_HOCl = 0.776155.*
-
 ![alpha_HOCl (fraction as HOCl) over pKa (pKa of HOCl (7](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-hypochlorous-acid-fraction-field)
 
-*alpha_HOCl (fraction as HOCl) over pKa (pKa of HOCl (7.54 at 25 degC)) from 0.754 to 75.4 and pH (pH of the water) from 3.5 to 10.5 (logarithmic horizontal axis): each of the 21 × 15 cells is one run of environmental-engineering-ai999x, shaded by its value (light 1.7947e-10 to dark 1, logarithmic shading); iso-lines at alpha_HOCl = 1.00e-9, 1.00e-8, 1.00e-7, 1.00e-6, 1.00e-5, 1.00e-4, 0.001. Marked: the worked example, pKa = 7.54, pH = 7, alpha_HOCl = 0.776155.*
+*alpha_HOCl (fraction as HOCl) over pKa (pKa of HOCl (7.54 at 25 degC)) from 6.032 to 9.048 and pH (pH of the water) from 3.5 to 10.5: each of the 21 × 15 cells is one solve of the model, shaded by its value (light 3.404e-05 to dark 1, logarithmic shading); iso-lines at alpha_HOCl = 0.0001, 0.001, 0.01, 0.1. Marked: the given point, pKa = 7.54, pH = 7, alpha_HOCl = 0.7762. Your inputs: pH = 7, pKa = 7.54.*
+
+![Fraction as HOCl as pKa runs from 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-hypochlorous-acid-fraction-live-1)
+
+*Fraction as HOCl as pKa runs from 1.885 to 13.2, every other input as you entered it (41 solutions). Marked: your pKa = 7.54 gives α_HOCl = 0.7762. Your inputs: pH = 7, pKa = 7.54.*
+
+![Fraction as HOCl as pH runs from 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-hypochlorous-acid-fraction-live-2)
+
+*Fraction as HOCl as pH runs from 1.75 to 12.25, every other input as you entered it (29 solutions). Marked: your pH = 7 gives α_HOCl = 0.7762. Your inputs: pH = 7, pKa = 7.54.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_hypochlorous_acid_fraction', pH=7.0, pKa=7.54)
@@ -3191,13 +3487,17 @@ $$
 - **Assumes:** only Ca and Mg contribute
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![soft (< 60), moderately hard (60-120), hard (120-180), very hard (>= 180) (classification) over Ca (calcium concentration (as Ca)) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-water-hardness-decision)
+![Total hardness, mg/L as CaCO3 as Ca runs from 36 to 84 mg/L, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-water-hardness-live-1)
 
-*soft (< 60), moderately hard (60-120), hard (120-180), very hard (>= 180) (classification) over Ca (calcium concentration (as Ca)) from 0.006 kg/m^3 to 0.6 kg/m^3 and Mg (magnesium concentration (as Mg)) from 0.0015 kg/m^3 to 0.15 kg/m^3 (logarithmic axes): each of the 31 × 21 cells is one run of environmental-engineering-ai999x, coloured by the verdict it returned, hard: 63 cells, moderately hard: 83 cells, soft: 63 cells, very hard: 442 cells. Marked: the worked example, Ca = 0.06 kg/m^3, Mg = 0.015 kg/m^3 → very hard.*
+*Total hardness, mg/L as CaCO3 as Ca runs from 36 to 84 mg/L, every other input as you entered it (41 solutions). Marked: your Ca = 60 mg/L gives total_hardness = 211.6. Shaded by soft (< 60), moderately hard (60-120), hard (120-180), very hard (>= 180): hard, very hard. Your inputs: Ca = 60 mg/L, Mg = 15 mg/L.*
 
-![total_hardness (total hardness, mg/L as CaCO3) against Ca (calcium concentration (as Ca)) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-water-hardness-curve)
+![Soft (< 60), moderately hard (60-120), hard (120-180), very hard (>= 180) for 25 5 x 5 combinations of Ca and Mg around your inputs (the other inputs as entered); the ring marks your inputs, which give very hard](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-water-hardness-live-2)
 
-*total_hardness (total hardness, mg/L as CaCO3) against Ca (calcium concentration (as Ca)) from 0.03 kg/m^3 to 0.09 kg/m^3. One curve for each value of Mg (magnesium concentration (as Mg)): 0.015 kg/m^3, 0.0075 kg/m^3, 0.03 kg/m^3. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, Ca = 0.06 kg/m^3, total_hardness = 211.607.*
+*Soft (< 60), moderately hard (60-120), hard (120-180), very hard (>= 180) for 25 5 x 5 combinations of Ca and Mg around your inputs (the other inputs as entered); the ring marks your inputs, which give very hard. Blank cells admit no answer. Your inputs: Ca = 60 mg/L, Mg = 15 mg/L.*
+
+![Total hardness, mg/L as CaCO3 as Mg runs from 9 to 21 mg/L, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-water-hardness-live-3)
+
+*Total hardness, mg/L as CaCO3 as Mg runs from 9 to 21 mg/L, every other input as you entered it (29 solutions). Marked: your Mg = 15 mg/L gives total_hardness = 211.6. Your inputs: Ca = 60 mg/L, Mg = 15 mg/L.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_water_hardness', Ca=0.06, Mg=0.015)
@@ -3245,9 +3545,13 @@ $$
 - **Assumes:** $Ce < C_{0}$; batch equilibrium
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![dose (adsorbent dose) against K (Freundlich capacity factor, (mg/g)(L/mg)^(1/n)) from 25 to 75](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-freundlich-carbon-dose-curve)
+![Adsorbent dose as C0 runs from 6 to 14 mg/L, every other input as you entered it (39 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-freundlich-carbon-dose-live-1)
 
-*dose (adsorbent dose) against K (Freundlich capacity factor, (mg/g)(L/mg)^(1/n)) from 25 to 75. One curve for each value of C0 (initial concentration): 0.01 kg/m^3, 0.005 kg/m^3, 0.02 kg/m^3. Other inputs as in the worked example: Ce = 0.001 kg/m^3, n = 2.0. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, K = 50, dose = 0.18 kg/m^3.*
+*Adsorbent dose as C0 runs from 6 to 14 mg/L, every other input as you entered it (39 solutions). Marked: your C0 = 10 mg/L gives dose = 0.18. Your inputs: C0 = 10 mg/L, Ce = 1 mg/L, K = 50, n = 2.*
+
+![Adsorbent dose as K runs from 12](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-freundlich-carbon-dose-live-2)
+
+*Adsorbent dose as K runs from 12.5 to 87.5, every other input as you entered it (29 solutions). Marked: your K = 50 gives dose = 0.18. Your inputs: C0 = 10 mg/L, Ce = 1 mg/L, K = 50, n = 2.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_freundlich_carbon_dose', C0=0.01, Ce=0.001, K=50.0, n=2.0)
@@ -3295,9 +3599,13 @@ $$
 - **Assumes:** $Ce < C_{0}$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![dose (adsorbent dose) against b (Langmuir constant, L/mg) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-langmuir-carbon-dose-curve)
+![Adsorbent dose as C0 runs from 6 to 14 mg/L, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-langmuir-carbon-dose-live-1)
 
-*dose (adsorbent dose) against b (Langmuir constant, L/mg) from 0.08 to 8 on a logarithmic axis. One curve for each value of C0 (initial concentration): 0.01 kg/m^3, 0.005 kg/m^3, 0.02 kg/m^3. Other inputs as in the worked example: Ce = 0.001 kg/m^3, qmax = 150.0. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, b = 0.8, dose = 0.135 kg/m^3.*
+*Adsorbent dose as C0 runs from 6 to 14 mg/L, every other input as you entered it (41 solutions). Marked: your C0 = 10 mg/L gives dose = 0.135. Your inputs: C0 = 10 mg/L, Ce = 1 mg/L, qmax = 150, b = 0.8.*
+
+![Adsorbent dose as qmax runs from 37](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-langmuir-carbon-dose-live-2)
+
+*Adsorbent dose as qmax runs from 37.5 to 262.5, every other input as you entered it (29 solutions). Marked: your qmax = 150 gives dose = 0.135. Your inputs: C0 = 10 mg/L, Ce = 1 mg/L, qmax = 150, b = 0.8.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_langmuir_carbon_dose', C0=0.01, Ce=0.001, qmax=150.0, b=0.8)
@@ -3344,9 +3652,9 @@ $$
 - **Assumes:** at least three positive points
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![The data qe (equilibrium loadings in mg/g (same order)) against Ce (equilibrium concentrations in mg/L) as given in the worked example (5 points)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-freundlich-fit-xy)
+![The data qe (equilibrium loadings in mg/g (same order)) against Ce (equilibrium concentrations in mg/L) as given (5 points: (0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-freundlich-fit-xy)
 
-*The data qe (equilibrium loadings in mg/g (same order)) against Ce (equilibrium concentrations in mg/L) as given in the worked example (5 points). Also returned: K = 39.4762, inv_n = 0.483576, n = 2.06793, r2 = 0.999809.*
+*The data qe (equilibrium loadings in mg/g (same order)) against Ce (equilibrium concentrations in mg/L) as given (5 points: (0.5, 28), (1, 40), (2, 55), (5, 86), (10, 120)). Returned by the model: K = 39.48, n = 2.068, r2 = 0.9998. Your inputs: Ce = 0.5, 1, 2, 5, 10, qe = 28, 40, 55, 86, 120.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_freundlich_fit', Ce=[0.5, 1.0, 2.0, 5.0, 10.0], qe=[28.0, 40.0, 55.0, 86.0, 120.0])
@@ -3392,9 +3700,9 @@ $$
 - **Assumes:** positive slope and intercept of Ce/q against Ce
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![The data qe (equilibrium loadings in mg/g (same order)) against Ce (equilibrium concentrations in mg/L) as given in the worked example (5 points)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-langmuir-fit-xy)
+![The data qe (equilibrium loadings in mg/g (same order)) against Ce (equilibrium concentrations in mg/L) as given (5 points: (0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-langmuir-fit-xy)
 
-*The data qe (equilibrium loadings in mg/g (same order)) against Ce (equilibrium concentrations in mg/L) as given in the worked example (5 points). Also returned: qmax = 177.9, b = 0.589676, r2 = 0.999973.*
+*The data qe (equilibrium loadings in mg/g (same order)) against Ce (equilibrium concentrations in mg/L) as given (5 points: (0.5, 40), (1, 66), (2, 97), (5, 133), (10, 152)). Returned by the model: qmax = 177.9, b = 0.5897, r2 = 1. Your inputs: Ce = 0.5, 1, 2, 5, 10, qe = 40, 66, 97, 133, 152.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_langmuir_fit', Ce=[0.5, 1.0, 2.0, 5.0, 10.0], qe=[40.0, 66.0, 97.0, 133.0, 152.0])
@@ -3447,9 +3755,13 @@ $$
 - **Assumes:** $Qp < Qf$; $Cp < Cf$; steady state
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![recovery (Qp/Qf) against Qf (feed flow) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-membrane-mass-balance-curve)
+![Qp/Qf as Qf runs from 760 to 1400 m^3/d, every other input as you entered it (33 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-membrane-mass-balance-live-1)
 
-*recovery (Qp/Qf) against Qf (feed flow) from 0.00578704 m^3/s to 0.0173611 m^3/s. One curve for each value of Qp (permeate flow): 0.00868056 m^3/s, 0.00434028 m^3/s. Other inputs as in the worked example: Cf = 2.0 kg/m^3, Cp = 0.05 kg/m^3, A = 1500.0 m^2. 23 points per curve computed by environmental-engineering-ai999x; marked: the worked example, Qf = 0.0115741 m^3/s, recovery = 0.75.*
+*Qp/Qf as Qf runs from 760 to 1400 m^3/d, every other input as you entered it (33 solutions). Marked: your Qf = 1000 m^3/d gives recovery = 0.75. Your inputs: Qf = 1000 m^3/d, Qp = 750 m^3/d, Cf = 2000 mg/L, Cp = 50 mg/L, A = 1500 m^2.*
+
+![Qp/Qf as Qp runs from 450 to 985](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-membrane-mass-balance-live-2)
+
+*Qp/Qf as Qp runs from 450 to 985.7 m^3/d, every other input as you entered it (26 solutions). Marked: your Qp = 750 m^3/d gives recovery = 0.75. Your inputs: Qf = 1000 m^3/d, Qp = 750 m^3/d, Cf = 2000 mg/L, Cp = 50 mg/L, A = 1500 m^2.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_membrane_mass_balance', Qf=0.011574074074074073, Qp=0.008680555555555556, Cf=2.0, Cp=0.05, A=1500.0)
@@ -3467,7 +3779,7 @@ environmental_engineering_ai999x.solve('enveng_membrane_mass_balance', Qf=0.0578
 |---|---|---|
 | Membrane mass balance: Qf = 1000 m^3/d, Qp = 750 m^3/d, Cf = 2000 mg/L, Cp = 50 mg/L, A = 1500 m^2 | SOLVED | recovery = 0.75, rejection = 0.975, J = 5.78704e-06 m/s, J_LMH = 20.8333, Qc = 0.00289352 m^3/s, Cc = 7.85 kg/m^3, Cc_mgL = 7850 |
 | Membrane mass balance: Qf = 5000 m^3/d, Qp = 2250 m^3/d, Cf = 35000 mg/L, Cp = 200 mg/L, A = 6000 m^2 | SOLVED | recovery = 0.45, rejection = 0.994286, J = 4.34028e-06 m/s, J_LMH = 15.625, Qc = 0.0318287 m^3/s, Cc = 63.4727 kg/m^3, Cc_mgL = 63472.7 |
-| Membrane mass balance: Qp = 750 m^3/d, Cf = 2000 mg/L, Cp = 50 mg/L, A = 1500 m^2 | NEEDS_INPUT | enveng_membrane_mass_balance needs Qf (feed flow). Example: solve('enveng_membrane_mass_balance', Qf='0.0115741 m^3/s',  |
+| Membrane mass balance: Qp = 750 m^3/d, Cf = 2000 mg/L, Cp = 50 mg/L, A = 1500 m^2 | NEEDS_INPUT | enveng_membrane_mass_balance needs Qf (feed flow). Example: solve('enveng_membrane_mass_balance', Qf='0.0115740740740740 |
 | Membrane mass balance: Qf = 1000 m^3/d, Qp = 750 m^3/d, Cf = 2000 mg/L, Cp = 50 mg/L, A = 1500 m^2, zz = 1 | UNRECOGNIZED_FORMAT | I could not match this question to a documented form, so I will not guess. Every form: environmental_engineering_ai999x. |
 
 <a id="enveng_osmotic_pressure"></a>
@@ -3496,9 +3808,13 @@ $$
 - **Assumes:** dilute (ideal) solution
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![pi (osmotic pressure) against M (solute molar mass) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-osmotic-pressure-curve)
+![Osmotic pressure as M runs from 35](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-osmotic-pressure-live-1)
 
-*pi (osmotic pressure) against M (solute molar mass) from 0.02922 kg/mol to 0.08766 kg/mol. One curve for each value of C (solute mass concentration): 35 kg/m^3, 17.5 kg/m^3, 70 kg/m^3. Other inputs as in the worked example: i = 2.0, T = 298.15 K. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, M = 0.05844 kg/mol, pi = 2.96932e+06 Pa.*
+*Osmotic pressure as M runs from 35.06 to 81.82 g/mol, every other input as you entered it (41 solutions). Marked: your M = 58.44 g/mol gives pi = 2969 kPa. Your inputs: C = 35 g/L, M = 58.44 g/mol, i = 2, T = 298.15 K.*
+
+![Osmotic pressure as C runs from 21 to 49 g/L, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-osmotic-pressure-live-2)
+
+*Osmotic pressure as C runs from 21 to 49 g/L, every other input as you entered it (29 solutions). Marked: your C = 35 g/L gives pi = 2969 kPa. Your inputs: C = 35 g/L, M = 58.44 g/mol, i = 2, T = 298.15 K.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_osmotic_pressure', C=35.0, M=0.05844, i=2.0, T=298.15)
@@ -3545,9 +3861,17 @@ $$
 - **Assumes:** Q, S0, V, $X > 0$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![FM (food-to-microorganism (F/M) ratio) against V (aeration tank volume) from 1500 m^3 to 4500 m^3](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-food-to-microorganism-ratio-curve)
+![The activated-sludge process as a flow sheet: influent into the aeration tank, mixed liquor to the clarifier, clear effluent out, settled sludge returned to the tank or wasted](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-food-to-microorganism-ratio-scene)
 
-*FM (food-to-microorganism (F/M) ratio) against V (aeration tank volume) from 1500 m^3 to 4500 m^3. One curve for each value of Q (influent flow): 0.115741 m^3/s, 0.0578704 m^3/s, 0.231481 m^3/s. Other inputs as in the worked example: S0 = 0.2 kg/m^3, X = 2.5 kg/m^3. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, V = 3000 m^3, FM = 3.0864e-06 1/s.*
+*The activated-sludge process as a flow sheet: influent into the aeration tank, mixed liquor to the clarifier, clear effluent out, settled sludge returned to the tank or wasted. The numbers are the inputs and results of this calculation, written where they belong; the drawing itself is not to scale. In SI units: FM = 3.086e-06 1/s. Your inputs: Q = 10000 m^3/d, S0 = 200 mg/L, V = 3000 m^3, X = 2500 mg/L.*
+
+![Food-to-microorganism (F/M) ratio as Q runs from 6000 to 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-food-to-microorganism-ratio-live-1)
+
+*Food-to-microorganism (F/M) ratio as Q runs from 6000 to 1.4e+04 m^3/d, every other input as you entered it (41 solutions). Marked: your Q = 1e+04 m^3/d gives FM = 0.2667 1/day. Your inputs: Q = 10000 m^3/d, S0 = 200 mg/L, V = 3000 m^3, X = 2500 mg/L.*
+
+![Food-to-microorganism (F/M) ratio as S0 runs from 120 to 280 mg/L, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-food-to-microorganism-ratio-live-2)
+
+*Food-to-microorganism (F/M) ratio as S0 runs from 120 to 280 mg/L, every other input as you entered it (29 solutions). Marked: your S0 = 200 mg/L gives FM = 0.2667 1/day. Your inputs: Q = 10000 m^3/d, S0 = 200 mg/L, V = 3000 m^3, X = 2500 mg/L.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_food_to_microorganism_ratio', Q=0.11574074074074074, S0=0.2, V=3000.0, X=2.5)
@@ -3596,9 +3920,17 @@ $$
 - **Assumes:** steady state; $Xe = 0$ (effluent solids neglected) unless given; $Xe > 0$ needs Qe
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![SRT (solids retention time) against Qw (waste sludge flow) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-solids-retention-time-curve)
+![The activated-sludge process as a flow sheet: influent into the aeration tank, mixed liquor to the clarifier, clear effluent out, settled sludge returned to the tank or wasted](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-solids-retention-time-scene)
 
-*SRT (solids retention time) against Qw (waste sludge flow) from 0.000115741 m^3/s to 0.0115741 m^3/s on a logarithmic axis. One curve for each value of V (aeration tank volume): 3000 m^3, 1500 m^3, 6000 m^3. Other inputs as in the worked example: X = 2.5 kg/m^3, Xw = 10.0 kg/m^3, Qe = 0.11458333333333333 m^3/s, Xe = 0.015 kg/m^3. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, Qw = 0.00115741 m^3/s, SRT = 564214 s.*
+*The activated-sludge process as a flow sheet: influent into the aeration tank, mixed liquor to the clarifier, clear effluent out, settled sludge returned to the tank or wasted. The numbers are the inputs and results of this calculation, written where they belong; the drawing itself is not to scale. In SI units: SRT = 5.642e+05 s. Your inputs: V = 3000 m^3, X = 2500 mg/L, Qw = 100 m^3/d, Xw = 10000 mg/L, Qe = 9900 m^3/d, Xe = 15 mg/L.*
+
+![Solids retention time as V runs from 1800 to 4200 m^3, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-solids-retention-time-live-1)
+
+*Solids retention time as V runs from 1800 to 4200 m^3, every other input as you entered it (41 solutions). Marked: your V = 3000 m^3 gives SRT = 6.53 day. Your inputs: V = 3000 m^3, X = 2500 mg/L, Qw = 100 m^3/d, Xw = 10000 mg/L, Qe = 9900 m^3/d, Xe = 15 mg/L.*
+
+![Solids retention time as X runs from 1500 to 3500 mg/L, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-solids-retention-time-live-2)
+
+*Solids retention time as X runs from 1500 to 3500 mg/L, every other input as you entered it (29 solutions). Marked: your X = 2500 mg/L gives SRT = 6.53 day. Your inputs: V = 3000 m^3, X = 2500 mg/L, Qw = 100 m^3/d, Xw = 10000 mg/L, Qe = 9900 m^3/d, Xe = 15 mg/L.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_solids_retention_time', V=3000.0, X=2.5, Qw=0.0011574074074074073, Xw=10.0, Qe=0.11458333333333333, Xe=0.015)
@@ -3655,9 +3987,17 @@ $$
 - **Assumes:** Q, S0, $V > 0$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![OLR (volumetric organic loading rate) against V (reactor volume) from 1500 m^3 to 4500 m^3](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-hrt-organic-loading-curve)
+![The activated-sludge process as a flow sheet: influent into the aeration tank, mixed liquor to the clarifier, clear effluent out, settled sludge returned to the tank or wasted](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-hrt-organic-loading-scene)
 
-*OLR (volumetric organic loading rate) against V (reactor volume) from 1500 m^3 to 4500 m^3. One curve for each value of Q (influent flow): 0.115741 m^3/s, 0.0578704 m^3/s, 0.231481 m^3/s. Other inputs as in the worked example: S0 = 0.2 kg/m^3. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, V = 3000 m^3, OLR = 7.7160e-06 kg/(m^3*s).*
+*The activated-sludge process as a flow sheet: influent into the aeration tank, mixed liquor to the clarifier, clear effluent out, settled sludge returned to the tank or wasted. The numbers are the inputs and results of this calculation, written where they belong; the drawing itself is not to scale. In SI units: OLR = 7.716e-06 kg/(m^3*s). Your inputs: Q = 10000 m^3/d, S0 = 200 mg/L, V = 3000 m^3.*
+
+![Volumetric organic loading rate as Q runs from 6000 to 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-hrt-organic-loading-live-1)
+
+*Volumetric organic loading rate as Q runs from 6000 to 1.4e+04 m^3/d, every other input as you entered it (41 solutions). Marked: your Q = 1e+04 m^3/d gives OLR = 7.716e-06. Your inputs: Q = 10000 m^3/d, S0 = 200 mg/L, V = 3000 m^3.*
+
+![Volumetric organic loading rate as S0 runs from 120 to 280 mg/L, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-hrt-organic-loading-live-2)
+
+*Volumetric organic loading rate as S0 runs from 120 to 280 mg/L, every other input as you entered it (29 solutions). Marked: your S0 = 200 mg/L gives OLR = 7.716e-06. Your inputs: Q = 10000 m^3/d, S0 = 200 mg/L, V = 3000 m^3.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_hrt_organic_loading', Q=0.11574074074074074, S0=0.2, V=3000.0)
@@ -3675,7 +4015,7 @@ environmental_engineering_ai999x.solve('enveng_hrt_organic_loading', Q=0.0289351
 |---|---|---|
 | Hydraulic retention time and organic loading: Q = 10000 m^3/d, S0 = 200 mg/L, V = 3000 m^3 | SOLVED | HRT = 25920 s, HRT_h = 7.2, OLR = 7.71605e-06 kg/(m^3*s), OLR_kg_per_m3_day = 0.666667 |
 | Hydraulic retention time and organic loading: Q = 2500 m^3/d, S0 = 350 mg/L, V = 800 m^3 | SOLVED | HRT = 27648 s, HRT_h = 7.68, OLR = 1.26591e-05 kg/(m^3*s), OLR_kg_per_m3_day = 1.09375 |
-| Hydraulic retention time and organic loading: S0 = 200 mg/L, V = 3000 m^3 | NEEDS_INPUT | enveng_hrt_organic_loading needs Q (influent flow). Example: solve('enveng_hrt_organic_loading', Q='0.115741 m^3/s', S0= |
+| Hydraulic retention time and organic loading: S0 = 200 mg/L, V = 3000 m^3 | NEEDS_INPUT | enveng_hrt_organic_loading needs Q (influent flow). Example: solve('enveng_hrt_organic_loading', Q='0.11574074074074074  |
 | Hydraulic retention time and organic loading: Q = 10000 m^3/d, S0 = 200 mg/L, V = 3000 m^3, zz = 1 | UNRECOGNIZED_FORMAT | I could not match this question to a documented form, so I will not guess. Every form: environmental_engineering_ai999x. |
 
 <a id="enveng_monod_growth_rate"></a>
@@ -3706,9 +4046,13 @@ $$
 - **Assumes:** Monod kinetics
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![mu (specific growth rate) against Ks (half-saturation constant) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-monod-growth-rate-curve)
+![Specific growth rate as μ_max runs from 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-monod-growth-rate-live-1)
 
-*mu (specific growth rate) against Ks (half-saturation constant) from 0.006 kg/m^3 to 0.6 kg/m^3 on a logarithmic axis. One curve for each value of mu_max (maximum specific growth rate): 3.4722e-05 1/s, 1.7361e-05 1/s, 6.9444e-05 1/s. Other inputs as in the worked example: S = 0.01 kg/m^3. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, Ks = 0.06 kg/m^3, mu = 4.9603e-06 1/s.*
+*Specific growth rate as μ_max runs from 1.8 to 4.2 1/d, every other input as you entered it (41 solutions). Marked: your μ_max = 3 1/d gives μ = 0.4286 1/day. Your inputs: mu_max = 3 1/d, Ks = 60 mg/L, S = 10 mg/L.*
+
+![Specific growth rate as S runs from 6 to 14 mg/L, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-monod-growth-rate-live-2)
+
+*Specific growth rate as S runs from 6 to 14 mg/L, every other input as you entered it (29 solutions). Marked: your S = 10 mg/L gives μ = 0.4286 1/day. Your inputs: mu_max = 3 1/d, Ks = 60 mg/L, S = 10 mg/L.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_monod_growth_rate', mu_max=3.472222222222222e-05, Ks=0.06, S=0.01)
@@ -3761,9 +4105,21 @@ $$
 - **Assumes:** steady state, complete mix; SRT above the washout limit; $S < S_{0}$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![S (effluent soluble substrate) against Y (true yield coefficient, kg VSS per kg BOD) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-activated-sludge-cstr-design-curve)
+![The activated-sludge process as a flow sheet: influent into the aeration tank, mixed liquor to the clarifier, clear effluent out, settled sludge returned to the tank or wasted](https://huggingface.co/AI999X/environmental-engineering-ai999x/resolve/main/figures/enveng-activated-sludge-cstr-design-scene.svg)
 
-*S (effluent soluble substrate) against Y (true yield coefficient, kg VSS per kg BOD) from 0.02 to 0.98. One curve for each value of k (maximum specific substrate utilisation rate): 5.7870e-05 1/s, 2.8935e-05 1/s, 0.000115741 1/s. Other inputs as in the worked example: Ks = 0.06 kg/m^3, kd = 6.944444444444444e-07 1/s, SRT = 864000.0 s, HRT = 21600.0 s, S0 = 0.25 kg/m^3. 40 points per curve computed by environmental-engineering-ai999x; marked: the worked example, Y = 0.5, S = 0.00410256 kg/m^3.*
+*The activated-sludge process as a flow sheet: influent into the aeration tank, mixed liquor to the clarifier, clear effluent out, settled sludge returned to the tank or wasted. The numbers are the inputs and results of this calculation, written where they belong; the drawing itself is not to scale. In SI units: S = 0.004103 kg/m^3. Your inputs: Y = 0.5, k = 5 1/d, Ks = 60 mg/L, kd = 0.06 1/d, SRT = 10 d, HRT = 6 h, S0 = 250 mg/L.*
+
+![S (effluent soluble substrate) against Y (true yield coefficient, kg VSS per kg BOD) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-activated-sludge-cstr-design-s-vs-y)
+
+*S (effluent soluble substrate) against Y (true yield coefficient, kg VSS per kg BOD) from 0.25 to 0.75, the other inputs as given: 31 points, each a solve of the model. Marked: the given point, Y = 0.5, S = 0.004103 kg/m³. Your inputs: Y = 0.5, k = 5 1/d, Ks = 60 mg/L, kd = 0.06 1/d, SRT = 10 d, HRT = 6 h, S0 = 250 mg/L.*
+
+![Effluent soluble substrate as Y runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-activated-sludge-cstr-design-live-1)
+
+*Effluent soluble substrate as Y runs from 0.125 to 0.875, every other input as you entered it (41 solutions). Marked: your Y = 0.5 gives S = 4.103 mg/L. Your inputs: Y = 0.5, k = 5 1/d, Ks = 60 mg/L, kd = 0.06 1/d, SRT = 10 d, HRT = 6 h, S0 = 250 mg/L.*
+
+![Effluent soluble substrate as k runs from 3 to 7 1/d, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-activated-sludge-cstr-design-live-2)
+
+*Effluent soluble substrate as k runs from 3 to 7 1/d, every other input as you entered it (29 solutions). Marked: your k = 5 1/d gives S = 4.103 mg/L. Your inputs: Y = 0.5, k = 5 1/d, Ks = 60 mg/L, kd = 0.06 1/d, SRT = 10 d, HRT = 6 h, S0 = 250 mg/L.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_activated_sludge_cstr_design', Y=0.5, k=5.787037037037037e-05, Ks=0.06, kd=6.944444444444444e-07, SRT=864000.0, HRT=21600.0, S0=0.25)
@@ -3811,9 +4167,13 @@ $$
 - **Assumes:** Y k $S_{0}/(Ks + S_{0}) > kd$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![SRT_min (minimum SRT) against Y (true yield coefficient, kg VSS per kg BOD) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-minimum-srt-curve)
+![Minimum SRT as Y runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-minimum-srt-live-1)
 
-*SRT_min (minimum SRT) against Y (true yield coefficient, kg VSS per kg BOD) from 0.02 to 0.98. One curve for each value of k (maximum specific substrate utilisation rate): 5.7870e-05 1/s, 2.8935e-05 1/s, 0.000115741 1/s. Other inputs as in the worked example: Ks = 0.06 kg/m^3, kd = 6.944444444444444e-07 1/s, S0 = 0.25 kg/m^3. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, Y = 0.5, SRT_min = 44168.9 s.*
+*Minimum SRT as Y runs from 0.125 to 0.875, every other input as you entered it (41 solutions). Marked: your Y = 0.5 gives SRT_min = 12.27 h. Your inputs: Y = 0.5, k = 5 1/d, Ks = 60 mg/L, kd = 0.06 1/d, S0 = 250 mg/L.*
+
+![Minimum SRT as k runs from 3 to 7 1/d, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-minimum-srt-live-2)
+
+*Minimum SRT as k runs from 3 to 7 1/d, every other input as you entered it (29 solutions). Marked: your k = 5 1/d gives SRT_min = 12.27 h. Your inputs: Y = 0.5, k = 5 1/d, Ks = 60 mg/L, kd = 0.06 1/d, S0 = 250 mg/L.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_minimum_srt', Y=0.5, k=5.787037037037037e-05, Ks=0.06, kd=6.944444444444444e-07, S0=0.25)
@@ -3863,9 +4223,17 @@ $$
 - **Assumes:** $S < S_{0}$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![Px (biomass production) against Y (true yield, kg VSS per kg BOD) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-sludge-production-curve)
+![The activated-sludge process as a flow sheet: influent into the aeration tank, mixed liquor to the clarifier, clear effluent out, settled sludge returned to the tank or wasted](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-sludge-production-scene)
 
-*Px (biomass production) against Y (true yield, kg VSS per kg BOD) from 0.25 to 0.75. One curve for each value of S0 (influent substrate): 0.25 kg/m^3, 0.125 kg/m^3, 0.5 kg/m^3. Other inputs as in the worked example: kd = 6.944444444444444e-07 1/s, SRT = 864000.0 s, Q = 0.11574074074074074 m^3/s, S = 0.005 kg/m^3. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, Y = 0.5, Px = 0.0088614 kg/s.*
+*The activated-sludge process as a flow sheet: influent into the aeration tank, mixed liquor to the clarifier, clear effluent out, settled sludge returned to the tank or wasted. The numbers are the inputs and results of this calculation, written where they belong; the drawing itself is not to scale. In SI units: Px = 0.008861 kg/s. Your inputs: Y = 0.5, kd = 0.06 1/d, SRT = 10 d, Q = 10000 m^3/d, S0 = 250 mg/L, S = 5 mg/L.*
+
+![Biomass production as S0 runs from 150 to 350 mg/L, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-sludge-production-live-1)
+
+*Biomass production as S0 runs from 150 to 350 mg/L, every other input as you entered it (41 solutions). Marked: your S0 = 250 mg/L gives Px = 8.861 g/s. Your inputs: Y = 0.5, kd = 0.06 1/d, SRT = 10 d, Q = 10000 m^3/d, S0 = 250 mg/L, S = 5 mg/L.*
+
+![Biomass production as Y runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-sludge-production-live-2)
+
+*Biomass production as Y runs from 0.125 to 0.875, every other input as you entered it (29 solutions). Marked: your Y = 0.5 gives Px = 8.861 g/s. Your inputs: Y = 0.5, kd = 0.06 1/d, SRT = 10 d, Q = 10000 m^3/d, S0 = 250 mg/L, S = 5 mg/L.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_sludge_production', Y=0.5, kd=6.944444444444444e-07, SRT=864000.0, Q=0.11574074074074074, S0=0.25, S=0.005)
@@ -3913,9 +4281,17 @@ $$
 - **Assumes:** carbonaceous demand only (no nitrification)
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![O2 (oxygen required) against f (BOD5/BODu ratio (e](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-aeration-oxygen-requirement-curve)
+![The activated-sludge process as a flow sheet: influent into the aeration tank, mixed liquor to the clarifier, clear effluent out, settled sludge returned to the tank or wasted](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-aeration-oxygen-requirement-scene)
 
-*O2 (oxygen required) against f (BOD5/BODu ratio (e.g. 0.68)) from 0.02 to 0.98. One curve for each value of S0 (influent BOD5): 0.25 kg/m^3, 0.125 kg/m^3, 0.5 kg/m^3. Other inputs as in the worked example: Q = 0.11574074074074074 m^3/s, S = 0.005 kg/m^3, Px = 0.009259259259259259 kg/s. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, f = 0.68, O2 = 0.0285526 kg/s.*
+*The activated-sludge process as a flow sheet: influent into the aeration tank, mixed liquor to the clarifier, clear effluent out, settled sludge returned to the tank or wasted. The numbers are the inputs and results of this calculation, written where they belong; the drawing itself is not to scale. In SI units: O2 = 0.02855 kg/s. Your inputs: Q = 10000 m^3/d, S0 = 250 mg/L, S = 5 mg/L, f = 0.68, Px = 800 kg/d.*
+
+![Oxygen required as S0 runs from 150 to 350 mg/L, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-aeration-oxygen-requirement-live-1)
+
+*Oxygen required as S0 runs from 150 to 350 mg/L, every other input as you entered it (41 solutions). Marked: your S0 = 250 mg/L gives O2 = 28.55 g/s. Your inputs: Q = 10000 m^3/d, S0 = 250 mg/L, S = 5 mg/L, f = 0.68, Px = 800 kg/d.*
+
+![Oxygen required as Q runs from 6000 to 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-aeration-oxygen-requirement-live-2)
+
+*Oxygen required as Q runs from 6000 to 1.4e+04 m^3/d, every other input as you entered it (29 solutions). Marked: your Q = 1e+04 m^3/d gives O2 = 28.55 g/s. Your inputs: Q = 10000 m^3/d, S0 = 250 mg/L, S = 5 mg/L, f = 0.68, Px = 800 kg/d.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_aeration_oxygen_requirement', Q=0.11574074074074074, S0=0.25, S=0.005, f=0.68, Px=0.009259259259259259)
@@ -3933,7 +4309,7 @@ environmental_engineering_ai999x.solve('enveng_aeration_oxygen_requirement', Q=0
 |---|---|---|
 | Aeration oxygen requirement: Q = 10000 m^3/d, S0 = 250 mg/L, S = 5 mg/L, f = 0.68, Px = 800 kg/d | SOLVED | O2 = 0.0285526 kg/s, O2_kg_per_day = 2466.94 |
 | Aeration oxygen requirement: Q = 4000 m^3/d, S0 = 200 mg/L, S = 10 mg/L, f = 0.7, Px = 250 kg/d | SOLVED | O2 = 0.00845734 kg/s, O2_kg_per_day = 730.714 |
-| Aeration oxygen requirement: S0 = 250 mg/L, S = 5 mg/L, f = 0.68, Px = 800 kg/d | NEEDS_INPUT | enveng_aeration_oxygen_requirement needs Q (flow). Example: solve('enveng_aeration_oxygen_requirement', Q='0.115741 m^3/ |
+| Aeration oxygen requirement: S0 = 250 mg/L, S = 5 mg/L, f = 0.68, Px = 800 kg/d | NEEDS_INPUT | enveng_aeration_oxygen_requirement needs Q (flow). Example: solve('enveng_aeration_oxygen_requirement', Q='0.11574074074 |
 | Aeration oxygen requirement: Q = 10000 m^3/d, S0 = 250 mg/L, S = 5 mg/L, f = 0.68, Px = 800 kg/d, zz = 1 | UNRECOGNIZED_FORMAT | I could not match this question to a documented form, so I will not guess. Every form: environmental_engineering_ai999x. |
 
 <a id="enveng_return_sludge_ratio"></a>
@@ -3961,9 +4337,17 @@ $$
 - **Assumes:** $Xr > X$; influent solids negligible
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![R (return ratio Qr/Q) against X (mixed liquor suspended solids) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-return-sludge-ratio-curve)
+![The activated-sludge process as a flow sheet: influent into the aeration tank, mixed liquor to the clarifier, clear effluent out, settled sludge returned to the tank or wasted](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-return-sludge-ratio-scene)
 
-*R (return ratio Qr/Q) against X (mixed liquor suspended solids) from 0.3 kg/m^3 to 30 kg/m^3 on a logarithmic axis. One curve for each value of Xr (return sludge concentration): 10 kg/m^3, 5 kg/m^3, 20 kg/m^3. Other inputs as in the worked example: Q = 0.11574074074074074 m^3/s. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, X = 3 kg/m^3, R = 0.428571.*
+*The activated-sludge process as a flow sheet: influent into the aeration tank, mixed liquor to the clarifier, clear effluent out, settled sludge returned to the tank or wasted. The numbers are the inputs and results of this calculation, written where they belong; the drawing itself is not to scale. In SI units: R = 0.4286. Your inputs: X = 3000 mg/L, Xr = 10000 mg/L, Q = 10000 m^3/d.*
+
+![Return ratio Qr/Q as Xr runs from 6000 to 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-return-sludge-ratio-live-1)
+
+*Return ratio Qr/Q as Xr runs from 6000 to 1.4e+04 mg/L, every other input as you entered it (41 solutions). Marked: your Xr = 1e+04 mg/L gives R = 0.4286. Your inputs: X = 3000 mg/L, Xr = 10000 mg/L, Q = 10000 m^3/d.*
+
+![Return ratio Qr/Q as X runs from 1800 to 4200 mg/L, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-return-sludge-ratio-live-2)
+
+*Return ratio Qr/Q as X runs from 1800 to 4200 mg/L, every other input as you entered it (29 solutions). Marked: your X = 3000 mg/L gives R = 0.4286. Your inputs: X = 3000 mg/L, Xr = 10000 mg/L, Q = 10000 m^3/d.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_return_sludge_ratio', X=3.0, Xr=10.0, Q=0.11574074074074074)
@@ -4009,13 +4393,17 @@ $$
 - **Assumes:** $V30  \leq  1000$ mL/L
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![SVI (sludge volume index, mL/g) against MLSS (mixed liquor suspended solids) from 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-sludge-volume-index-curve)
-
-*SVI (sludge volume index, mL/g) against MLSS (mixed liquor suspended solids) from 1.25 kg/m^3 to 3.75 kg/m^3. One curve for each value of V30 (settled sludge volume after 30 minutes, mL/L): 300, 150, 600. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, MLSS = 2.5 kg/m^3, SVI = 120.*
-
 ![SVI (sludge volume index, mL/g) over MLSS (mixed liquor suspended solids) from 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-sludge-volume-index-field)
 
-*SVI (sludge volume index, mL/g) over MLSS (mixed liquor suspended solids) from 1.25 kg/m^3 to 3.75 kg/m^3 and V30 (settled sludge volume after 30 minutes, mL/L) from 150 to 450: each of the 21 × 15 cells is one run of environmental-engineering-ai999x, shaded by its value (light 40 to dark 360); iso-lines at SVI = 100, 200, 300. Marked: the worked example, MLSS = 2.5 kg/m^3, V30 = 300, SVI = 120.*
+*SVI (sludge volume index, mL/g) over MLSS (mixed liquor suspended solids) from 1.25 kg/m³ to 3.75 kg/m³ and V30 (settled sludge volume after 30 minutes, mL/L) from 150 to 450: each of the 21 × 15 cells is one solve of the model, shaded by its value (light 40 to dark 360); iso-lines at SVI = 50, 100, 150, 200, 250, 300, 350. Marked: the given point, MLSS = 2.5 kg/m³, V30 = 300, SVI = 120. Your inputs: V30 = 300, MLSS = 2500 mg/L.*
+
+![Sludge volume index, mL/g as V30 runs from 75 to 525, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-sludge-volume-index-live-1)
+
+*Sludge volume index, mL/g as V30 runs from 75 to 525, every other input as you entered it (41 solutions). Marked: your V30 = 300 gives SVI = 120. Your inputs: V30 = 300, MLSS = 2500 mg/L.*
+
+![Sludge volume index, mL/g as MLSS runs from 1500 to 3500 mg/L, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-sludge-volume-index-live-2)
+
+*Sludge volume index, mL/g as MLSS runs from 1500 to 3500 mg/L, every other input as you entered it (29 solutions). Marked: your MLSS = 2500 mg/L gives SVI = 120. Your inputs: V30 = 300, MLSS = 2500 mg/L.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_sludge_volume_index', V30=300.0, MLSS=2.5)
@@ -4061,9 +4449,13 @@ $$
 - **Assumes:** $0 < Ps  \leq  1$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![V (wet sludge volume rate) against Ps (solids fraction of the wet sludge (fraction or %)) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-sludge-volume-curve)
+![Wet sludge volume rate as Ms runs from 600 to 1400 kg/d, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-sludge-volume-live-1)
 
-*V (wet sludge volume rate) against Ps (solids fraction of the wet sludge (fraction or %)) from 0.02 to 0.98. One curve for each value of Ms (dry solids mass rate): 0.0115741 kg/s, 0.00578704 kg/s, 0.0231481 kg/s. Other inputs as in the worked example: Ssl = 1.02. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, Ps = 0.04, V = 0.000283678 m^3/s.*
+*Wet sludge volume rate as Ms runs from 600 to 1400 kg/d, every other input as you entered it (41 solutions). Marked: your Ms = 1000 kg/d gives V = 0.2837 L/s. Your inputs: Ms = 1000 kg/d, Ps = 0.04, Ssl = 1.02.*
+
+![Wet sludge volume rate as Ps runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-sludge-volume-live-2)
+
+*Wet sludge volume rate as Ps runs from 0.01 to 0.07, every other input as you entered it (29 solutions). Marked: your Ps = 0.04 gives V = 0.2837 L/s. Your inputs: Ms = 1000 kg/d, Ps = 0.04, Ssl = 1.02.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_sludge_volume', Ms=0.011574074074074073, Ps=0.04, Ssl=1.02)
@@ -4081,7 +4473,7 @@ environmental_engineering_ai999x.solve('enveng_sludge_volume', Ms=0.040509259259
 |---|---|---|
 | Wet sludge volume: Ms = 1000 kg/d, Ps = 0.04, Ssl = 1.02 | SOLVED | V = 0.000283678 m^3/s, V_m3_per_day = 24.5098 |
 | Wet sludge volume: Ms = 3500 kg/d, Ps = 0.22, Ssl = 1.05 | SOLVED | V = 0.000175365 m^3/s, V_m3_per_day = 15.1515 |
-| Wet sludge volume: Ps = 0.04, Ssl = 1.02 | NEEDS_INPUT | enveng_sludge_volume needs Ms (dry solids mass rate). Example: solve('enveng_sludge_volume', Ms='0.0115741 kg/s', Ps=0.0 |
+| Wet sludge volume: Ps = 0.04, Ssl = 1.02 | NEEDS_INPUT | enveng_sludge_volume needs Ms (dry solids mass rate). Example: solve('enveng_sludge_volume', Ms='0.011574074074074073 kg |
 | Wet sludge volume: Ms = 1000 kg/d, Ps = 0.04, Ssl = 1.02, zz = 1 | UNRECOGNIZED_FORMAT | I could not match this question to a documented form, so I will not guess. Every form: environmental_engineering_ai999x. |
 
 <a id="enveng_sludge_thickening"></a>
@@ -4109,9 +4501,13 @@ $$
 - **Assumes:** $P_{2} > P_{1}$; same specific gravity
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![V2 (sludge volume rate after) against P2 (solids fraction after (fraction or %)) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-sludge-thickening-curve)
+![Sludge volume rate after as P2 runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-sludge-thickening-live-1)
 
-*V2 (sludge volume rate after) against P2 (solids fraction after (fraction or %)) from 0.02 to 0.98. One curve for each value of V1 (sludge volume rate before): 0.00115741 m^3/s, 0.000578704 m^3/s, 0.00231481 m^3/s. Other inputs as in the worked example: P1 = 0.01. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, P2 = 0.05, V2 = 0.000231481 m^3/s.*
+*Sludge volume rate after as P2 runs from 0.0125 to 0.0875, every other input as you entered it (41 solutions). Marked: your P2 = 0.05 gives V2 = 0.2315 L/s. Your inputs: V1 = 100 m^3/d, P1 = 0.01, P2 = 0.05.*
+
+![Sludge volume rate after as V1 runs from 60 to 140 m^3/d, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-sludge-thickening-live-2)
+
+*Sludge volume rate after as V1 runs from 60 to 140 m^3/d, every other input as you entered it (29 solutions). Marked: your V1 = 100 m^3/d gives V2 = 0.2315 L/s. Your inputs: V1 = 100 m^3/d, P1 = 0.01, P2 = 0.05.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_sludge_thickening', V1=0.0011574074074074073, P1=0.01, P2=0.05)
@@ -4129,7 +4525,7 @@ environmental_engineering_ai999x.solve('enveng_sludge_thickening', V1=0.00046296
 |---|---|---|
 | Sludge thickening: V1 = 100 m^3/d, P1 = 0.01, P2 = 0.05 | SOLVED | V2 = 0.000231481 m^3/s, reduction = 0.8 |
 | Sludge thickening: V1 = 40 m^3/d, P1 = 0.04, P2 = 0.2 | SOLVED | V2 = 9.25926e-05 m^3/s, reduction = 0.8 |
-| Sludge thickening: P1 = 0.01, P2 = 0.05 | NEEDS_INPUT | enveng_sludge_thickening needs V1 (sludge volume rate before). Example: solve('enveng_sludge_thickening', V1='0.00115741 |
+| Sludge thickening: P1 = 0.01, P2 = 0.05 | NEEDS_INPUT | enveng_sludge_thickening needs V1 (sludge volume rate before). Example: solve('enveng_sludge_thickening', V1='0.00115740 |
 | Sludge thickening: V1 = 100 m^3/d, P1 = 0.01, P2 = 0.05, zz = 1 | UNRECOGNIZED_FORMAT | I could not match this question to a documented form, so I will not guess. Every form: environmental_engineering_ai999x. |
 | Sludge thickening: V1 = 100 m^3/d, P1 = 1%, P2 = 5% | SOLVED | V2 = 0.000231481 m^3/s, reduction = 0.8 |
 
@@ -4160,9 +4556,13 @@ $$
 - **Assumes:** ideal gas; COD balance
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![Q_CH4 (methane flow at T and P) against P (gas pressure) from 50662](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-anaerobic-methane-yield-curve)
+![Methane flow at T and P as COD runs from 3000 to 7000 kg/d, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-anaerobic-methane-yield-live-1)
 
-*Q_CH4 (methane flow at T and P) against P (gas pressure) from 50662.5 Pa to 151988 Pa. One curve for each value of COD (COD removed): 0.0578704 kg/s, 0.0289352 kg/s, 0.115741 kg/s. Other inputs as in the worked example: Px = 0.003472222222222222 kg/s, T = 308.15 K. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, P = 101325 Pa, Q_CH4 = 0.020917 m^3/s.*
+*Methane flow at T and P as COD runs from 3000 to 7000 kg/d, every other input as you entered it (41 solutions). Marked: your COD = 5000 kg/d gives Q_CH4 = 20.92 L/s. Your inputs: COD = 5000 kg/d, Px = 300 kg/d, T = 308.15 K, P = 101.325 kPa.*
+
+![Methane flow at T and P as P runs from 60](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-anaerobic-methane-yield-live-2)
+
+*Methane flow at T and P as P runs from 60.8 to 141.9 kPa, every other input as you entered it (29 solutions). Marked: your P = 101.3 kPa gives Q_CH4 = 20.92 L/s. Your inputs: COD = 5000 kg/d, Px = 300 kg/d, T = 308.15 K, P = 101.325 kPa.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_anaerobic_methane_yield', COD=0.05787037037037037, Px=0.003472222222222222, T=308.15, P=101325.0)
@@ -4180,7 +4580,7 @@ environmental_engineering_ai999x.solve('enveng_anaerobic_methane_yield', COD=0.0
 |---|---|---|
 | Methane production from COD: COD = 5000 kg/d, Px = 300 kg/d, T = 308.15 K, P = 101.325 kPa | SOLVED | Q_CH4 = 0.020917 m^3/s, Q_CH4_m3_per_day = 1807.22, Q_CH4_stp_m3_per_day = 1601.96 |
 | Methane production from COD: COD = 1200 kg/d, Px = 60 kg/d, T = 298.15 K, P = 100 kPa | SOLVED | Q_CH4 = 0.00499791 m^3/s, Q_CH4_m3_per_day = 431.82, Q_CH4_stp_m3_per_day = 390.438 |
-| Methane production from COD: Px = 300 kg/d, T = 308.15 K, P = 101.325 kPa | NEEDS_INPUT | enveng_anaerobic_methane_yield needs COD (COD removed). Example: solve('enveng_anaerobic_methane_yield', COD='0.0578704  |
+| Methane production from COD: Px = 300 kg/d, T = 308.15 K, P = 101.325 kPa | NEEDS_INPUT | enveng_anaerobic_methane_yield needs COD (COD removed). Example: solve('enveng_anaerobic_methane_yield', COD='0.05787037 |
 | Methane production from COD: COD = 5000 kg/d, Px = 300 kg/d, T = 308.15 K, P = 101.325 kPa, zz = 1 | UNRECOGNIZED_FORMAT | I could not match this question to a documented form, so I will not guess. Every form: environmental_engineering_ai999x. |
 
 <a id="enveng_nrc_trickling_filter"></a>
@@ -4209,9 +4609,13 @@ $$
 - **Assumes:** first-stage stone filter at 20 degC; W in kg/d and V in $m^{3}$ inside the formula constant
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![E (BOD removal efficiency (fraction)) against R (recirculation ratio Qr/Q) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-nrc-trickling-filter-curve)
+![BOD removal efficiency as R runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-nrc-trickling-filter-live-1)
 
-*E (BOD removal efficiency (fraction)) against R (recirculation ratio Qr/Q) from 0.2 to 20 on a logarithmic axis. One curve for each value of W (BOD load to the filter (excluding recycle)): 0.00925926 kg/s, 0.00462963 kg/s, 0.0185185 kg/s. Other inputs as in the worked example: V = 1000.0 m^3. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, R = 2, E = 0.784535.*
+*BOD removal efficiency as R runs from 0.5 to 3.5, every other input as you entered it (41 solutions). Marked: your R = 2 gives E = 0.7845. Your inputs: W = 800 kg/d, V = 1000 m^3, R = 2.*
+
+![BOD removal efficiency as V runs from 600 to 1400 m^3, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-nrc-trickling-filter-live-2)
+
+*BOD removal efficiency as V runs from 600 to 1400 m^3, every other input as you entered it (29 solutions). Marked: your V = 1000 m^3 gives E = 0.7845. Your inputs: W = 800 kg/d, V = 1000 m^3, R = 2.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_nrc_trickling_filter', W=0.009259259259259259, V=1000.0, R=2.0)
@@ -4264,9 +4668,13 @@ $$
 - **Assumes:** beta CsT $Fp > CL$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![AOTR (actual oxygen transfer rate) against theta (temperature coefficient (1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-field-oxygen-transfer-curve)
+![Actual oxygen transfer rate as θ runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-field-oxygen-transfer-live-1)
 
-*AOTR (actual oxygen transfer rate) against theta (temperature coefficient (1.024)) from 0.512 to 1.536. One curve for each value of T (process temperature): 298.15 K, 149.075 K, 596.3 K. Other inputs as in the worked example: SOTR = 0.027777777777777776 kg/s, alpha = 0.6, beta = 0.95, CsT = 0.00826 kg/m^3, Cs20 = 0.00909 kg/m^3, CL = 0.002 kg/m^3. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, theta = 1.024, AOTR = 0.0120703 kg/s.*
+*Actual oxygen transfer rate as θ runs from 0.256 to 1.792, every other input as you entered it (41 solutions). Marked: your θ = 1.024 gives AOTR = 12.07 g/s. Your inputs: SOTR = 100 kg/h, alpha = 0.6, beta = 0.95, theta = 1.024, CsT = 8.26 mg/L, Cs20 = 9.09 mg/L, CL = 2 mg/L, T = 25 degC.*
+
+![Actual oxygen transfer rate as β runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-field-oxygen-transfer-live-2)
+
+*Actual oxygen transfer rate as β runs from 0.2884 to 1.662, every other input as you entered it (28 solutions). Marked: your β = 0.95 gives AOTR = 12.07 g/s. Your inputs: SOTR = 100 kg/h, alpha = 0.6, beta = 0.95, theta = 1.024, CsT = 8.26 mg/L, Cs20 = 9.09 mg/L, CL = 2 mg/L, T = 25 degC.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_field_oxygen_transfer', SOTR=0.027777777777777776, alpha=0.6, beta=0.95, theta=1.024, CsT=0.00826, Cs20=0.00909, CL=0.002, T=298.15)
@@ -4314,9 +4722,13 @@ $$
 - **Assumes:** $C_{1} < C_{2} < Cs$; $t_{2} > t_{1}$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![KLa (KLa) against t2 (second time) from 60 s to 6000 s on a logarithmic axis](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-kla-two-point-curve)
+![KLa as C2 runs from 3](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-kla-two-point-live-1)
 
-*KLa (KLa) against t2 (second time) from 60 s to 6000 s on a logarithmic axis. One curve for each value of C2 (DO at the second time): 0.006 kg/m^3, 0.003 kg/m^3. Other inputs as in the worked example: Cs = 0.0091 kg/m^3, C1 = 0.002 kg/m^3, t1 = 120.0 s. 34 points per curve computed by environmental-engineering-ai999x; marked: the worked example, t2 = 600 s, KLa = 0.00172644 1/s.*
+*KLa as C2 runs from 3.6 to 8.4 mg/L, every other input as you entered it (41 solutions). Marked: your C2 = 6 mg/L gives KLa = 0.1036 1/min. Your inputs: Cs = 9.1 mg/L, C1 = 2 mg/L, C2 = 6 mg/L, t1 = 2 min, t2 = 10 min.*
+
+![KLa as t2 runs from 6 to 14 min, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-kla-two-point-live-2)
+
+*KLa as t2 runs from 6 to 14 min, every other input as you entered it (29 solutions). Marked: your t2 = 10 min gives KLa = 0.1036 1/min. Your inputs: Cs = 9.1 mg/L, C1 = 2 mg/L, C2 = 6 mg/L, t1 = 2 min, t2 = 10 min.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_kla_two_point', Cs=0.0091, C1=0.002, C2=0.006, t1=120.0, t2=600.0)
@@ -4364,13 +4776,13 @@ $$
 - **Assumes:** every reading below Cs; at least three distinct times
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![The data C (DO readings in mg/L (same order)) against t (times in minutes) as given in the worked example (6 points)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-kla-regression-xy)
+![The data C (DO readings in mg/L (same order)) against t (times in minutes) as given (6 points: (2, 2](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-kla-regression-xy)
 
-*The data C (DO readings in mg/L (same order)) against t (times in minutes) as given in the worked example (6 points). Also returned: KLa_per_min = 0.146989, KLa = 0.00244982 1/s, KLa_per_h = 8.81935, r2 = 0.999181. Other inputs: Cs = 0.0091 kg/m^3.*
+*The data C (DO readings in mg/L (same order)) against t (times in minutes) as given (6 points: (2, 2.5), (4, 4.1), (6, 5.4), (8, 6.3), (10, 7), (12, 7.6)). Returned by the model: KLa_per_min = 0.147, KLa_per_h = 8.819, r2 = 0.9992. The flat line is the given Cs. Your inputs: t = 2, 4, 6, 8, 10, 12, C = 2.5, 4.1, 5.4, 6.3, 7, 7.6, Cs = 0.0091 kg/m^3.*
 
-![KLa_per_min (KLa in 1/min) against Cs (saturation DO) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-kla-regression-curve)
+![KLa in 1/min as Cs runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-kla-regression-live-1)
 
-*KLa_per_min (KLa in 1/min) against Cs (saturation DO) from 0.00455 kg/m^3 to 0.01365 kg/m^3. Other inputs as in the worked example: t = [2.0, 4.0, 6.0, 8.0, 10.0, 12.0], C = [2.5, 4.1, 5.4, 6.3, 7.0, 7.6]. 20 points computed by environmental-engineering-ai999x; marked: the worked example, Cs = 0.0091 kg/m^3, KLa_per_min = 0.146989.*
+*KLa in 1/min as Cs runs from 0.007644 to 0.01274 kg/m^3, every other input as you entered it (29 solutions). Marked: your Cs = 0.0091 kg/m^3 gives KLa_per_min = 0.147. Your inputs: t = 2, 4, 6, 8, 10, 12, C = 2.5, 4.1, 5.4, 6.3, 7, 7.6, Cs = 0.0091 kg/m^3.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_kla_regression', t=[2.0, 4.0, 6.0, 8.0, 10.0, 12.0], C=[2.5, 4.1, 5.4, 6.3, 7.0, 7.6], Cs=0.0091)
@@ -4419,9 +4831,13 @@ $$
 - **Assumes:** $C_{0}  \leq  Cs$; no oxygen uptake
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![C (DO at t) against KLa (volumetric transfer coefficient) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-aeration-do-curve-curve)
+![DO at t as t runs from 6 to 14 min, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-aeration-do-curve-live-1)
 
-*C (DO at t) against KLa (volumetric transfer coefficient) from 0.000277778 1/s to 0.0277778 1/s on a logarithmic axis. One curve for each value of Cs (saturation DO): 0.0091 kg/m^3, 0.00455 kg/m^3, 0.0182 kg/m^3. Other inputs as in the worked example: C0 = 0.001 kg/m^3, t = 600.0 s. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, KLa = 0.00277778 1/s, C = 0.00757011 kg/m^3.*
+*DO at t as t runs from 6 to 14 min, every other input as you entered it (41 solutions). Marked: your t = 10 min gives C = 7.57 mg/L. Your inputs: Cs = 9.1 mg/L, C0 = 1 mg/L, KLa = 10 1/h, t = 10 min.*
+
+![DO at t as Cs runs from 5](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-aeration-do-curve-live-2)
+
+*DO at t as Cs runs from 5.46 to 12.74 mg/L, every other input as you entered it (29 solutions). Marked: your Cs = 9.1 mg/L gives C = 7.57 mg/L. Your inputs: Cs = 9.1 mg/L, C0 = 1 mg/L, KLa = 10 1/h, t = 10 min.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_aeration_do_curve', Cs=0.0091, C0=0.001, KLa=0.002777777777777778, t=600.0)
@@ -4471,13 +4887,21 @@ $$
 - **Assumes:** dilute aqueous solution (water 55344.59 mol/m^3)
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![H_dimensionless (dimensionless gas/liquid ratio at T) against T (temperature (for the dimensionless form)) from 149](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-henry-constant-conversion-curve)
-
-*H_dimensionless (dimensionless gas/liquid ratio at T) against T (temperature (for the dimensionless form)) from 149.075 K to 447.225 K. One curve for each value of H (the Henry's constant value in the stated form): 0.0055, 0.00275, 0.011. Other inputs as in the worked example: form = atm_m3_per_mol. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, T = 298.15 K, H_dimensionless = 0.224807.*
-
 ![H_dimensionless (dimensionless gas/liquid ratio at T) over H (the Henry's constant value in the stated form) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-henry-constant-conversion-field)
 
-*H_dimensionless (dimensionless gas/liquid ratio at T) over H (the Henry's constant value in the stated form) from 0.00275 to 0.00825 and T (temperature (for the dimensionless form)) from 149.075 K to 447.225 K: each of the 21 × 15 cells is one run of environmental-engineering-ai999x, shaded by its value (light 0.0749357 to dark 0.674422); iso-lines at H_dimensionless = 0.1, 0.2, 0.3, 0.4, 0.5, 0.6. Other inputs as in the worked example: form = atm_m3_per_mol. Marked: the worked example, H = 0.0055, T = 298.15 K, H_dimensionless = 0.224807.*
+*H_dimensionless (dimensionless gas/liquid ratio at T) over H (the Henry's constant value in the stated form) from 0.00275 to 0.00825 and T (temperature (for the dimensionless form)) from 149.1 K to 447.2 K: each of the 21 × 15 cells is one solve of the model, shaded by its value (light 0.07494 to dark 0.6744); iso-lines at H_dimensionless = 0.1, 0.2, 0.3, 0.4, 0.5, 0.6. Marked: the given point, H = 0.0055, T = 298.1 K, H_dimensionless = 0.2248. Your inputs: H = 0.0055, form = atm_m3_per_mol, T = 298.15 K.*
+
+![Dimensionless gas/liquid ratio at T as H runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-henry-constant-conversion-live-1)
+
+*Dimensionless gas/liquid ratio at T as H runs from 0.001375 to 0.009625, every other input as you entered it (41 solutions). Marked: your H = 0.0055 gives H_dimensionless = 0.2248. Your inputs: H = 0.0055, form = atm_m3_per_mol, T = 298.15 K.*
+
+![Dimensionless gas/liquid ratio at T for every choice of form, every other input as you entered it (highlighted: your choice)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-henry-constant-conversion-live-2)
+
+*Dimensionless gas/liquid ratio at T for every choice of form, every other input as you entered it (highlighted: your choice). pa_m3_per_mol: 2.219e-06; atm_m3_per_mol: 0.2248; dimensionless: 0.0055; atm: 4.062e-06; mol_per_m3_pa: 0.07334; m_per_atm: 7.432. Your inputs: H = 0.0055, form = atm_m3_per_mol, T = 298.15 K.*
+
+![Dimensionless gas/liquid ratio at T as T runs from 258](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-henry-constant-conversion-live-3)
+
+*Dimensionless gas/liquid ratio at T as T runs from 258.1 to 338.1 K, every other input as you entered it (29 solutions). Marked: your T = 298.1 K gives H_dimensionless = 0.2248. Your inputs: H = 0.0055, form = atm_m3_per_mol, T = 298.15 K.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_henry_constant_conversion', H=0.0055, form='atm_m3_per_mol', T=298.15)
@@ -4524,9 +4948,13 @@ $$
 - **Assumes:** dilute solution, equilibrium
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![C (dissolved molar concentration) against H (Henry's volatility constant) from 40023](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-henry-law-equilibrium-curve)
+![Dissolved molar concentration as H runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-henry-law-equilibrium-live-1)
 
-*C (dissolved molar concentration) against H (Henry's volatility constant) from 40023.4 Pa*m^3/mol to 120070 Pa*m^3/mol. One curve for each value of p (partial pressure of the gas): 21278.2 Pa, 10639.1 Pa, 42556.5 Pa. Other inputs as in the worked example: M = 0.0319988 kg/mol. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, H = 80046.8 Pa*m^3/mol, C = 0.265823 mol/m^3.*
+*Dissolved molar concentration as H runs from 0.474 to 1.106 atm*m^3/mol, every other input as you entered it (41 solutions). Marked: your H = 0.79 atm*m^3/mol gives C = 0.2658 mmol/L. Your inputs: p = 0.21 atm, H = 0.79 atm*m^3/mol, M = 31.9988 g/mol.*
+
+![Dissolved molar concentration as p runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-henry-law-equilibrium-live-2)
+
+*Dissolved molar concentration as p runs from 0.126 to 0.294 atm, every other input as you entered it (29 solutions). Marked: your p = 0.21 atm gives C = 0.2658 mmol/L. Your inputs: p = 0.21 atm, H = 0.79 atm*m^3/mol, M = 31.9988 g/mol.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_henry_law_equilibrium', p=21278.25, H=80046.75, M=0.0319988)
@@ -4573,9 +5001,13 @@ $$
 - **Assumes:** constant enthalpy of solution over the range
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![Hcp_T (solubility constant at T) against B (temperature coefficient d ln Hcp/d(1/T), in K) from 150 to 15000 on a logarithmic axis](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-henry-temperature-dependence-curve)
+![Solubility constant at T as T runs from 243](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-henry-temperature-dependence-live-1)
 
-*Hcp_T (solubility constant at T) against B (temperature coefficient d ln Hcp/d(1/T), in K) from 150 to 15000 on a logarithmic axis. One curve for each value of T (temperature of interest): 283.15 K, 141.575 K, 566.3 K. Other inputs as in the worked example: Hcp = 1.3e-05 mol/(m^3*Pa), Tref = 298.15 K. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, B = 1500, Hcp_T = 1.6970e-05 mol/(m^3*Pa).*
+*Solubility constant at T as T runs from 243.1 to 323.1 K, every other input as you entered it (41 solutions). Marked: your T = 283.1 K gives Hcp_T = 1.697e-05. Your inputs: Hcp = 1.3e-05 mol/(m^3*Pa), B = 1500, T = 283.15 K, Tref = 298.15 K.*
+
+![Solubility constant at T as Tref runs from 258](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-henry-temperature-dependence-live-2)
+
+*Solubility constant at T as Tref runs from 258.1 to 338.1 K, every other input as you entered it (29 solutions). Marked: your Tref = 298.1 K gives Hcp_T = 1.697e-05. Your inputs: Hcp = 1.3e-05 mol/(m^3*Pa), B = 1500, T = 283.15 K, Tref = 298.15 K.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_henry_temperature_dependence', Hcp=1.3e-05, B=1500.0, T=283.15, Tref=298.15)
@@ -4624,9 +5056,13 @@ $$
 - **Assumes:** linear equilibrium
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![KL (overall liquid-phase coefficient) against kg (gas-film coefficient) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-two-film-transfer-curve)
+![Flux from liquid to gas as C runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-two-film-transfer-live-1)
 
-*KL (overall liquid-phase coefficient) against kg (gas-film coefficient) from 0.0005 m/s to 0.05 m/s on a logarithmic axis. One curve for each value of kl (liquid-film coefficient): 2.0000e-05 m/s, 1.0000e-05 m/s, 4.0000e-05 m/s. Other inputs as in the worked example: H = 0.2, C = 0.001 kg/m^3, Cg = 0.0 kg/m^3. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, kg = 0.005 m/s, KL = 1.9608e-05 m/s.*
+*Flux from liquid to gas as C runs from 0.6 to 1.4 mg/L, every other input as you entered it (41 solutions). Marked: your C = 1 mg/L gives flux = 1.961e-08. Your inputs: kl = 2e-05 m/s, kg = 0.005 m/s, H = 0.2, C = 1 mg/L, Cg = 0 ug/m^3.*
+
+![Overall liquid-phase coefficient as kl runs from 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-two-film-transfer-live-2)
+
+*Overall liquid-phase coefficient as kl runs from 1.2e-05 to 2.8e-05 m/s, every other input as you entered it (29 solutions). Marked: your kl = 2e-05 m/s gives KL = 1.961e-05. Your inputs: kl = 2e-05 m/s, kg = 0.005 m/s, H = 0.2, C = 1 mg/L, Cg = 0 ug/m^3.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_two_film_transfer', kl=2e-05, kg=0.005, H=0.2, C=0.001, Cg=0.0)
@@ -4677,13 +5113,21 @@ $$
 - **Assumes:** Qa/Qw above the minimum; clean inlet air; dilute, linear equilibrium
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![Z (packed height HTU NTU) against Qw (water flow), with Cin = 2](https://huggingface.co/AI999X/environmental-engineering-ai999x/resolve/main/figures/enveng-air-stripping-tower-z-vs-qw.svg)
+![The packed tower to scale beside a 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-air-stripping-tower-scene)
 
-*Z (packed height HTU NTU) against Qw (water flow), with Cin = 2.00e-4 kg/m^3, Cout = 5.00e-6 kg/m^3, H = 0.2, HTU = 1 m, Qa = 1.5 m^3/s. 31 points computed by environmental-engineering-ai999x; marked: Qw = 0.05, Z = 4.21385 m.*
+*The packed tower to scale beside a 1.8 m person: water flows down through the packing, air is blown up through it and carries the volatile compound away. Packing height Z = 4.214 m as computed. Your inputs: Qw = 0.05 m^3/s, Qa = 1.5 m^3/s, H = 0.2, Cin = 200 ug/L, Cout = 5 ug/L, HTU = 1 m.*
 
-![Z (packed height HTU NTU) against Qw (water flow) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-air-stripping-tower-curve)
+![Z (packed height HTU NTU) against Qw (water flow) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-air-stripping-tower-z-vs-qw)
 
-*Z (packed height HTU NTU) against Qw (water flow) from 0.005 m^3/s to 0.5 m^3/s on a logarithmic axis. One curve for each value of HTU (height of a transfer unit): 1 m, 0.5 m, 2 m. Other inputs as in the worked example: Qa = 1.5 m^3/s, H = 0.2, Cin = 0.00019999999999999998 kg/m^3, Cout = 4.9999999999999996e-06 kg/m^3. 36 points per curve computed by environmental-engineering-ai999x; marked: the worked example, Qw = 0.05 m^3/s, Z = 4.21385 m.*
+*Z (packed height HTU NTU) against Qw (water flow) from 0.025 m³/s to 0.075 m³/s, the other inputs as given: 31 points, each a solve of the model. Marked: the given point, Qw = 0.05 m³/s, Z = 4.214 m. Your inputs: Qw = 0.05 m^3/s, Qa = 1.5 m^3/s, H = 0.2, Cin = 200 ug/L, Cout = 5 ug/L, HTU = 1 m.*
+
+![Packed height HTU NTU as Qw runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-air-stripping-tower-live-1)
+
+*Packed height HTU NTU as Qw runs from 0.03 to 0.07 m^3/s, every other input as you entered it (41 solutions). Marked: your Qw = 0.05 m^3/s gives Z = 4.214. Your inputs: Qw = 0.05 m^3/s, Qa = 1.5 m^3/s, H = 0.2, Cin = 200 ug/L, Cout = 5 ug/L, HTU = 1 m.*
+
+![Packed height HTU NTU as Qa runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-air-stripping-tower-live-2)
+
+*Packed height HTU NTU as Qa runs from 0.9 to 2.1 m^3/s, every other input as you entered it (29 solutions). Marked: your Qa = 1.5 m^3/s gives Z = 4.214. Your inputs: Qw = 0.05 m^3/s, Qa = 1.5 m^3/s, H = 0.2, Cin = 200 ug/L, Cout = 5 ug/L, HTU = 1 m.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_air_stripping_tower', Qw=0.05, Qa=1.5, H=0.2, Cin=0.0002, Cout=5e-06, HTU=1.0)
@@ -4726,9 +5170,13 @@ $$
 - **Assumes:** incoherent sources
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![L_total (combined level, dB) as value 2 of L (sound levels in dB) moves from 42](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-decibel-addition-sensitivity)
+![Combined level, dB as L[1] runs from 42 to 126, every other input as you entered it (30 solutions)](https://huggingface.co/AI999X/environmental-engineering-ai999x/resolve/main/figures/enveng-decibel-addition-live-1.svg)
 
-*L_total (combined level, dB) as value 2 of L (sound levels in dB) moves from 42.5 to 127.5, the other values as given ([85.0, 85.0]); 41 runs of environmental-engineering-ai999x. Marked: the worked example, L[2] = 85, L_total = 88.0103.*
+*Combined level, dB as L[1] runs from 42 to 126, every other input as you entered it (30 solutions). Marked: your L[1] = 85 gives L_total = 88.01. Your inputs: L = 85, 85.*
+
+![Combined level, dB as L[2] runs from 42 to 126, every other input as you entered it (30 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-decibel-addition-live-2)
+
+*Combined level, dB as L[2] runs from 42 to 126, every other input as you entered it (30 solutions). Marked: your L[2] = 85 gives L_total = 88.01. Your inputs: L = 85, 85.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_decibel_addition', L=[85.0, 85.0])
@@ -4772,9 +5220,13 @@ $$
 - **Assumes:** $Lt > Lb$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![L_source (level of the source alone, dB) against Lb (background level, dB) from 40 to 120](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-background-noise-correction-curve)
+![Level of the source alone, dB as Lt runs from 81](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-background-noise-correction-live-1)
 
-*L_source (level of the source alone, dB) against Lb (background level, dB) from 40 to 120. One curve for each value of Lt (total measured level, dB): 85, 170. 17 points per curve computed by environmental-engineering-ai999x; marked: the worked example, Lb = 80, L_source = 83.3491.*
+*Level of the source alone, dB as Lt runs from 81.81 to 148.8, every other input as you entered it (22 solutions). Marked: your Lt = 85 gives L_source = 83.35. Your inputs: Lt = 85, Lb = 80.*
+
+![Level of the source alone, dB as Lb runs from 20 to 84](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-background-noise-correction-live-2)
+
+*Level of the source alone, dB as Lb runs from 20 to 84.29, every other input as you entered it (16 solutions). Marked: your Lb = 80 gives L_source = 83.35. Your inputs: Lt = 85, Lb = 80.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_background_noise_correction', Lt=85.0, Lb=80.0)
@@ -4820,9 +5272,21 @@ $$
 - **Assumes:** free field, no absorption
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![L2 (level at distance r2, dB) against L1 (level at distance r1, dB) from 45 to 135](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-noise-distance-attenuation-curve)
+![The sound level around the source, as rings at five distances up to 128 m: each ring's level is the model solved again at that distance (pink louder, green quieter); the arrow is the point asked about](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-noise-distance-attenuation-scene)
 
-*L2 (level at distance r2, dB) against L1 (level at distance r1, dB) from 45 to 135. One curve for each value of r1 (first distance): 10 m, 5 m, 20 m. Other inputs as in the worked example: r2 = 80.0 m, source = point. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, L1 = 90, L2 = 71.9382.*
+*The sound level around the source, as rings at five distances up to 128 m: each ring's level is the model solved again at that distance (pink louder, green quieter); the arrow is the point asked about. In SI units: L2 = 71.94. Your inputs: L1 = 90, r1 = 10 m, r2 = 80 m, source = point.*
+
+![Level at distance r2, dB as L1 runs from 22](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-noise-distance-attenuation-live-1)
+
+*Level at distance r2, dB as L1 runs from 22.5 to 157.5, every other input as you entered it (41 solutions). Marked: your L1 = 90 gives L2 = 71.94. Your inputs: L1 = 90, r1 = 10 m, r2 = 80 m, source = point.*
+
+![Level at distance r2, dB for every choice of source, every other input as you entered it (highlighted: your choice)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-noise-distance-attenuation-live-2)
+
+*Level at distance r2, dB for every choice of source, every other input as you entered it (highlighted: your choice). point: 71.94; line: 80.97. Your inputs: L1 = 90, r1 = 10 m, r2 = 80 m, source = point.*
+
+![Level at distance r2, dB as r1 runs from 6 to 14 m, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-noise-distance-attenuation-live-3)
+
+*Level at distance r2, dB as r1 runs from 6 to 14 m, every other input as you entered it (29 solutions). Marked: your r1 = 10 m gives L2 = 71.94. Your inputs: L1 = 90, r1 = 10 m, r2 = 80 m, source = point.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_noise_distance_attenuation', L1=90.0, r1=10.0, r2=80.0, source='point')
@@ -4866,6 +5330,10 @@ $$
 - **Assumes:** one duration per level
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![The answer for your inputs: Leq (equivalent continuous level, dB) = 76](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-equivalent-sound-level-live-1)
+
+*The answer for your inputs: Leq (equivalent continuous level, dB) = 76.52. Your inputs: L = 70, 85, 60, t = 4, 1, 3.*
+
 ```python
 environmental_engineering_ai999x.solve('enveng_equivalent_sound_level', L=[70.0, 85.0, 60.0], t=[4.0, 1.0, 3.0])
 # -> Leq = 76.5228   (SOLVED)
@@ -4908,9 +5376,17 @@ $$
 - **Assumes:** exactly 24 hourly levels
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![L (Ldn or Lden, dB) for each option of metric (ldn or lden), one run of environmental-engineering-ai999x per option: ldn: 63](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-day-night-level-bars)
+![Ldn or Lden, dB as L[1] runs from 25 to 75, every other input as you entered it (27 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-day-night-level-live-1)
 
-*L (Ldn or Lden, dB) for each option of metric (ldn or lden), one run of environmental-engineering-ai999x per option: ldn: 63.5436, lden: 63.8766. The worked example uses ldn. Other inputs as in the worked example: L = [50.0, 50.0, 50.0, 50.0, 50.0, 50.0, 50.0, 65….*
+*Ldn or Lden, dB as L[1] runs from 25 to 75, every other input as you entered it (27 solutions). Marked: your L[1] = 50 gives L = 63.54. Your inputs: L = 50, 50, 50, 50, 50, 50..., metric = ldn.*
+
+![Ldn or Lden, dB for every choice of metric, every other input as you entered it (highlighted: your choice)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-day-night-level-live-2)
+
+*Ldn or Lden, dB for every choice of metric, every other input as you entered it (highlighted: your choice). ldn: 63.54; lden: 63.88. Your inputs: L = 50, 50, 50, 50, 50, 50..., metric = ldn.*
+
+![Ldn or Lden, dB as L[2] runs from 25 to 75, every other input as you entered it (27 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-day-night-level-live-3)
+
+*Ldn or Lden, dB as L[2] runs from 25 to 75, every other input as you entered it (27 solutions). Marked: your L[2] = 50 gives L = 63.54. Your inputs: L = 50, 50, 50, 50, 50, 50..., metric = ldn.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_day_night_level', L=[50.0, 50.0, 50.0, 50.0, 50.0, 50.0, 50.0, 65.0, 65.0, 65.0, 65.0, 65.0, 65.0, 65.0, 65.0, 65.0, 65.0, 65.0, 65.0, 60.0, 60.0, 60.0, 55.0, 55.0], metric='ldn')
@@ -4955,9 +5431,17 @@ $$
 - **Assumes:** far field, no absorption; rho c taken as 400 rayl $(Lp = LI)$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![Lp (sound pressure level, dB) against Lw (sound power level, dB re 1 pW) from 55 to 165](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-sound-power-to-pressure-curve)
+![The sound level around the source, as rings at five distances up to 32 m: each ring's level is the model solved again at that distance (pink louder, green quieter); the arrow is the point asked about](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-sound-power-to-pressure-scene)
 
-*Lp (sound pressure level, dB) against Lw (sound power level, dB re 1 pW) from 55 to 165. One curve for each value of r (distance from the source): 20 m, 10 m, 40 m. Other inputs as in the worked example: Qd = 2.0. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, Lw = 110, Lp = 75.9976.*
+*The sound level around the source, as rings at five distances up to 32 m: each ring's level is the model solved again at that distance (pink louder, green quieter); the arrow is the point asked about. In SI units: Lp = 76. Your inputs: Lw = 110, r = 20 m, Qd = 2.*
+
+![Sound pressure level, dB as Lw runs from 27](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-sound-power-to-pressure-live-1)
+
+*Sound pressure level, dB as Lw runs from 27.5 to 192.5, every other input as you entered it (41 solutions). Marked: your Lw = 110 gives Lp = 76. Your inputs: Lw = 110, r = 20 m, Qd = 2.*
+
+![Sound pressure level, dB as r runs from 12 to 28 m, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-sound-power-to-pressure-live-2)
+
+*Sound pressure level, dB as r runs from 12 to 28 m, every other input as you entered it (29 solutions). Marked: your r = 20 m gives Lp = 76. Your inputs: Lw = 110, r = 20 m, Qd = 2.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_sound_power_to_pressure', Lw=110.0, r=20.0, Qd=2.0)
@@ -5001,6 +5485,10 @@ $$
 - **Method:** $T = 8/2$^((L - 90)/5); $D = 100$ sum C/T; TWA = 16.61 log10(D/100) + 90
 - **Assumes:** levels below 80 dBA excluded
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![The answer for your inputs: dose_percent (noise dose, per cent) = 112](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-occupational-noise-dose-live-1)
+
+*The answer for your inputs: dose_percent (noise dose, per cent) = 112.5. Your inputs: L = 90, 95, 85, hours = 4, 2, 2.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_occupational_noise_dose', L=[90.0, 95.0, 85.0], hours=[4.0, 2.0, 2.0])
@@ -5050,9 +5538,13 @@ $$
 - **Assumes:** full truck loads at the stated density
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![m (waste generation) against pop (population served) from 1 to 100000 on a logarithmic axis, logarithmic output axis](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-solid-waste-generation-curve)
+![Waste generation as rate runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-solid-waste-generation-live-1)
 
-*m (waste generation) against pop (population served) from 1 to 100000 on a logarithmic axis, logarithmic output axis. One curve for each value of rate (generation rate in kg per person per day): 1.5, 0.75, 3. Other inputs as in the worked example: rho = 400.0 kg/m^3, Vt = 15.0 m^3. 40 points per curve computed by environmental-engineering-ai999x; marked: the worked example, pop = 50000, m = 0.868056 kg/s.*
+*Waste generation as rate runs from 0.375 to 2.625, every other input as you entered it (41 solutions). Marked: your rate = 1.5 gives m = 0.8681. Your inputs: pop = 50000, rate = 1.5, rho = 400 kg/m^3, Vt = 15 m^3.*
+
+![V m3 per day as ρ runs from 240 to 560 kg/m^3, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-solid-waste-generation-live-2)
+
+*V m3 per day as ρ runs from 240 to 560 kg/m^3, every other input as you entered it (29 solutions). Marked: your ρ = 400 kg/m^3 gives V_m3_per_day = 187.5. Your inputs: pop = 50000, rate = 1.5, rho = 400 kg/m^3, Vt = 15 m^3.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_solid_waste_generation', pop=50000, rate=1.5, rho=400.0, Vt=15.0)
@@ -5100,9 +5592,13 @@ $$
 - **Assumes:** growth compounded yearly, life read continuously
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![life_years (landfill life, years) against M (waste delivered in the first year) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-landfill-life-curve)
+![Landfill life, years as M runs from 3e+04 to 7e+04 t/yr, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-landfill-life-live-1)
 
-*life_years (landfill life, years) against M (waste delivered in the first year) from 0.792202 kg/s to 2.37661 kg/s. One curve for each value of capacity (available landfill volume): 2e+06 m^3, 1e+06 m^3, 4e+06 m^3. Other inputs as in the worked example: rho = 600.0 kg/m^3, cover = 0.25, g = 0.0. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, M = 1.5844 kg/s, life_years = 19.2.*
+*Landfill life, years as M runs from 3e+04 to 7e+04 t/yr, every other input as you entered it (41 solutions). Marked: your M = 5e+04 t/yr gives life_years = 19.2. Your inputs: capacity = 2000000 m^3, M = 50000 t/yr, rho = 600 kg/m^3, cover = 0.25, g = 0.*
+
+![Landfill life, years as capacity runs from 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-landfill-life-live-2)
+
+*Landfill life, years as capacity runs from 1.2e+06 to 2.8e+06 m^3, every other input as you entered it (29 solutions). Marked: your capacity = 2e+06 m^3 gives life_years = 19.2. Your inputs: capacity = 2000000 m^3, M = 50000 t/yr, rho = 600 kg/m^3, cover = 0.25, g = 0.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_landfill_life', capacity=2000000.0, M=1.5844043907014476, rho=600.0, cover=0.25, g=0.0)
@@ -5152,9 +5648,13 @@ $$
 - **Assumes:** constant acceptance from opening to tc; first-order decay of every deposit
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![Q_CH4 (methane generation rate at t) against k (methane generation rate constant) from 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-landfill-gas-generation-curve)
+![Methane generation rate at t as t runs from 15 to 35 yr, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-landfill-gas-generation-live-1)
 
-*Q_CH4 (methane generation rate at t) against k (methane generation rate constant) from 1.5844e-10 1/s to 1.5844e-08 1/s on a logarithmic axis. One curve for each value of L0 (methane generation potential): 0.1 m^3/kg, 0.05 m^3/kg, 0.2 m^3/kg. Other inputs as in the worked example: M = 3.1688087814028947 kg/s, tc = 631152000.0 s, t = 788940000.0 s. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, k = 1.5844e-09 1/s, Q_CH4 = 0.155999 m^3/s.*
+*Methane generation rate at t as t runs from 15 to 35 yr, every other input as you entered it (41 solutions). Marked: your t = 25 yr gives Q_CH4 = 0.156. Your inputs: M = 100000 t/yr, L0 = 100 m^3/t, k = 0.05 1/yr, tc = 20 yr, t = 25 yr.*
+
+![Methane generation rate at t as tc runs from 12 to 28 yr, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-landfill-gas-generation-live-2)
+
+*Methane generation rate at t as tc runs from 12 to 28 yr, every other input as you entered it (29 solutions). Marked: your tc = 20 yr gives Q_CH4 = 0.156. Your inputs: M = 100000 t/yr, L0 = 100 m^3/t, k = 0.05 1/yr, tc = 20 yr, t = 25 yr.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_landfill_gas_generation', M=3.168808781402895, L0=0.1, k=1.5844043907014477e-09, tc=631152000.0, t=788940000.0)
@@ -5203,9 +5703,13 @@ $$
 - **Assumes:** fractions on the same (dry) basis, sum at most 1
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![HHV (higher heating value) against C (carbon mass fraction (fraction or %)) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-dulong-heating-value-curve)
+![Higher heating value as C runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-dulong-heating-value-live-1)
 
-*HHV (higher heating value) against C (carbon mass fraction (fraction or %)) from 0.24 to 0.72. One curve for each value of H (hydrogen mass fraction): 0.064, 0.26. Other inputs as in the worked example: O = 0.376, S = 0.004, N = 0.008. 20 points per curve computed by environmental-engineering-ai999x; marked: the worked example, C = 0.48, HHV = 1.8644e+07 J/kg.*
+*Higher heating value as C runs from 0.12 to 0.534, every other input as you entered it (24 solutions). Marked: your C = 0.48 gives HHV = 1.864e+07. Your inputs: C = 0.48, H = 0.064, O = 0.376, S = 0.004, N = 0.008.*
+
+![Higher heating value as H runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-dulong-heating-value-live-2)
+
+*Higher heating value as H runs from 0.016 to 0.112, every other input as you entered it (29 solutions). Marked: your H = 0.064 gives HHV = 1.864e+07. Your inputs: C = 0.48, H = 0.064, O = 0.376, S = 0.004, N = 0.008.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_dulong_heating_value', C=0.48, H=0.064, O=0.376, S=0.004, N=0.008)
@@ -5252,6 +5756,10 @@ $$
 - **Assumes:** moisture fractions below 1
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![The answer for your inputs: moisture_wet (moisture content, wet basis) = 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-waste-moisture-content-live-1)
+
+*The answer for your inputs: moisture_wet (moisture content, wet basis) = 0.338. Your inputs: m = 40, 25, 15, 20, w = 0.7, 0.06, 0.02, 0.2.*
+
 ```python
 environmental_engineering_ai999x.solve('enveng_waste_moisture_content', m=[40.0, 25.0, 15.0, 20.0], w=[0.7, 0.06, 0.02, 0.2])
 # -> moisture_wet = 0.338, dry_mass = 66.2, moisture_dry = 0.510574   (SOLVED)
@@ -5297,9 +5805,9 @@ $$
 - **Assumes:** 25 degC: $Kw = 1e-14$, pH + pOH = 14; exactly one of H, OH; 1e-14 <= concentration <= 1 mol/L (dilute: activity = concentration)
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![pH (pH = -log10[H+]) against OH (hydroxide ion concentration [OH-]) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-ph-poh-curve)
+![PH as OH runs from 6e-06 to 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-ph-poh-live-1)
 
-*pH (pH = -log10[H+]) against OH (hydroxide ion concentration [OH-]) from 0.005 mol/m^3 to 0.015 mol/m^3. 31 points computed by environmental-engineering-ai999x; marked: the worked example, OH = 0.01 mol/m^3, pH = 9.*
+*PH as OH runs from 6e-06 to 1.4e-05 mol/L, every other input as you entered it (41 solutions). Marked: your OH = 1e-05 mol/L gives pH = 9. Your inputs: OH = 1e-05 mol/L.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_ph_poh', OH=0.01)
@@ -5349,9 +5857,13 @@ $$
 - **Assumes:** KH, $P > 0$; dilute solution at equilibrium, KH at the water temperature
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![C (dissolved concentration KH P) against KH (Henry's solubility constant) from 6](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-henry-law-solubility-curve)
+![Dissolved concentration KH P as KH runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-henry-law-solubility-live-1)
 
-*C (dissolved concentration KH P) against KH (Henry's solubility constant) from 6.4150e-06 mol/(m^3*Pa) to 1.9245e-05 mol/(m^3*Pa). One curve for each value of P (partial pressure of the gas above the water): 21278.2 Pa, 10639.1 Pa, 42556.5 Pa. Other inputs as in the worked example: M = 0.032 kg/mol. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, KH = 1.2830e-05 mol/(m^3*Pa), C = 0.273 mol/m^3.*
+*Dissolved concentration KH P as KH runs from 0.00078 to 0.00182 mol/(L*atm), every other input as you entered it (41 solutions). Marked: your KH = 0.0013 mol/(L*atm) gives C = 0.273 mmol/L. Your inputs: KH = 0.0013 mol/(L*atm), P = 0.21 atm, M = 32 g/mol.*
+
+![Dissolved concentration KH P as P runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-henry-law-solubility-live-2)
+
+*Dissolved concentration KH P as P runs from 0.126 to 0.294 atm, every other input as you entered it (29 solutions). Marked: your P = 0.21 atm gives C = 0.273 mmol/L. Your inputs: KH = 0.0013 mol/(L*atm), P = 0.21 atm, M = 32 g/mol.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_henry_law_solubility', KH=1.2830002467308166e-05, P=21278.25, M=0.032)
@@ -5401,9 +5913,13 @@ $$
 - **Assumes:** W, $d > 0$; exactly one of Q, v, positive; rectangular section, uniform mean velocity
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![v (mean (horizontal) velocity Q/A) against W (channel width) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-channel-flow-velocity-curve)
+![Mean (horizontal) velocity Q/A as W runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-channel-flow-velocity-live-1)
 
-*v (mean (horizontal) velocity Q/A) against W (channel width) from 0.5 m to 1.5 m. One curve for each value of d (water depth): 1 m, 0.5 m, 2 m. Other inputs as in the worked example: Q = 0.3 m^3/s. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, W = 1 m, v = 0.3 m/s.*
+*Mean (horizontal) velocity Q/A as W runs from 0.6 to 1.4 m, every other input as you entered it (41 solutions). Marked: your W = 1 m gives v = 0.3. Your inputs: W = 1 m, d = 1 m, Q = 0.3 m^3/s.*
+
+![Mean (horizontal) velocity Q/A as d runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-channel-flow-velocity-live-2)
+
+*Mean (horizontal) velocity Q/A as d runs from 0.6 to 1.4 m, every other input as you entered it (29 solutions). Marked: your d = 1 m gives v = 0.3. Your inputs: W = 1 m, d = 1 m, Q = 0.3 m^3/s.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_channel_flow_velocity', Q=0.3, W=1.0, d=1.0)
@@ -5454,13 +5970,13 @@ $$
 - **Assumes:** two densities or two volumes; the same mass of waste before and after; $CR  \geq  1$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![CR (compaction ratio) against rho_i (density as delivered (loose)) from 60 kg/m^3 to 180 kg/m^3](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-landfill-compaction-ratio-curve)
+![Compaction ratio as ρ_c runs from 360 to 840 kg/m^3, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-landfill-compaction-ratio-live-1)
 
-*CR (compaction ratio) against rho_i (density as delivered (loose)) from 60 kg/m^3 to 180 kg/m^3. One curve for each value of rho_c (density after compaction): 600 kg/m^3, 300 kg/m^3, 1200 kg/m^3. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, rho_i = 120 kg/m^3, CR = 5.*
+*Compaction ratio as ρ_c runs from 360 to 840 kg/m^3, every other input as you entered it (41 solutions). Marked: your ρ_c = 600 kg/m^3 gives CR = 5. Your inputs: rho_i = 120 kg/m^3, rho_c = 600 kg/m^3.*
 
-![CR (compaction ratio) over rho_c (density after compaction) from 300 kg/m^3 to 900 kg/m^3 and rho_i (density as delivered (loose)) from 60 kg/m^3 to 180 kg/m^3: each of the 21 × 15 cells is one run of environmental-engineering-ai999x, shaded by its value (light 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-landfill-compaction-ratio-field)
+![Compaction ratio as ρ_i runs from 72 to 168 kg/m^3, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-landfill-compaction-ratio-live-2)
 
-*CR (compaction ratio) over rho_c (density after compaction) from 300 kg/m^3 to 900 kg/m^3 and rho_i (density as delivered (loose)) from 60 kg/m^3 to 180 kg/m^3: each of the 21 × 15 cells is one run of environmental-engineering-ai999x, shaded by its value (light 1.66667 to dark 15); iso-lines at CR = 2.5, 5, 7.5, 10, 12.5. Marked: the worked example, rho_c = 600 kg/m^3, rho_i = 120 kg/m^3, CR = 5.*
+*Compaction ratio as ρ_i runs from 72 to 168 kg/m^3, every other input as you entered it (29 solutions). Marked: your ρ_i = 120 kg/m^3 gives CR = 5. Your inputs: rho_i = 120 kg/m^3, rho_c = 600 kg/m^3.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_landfill_compaction_ratio', rho_i=120.0, rho_c=600.0)
@@ -5514,9 +6030,13 @@ $$
 - **Assumes:** linear, reversible, instantaneous sorption; $0 < n < 1$; $R  \geq  1$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![R (retardation factor) against n (porosity (fraction or %)) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-retardation-factor-curve)
+![Contaminant velocity, m/d as v runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-retardation-factor-live-1)
 
-*R (retardation factor) against n (porosity (fraction or %)) from 0.02 to 0.98. One curve for each value of foc (fraction of organic carbon (fraction or %)): 0.01, 0.26, 0.74. Other inputs as in the worked example: rho_b = 1600.0 kg/m^3, Koc = 0.1 m^3/kg, v = 5.787037037037037e-06 m/s. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, n = 0.3, R = 6.33333.*
+*Contaminant velocity, m/d as v runs from 0.3 to 0.7 m/d, every other input as you entered it (41 solutions). Marked: your v = 0.5 m/d gives vc_m_per_day = 0.07895. Your inputs: rho_b = 1.6 g/cm^3, n = 0.3, Koc = 100 L/kg, foc = 0.01, v = 0.5 m/d.*
+
+![Retardation factor as Koc runs from 60 to 140 L/kg, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-retardation-factor-live-2)
+
+*Retardation factor as Koc runs from 60 to 140 L/kg, every other input as you entered it (29 solutions). Marked: your Koc = 100 L/kg gives R = 6.333. Your inputs: rho_b = 1.6 g/cm^3, n = 0.3, Koc = 100 L/kg, foc = 0.01, v = 0.5 m/d.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_retardation_factor', rho_b=1600.0, n=0.3, Koc=0.1, foc=0.01, v=5.787037037037037e-06)
@@ -5572,9 +6092,13 @@ $$
 - **Assumes:** laminar flow (Darcy's law); K, $i > 0$; $0 < n_e < 1$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![q (Darcy flux (specific discharge) K i) against K (hydraulic conductivity) from 5](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-darcy-seepage-velocity-curve)
+![Darcy flux (specific discharge) K i as K runs from 6 to 14 m/d, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-darcy-seepage-velocity-live-1)
 
-*q (Darcy flux (specific discharge) K i) against K (hydraulic conductivity) from 5.7870e-05 m/s to 0.000173611 m/s. One curve for each value of i (hydraulic gradient dh/L (dimensionless)): 0.002, 0.001, 0.004. Other inputs as in the worked example: A = 500.0 m^2, n_e = 0.25. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, K = 0.000115741 m/s, q = 2.3148e-07 m/s.*
+*Darcy flux (specific discharge) K i as K runs from 6 to 14 m/d, every other input as you entered it (41 solutions). Marked: your K = 10 m/d gives q = 2.315e-07. Your inputs: K = 10 m/d, i = 0.002, A = 500 m^2, n_e = 0.25.*
+
+![Darcy flux (specific discharge) K i as i runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-darcy-seepage-velocity-live-2)
+
+*Darcy flux (specific discharge) K i as i runs from 0.0005 to 0.0035, every other input as you entered it (29 solutions). Marked: your i = 0.002 gives q = 2.315e-07. Your inputs: K = 10 m/d, i = 0.002, A = 500 m^2, n_e = 0.25.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_darcy_seepage_velocity', K=0.00011574074074074075, i=0.002, A=500.0, n_e=0.25)
@@ -5629,9 +6153,13 @@ $$
 - **Assumes:** EF, ED and AT together or none (continuous lifetime); $EF  \leq  365$ d/yr, EF $ED  \leq  AT$; ED in years, AT in days (70 yr x $365 = 25$,550 d); linear low-dose risk up to 0.01
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![CDI (chronic daily intake, mg/(kg d)) against BW (body weight) from 35 kg to 105 kg](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-chronic-daily-intake-risk-curve)
+![Chronic daily intake, mg/(kg d) as BW runs from 42 to 98 kg, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-chronic-daily-intake-risk-live-1)
 
-*CDI (chronic daily intake, mg/(kg d)) against BW (body weight) from 35 kg to 105 kg. One curve for each value of C (concentration in the water): 5.0000e-05 kg/m^3, 2.5000e-05 kg/m^3, 0.0001 kg/m^3. Other inputs as in the worked example: IR = 2.3148148148148148e-08 m^3/s, RfD = 0.02. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, BW = 70 kg, CDI = 0.00142857.*
+*Chronic daily intake, mg/(kg d) as BW runs from 42 to 98 kg, every other input as you entered it (41 solutions). Marked: your BW = 70 kg gives CDI = 0.001429. Your inputs: C = 0.05 mg/L, IR = 2 L/d, BW = 70 kg, RfD = 0.02.*
+
+![Hazard quotient CDI/RfD as RfD runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-chronic-daily-intake-risk-live-2)
+
+*Hazard quotient CDI/RfD as RfD runs from 0.005 to 0.035, every other input as you entered it (29 solutions). Marked: your RfD = 0.02 gives HQ = 0.07143. Your inputs: C = 0.05 mg/L, IR = 2 L/d, BW = 70 kg, RfD = 0.02.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_chronic_daily_intake_risk', C=5e-05, IR=2.3148148148148148e-08, BW=70.0, RfD=0.02)
@@ -5680,9 +6208,13 @@ $$
 - **Assumes:** steady state; $M > 0$, $Mw + Me > 0$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![theta_c (mean cell residence time) against Mw (mass of solids wasted per day) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-mean-cell-residence-time-curve)
+![Mean cell residence time as M runs from 1800 to 4200 kg, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-mean-cell-residence-time-live-1)
 
-*theta_c (mean cell residence time) against Mw (mass of solids wasted per day) from 0.000347222 kg/s to 0.0347222 kg/s on a logarithmic axis. One curve for each value of M (mass of solids (MLVSS or MLSS) in the aeration basin): 3000 kg, 1500 kg, 6000 kg. Other inputs as in the worked example: Me = 0.00023148148148148146 kg/s. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, Mw = 0.00347222 kg/s, theta_c = 810000 s.*
+*Mean cell residence time as M runs from 1800 to 4200 kg, every other input as you entered it (41 solutions). Marked: your M = 3000 kg gives θ_c = 9.375 day. Your inputs: M = 3000 kg, Mw = 300 kg/d, Me = 20 kg/d.*
+
+![Mean cell residence time as Mw runs from 180 to 420 kg/d, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-mean-cell-residence-time-live-2)
+
+*Mean cell residence time as Mw runs from 180 to 420 kg/d, every other input as you entered it (29 solutions). Marked: your Mw = 300 kg/d gives θ_c = 9.375 day. Your inputs: M = 3000 kg, Mw = 300 kg/d, Me = 20 kg/d.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_mean_cell_residence_time', M=3000.0, Mw=0.003472222222222222, Me=0.0002314814814814815)
@@ -5730,13 +6262,13 @@ $$
 - **Assumes:** CT, $C > 0$; constant residual over the contact time
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![t (minimum contact time CT/C) against C (disinfectant residual) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-contact-time-from-ct-curve)
+![Minimum contact time CT/C as CT runs from 36 to 84 mg*min/L, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-contact-time-from-ct-live-1)
 
-*t (minimum contact time CT/C) against C (disinfectant residual) from 0.00075 kg/m^3 to 0.00225 kg/m^3. One curve for each value of CT (required CT value): 3.6 kg*s/m^3, 1.8 kg*s/m^3, 7.2 kg*s/m^3. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, C = 0.0015 kg/m^3, t = 2400 s.*
+*Minimum contact time CT/C as CT runs from 36 to 84 mg*min/L, every other input as you entered it (41 solutions). Marked: your CT = 60 mg*min/L gives t = 40 min. Your inputs: CT = 60 mg*min/L, C = 1.5 mg/L.*
 
-![t (minimum contact time CT/C) over CT (required CT value) from 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-contact-time-from-ct-field)
+![Minimum contact time CT/C as C runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-contact-time-from-ct-live-2)
 
-*t (minimum contact time CT/C) over CT (required CT value) from 1.8 kg*s/m^3 to 5.4 kg*s/m^3 and C (disinfectant residual) from 0.00075 kg/m^3 to 0.00225 kg/m^3: each of the 21 × 15 cells is one run of environmental-engineering-ai999x, shaded by its value (light 800 s to dark 7200 s); iso-lines at t = 2000, 4000, 6000 s. Marked: the worked example, CT = 3.6 kg*s/m^3, C = 0.0015 kg/m^3, t = 2400 s.*
+*Minimum contact time CT/C as C runs from 0.9 to 2.1 mg/L, every other input as you entered it (29 solutions). Marked: your C = 1.5 mg/L gives t = 40 min. Your inputs: CT = 60 mg*min/L, C = 1.5 mg/L.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_contact_time_from_ct', CT=3.5999999999999996, C=0.0015)
@@ -5754,7 +6286,7 @@ environmental_engineering_ai999x.solve('enveng_contact_time_from_ct', CT=6.24, C
 |---|---|---|
 | Contact time from CT: CT = 60 mg*min/L, C = 1.5 mg/L | SOLVED | t = 2400 s, t_min = 40, t_h = 0.666667 |
 | Contact time from CT: CT = 104 mg*min/L, C = 0.8 mg/L | SOLVED | t = 7800 s, t_min = 130, t_h = 2.16667 |
-| Contact time from CT: C = 1.5 mg/L | NEEDS_INPUT | enveng_contact_time_from_ct needs CT (required CT value). Example: solve('enveng_contact_time_from_ct', CT='3.6 kg*s/m^3 |
+| Contact time from CT: C = 1.5 mg/L | NEEDS_INPUT | enveng_contact_time_from_ct needs CT (required CT value). Example: solve('enveng_contact_time_from_ct', CT='3.5999999999 |
 | Contact time from CT: CT = 60 mg*min/L, C = 1.5 mg/L, zz = 1 | UNRECOGNIZED_FORMAT | I could not match this question to a documented form, so I will not guess. Every form: environmental_engineering_ai999x. |
 | Minimum contact time: CT = 60 mg*min/L, C = 1.5 mg/L | SOLVED | t = 2400 s, t_min = 40, t_h = 0.666667 |
 | Minimum contact time: CT = 60 mg*min/L, C = 0 mg/L | INVALID_INPUT | Minimum disinfection contact time from a required CT: the required CT and the residual C must be a positive number. |
@@ -5784,13 +6316,13 @@ $$
 - **Assumes:** v, $A > 0$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![Q (flow v A) against v (filtration (hydraulic loading) rate) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-filter-flow-from-loading-curve)
+![Flow v A as v runs from 72 to 168 m/d, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-filter-flow-from-loading-live-1)
 
-*Q (flow v A) against v (filtration (hydraulic loading) rate) from 0.000694444 m/s to 0.00208333 m/s. One curve for each value of A (filter bed area): 50 m^2, 25 m^2, 100 m^2. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, v = 0.00138889 m/s, Q = 0.0694444 m^3/s.*
+*Flow v A as v runs from 72 to 168 m/d, every other input as you entered it (41 solutions). Marked: your v = 120 m/d gives Q = 69.44 L/s. Your inputs: v = 120 m/d, A = 50 m^2.*
 
-![Q (flow v A) over v (filtration (hydraulic loading) rate) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-filter-flow-from-loading-field)
+![Flow v A as A runs from 30 to 70 m^2, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-filter-flow-from-loading-live-2)
 
-*Q (flow v A) over v (filtration (hydraulic loading) rate) from 0.000694444 m/s to 0.00208333 m/s and A (filter bed area) from 25 m^2 to 75 m^2: each of the 21 × 15 cells is one run of environmental-engineering-ai999x, shaded by its value (light 0.0173611 m^3/s to dark 0.15625 m^3/s); iso-lines at Q = 0.025, 0.05, 0.075, 0.1, 0.125, 0.15 m^3/s. Marked: the worked example, v = 0.00138889 m/s, A = 50 m^2, Q = 0.0694444 m^3/s.*
+*Flow v A as A runs from 30 to 70 m^2, every other input as you entered it (29 solutions). Marked: your A = 50 m^2 gives Q = 69.44 L/s. Your inputs: v = 120 m/d, A = 50 m^2.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_filter_flow_from_loading', v=0.001388888888888889, A=50.0)
@@ -5841,9 +6373,9 @@ $$
 - **Assumes:** complete combustion to CO2 and H2O; elements C, H, O only
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![The worked example of Stoichiometric oxygen for complete combustion of a fuel as inputs and results: stated formula = C, m = 1000; returned by environmental-engineering-ai999x: o2_per_mol = 1, molar_mass = 12](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-combustion-oxygen-io)
+![Oxygen for the given mass of fuel as m runs from 600 to 1400 kg, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-combustion-oxygen-live-1)
 
-*The worked example of Stoichiometric oxygen for complete combustion of a fuel as inputs and results: stated formula = C, m = 1000; returned by environmental-engineering-ai999x: o2_per_mol = 1, molar_mass = 12.0107, O2_per_kg = 2.66419, CO2_per_kg = 3.66419, H2O_per_kg = 0, O2_mass = 2664.19.*
+*Oxygen for the given mass of fuel as m runs from 600 to 1400 kg, every other input as you entered it (41 solutions). Marked: your m = 1000 kg gives O2_mass = 2664. Your inputs: formula = C, m = 1000 kg.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_combustion_oxygen', formula='C', m=1000.0)
@@ -5894,13 +6426,17 @@ $$
 - **Assumes:** dry air (dry adiabatic lapse rate 9.8 degC/km); $z_{2} > z_{1}$; linear temperature profile between the two heights
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![stability: superadiabatic (unstable), neutral, subadiabatic (stable) or inversion (very stable) (stability) over T1 (air temperature at the lower height) from 29](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-lapse-rate-stability-decision)
+![Environmental lapse rate -dT/dz as T1 runs from 10 to 35 degC, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-lapse-rate-stability-live-1)
 
-*stability: superadiabatic (unstable), neutral, subadiabatic (stable) or inversion (very stable) (stability) over T1 (air temperature at the lower height) from 29.315 K to 2931.5 K and T2 (air temperature at the upper height) from 28.715 K to 2871.5 K (logarithmic axes): each of the 31 × 21 cells is one run of environmental-engineering-ai999x, coloured by the verdict it returned, inversion (very stable): 320 cells, subadiabatic (stable): 6 cells, superadiabatic (unstable): 325 cells. Other inputs as in the worked example: z1 = 0.0 m, z2 = 500.0 m. Marked: the worked example, T1 = 293.15 K, T2 = 287.15 K → superadiabatic (unstable).*
+*Environmental lapse rate -dT/dz as T1 runs from 10 to 35 degC, every other input as you entered it (41 solutions). Marked: your T1 = 20 degC gives ELR = 0.012. Shaded by stability: superadiabatic (unstable), neutral, subadiabatic (stable) or inversion (very stable): inversion (very stable), subadiabatic (stable), superadiabatic (unstable). Your inputs: T1 = 20 degC, z1 = 0 m, T2 = 14 degC, z2 = 500 m.*
 
-![ELR (environmental lapse rate -dT/dz) against z2 (upper height) from 250 m to 750 m](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-lapse-rate-stability-curve)
+![Stability: superadiabatic (unstable), neutral, subadiabatic (stable) or inversion (very stable) for 36 6 x 6 combinations of T1 and T2 around your inputs (the other inputs as entered); the ring marks your inputs, which give superadiabatic (unstable)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-lapse-rate-stability-live-2)
 
-*ELR (environmental lapse rate -dT/dz) against z2 (upper height) from 250 m to 750 m. One curve for each value of T1 (air temperature at the lower height): 293.15 K, 146.575 K, 586.3 K. Other inputs as in the worked example: z1 = 0.0 m, T2 = 287.15 K. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, z2 = 500 m, ELR = 0.012 K/m.*
+*Stability: superadiabatic (unstable), neutral, subadiabatic (stable) or inversion (very stable) for 36 6 x 6 combinations of T1 and T2 around your inputs (the other inputs as entered); the ring marks your inputs, which give superadiabatic (unstable). Blank cells admit no answer. Your inputs: T1 = 20 degC, z1 = 0 m, T2 = 14 degC, z2 = 500 m.*
+
+![Environmental lapse rate -dT/dz as T2 runs from 7 to 24](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-lapse-rate-stability-live-3)
+
+*Environmental lapse rate -dT/dz as T2 runs from 7 to 24.5 degC, every other input as you entered it (20 solutions). Marked: your T2 = 14 degC gives ELR = 0.012. Shaded by stability: superadiabatic (unstable), neutral, subadiabatic (stable) or inversion (very stable): superadiabatic (unstable), subadiabatic (stable), inversion (very stable). Your inputs: T1 = 20 degC, z1 = 0 m, T2 = 14 degC, z2 = 500 m.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_lapse_rate_stability', T1=293.15, z1=0.0, T2=287.15, z2=500.0)
@@ -5962,9 +6498,13 @@ $$
 - **Assumes:** at least one of HCO3, CO3, OH; each ion once (mass or molar form; H also as pH); neither H nor OH given: both neglected; one given: the other from $Kw = 1e-14$ (25 degC); as CaCO3 with 50,000 mg/eq; molar masses HCO3 61.017, CO3 60.009, OH 17.007, H 1.008 g/mol
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![alkalinity (total alkalinity, mg/L as CaCO3) against pH (pH of the water (gives [H+])) from 5 to 15](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-total-alkalinity-curve)
+![Total alkalinity, mg/L as CaCO3 as pH runs from 2](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-total-alkalinity-live-1)
 
-*alkalinity (total alkalinity, mg/L as CaCO3) against pH (pH of the water (gives [H+])) from 5 to 15. Other inputs as in the worked example: HCO3 = 0.122 kg/m^3, CO3 = 0.03 kg/m^3. 28 points computed by environmental-engineering-ai999x; marked: the worked example, pH = 10, alkalinity = 154.965.*
+*Total alkalinity, mg/L as CaCO3 as pH runs from 2.5 to 13.75, every other input as you entered it (31 solutions). Marked: your pH = 10 gives alkalinity = 155. Your inputs: HCO3 = 122 mg/L, CO3 = 30 mg/L, pH = 10.*
+
+![Total alkalinity, mg/L as CaCO3 as HCO3 runs from 73](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-total-alkalinity-live-2)
+
+*Total alkalinity, mg/L as CaCO3 as HCO3 runs from 73.2 to 170.8 mg/L, every other input as you entered it (29 solutions). Marked: your HCO3 = 122 mg/L gives alkalinity = 155. Your inputs: HCO3 = 122 mg/L, CO3 = 30 mg/L, pH = 10.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_total_alkalinity', HCO3=0.122, CO3=0.03, pH=10.0)
@@ -6025,9 +6565,13 @@ $$
 - **Assumes:** steady state, first-order decay; identical tanks sharing the total residence time theta; $1  \leq  N  \leq  1000$; theta, or the volume V and the flow Q $(\theta = V/Q)$, not both
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![Cout (effluent of the N tanks Cin/(1 + k theta/N)^N) against k (first-order rate constant) from 5](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-cmfr-series-curve)
+![Cout as k runs from 2](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-cmfr-series-live-1)
 
-*Cout (effluent of the N tanks Cin/(1 + k theta/N)^N) against k (first-order rate constant) from 5.5556e-06 1/s to 0.000555556 1/s on a logarithmic axis. One curve for each value of Cin (influent concentration): 0.1 kg/m^3, 0.05 kg/m^3, 0.2 kg/m^3. Other inputs as in the worked example: theta = 36000.0 s, N = 4. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, k = 5.5556e-05 1/s, Cout = 0.0197531 kg/m^3.*
+*Cout as k runs from 2.88 to 6.72 1/d, every other input as you entered it (41 solutions). Marked: your k = 4.8 1/d gives Cout = 19.75 mg/L. Your inputs: Cin = 100 mg/L, k = 4.8 1/d, theta = 10 h, N = 4.*
+
+![Cout as θ runs from 6 to 14 h, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-cmfr-series-live-2)
+
+*Cout as θ runs from 6 to 14 h, every other input as you entered it (29 solutions). Marked: your θ = 10 h gives Cout = 19.75 mg/L. Your inputs: Cin = 100 mg/L, k = 4.8 1/d, theta = 10 h, N = 4.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_cmfr_series', Cin=0.1, k=5.555555555555556e-05, theta=36000.0, N=4)
@@ -6051,7 +6595,7 @@ environmental_engineering_ai999x.solve('enveng_cmfr_series', Cin=0.2, k=0.000111
 | CMFRs in series: Cin = 100 mg/L, k = 4.8 1/d, theta = 10 h, N = 4 | SOLVED | Cout = 0.0197531 kg/m^3, Cout_mgL = 19.7531, removal = 0.802469, removal_percent = 80.2469, Cout_one = 0.0333333 kg/m^3, Cout_one_mgL = 33.3333, Cout_pfr = 0.0135335 kg/m^3, Cout_pfr_mgL = 13.5335, removal_pfr = 0.864665, theta_each = 9000 s, theta_each_h = 2.5 |
 | CMFRs in series: Cin = 50 mg/L, k = 1 1/d, theta = 24 h | SOLVED | Cout = 0.025 kg/m^3, Cout_mgL = 25, removal = 0.5, removal_percent = 50, Cout_one = 0.025 kg/m^3, Cout_one_mgL = 25, Cout_pfr = 0.018394 kg/m^3, Cout_pfr_mgL = 18.394, removal_pfr = 0.632121, theta_each = 86400 s, theta_each_h = 24 |
 | CMFRs in series: Cin = 200 mg/L, k = 9.6 1/d, V = 500 m^3, Q = 2400 m^3/d | SOLVED | Cout = 0.0666667 kg/m^3, Cout_mgL = 66.6667, removal = 0.666667, removal_percent = 66.6667, Cout_one = 0.0666667 kg/m^3, Cout_one_mgL = 66.6667, Cout_pfr = 0.0270671 kg/m^3, Cout_pfr_mgL = 27.0671, removal_pfr = 0.864665, theta_each = 18000 s, theta_each_h = 5 |
-| CMFRs in series: k = 4.8 1/d, theta = 10 h, N = 4 | NEEDS_INPUT | enveng_cmfr_series needs Cin (influent concentration). Example: solve('enveng_cmfr_series', Cin='0.1 kg/m^3', k='5.55556 |
+| CMFRs in series: k = 4.8 1/d, theta = 10 h, N = 4 | NEEDS_INPUT | enveng_cmfr_series needs Cin (influent concentration). Example: solve('enveng_cmfr_series', Cin='0.1 kg/m^3', k='5.55555 |
 | CMFRs in series: Cin = 100 mg/L, k = 4.8 1/d, theta = 10 h, N = 4, zz = 1 | UNRECOGNIZED_FORMAT | I could not match this question to a documented form, so I will not guess. Every form: environmental_engineering_ai999x. |
 | CSTRs in series: Cin = 100 mg/L, k = 4.8 1/d, theta = 10 h, N = 4 | SOLVED | Cout = 0.0197531 kg/m^3, Cout_mgL = 19.7531, removal = 0.802469, removal_percent = 80.2469, Cout_one = 0.0333333 kg/m^3, Cout_one_mgL = 33.3333, Cout_pfr = 0.0135335 kg/m^3, Cout_pfr_mgL = 13.5335, removal_pfr = 0.864665, theta_each = 9000 s, theta_each_h = 2.5 |
 | Reactors in series: Cin = 100 mg/L, k = 0.2 1/h, theta = 10 h, N = 0 | INVALID_INPUT | N: must be at least 1, got 0. |
@@ -6093,9 +6637,13 @@ $$
 - **Assumes:** uniform flow, SI units (factor 1); $0 < S < 1$; rectangular channel (W, y) or a full circular pipe (D)
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![Q (flow v A) against n (Manning roughness coefficient) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-manning-flow-curve)
+![Flow v A as D runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-manning-flow-live-1)
 
-*Q (flow v A) against n (Manning roughness coefficient) from 0.02 to 0.98. One curve for each value of D (pipe diameter (circular pipe flowing full)): 0.6 m, 0.3 m, 1.2 m. Other inputs as in the worked example: S = 0.001. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, n = 0.013, Q = 0.194167 m^3/s.*
+*Flow v A as D runs from 0.36 to 0.84 m, every other input as you entered it (41 solutions). Marked: your D = 0.6 m gives Q = 0.1942. Your inputs: n = 0.013, S = 0.001, D = 0.6 m.*
+
+![Flow v A as n runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-manning-flow-live-2)
+
+*Flow v A as n runs from 0.00325 to 0.02275, every other input as you entered it (29 solutions). Marked: your n = 0.013 gives Q = 0.1942. Your inputs: n = 0.013, S = 0.001, D = 0.6 m.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_manning_flow', n=0.013, S=0.001, D=0.6)
@@ -6151,9 +6699,13 @@ $$
 - **Assumes:** water, turbulent flow, full circular pipe; SI form (0.849); exactly one of S, Q; $S < 1$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![v (mean velocity) against S (slope of the energy line hf/L (fraction or %)) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-hazen-williams-curve)
+![Mean velocity as D runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-hazen-williams-live-1)
 
-*v (mean velocity) against S (slope of the energy line hf/L (fraction or %)) from 0.02 to 0.98. One curve for each value of C (Hazen-Williams roughness coefficient): 100, 50, 200. Other inputs as in the worked example: D = 0.3 m. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, S = 0.002, v = 0.579099 m/s.*
+*Mean velocity as D runs from 0.18 to 0.42 m, every other input as you entered it (41 solutions). Marked: your D = 0.3 m gives v = 0.5791. Your inputs: C = 100, D = 0.3 m, S = 0.002.*
+
+![Mean velocity as C runs from 25 to 175, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-hazen-williams-live-2)
+
+*Mean velocity as C runs from 25 to 175, every other input as you entered it (29 solutions). Marked: your C = 100 gives v = 0.5791. Your inputs: C = 100, D = 0.3 m, S = 0.002.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_hazen_williams', C=100.0, D=0.3, S=0.002)
@@ -6209,9 +6761,13 @@ $$
 - **Assumes:** $g = 9.80665$ $m/s^{2}$; $0 < \eta  \leq  1$; $\rho = 1000$ $kg/m^{3}$ unless given; a price needs the operating hours
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![P (power drawn to lift the water: the input (brake, shaft or motor) power the pump requires, rho g Q H / eta) against eta (pump (wire-to-water) efficiency (fraction or %)) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-pump-power-curve)
+![Power drawn to lift the water: the input](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-pump-power-live-1)
 
-*P (power drawn to lift the water: the input (brake, shaft or motor) power the pump requires, rho g Q H / eta) against eta (pump (wire-to-water) efficiency (fraction or %)) from 0.02 to 0.98. One curve for each value of Q (flow pumped): 0.1 m^3/s, 0.05 m^3/s, 0.2 m^3/s. Other inputs as in the worked example: H = 30.0 m. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, eta = 0.75, P = 39226.6 W.*
+*Power drawn to lift the water: the input... as η runs from 0.1875 to 0.975, every other input as you entered it (29 solutions). Marked: your η = 0.75 gives P = 39.23 kW. Your inputs: Q = 0.1 m^3/s, H = 30 m, eta = 0.75.*
+
+![Power drawn to lift the water: the input](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-pump-power-live-2)
+
+*Power drawn to lift the water: the input... as Q runs from 0.06 to 0.14 m^3/s, every other input as you entered it (29 solutions). Marked: your Q = 0.1 m^3/s gives P = 39.23 kW. Your inputs: Q = 0.1 m^3/s, H = 30 m, eta = 0.75.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_pump_power', Q=0.1, H=30.0, eta=0.75)
@@ -6265,9 +6821,13 @@ $$
 - **Assumes:** $0 < C  \leq  1$; i for a duration equal to the time of concentration; small catchment
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![Q (peak runoff C i A) against i (rainfall intensity) from 6](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-rational-method-curve)
+![Peak runoff C i A as C runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-rational-method-live-1)
 
-*Q (peak runoff C i A) against i (rainfall intensity) from 6.9444e-06 m/s to 2.0833e-05 m/s. One curve for each value of A (drainage area): 250000 m^2, 125000 m^2, 500000 m^2. Other inputs as in the worked example: C = 0.6. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, i = 1.3889e-05 m/s, Q = 2.08333 m^3/s.*
+*Peak runoff C i A as C runs from 0.15 to 0.9825, every other input as you entered it (38 solutions). Marked: your C = 0.6 gives Q = 2.083. Your inputs: C = 0.6, i = 50 mm/h, A = 0.25 km^2.*
+
+![Peak runoff C i A as i runs from 30 to 70 mm/h, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-rational-method-live-2)
+
+*Peak runoff C i A as i runs from 30 to 70 mm/h, every other input as you entered it (29 solutions). Marked: your i = 50 mm/h gives Q = 2.083. Your inputs: C = 0.6, i = 50 mm/h, A = 0.25 km^2.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_rational_method', C=0.6, i=1.388888888888889e-05, A=250000.0)
@@ -6322,9 +6882,13 @@ $$
 - **Assumes:** well-mixed room at steady state; Camb = 0 and $k = 0$ unless given; something enters the room
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![C (steady indoor concentration) against S (indoor emission rate) from 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-indoor-air-steady-state-curve)
+![Steady indoor concentration as Qv runs from 60 to 140 m^3/h, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-indoor-air-steady-state-live-1)
 
-*C (steady indoor concentration) against S (indoor emission rate) from 1.3889e-08 kg/s to 4.1667e-08 kg/s. One curve for each value of k (first-order decay (reaction, deposition) rate (default 0)): 0.000138889 1/s, 6.9444e-05 1/s, 0.000277778 1/s. Other inputs as in the worked example: Qv = 0.027777777777777776 m^3/s, V = 200.0 m^3, Camb = 1e-08 kg/m^3. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, S = 2.7778e-08 kg/s, C = 5.0500e-07 kg/m^3.*
+*Steady indoor concentration as Qv runs from 60 to 140 m^3/h, every other input as you entered it (41 solutions). Marked: your Qv = 100 m^3/h gives C = 505 ug/m^3. Your inputs: S = 100 mg/h, Qv = 100 m^3/h, V = 200 m^3, Camb = 10 ug/m^3, k = 0.5 1/h.*
+
+![Steady indoor concentration as V runs from 120 to 280 m^3, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-indoor-air-steady-state-live-2)
+
+*Steady indoor concentration as V runs from 120 to 280 m^3, every other input as you entered it (29 solutions). Marked: your V = 200 m^3 gives C = 505 ug/m^3. Your inputs: S = 100 mg/h, Qv = 100 m^3/h, V = 200 m^3, Camb = 10 ug/m^3, k = 0.5 1/h.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_indoor_air_steady_state', S=2.7777777777777777e-08, Qv=0.027777777777777776, V=200.0, Camb=1e-08, k=0.0001388888888888889)
@@ -6375,9 +6939,13 @@ $$
 - **Assumes:** devices in series, each efficiency on what reaches it; $0  \leq  eta_i  \leq  1$ as fractions
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![eta_total (overall efficiency 1 - prod(1 - eta_i)) as value 2 of eta (efficiency of each device as a fraction (0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-collection-efficiency-series-sensitivity)
+![Overall efficiency 1 - prod(1 - eta_i) as η[2] runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-collection-efficiency-series-live-1)
 
-*eta_total (overall efficiency 1 - prod(1 - eta_i)) as value 2 of eta (efficiency of each device as a fraction (0.9 for 90%)) moves from 0.705 to 1.085, the other values as given ([0.8, 0.99]); 32 runs of environmental-engineering-ai999x. Marked: the worked example, eta[2] = 0.99, eta_total = 0.998.*
+*Overall efficiency 1 - prod(1 - eta_i) as η[2] runs from 0.2475 to 0.99, every other input as you entered it (21 solutions). Marked: your η[2] = 0.99 gives η_total = 0.998. Your inputs: eta = 0.8, 0.99.*
+
+![Overall efficiency 1 - prod(1 - eta_i) as η[1] runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-collection-efficiency-series-live-2)
+
+*Overall efficiency 1 - prod(1 - eta_i) as η[1] runs from 0.2 to 0.9714, every other input as you entered it (19 solutions). Marked: your η[1] = 0.8 gives η_total = 0.998. Your inputs: eta = 0.8, 0.99.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_collection_efficiency_series', eta=[0.8, 0.99])
@@ -6430,13 +6998,13 @@ $$
 - **Assumes:** $0  \leq  w < 1$ (wet-basis moisture); exactly one of HHV_ar, HHV_dry; w + ash < 1
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![HHV_dry (dry-basis heating value HHV_ar/(1 - w)) against w (moisture fraction as received, wet basis (fraction or %)) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-heating-value-dry-basis-curve)
+![Dry-basis heating value HHV_ar/(1 - w) as HHV_ar runs from 7200 to 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-heating-value-dry-basis-live-1)
 
-*HHV_dry (dry-basis heating value HHV_ar/(1 - w)) against w (moisture fraction as received, wet basis (fraction or %)) from 0.02 to 0.98. One curve for each value of HHV_ar (heating value as received): 1.2000e+07 J/kg, 6e+06 J/kg, 2.4000e+07 J/kg. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, w = 0.25, HHV_dry = 1.6000e+07 J/kg.*
+*Dry-basis heating value HHV_ar/(1 - w) as HHV_ar runs from 7200 to 1.68e+04 kJ/kg, every other input as you entered it (41 solutions). Marked: your HHV_ar = 1.2e+04 kJ/kg gives HHV_dry = 1.6e+07. Your inputs: w = 0.25, HHV_ar = 12000 kJ/kg.*
 
-![HHV_dry (dry-basis heating value HHV_ar/(1 - w)) over w (moisture fraction as received, wet basis (fraction or %)) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-heating-value-dry-basis-field)
+![Dry-basis heating value HHV_ar/(1 - w) as w runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-heating-value-dry-basis-live-2)
 
-*HHV_dry (dry-basis heating value HHV_ar/(1 - w)) over w (moisture fraction as received, wet basis (fraction or %)) from 0.02 to 0.98 and HHV_ar (heating value as received) from 6e+06 J/kg to 1.8000e+07 J/kg: each of the 21 × 15 cells is one run of environmental-engineering-ai999x, shaded by its value (light 6.12245e+06 J/kg to dark 9.0000e+08 J/kg); iso-lines at HHV_dry = 2.00e8, 4.00e8, 6.00e8, 8.00e8 J/kg. Marked: the worked example, w = 0.25, HHV_ar = 1.2000e+07 J/kg, HHV_dry = 1.6000e+07 J/kg.*
+*Dry-basis heating value HHV_ar/(1 - w) as w runs from 0.0625 to 0.4375, every other input as you entered it (29 solutions). Marked: your w = 0.25 gives HHV_dry = 1.6e+07. Your inputs: w = 0.25, HHV_ar = 12000 kJ/kg.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_heating_value_dry_basis', w=0.25, HHV_ar=12000000.0)
@@ -6489,9 +7057,9 @@ $$
 - **Assumes:** independent years; $T  \geq  1$ yr; n a whole number of years; T, or a risk with n
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![p (annual exceedance probability 1/T) against T (return period, years) from 50 to 150](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-return-period-risk-curve)
+![Annual exceedance probability 1/T as T runs from 25 to 175, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-return-period-risk-live-1)
 
-*p (annual exceedance probability 1/T) against T (return period, years) from 50 to 150. Other inputs as in the worked example: n = 30.0. 31 points computed by environmental-engineering-ai999x; marked: the worked example, T = 100, p = 0.01.*
+*Annual exceedance probability 1/T as T runs from 25 to 175, every other input as you entered it (41 solutions). Marked: your T = 100 gives p = 0.01. Your inputs: T = 100, n = 30.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_return_period_risk', T=100.0, n=30.0)
@@ -6541,9 +7109,13 @@ $$
 - **Assumes:** every value > 0; at least two values
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![The input x (positive values, e](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-geometric-mean-counts-data)
+![Geometric mean as x[3] runs from 500 to 1500, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-geometric-mean-counts-live-1)
 
-*The input x (positive values, e.g. coliform counts per 100 mL) as given in the worked example, one value per position (3 values); marked from what environmental-engineering-ai999x returned: geometric_mean = 100, mean = 370, mean_log10 = 2. Also returned: sd = 547.449, count = 3.*
+*Geometric mean as x[3] runs from 500 to 1500, every other input as you entered it (41 solutions). Marked: your x[3] = 1000 gives geometric_mean = 100. Your inputs: x = 10, 100, 1000.*
+
+![Geometric mean as x[1] runs from 2 to 30, every other input as you entered it (15 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-geometric-mean-counts-live-2)
+
+*Geometric mean as x[1] runs from 2 to 30, every other input as you entered it (15 solutions). Marked: your x[1] = 10 gives geometric_mean = 100. Your inputs: x = 10, 100, 1000.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_geometric_mean_counts', x=[10.0, 100.0, 1000.0])
@@ -6591,17 +7163,13 @@ $$
 - **Assumes:** fixed (inorganic) solids conserved; 0 < VS_out <= VS_in, VS_out < 1
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![VSR (volatile solids reduction (fraction)) against VS_in (volatile fraction of the feed solids (fraction or %)), with VS_out = 0](https://huggingface.co/AI999X/environmental-engineering-ai999x/resolve/main/figures/enveng-volatile-solids-reduction-vsr-vs-vs-in.svg)
+![Volatile solids reduction as VS_out runs from 0](https://huggingface.co/AI999X/environmental-engineering-ai999x/resolve/main/figures/enveng-volatile-solids-reduction-live-1.svg)
 
-*VSR (volatile solids reduction (fraction)) against VS_in (volatile fraction of the feed solids (fraction or %)), with VS_out = 0.55. 19 points computed by environmental-engineering-ai999x; marked: VS_in = 0.75, VSR = 0.592593.*
+*Volatile solids reduction as VS_out runs from 0.1375 to 0.7356, every other input as you entered it (30 solutions). Marked: your VS_out = 0.55 gives VSR = 0.5926. Your inputs: VS_in = 0.75, VS_out = 0.55.*
 
-![VSR (volatile solids reduction (fraction)) against VS_out (volatile fraction of the digested solids (fraction or %)) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-volatile-solids-reduction-curve)
+![Volatile solids reduction as VS_in runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-volatile-solids-reduction-live-2)
 
-*VSR (volatile solids reduction (fraction)) against VS_out (volatile fraction of the digested solids (fraction or %)) from 0.02 to 0.98. One curve for each value of VS_in (volatile fraction of the feed solids (fraction or %)): 0.75, 0.26. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, VS_out = 0.55, VSR = 0.592593.*
-
-![VSR (volatile solids reduction (fraction)) over VS_out (volatile fraction of the digested solids (fraction or %)) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-volatile-solids-reduction-field)
-
-*VSR (volatile solids reduction (fraction)) over VS_out (volatile fraction of the digested solids (fraction or %)) from 0.02 to 0.98 and VS_in (volatile fraction of the feed solids (fraction or %)) from 0.375 to 0.999: each of the 21 × 15 cells is one run of environmental-engineering-ai999x, shaded by its value (light 0.00768894 to dark 0.99998); iso-lines at VSR = 0.2, 0.4, 0.6, 0.8; blank cells: inputs the capability refuses. Marked: the worked example, VS_out = 0.55, VS_in = 0.75, VSR = 0.592593.*
+*Volatile solids reduction as VS_in runs from 0.5721 to 0.9911, every other input as you entered it (30 solutions). Marked: your VS_in = 0.75 gives VSR = 0.5926. Your inputs: VS_in = 0.75, VS_out = 0.55.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_volatile_solids_reduction', VS_in=0.75, VS_out=0.55)
@@ -6652,9 +7220,13 @@ $$
 - **Assumes:** the same pressure basis for all three (gauge or absolute); P_conc <= P_feed; TMP > 0
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![TMP (transmembrane pressure) against P_feed (feed pressure) from 400000 Pa to 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-transmembrane-pressure-curve)
+![Transmembrane pressure as P_feed runs from 704 to 1120 kPa, every other input as you entered it (27 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-transmembrane-pressure-live-1)
 
-*TMP (transmembrane pressure) against P_feed (feed pressure) from 400000 Pa to 1.2e+06 Pa. One curve for each value of P_perm (permeate pressure): 50000 Pa, 25000 Pa, 100000 Pa. Other inputs as in the worked example: P_conc = 700000.0 Pa. 19 points per curve computed by environmental-engineering-ai999x; marked: the worked example, P_feed = 800000 Pa, TMP = 700000 Pa.*
+*Transmembrane pressure as P_feed runs from 704 to 1120 kPa, every other input as you entered it (27 solutions). Marked: your P_feed = 800 kPa gives TMP = 700 kPa. Your inputs: P_feed = 800 kPa, P_conc = 700 kPa, P_perm = 50 kPa.*
+
+![Transmembrane pressure as P_conc runs from 420 to 800 kPa, every other input as you entered it (20 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-transmembrane-pressure-live-2)
+
+*Transmembrane pressure as P_conc runs from 420 to 800 kPa, every other input as you entered it (20 solutions). Marked: your P_conc = 700 kPa gives TMP = 700 kPa. Your inputs: P_feed = 800 kPa, P_conc = 700 kPa, P_perm = 50 kPa.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_transmembrane_pressure', P_feed=800000.0, P_conc=700000.0, P_perm=50000.0)
@@ -6707,9 +7279,9 @@ $$
 - **Assumes:** elements C, H, O, N only, $b  \geq  3d$; complete oxidation; nitrogen to NH3 unless nitrification = yes
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![ThOD (theoretical oxygen demand of the solution) against C (concentration of the compound) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-thod-solution-curve)
+![Theoretical oxygen demand of the solution as C runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-thod-solution-live-1)
 
-*ThOD (theoretical oxygen demand of the solution) against C (concentration of the compound) from 0.05 kg/m^3 to 0.15 kg/m^3. Other inputs as in the worked example: formula = C6H12O6. 31 points computed by environmental-engineering-ai999x; marked: the worked example, C = 0.1 kg/m^3, ThOD = 0.10657 kg/m^3.*
+*Theoretical oxygen demand of the solution as C runs from 0.06 to 0.14 kg/m^3, every other input as you entered it (41 solutions). Marked: your C = 0.1 kg/m^3 gives ThOD = 0.1066. Your inputs: formula = C6H12O6, C = 0.1 kg/m^3.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_thod_solution', formula='C6H12O6', C=0.1)
@@ -6773,9 +7345,13 @@ $$
 - **Assumes:** first-order kinetics, constant k (batch reactor or plug flow); exactly three of C0, C, k (or t_half), t; $0 < C < C_{0}$ when both are given; k $t  \leq  700$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![C (concentration after the time t, C0 exp(-k t)) against k (first-order rate constant (base e)) from 2](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-first-order-decay-curve)
+![Concentration after the time t, C0 exp(-k t) as k runs from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-first-order-decay-live-1)
 
-*C (concentration after the time t, C0 exp(-k t)) against k (first-order rate constant (base e)) from 2.3148e-07 1/s to 2.3148e-05 1/s on a logarithmic axis. One curve for each value of C0 (initial concentration): 0.1 kg/m^3, 0.05 kg/m^3, 0.2 kg/m^3. Other inputs as in the worked example: t = 432000.0 s. 41 points per curve computed by environmental-engineering-ai999x; marked: the worked example, k = 2.3148e-06 1/s, C = 0.0367879 kg/m^3.*
+*Concentration after the time t, C0 exp(-k t) as k runs from 0.12 to 0.28 1/d, every other input as you entered it (41 solutions). Marked: your k = 0.2 1/d gives C = 0.03679. Your inputs: C0 = 100 mg/L, k = 0.2 1/d, t = 120 h.*
+
+![Concentration after the time t, C0 exp(-k t) as C0 runs from 60 to 140 mg/L, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-first-order-decay-live-2)
+
+*Concentration after the time t, C0 exp(-k t) as C0 runs from 60 to 140 mg/L, every other input as you entered it (29 solutions). Marked: your C0 = 100 mg/L gives C = 36.79 mg/L. Your inputs: C0 = 100 mg/L, k = 0.2 1/d, t = 120 h.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_first_order_decay', C0=0.1, k=2.3148148148148148e-06, t=432000.0)
@@ -6832,13 +7408,13 @@ $$
 - **Assumes:** 0 < purity <= 1 (1 unless given); dose as the active chemical; 1 $lb = 0.45359237$ kg, 1 US gal = 3.785411784 L
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![feed (feed rate of the product Q dose/purity) against Q (flow treated (m^3/d, or MGD)) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-chemical-feed-rate-curve)
+![Feed rate of the product Q dose/purity as Q runs from 6000 to 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-chemical-feed-rate-live-1)
 
-*feed (feed rate of the product Q dose/purity) against Q (flow treated (m^3/d, or MGD)) from 0.0578704 m^3/s to 0.173611 m^3/s. One curve for each value of dose (dose of the active chemical): 0.025 kg/m^3, 0.0125 kg/m^3, 0.05 kg/m^3. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, Q = 0.115741 m^3/s, feed = 0.00289352 kg/s.*
+*Feed rate of the product Q dose/purity as Q runs from 6000 to 1.4e+04 m^3/d, every other input as you entered it (41 solutions). Marked: your Q = 1e+04 m^3/d gives feed = 2.894 g/s. Your inputs: Q = 10000 m^3/d, dose = 25 mg/L.*
 
-![feed (feed rate of the product Q dose/purity) over Q (flow treated (m^3/d, or MGD)) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-chemical-feed-rate-field)
+![Feed rate of the product Q dose/purity as dose runs from 15 to 35 mg/L, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-chemical-feed-rate-live-2)
 
-*feed (feed rate of the product Q dose/purity) over Q (flow treated (m^3/d, or MGD)) from 0.0578704 m^3/s to 0.173611 m^3/s and dose (dose of the active chemical) from 0.0125 kg/m^3 to 0.0375 kg/m^3: each of the 21 × 15 cells is one run of environmental-engineering-ai999x, shaded by its value (light 0.00072338 kg/s to dark 0.00651042 kg/s); iso-lines at feed = 0.001, 0.002, 0.003, 0.004, 0.005, 0.006 kg/s. Marked: the worked example, Q = 0.115741 m^3/s, dose = 0.025 kg/m^3, feed = 0.00289352 kg/s.*
+*Feed rate of the product Q dose/purity as dose runs from 15 to 35 mg/L, every other input as you entered it (29 solutions). Marked: your dose = 25 mg/L gives feed = 2.894 g/s. Your inputs: Q = 10000 m^3/d, dose = 25 mg/L.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_chemical_feed_rate', Q=0.11574074074074074, dose=0.025)
@@ -6894,13 +7470,13 @@ $$
 - **Assumes:** exactly two of Qp, A, J; the flux of the permeate (product water) over the active membrane area
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![J (permeate flux Qp/A) against A (membrane area) from 750 m^2 to 2250 m^2](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-membrane-flux-curve)
+![Permeate flux Qp/A as Qp runs from 450 to 1050 m^3/d, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-membrane-flux-live-1)
 
-*J (permeate flux Qp/A) against A (membrane area) from 750 m^2 to 2250 m^2. One curve for each value of Qp (permeate flow): 0.00868056 m^3/s, 0.00434028 m^3/s, 0.0173611 m^3/s. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, A = 1500 m^2, J = 5.7870e-06 m/s.*
+*Permeate flux Qp/A as Qp runs from 450 to 1050 m^3/d, every other input as you entered it (41 solutions). Marked: your Qp = 750 m^3/d gives J = 5.787e-06. Your inputs: Qp = 750 m^3/d, A = 1500 m^2.*
 
-![J (permeate flux Qp/A) over Qp (permeate flow) from 0](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-membrane-flux-field)
+![Permeate flux Qp/A as A runs from 900 to 2100 m^2, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-membrane-flux-live-2)
 
-*J (permeate flux Qp/A) over Qp (permeate flow) from 0.00434028 m^3/s to 0.0130208 m^3/s and A (membrane area) from 750 m^2 to 2250 m^2: each of the 21 × 15 cells is one run of environmental-engineering-ai999x, shaded by its value (light 1.9290e-06 m/s to dark 1.7361e-05 m/s); iso-lines at J = 5.00e-6, 1.00e-5, 1.50e-5 m/s. Marked: the worked example, Qp = 0.00868056 m^3/s, A = 1500 m^2, J = 5.7870e-06 m/s.*
+*Permeate flux Qp/A as A runs from 900 to 2100 m^2, every other input as you entered it (29 solutions). Marked: your A = 1500 m^2 gives J = 5.787e-06. Your inputs: Qp = 750 m^3/d, A = 1500 m^2.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_membrane_flux', Qp=0.008680555555555556, A=1500.0)
@@ -6956,9 +7532,13 @@ $$
 - **Assumes:** constant waste rate, every day of a 365-day year; cover as a volume ratio to the compacted waste, 0 to 1; no settlement or decomposition
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![V (landfill volume used, waste plus cover) against rho (compacted (in-place) density of the waste) from 300 kg/m^3 to 900 kg/m^3](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-landfill-daily-volume-curve)
+![Landfill volume used, waste plus cover as ρ runs from 360 to 840 kg/m^3, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-landfill-daily-volume-live-1)
 
-*V (landfill volume used, waste plus cover) against rho (compacted (in-place) density of the waste) from 300 kg/m^3 to 900 kg/m^3. One curve for each value of m (waste placed per day): 2.31481 kg/s, 1.15741 kg/s, 4.62963 kg/s. Other inputs as in the worked example: cover = 0.25. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, rho = 600 kg/m^3, V = 0.00482253 m^3/s.*
+*Landfill volume used, waste plus cover as ρ runs from 360 to 840 kg/m^3, every other input as you entered it (41 solutions). Marked: your ρ = 600 kg/m^3 gives V = 4.823 L/s. Your inputs: m = 200 t/d, rho = 600 kg/m^3, cover = 0.25.*
+
+![Landfill volume used, waste plus cover as m runs from 120 to 280 t/d, every other input as you entered it (29 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-landfill-daily-volume-live-2)
+
+*Landfill volume used, waste plus cover as m runs from 120 to 280 t/d, every other input as you entered it (29 solutions). Marked: your m = 200 t/d gives V = 4.823 L/s. Your inputs: m = 200 t/d, rho = 600 kg/m^3, cover = 0.25.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_landfill_daily_volume', m=2.314814814814815, rho=600.0, cover=0.25)
@@ -6976,7 +7556,7 @@ environmental_engineering_ai999x.solve('enveng_landfill_daily_volume', m=5.78703
 |---|---|---|
 | Landfill daily volume: m = 200 t/d, rho = 600 kg/m^3, cover = 0.25 | SOLVED | V = 0.00482253 m^3/s, V_m3_per_day = 416.667, V_m3_per_year = 152083, V_waste_m3_per_day = 333.333, V_cover_m3_per_day = 83.3333 |
 | Landfill daily volume: m = 500 t/d, rho = 800 kg/m^3, cover = 0.2, capacity = 2000000 m^3 | SOLVED | V = 0.00868056 m^3/s, V_m3_per_day = 750, V_m3_per_year = 273750, V_waste_m3_per_day = 625, V_cover_m3_per_day = 125, life_years = 7.30594, life_days = 2666.67 |
-| Landfill daily volume: rho = 600 kg/m^3, cover = 0.25 | NEEDS_INPUT | enveng_landfill_daily_volume needs m (waste placed per day). Example: solve('enveng_landfill_daily_volume', m='2.31481 k |
+| Landfill daily volume: rho = 600 kg/m^3, cover = 0.25 | NEEDS_INPUT | enveng_landfill_daily_volume needs m (waste placed per day). Example: solve('enveng_landfill_daily_volume', m='2.3148148 |
 | Landfill daily volume: m = 200 t/d, rho = 600 kg/m^3, cover = 0.25, zz = 1 | UNRECOGNIZED_FORMAT | I could not match this question to a documented form, so I will not guess. Every form: environmental_engineering_ai999x. |
 | Landfill volume per year: m = 200 tonne/day, rho = 600 kg/m^3, cover = 25% | SOLVED | V = 0.00482253 m^3/s, V_m3_per_day = 416.667, V_m3_per_year = 152083, V_waste_m3_per_day = 333.333, V_cover_m3_per_day = 83.3333 |
 | Landfill volume and life: m = 500 t/d, rho = 800 kg/m^3, cover = 0.2, capacity = 2000000 m^3 | SOLVED | V = 0.00868056 m^3/s, V_m3_per_day = 750, V_m3_per_year = 273750, V_waste_m3_per_day = 625, V_cover_m3_per_day = 125, life_years = 7.30594, life_days = 2666.67 |
@@ -7014,9 +7594,13 @@ $$
 - **Assumes:** $t_{2} > t_{1}$; positive census populations; interval and projection span at most 200 years; the arithmetic projection must stay positive
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![P_geom (geometric projection) against P1 (population at the first census) from 25000 to 75000](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-population-projection-curve)
+![Geometric projection as P1 runs from 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-population-projection-live-1)
 
-*P_geom (geometric projection) against P1 (population at the first census) from 25000 to 75000. One curve for each value of P2 (population at the second census): 70000, 35000, 140000. Other inputs as in the worked example: t1 = 2000.0, t2 = 2020.0, t = 2040.0. 31 points per curve computed by environmental-engineering-ai999x; marked: the worked example, P1 = 50000, P_geom = 98000.*
+*Geometric projection as P1 runs from 1.25e+04 to 8.75e+04, every other input as you entered it (39 solutions). Marked: your P1 = 5e+04 gives P_geom = 9.8e+04. Your inputs: t1 = 2000, P1 = 50000, t2 = 2020, P2 = 70000, t = 2040.*
+
+![Geometric projection as P2 runs from 2](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-population-projection-live-2)
+
+*Geometric projection as P2 runs from 2.875e+04 to 1.225e+05, every other input as you entered it (26 solutions). Marked: your P2 = 7e+04 gives P_geom = 9.8e+04. Your inputs: t1 = 2000, P1 = 50000, t2 = 2020, P2 = 70000, t = 2040.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_population_projection', t1=2000.0, P1=50000.0, t2=2020.0, P2=70000.0, t=2040.0)
@@ -7069,13 +7653,13 @@ $$
 - **Assumes:** three equally spaced censuses with $P_{0} < P_{1} < P_{2}$; growth slowing: $P_{1}^{2} > P_{0}$ P2; saturation population at most 100 times the last census
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![P_t (projected population) against t0 (year of the first census), with P0 = 40000, P1 = 60000, P2 = 75000, n = 10, t = 2030](https://huggingface.co/AI999X/environmental-engineering-ai999x/resolve/main/figures/enveng-population-logistic-p-t-vs-t0.svg)
+![Projected population as t runs from 1522 to 2494, every other input as you entered it (37 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-population-logistic-live-1)
 
-*P_t (projected population) against t0 (year of the first census), with P0 = 40000, P1 = 60000, P2 = 75000, n = 10, t = 2030. 15 points computed by environmental-engineering-ai999x; marked: t0 = 2000, P_t = 83333.3.*
+*Projected population as t runs from 1522 to 2494, every other input as you entered it (37 solutions). Marked: your t = 2030 gives P_t = 8.333e+04. Your inputs: t0 = 2000, n = 10, P0 = 40000, P1 = 60000, P2 = 75000, t = 2030.*
 
-![P_t (projected population) against t0 (year of the first census) from 1800 to 2200, logarithmic output axis](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-population-logistic-curve)
+![Projected population as t0 runs from 1646 to 2521, every other input as you entered it (13 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-population-logistic-live-2)
 
-*P_t (projected population) against t0 (year of the first census) from 1800 to 2200, logarithmic output axis. Other inputs as in the worked example: n = 10.0, P0 = 40000.0, P1 = 60000.0, P2 = 75000.0, t = 2030.0. 31 points computed by environmental-engineering-ai999x; marked: the worked example, t0 = 2000, P_t = 83333.3.*
+*Projected population as t0 runs from 1646 to 2521, every other input as you entered it (13 solutions). Marked: your t0 = 2000 gives P_t = 8.333e+04. Your inputs: t0 = 2000, n = 10, P0 = 40000, P1 = 60000, P2 = 75000, t = 2030.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_population_logistic', t0=2000.0, n=10.0, P0=40000.0, P1=60000.0, P2=75000.0, t=2030.0)
@@ -7133,9 +7717,13 @@ $$
 - **Assumes:** pop a whole number >= 1; $20  \leq  q  \leq  2000$ L per person per day; $1  \leq  f_md  \leq  4$; $f_md  \leq  f_ph  \leq  8$ (both relative to the average day); $0 < r_ww  \leq  1$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![Q_avg (average-day demand) against pop (population served) from 1 to 100000 on a logarithmic axis, logarithmic output axis](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-water-demand-curve)
+![Average-day demand, maximum-day demand and peak-hour demand as q runs from 75 to 525, every other input as you entered it (41 solutions)](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-water-demand-live-1)
 
-*Q_avg (average-day demand) against pop (population served) from 1 to 100000 on a logarithmic axis, logarithmic output axis. One curve for each value of q (average per-capita demand in L per person per day): 300, 150, 600. Other inputs as in the worked example: f_md = 1.8, f_ph = 3.0. 40 points per curve computed by environmental-engineering-ai999x; marked: the worked example, pop = 50000, Q_avg = 0.173611 m^3/s.*
+*Average-day demand, maximum-day demand and peak-hour demand as q runs from 75 to 525, every other input as you entered it (41 solutions). Marked: your q = 300 gives Q_avg = 0.1736. Your inputs: pop = 50000, q = 300, f_md = 1.8, f_ph = 3.*
+
+![Q maxday m3 per day as f_md runs from 1](https://www.ai999x.com/?ax_fig=environmental-engineering-ai999x/enveng-water-demand-live-2)
+
+*Q maxday m3 per day as f_md runs from 1.029 to 2.957, every other input as you entered it (21 solutions). Marked: your f_md = 1.8 gives Q_maxday_m3_per_day = 2.7e+04. Your inputs: pop = 50000, q = 300, f_md = 1.8, f_ph = 3.*
 
 ```python
 environmental_engineering_ai999x.solve('enveng_water_demand', pop=50000, q=300.0, f_md=1.8, f_ph=3.0)
